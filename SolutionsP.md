@@ -62,16 +62,27 @@ Imagine water pipes from Source ($s$) to Sink ($t$).
 ## 🌲 Topic 3: MST & Traversals (The Network Designer)
 
 ### 🧠 The Theory: Connecting Cities
-- **MST (Minimum Spanning Tree)**: Connect all cities with the minimum total cable length. No cycles allowed (cycles waste money).
+- **MST (Minimum Spanning Tree)**: Connect all cities with the minimum total cable length. No cycles allowed.
 - **Prim's Algorithm**: "The Empire." Start at one city and always add the cheapest road connecting your existing territory to a new city.
-- **Kruskal's Algorithm**: "The Contractor." Look at all possible roads. Build the cheapest one available unless it creates a cycle.
-- **DFS (Depth-First)**: "The Explorer." Go as deep as possible down a path, then backtrack. Uses a **Stack**. Great for cycle detection.
-- **BFS (Breadth-First)**: "The Wave." Visit all immediate neighbors, then their neighbors. Uses a **Queue**. Great for finding the shortest path in unweighted graphs.
+- **Kruskal's Algorithm**: "The Contractor." Pick the cheapest road in the country. Build it unless it creates a cycle.
+- **DFS (Depth-First)**: "The Explorer." Go as deep as possible down a path, then backtrack. Uses a **Stack** (think: a stack of trays). Good for finding cycles.
+- **BFS (Breadth-First)**: "The Wave." Visit all immediate neighbors, then their neighbors. Uses a **Queue** (think: a line at the supermarket). Good for finding the shortest path in unweighted graphs.
 - **Connected Components**: Isolated groups of nodes ("Islands"). Found by running DFS/BFS until every node is visited.
 
 #### ✅ Solution Blatt 12, Aufgabe 1 (MST)
 **Sorted Edges**: (C-D: 0), (D-E: 1), (B-E: 2), (A-B: 3), (C-G: 4), (G-H: 5), (E-G: 6 - CYCLE), (B-F: 7).
 **Final MST Weight**: 22.
+
+#### ✅ Solution Blatt 12, Aufgabe 2 (Connected Components)
+**Problem**: Find all "islands" (ZHKs) in a subgraph $H$ in $O(V+E)$.
+**Algorithm**:
+1. **Initialize**: visited[] = false for all nodes.
+2. **Loop**: For each node v in V:
+   - If visited[v] is false:
+     - We found a new "island." Start a BFS or DFS from v.
+     - **Constraint**: During traversal, only follow edges if they are marked as being in subgraph H.
+     - Mark every node reached as visited.
+3. **Complexity**: Each node is visited once and each edge is checked twice. Total: O(V+E).
 
 ---
 *Status: Reviewing Blatt 13 & 12. Ready for Blatt 11 when you are.*
