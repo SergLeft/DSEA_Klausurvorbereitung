@@ -186,4 +186,44 @@ If every person in a room can hold at most **two hands** ($deg(v) \le 2$), there
 - **Induction**: Adding a node to an existing group either starts a new group, extends a "Line," or connects the ends of a "Line" to form a "Circle." No other connections are possible without someone holding a 3rd hand!
 
 ---
-*Status: Blatt 13, 12, 11, & 10 Complete. Standing by for Blatt 9!*
+
+## 🧱 Topic 8: The Lego Factory (Matrix Chain Multiplication)
+
+### 🧠 The Theory: The Bottleneck Principle
+
+When you multiply two matrices, $(n \times m)$ and $(m \times p)$, the "cost" is $n \cdot m \cdot p$. The goal is to choose the grouping (parentheses) that creates the smallest intermediate matrices to keep the "bill" low.
+
+#### ✅ Solution Blatt 9, Aufgabe 1: Choosing Groupings
+
+**Scenario**: Matrices $A (10 \times 100), B (100 \times 5), C (5 \times 50)$.
+
+**Decision A: $(A \times B) \times C$**
+- Step 1 ($A \times B$): $10 \cdot 100 \cdot 5 = 5,000$ operations. Result: $(10 \times 5)$.
+- Step 2 (Result $\times C$): $10 \cdot 5 \cdot 50 = 2,500$ operations.
+- **Total: 7,500 operations.**
+
+**Decision B: $A \times (B \times C)$**
+- Step 1 ($B \times C$): $100 \cdot 5 \cdot 50 = 25,000$ operations. Result: $(100 \times 50)$.
+- Step 2 ($A \times$ Result): $10 \cdot 100 \cdot 50 = 50,000$ operations.
+- **Total: 75,000 operations.**
+
+**The Justification**: We pick **Decision A** because it creates a small intermediate "Lego plate" ($10 \times 5$) early on. Decision B creates a massive $100 \times 50$ plate that makes the next step 10 times more expensive.
+
+---
+
+## 🍰 Topic 9: The Wedding Cake (Cake Stacking)
+
+### 🧠 The Theory: Sorting for Structure
+
+You want to build the tallest possible tower of cake layers $(w_i, h_i)$. A layer can only go on top if it is strictly thinner ($w_{top} < w_{bottom}$).
+
+#### ✅ Solution Blatt 9, Aufgabe 2: Step-by-Step Stacking
+
+1. **The Decision**: First, sort all layers by **Width** ($w$) from largest to smallest. This ensures we only look "forward" in the list to find layers to put on top.
+2. **The Steps**:
+   - For each layer $i$, check all layers $j$ that are thinner ($w_j < w_i$).
+   - The tallest tower ending with layer $i$ is: $H(i) = h_i + \max(\{H(j) \mid w_j < w_i\} \cup \{0\})$.
+3. **The Logic**: This isn't just "guesswork"—by recording the height of the tallest tower for every layer, we only have to solve each sub-tower once.
+
+---
+*Status: Blatt 13 down to 9 Complete. Standing by for Blatt 8!*
