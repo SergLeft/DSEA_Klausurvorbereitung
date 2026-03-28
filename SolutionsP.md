@@ -1,8 +1,6 @@
 # Solutions and Theory for Präsenzblätter
 
-
 ## 🏗 Topic 1: Heaps (The Priority Engine)
-
 
 ### 🧠 The Theory: Why and What?
 
@@ -51,7 +49,6 @@ When the "King" (Max value) is replaced by a "Peasant" (small value), the heap p
 
 ## 🌊 Topic 2: The Plumbing System (Flow Networks)
 
-
 ### 🧠 The Theory: Pipes and Flow
 
 Imagine water pipes from Source ($s$) to Sink ($t$).
@@ -74,7 +71,6 @@ Imagine water pipes from Source ($s$) to Sink ($t$).
 ---
 
 ## 🏝 Topic 3: The Archipelago (MST & ZHKs)
-
 
 ### 🧠 The Theory: Connecting Islands
 
@@ -115,7 +111,6 @@ You have 8 islands and want to connect them all with bridges for the least money
 
 ## 🗺️ Topic 5: Shortest Paths (Navigation Suite)
 
-
 ### 🧠 The Theory: Navigation Strategies
 
 Shortest path algorithms are our "Navigation Suite." They help us find the fastest way from point A to point B.
@@ -153,7 +148,6 @@ The update rule is $d_{ij} = \min(d_{ij}, d_{ik} + d_{kj})$. To do this "in plac
 ---
 
 ## 🎒 Topic 6: Dynamic Programming (The Lazy Accountant)
-
 
 ### 🧠 The Theory: Don't Be a Goldfish
 
@@ -205,5 +199,52 @@ Standard recursion is like a goldfish—it forgets everything it just did and re
 
 ---
 
+## 🚦 Topic 7: Hashing & Sorting (Organizing Chaos)
+
+### 🧠 The Theory: The Giant Library (Hashing)
+
+Imagine a library with millions of books. If you just stack them randomly, finding "Harry Potter" takes hours ($O(n)$).
+
+- **The Solution (Hash Function)**: The Librarian has a magic formula. She takes the title "Harry Potter," runs it through the formula, and it spits out a number: **Shelf 42**. This is $O(1)$!
+- **The "Oops" (Collision)**: "The Hobbit" also spits out **Shelf 42**.
+- **The "Fix" (Linear Probing)**: If Shelf 42 is full, you look at 43. Still full? Look at 44. You just keep walking until you find a spot.
+
+### 🛠 The Sorting Suite: The Speed Dating Logic
+
+Sorting is just choosing how to compare people to find their place in line.
+
+- **Quick Sort**: Pick a "Pivot" (the middle person). All "shorter" people go left, "taller" people go right. Repeat. It's the fastest ($O(n \log n)$) but risky if you pick a bad pivot.
+- **Merge Sort**: Divide and Conquer. Split the group in half until everyone is alone. Then "merge" the pairs back together in order. Guaranteed $O(n \log n)$ but uses extra space.
+- **Bucket Sort**: If you know the range (e.g., ages 1-100), just put people in 100 buckets. No comparisons needed! Super fast ($O(n)$).
+
 ---
-*Status: Blatt 13 - 10 Complete. Ready for the next challenge!*
+
+### ✅ Solution Blatt 9, Aufgabe 1: Hashing with Linear Probing
+
+**Task**: Insert $15, 25, 35$ into a table of size 10 with $h(x) = x \mod 10$.
+
+1. **Insert 15**: $15 \mod 10 = 5$. **Shelf 5** is empty. Place **15**.
+2. **Insert 25**: $25 \mod 10 = 5$. **Shelf 5 is FULL!** (Collision).
+   - Look at $h(x) + 1$: $5 + 1 = 6$. **Shelf 6** is empty. Place **25**.
+3. **Insert 35**: $35 \mod 10 = 5$. **Shelf 5 and 6 are FULL!**
+   - Look at $h(x) + 2$: $5 + 2 = 7$. **Shelf 7** is empty. Place **35**.
+
+**Why this works**: You don't lose data, you just "park" it in the next available spot. 🚗🅿️
+
+---
+
+### ✅ Solution Blatt 9, Aufgabe 2: Complexities Cheat Sheet
+
+| Algorithm | Average Time | Best Case | Worst Case | Memory |
+| :--- | :--- | :--- | :--- | :--- |
+| **Quick Sort** | $O(n \log n)$ | $O(n \log n)$ | $O(n^2)$ | $O(\log n)$ |
+| **Merge Sort** | $O(n \log n)$ | $O(n \log n)$ | $O(n \log n)$ | $O(n)$ |
+| **Bucket Sort**| $O(n)$ | $O(n)$ | $O(n^2)$ | $O(n)$ |
+
+**Reasoning**: 
+- **Quick** is usually best for "in-place" speed.
+- **Merge** is for when you need **stability** (keeping original order of equal items).
+- **Bucket** is for when you're lucky and know the range of values!
+
+---
+*Status: Blatt 13 - 9 Complete. Ready for the next challenge!*
