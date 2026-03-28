@@ -39,50 +39,57 @@ When the "King" (Max value) is replaced by a "Peasant" (small value), the heap p
 
 ---
 
-## 🌊 Topic 2: Flow Networks (The Plumbing System)
+## 🌊 Topic 2: The Plumbing System (Flow Networks)
 
 ### 🧠 The Theory: Pipes and Flow
 Imagine water pipes from Source ($s$) to Sink ($t$).
-- **Capacity ($c$)**: The max liters per second a pipe can hold.
+- **Capacity ($c$)**: The max liters per second a pipe can hold (the diameter).
 - **Flow ($f$)**: The actual water volume currently moving through.
-- **Law of Conservation**: At every junction (except $s$ and $t$), water in must equal water out.
-- **Residual Network ($G_f$)**: The "Possibility Map."
-  - **Forward Edge**: How much *more* can we send? ($c - f$).
-  - **Backward Edge**: How much can we *cancel* or redirect? ($f$).
-- **Augmenting Path**: A valid route from $s$ to $t$ in the Residual Network where all capacities $> 0$.
-- **Bottleneck**: The smallest residual capacity on a path. It limits the total flow increase for that path.
+- **Residual Network ($G_f$): The "Map of Possibilities"**
+  - **Forward Arrow ($u \to v$): "How much more can I push?"** ($c - f$). If the pipe isn't full, you can send more.
+  - **Backward Arrow ($v \to u$): "The Undo Button"** ($f$). If you're already sending 5 liters, you have the "possibility" of sending 5 liters *back* (by stopping the flow). This allows rerouting!
+- **Augmenting Path**: A clear route from $s$ to $t$ in the "Map of Possibilities."
+- **Bottleneck: "The Weakest Link"**
+  The pipe with the smallest residual capacity on a path. If you try to send more than the bottleneck, the pipe "bursts."
 
 #### ✅ Solution Blatt 13, Aufgabe 2
 **Path Found**: $s \to 4 \to 5 \to t$.
-**Residual Capacities**: $14, 5, 9$.
+**Residual capacities (Space left)**: $14, 5, 9$.
 **Bottleneck**: $5$. We can increase total flow by **5 units**.
 
 ---
 
-## 🌲 Topic 3: MST & Traversals (The Network Designer)
+## 🏝 Topic 3: The Archipelago (MST & ZHKs)
 
-### 🧠 The Theory: Connecting Cities
-- **MST (Minimum Spanning Tree)**: Connect all cities with the minimum total cable length. No cycles allowed.
-- **Prim's Algorithm**: "The Empire." Start at one city and always add the cheapest road connecting your existing territory to a new city.
-- **Kruskal's Algorithm**: "The Contractor." Pick the cheapest road in the country. Build it unless it creates a cycle.
-- **DFS (Depth-First)**: "The Explorer." Go as deep as possible down a path, then backtrack. Uses a **Stack** (think: a stack of trays). Good for finding cycles.
-- **BFS (Breadth-First)**: "The Wave." Visit all immediate neighbors, then their neighbors. Uses a **Queue** (think: a line at the supermarket). Good for finding the shortest path in unweighted graphs.
-- **Connected Components**: Isolated groups of nodes ("Islands"). Found by running DFS/BFS until every node is visited.
+### 🧠 The Theory: Connecting Islands
+You have 8 islands and want to connect them all with bridges for the least money.
+- **MST (Minimum Spanning Tree)**: The cheapest set of bridges that connects everyone without cycles (circles waste money).
+- **Kruskal's Algorithm: "The Greedy Contractor"**
+  Look at ALL possible bridges in the ocean. Pick the cheapest one. Build it unless it creates a circle.
+- **Prim's Algorithm: "The Growing Empire"**
+  Start at your capital island. Always add the cheapest "frontier" bridge that leads to an island you don't own yet.
 
 #### ✅ Solution Blatt 12, Aufgabe 1 (MST)
-**Sorted Edges**: (C-D: 0), (D-E: 1), (B-E: 2), (A-B: 3), (C-G: 4), (G-H: 5), (E-G: 6 - CYCLE), (B-F: 7).
-**Final MST Weight**: 22.
+**Contractor's (Kruskal) Order**:
+1. (C-D, 0), 2. (D-E, 1), 3. (B-E, 2), 4. (A-B, 3), 5. (C-G, 4), 6. (G-H, 5), 7. (B-F, 7).
+**Total Weight**: 22.
 
-#### ✅ Solution Blatt 12, Aufgabe 2 (Connected Components)
-**Problem**: Find all "islands" (ZHKs) in a subgraph $H$ in $O(V+E)$.
+#### ✅ Solution Blatt 12, Aufgabe 2: ZHKs (The "Paint Bucket" Method)
+**Problem**: Find all isolated island groups (ZHKs) in a subgraph $H$ in $O(V+E)$.
 **Algorithm**:
-1. **Initialize**: visited[] = false for all nodes.
-2. **Loop**: For each node v in V:
-   - If visited[v] is false:
-     - We found a new "island." Start a BFS or DFS from v.
-     - **Constraint**: During traversal, only follow edges if they are marked as being in subgraph H.
-     - Mark every node reached as visited.
-3. **Complexity**: Each node is visited once and each edge is checked twice. Total: O(V+E).
+1. Take a bucket of **Red Paint**. Land on an unvisited island.
+2. Paint it Red. Follow every bridge from that island to its neighbors. Paint them Red too.
+3. Keep going until you can't find any more bridges leading to unpainted islands. **This is one "Island Group" (ZHK).**
+4. If there are still unpainted islands, pick a new one and a new color (**Blue Paint**). Repeat.
+**Complexity**: Each island is painted once ($V$), and each bridge is crossed twice ($E$). Total: $O(V+E)$.
 
 ---
-*Status: Reviewing Blatt 13 & 12. Ready for Blatt 11 when you are.*
+
+## 🔍 Topic 4: The Searchers (BFS vs. DFS)
+- **DFS (Depth-First): "The Explorer"**
+  Pick a path and go as deep as possible down a path, then backtrack. Uses a **Stack** (think: a stack of trays). Good for finding cycles.
+- **BFS (Breadth-First): "The Search Party Wave"**
+  Visit all immediate neighbors first, then their neighbors. Moves out in waves. Uses a **Queue** (think: a line at the supermarket). Good for finding the shortest path in unweighted graphs.
+
+---
+*Status: Blatt 13 & 12 Complete. Ready for Blatt 11.*
