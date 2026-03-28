@@ -94,7 +94,7 @@ You have 8 islands and want to connect them all with bridges for the least money
 
 #### ✅ Solution Blatt 12, Aufgabe 2: ZHKs (The "Paint Bucket" Method)
 
-**Problem**: Find all isolated island groups (ZHKs) in a subgraph $H$ in $O(V+E)$.
+**Problem**: Find all isolated island groups (ZHKs) in a subgraph $H$ in $O(V+E)$.  
 **Algorithm**:
 1. Take a bucket of **Red Paint**. Land on an unvisited island.
 2. Paint it Red. Follow every bridge from that island to its neighbors. Paint them Red too.
@@ -151,4 +151,59 @@ The update rule is $d_{ij} = \min(d_{ij}, d_{ik} + d_{kj})$. To do this "in plac
 6. **Step 5 (Fix t)**: Shortest path from $s$ to $t$ is **6**. (Path: $s \to a \to c \to t$).
 
 ---
-*Status: Blatt 13, 12, & 11 Complete. Ready for the next challenge!*
+
+## 🎒 Topic 6: Dynamic Programming (The Lazy Accountant)
+
+
+### 🧠 The Theory: Don't Be a Goldfish
+
+Standard recursion is like a goldfish—it forgets everything it just did and repeats the same work millions of times. **Dynamic Programming (DP)** is our "Memory Bank." Every time we solve a piece of the puzzle, we write it down in a **Cheat Sheet** (table).
+
+**How to Solve it Yourself (The 3-Step Lazy Method):**
+1. **The Smallest Case**: Fill the "empty" row/column (e.g., empty string or bag).
+2. **The Recursive Choice**: At any cell, look at your options (neighbors) and pick the **Best (Min/Max)**.
+3. **Leftover Logic**: When adding something new, check: "New Item + Best of what remains."
+
+### ✅ Solution Blatt 10, Aufgabe 1: Edit Distance (The Auto-Correct)
+
+**Scenario**: Transform $A = \text{\"AB\"}$ into $B = \text{\"ABC\"}$. (Costs: Ins=1, Del=1, Repl=1).
+
+1. **Base Cases**: Turning "" into "A", "AB", "ABC" costs 1, 2, 3 insertions.
+2. **Filling the Table**:
+   - **'A' vs 'A'**: Match! Cost = Diagonal neighbor (0).
+   - **'B' vs 'B'**: Match! Cost = Diagonal neighbor (0).
+   - **'AB' to 'ABC'**: To get 'C', look left (0) and add **Insertion** (+1).
+3. **Result**: **1** (One insertion).
+
+### ✅ Solution Blatt 10, Aufgabe 2: Matrix Chain Multiplication
+
+**Scenario**: Multiply $A_1(10\times20)$, $A_2(20\times30)$, $A_3(30\times40)$.  
+
+1. **Option A: $(A_1 A_2) A_3$**
+   - $(A_1 \times A_2)$: $10 \times 20 \times 30 = 6,000$.
+   - Result $(10 \times 30) \times A_3$: $10 \times 30 \times 40 = 12,000$.
+   - **Total**: $18,000$.
+2. **Option B: $A_1 (A_2 A_3)$**
+   - $(A_2 \times A_3)$: $20 \times 30 \times 40 = 24,000$.
+   - $A_1 \times$ Result $(20 \times 40)$: $10 \times 20 \times 40 = 8,000$.
+   - **Total**: $32,000$.
+3. **The DP Choice**: **Option A** is cheaper ($18,000$).
+
+### ✅ Solution Blatt 10, Aufgabe 3: Knapsack (The Burglar)
+
+**Scenario**: Bag 4kg. Items: **A** ($10, 1kg$), **B** ($20, 3kg$).  
+
+1. **Row 1 (Only A)**: 1kg bag gets A (Val 10). 2kg, 3kg, 4kg bags also get Val 10.
+2. **Row 2 (A and B)**:
+   - 1kg, 2kg bags: Can't fit B. Keep Val 10.
+   - 3kg bag: Can fit B. $20 > 10$. New Val 20.
+   - **4kg bag**: Can I fit B + leftover?
+     - Weight of B is 3kg. Leftover = $4 - 3 = 1kg$.
+     - Best for 1kg (from Row 1) was 10.
+     - **Total**: $20 (B) + 10 (A) = 30$.
+3. **Result**: Take both for a value of **30**.
+
+---
+
+---
+*Status: Blatt 13 - 10 Complete. Ready for the next challenge!*
