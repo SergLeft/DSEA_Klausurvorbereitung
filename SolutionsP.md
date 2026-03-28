@@ -6,7 +6,7 @@
 
 Imagine an **Emergency Room (ER)**. Patients aren't treated in the order they arrive; they are treated by **Priority**.
 
-- **The Problem**: A sorted list is slow for adding patients ($O(n)$). An unsorted list is slow for finding the most urgent one ($O(n)$).
+- **The Problem**: A sorted list is slow for adding patients $(O(n))$. An unsorted list is slow for finding the most urgent one ($O(n)$).
 - **The Solution (Heap)**: A binary tree that stays "mostly sorted" so both adding and finding the maximum take only $O(\log n)$ time.
 - **The Structure**: A **Complete Binary Tree** (no gaps, filled level-by-level). Because it's "complete," we can store it in a simple **Array**:
   - Left Child: $2i + 1$
