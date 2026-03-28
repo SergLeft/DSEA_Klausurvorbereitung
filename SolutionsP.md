@@ -226,7 +226,7 @@ You want to build the tallest possible tower of cake layers $(w_i, h_i)$. A laye
 3. **The Logic**: This isn't just "guesswork"—by recording the height of the tallest tower for every layer, we only have to solve each sub-tower once.
 
 ---
-*Status: Blatt 13 down to 9 Complete. Standing by for Blatt 8!*
+*Status: Blatt 13 down to 9 Complete. Standing by for Blatt 8!* 
 
 ## 🌳 Topic 10: AVL Trees (The Gymnasts of Data Structures)
 
@@ -289,5 +289,49 @@ def count_ways(n, V):
     return T[n]
 ```
 **Complexity**: $O(n \cdot |V|)$. Much faster than trying every combination!
+
 ---
-*Status: Blatt 13 down to 8 Complete.*
+
+## 🎲 Topic 12: Hashing (The Art of Organized Chaos)
+
+### 🧠 The Theory: The "Perfect" Map
+Imagine you have a huge library (the **Universe $U$**) but a very small shelf (the **Hash Table $m$**). You want to store your favorite books so that you can find any book *instantly* ($O(1)$).
+
+- **The Hash Function ($h$):** This is your "Sorting Assistant." It takes a book title (the **Key**) and tells you exactly which spot on the shelf it belongs to.
+- **The Nightmare (Collisions):** If your assistant tells two different books to go to the same spot, they crash! This is a collision. In the "Worst Case," every single book is sent to the same spot, and our $O(1)$ dream becomes an $O(n)$ nightmare.
+- **The Solution (Universal Hashing):** Since we can't build one perfect function for every possible set of books, we pick a **Random Function** from a special "Class" of functions ($H$). 
+    - **The "2-Universal" Guarantee:** A class is 2-universal if, for any two different books, the chance they collide is at most $1/m$. It’s like saying: "My assistant might make a mistake, but they are so consistently random that they'll only mess up as rarely as mathematically possible."
+
+### 🛠 Aufgabe 2: Tanzparty Reloaded (The "Partner" Search)
+
+**The Scenario:** You have a list of people with different heights $l_i$. You need to find pairs that add up to a specific height $h$ (so $l_i + l_j = h$).
+
+**Strategy:**
+1.  **The Algorithm:**
+    - Create an empty Hash Table $T$.
+    - For each height $l$ in our list $L$:
+        1.  Check if $target = (h - l)$ is already in $T$.
+        2.  If **YES**: Found a pair!
+        3.  If **NO**: Put the current height $l$ into $T$.
+2.  **Why Hashing?** Because looking up $target$ in the Hash Table takes **expected $O(1)$** time. Doing this for $n$ people gives us an **expected $O(n)$** total time.
+
+### 🔢 Aufgabe 3: 2-Universal Math Trace
+
+We are using the family: $h_a(x) = \sum a_i \cdot x_i \pmod p$.
+
+**✅ Step-by-Step Trace (Part 1):**
+- **Given:** $p = 11$, $a = (6, 1, 7, 4)$, $x = (1, 3, 3, 7)$, $y = (4, 7, 1, 1)$.
+- **h_a(x):** $(6\cdot1) + (1\cdot3) + (7\cdot3) + (4\cdot7) = 58$. Result: $58 \pmod{11} = 3$.
+- **h_a(y):** $(6\cdot4) + (1\cdot7) + (7\cdot1) + (4\cdot1) = 42$. Result: $42 \pmod{11} = 9$.
+- **Collision?** No ($3 \neq 9$).
+
+**✅ Step-by-Step Trace (Part 2): Finding the "Collision Constant" $c$**
+Set $a_2 = c$. We want $h_{a(c)}(x) \equiv h_{a(c)}(y) \pmod{11}$.
+1.  **Equation:** $(37 + 3c) \equiv (35 + c) \pmod{11}$.
+2.  **Simplify:** $2c \equiv -2 \equiv 9 \pmod{11}$.
+3.  **Solve:** Multiply by modular inverse of 2 ($\pmod{11}$ is 6).
+    - $c \equiv 9 \cdot 6 = 54 \equiv 10 \pmod{11}$.
+- **Final Answer:** A collision occurs only when **$c = 10$**.
+
+---
+*Status: Blatt 13 down to 7 Complete.*
