@@ -16,7 +16,17 @@ A **Heap** is a complete binary tree used for priority queues.
 Instead of $n$ insertions ($O(n \log n)$), we use a bottom-up approach:
 1.  Start at the last non-leaf node: $i = \lfloor n/2 \rfloor - 1$.
 2.  Work backwards to index 0, calling `trickle-down` (sift-down) on each node.
-3.  **Why $O(n)$?** Most nodes are near the bottom (height 0 or 1) and do very little work. Only the few nodes at the top do $O(\log n)$ work. The sum of work per node height converges to $O(n)$.
+
+#### 📝 Aufgabe 1a: Formal Proof of $O(n)$
+**Question:** Why is building a heap bottom-up $O(n)$ when each `trickle-down` can take $O(\log n)$?
+**Proof:**
+1.  **Node Distribution:** In a perfect binary tree of height $H$, there are at most $\lceil n/2^{h+1} \rceil$ nodes at height $h$. (Leaves at $h=0$ comprise $\approx n/2$ nodes).
+2.  **Work per Height:** A node at height $h$ can "trickle down" at most $h$ levels.
+3.  **Total Work ($S$):** 
+    $$S = \sum_{h=0}^{\log n} \frac{n}{2^{h+1}} \cdot h = \frac{n}{2} \sum_{h=0}^{\log n} \frac{h}{2^h}$$
+4.  **Convergence:** Using the series $\sum_{k=0}^{\infty} kx^k = \frac{x}{(1-x)^2}$ with $x = 1/2$:
+    $$\sum_{h=0}^{\infty} h(\frac{1}{2})^h = 2$$
+5.  **Conclusion:** $S \approx \frac{n}{2} \cdot 2 = n$. Result: **$O(n)$**.
 
 #### ✅ Solution 1b: Step-by-Step
 **Initial Array:** `[4, 1, 5, 5, 2, 6, 7, 3, 4, 6, 8, 3]` ($n=12$)
@@ -36,7 +46,6 @@ Instead of $n$ insertions ($O(n \log n)$), we use a bottom-up approach:
 Shows how much flow we can still push through a network.
 *   **Forward Edge ($u \to v$):** Capacity = $c(u,v) - f(u,v)$. (How much more can we send?)
 *   **Backward Edge ($v \to u$):** Capacity = $f(u,v)$. (How much can we "send back" or cancel?)
-*   **Augmenting Path:** A path from $s$ to $t$ where all residual capacities are $> 0$.
 
 #### ✅ Solution
 **Augmenting Path found:** $s \to 4 \to 5 \to t$.
@@ -45,4 +54,31 @@ Shows how much flow we can still push through a network.
 *   We can increase the total flow by **5 units**.
 
 ---
-*Next: Präsenzblatt 12 (MST: Prim & Kruskal)*
+
+## Präsenzblatt 12
+
+### Aufgabe 1: MST (Prim & Kruskal)
+
+#### 🧠 Theory: MST
+A subset of edges connecting all nodes with minimum total weight and no cycles.
+*   **Kruskal**: Greedy choice of edges. Sort edges by weight and pick if no cycle is formed.
+*   **Prim**: Growing tree. Start at node A, pick cheapest edge connecting the tree to a new node.
+
+#### ✅ Solution
+**Edges:** (A-B: 3), (A-C: 8), (A-D: 10), (B-E: 2), (B-F: 7), (C-D: 0), (D-E: 1), (E-F: 11), (C-G: 4), (E-G: 6), (F-H: 9), (G-H: 5)
+
+**Kruskal Steps:**
+1. (C-D, 0) - OK
+2. (D-E, 1) - OK
+3. (B-E, 2) - OK
+4. (A-B, 3) - OK
+5. (C-G, 4) - OK
+6. (G-H, 5) - OK
+7. (B-F, 7) - OK
+**Total Weight: 22**
+
+### Aufgabe 2: Connected Components (ZHKs)
+**Theory**: To find all connected components in $O(V+E)$, use DFS or BFS.
+1. Start at an unvisited node, mark as visited, and perform a traversal to find all reachable nodes (one component).
+2. Repeat for all remaining unvisited nodes.
+3. Each traversal start marks a new component.
