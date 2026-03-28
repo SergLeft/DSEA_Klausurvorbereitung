@@ -145,4 +145,45 @@ The update rule is $d_{ij} = \min(d_{ij}, d_{ik} + d_{kj})$. To do this "in plac
 5. **Step 4 (Fix c)**: Update neighbors: `dist[t] = \min(9, 3+3)=6`. PQ: `{(t,6)}`.
 6. **Step 5 (Fix t)**: Shortest path from $s$ to $t$ is **6**. (Path: $s \to a \to c \to t$).
 
+---
 
+## 🎨 Topic 6: The Master of Efficiency (Huffman Coding)
+
+### 🧠 The Theory: The "Frequent Flyer" Principle
+
+Give the items you use **most often** the **smallest** bit-codes (boxes). 
+
+- **Prefix-Free Property**: No code can start with another code. This ensures a unique, clear "unboxing" (decoding) process.
+
+#### ✅ Solution Blatt 10, Aufgabe 1: Huffman Coding "ESGIBTFREIBIER"
+
+**1. Frequencies:** E:3, I:3, R:2, B:2, S:1, G:1, T:1, F:1.
+**2. The Codes (Trace):**
+- **E**: 00, **I**: 01
+- **R**: 100, **B**: 101
+- **S**: 1100, **G**: 1101, **T**: 1110, **F**: 1111
+
+**3. Total Bits:**
+- E, I (6 total chars) x 2 bits = 12
+- R, B (4 total chars) x 3 bits = 12
+- S, G, T, F (4 total chars) x 4 bits = 16
+- **Total: 40 Bits.** (Compared to 112 bits in 8-bit ASCII!)
+
+---
+
+## ⛓️ Topic 7: The "Strict Guest List" (Degrees & Components)
+
+### 🧠 The Theory: Graph Formations
+
+If every person in a room can hold at most **two hands** ($deg(v) \le 2$), there are only three possible "party formations":
+1. **The Loner**: 0 hands. (Isolated Node).
+2. **The Line**: 1 hand for ends, 2 for the middle. (Simple Path).
+3. **The Circle**: 2 hands for everyone. (Simple Cycle).
+
+#### ✅ Solution Blatt 10, Aufgabe 2: Induction Proof
+
+- **Base Case**: A single node is a "Loner."
+- **Induction**: Adding a node to an existing group either starts a new group, extends a "Line," or connects the ends of a "Line" to form a "Circle." No other connections are possible without someone holding a 3rd hand!
+
+---
+*Status: Blatt 13, 12, 11, & 10 Complete. Standing by for Blatt 9!*
