@@ -294,6 +294,15 @@ def count_ways(n, V):
 
 ## 🎲 Topic 12: Hashing (The Art of Organized Chaos)
 
+## Overview
+Hashing is a technique used to map data of arbitrary size to fixed-size values. The output is typically referred to as a hash code, hash value, or hash digest.
+
+## Key Concepts
+- **Hash Function**: A function that converts an input into a fixed-size string of bytes. The output is typically a numerical representation of the input data.
+- **Collision**: A situation that occurs when two different inputs produce the same hash output.
+- **Applications**: Hashing is widely used in data structures (like hash tables), databases, cryptography, and more.
+
+
 ### 🧠 The Theory: The "Perfect" Map
 Imagine you have a huge library (the **Universe $U$**) but a very small shelf (the **Hash Table $m$**). You want to store your favorite books so that you can find any book *instantly* ($O(1)$).
 
