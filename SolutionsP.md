@@ -274,5 +274,20 @@ Using pans {1, 2, 5}:
 - 5
 (Total ways: 9)
 
+**b) The Algorithm:**
+```python
+
+def count_ways(n, V):
+    # T[i] = number of ways to build a cake of size i
+    T = [0] * (n + 1)
+    T[0] = 1 # Base case: 1 way to make a "0-layer" cake (empty)
+    
+    for i from 1 to n:
+        for size in V:
+            if i - size >= 0:
+                T[i] += T[i - size]
+    return T[n]
+```
+**Complexity**: $O(n \cdot |V|)$. Much faster than trying every combination!
 ---
 *Status: Blatt 13 down to 8 Complete.*
