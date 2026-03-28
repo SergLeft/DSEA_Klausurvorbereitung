@@ -207,7 +207,7 @@ When you multiply two matrices, $(n \times m)$ and $(m \times p)$, the "cost" is
 - Step 2 ($A \times$ Result): $10 \cdot 100 \cdot 50 = 50,000$ operations.
 - **Total: 75,000 operations.**
 
-**The Justification**: We pick **Decision A** because it creates a small intermediate "Lego plate" ($10 \times 5$) early on. Decision B creates a massive $100 \times 50$ plate that makes the next step 10 times more expensive.
+**The Justification**: We pick **Decision A** because it creates a small intermediate "Lego plate" ($(10 \times 5)$) early on. Decision B creates a massive $100 \times 50$ plate that makes the next step 10 times more expensive.
 
 ---
 
@@ -227,3 +227,52 @@ You want to build the tallest possible tower of cake layers $(w_i, h_i)$. A laye
 
 ---
 *Status: Blatt 13 down to 9 Complete. Standing by for Blatt 8!*
+
+## 🌳 Topic 10: AVL Trees (The Gymnasts of Data Structures)
+
+### 🧠 The Theory: Balance is Speed
+
+Imagine a library where all the books are in one long, straight line. To find the last book, you have to walk past every single one. That's $O(n)$—it's slow. If we arrange them in a balanced tree, you only ever need to make a few "Left or Right?" decisions. That's $O(\log n)$. 
+
+- **The Problem:** If you keep adding books to one side, the tree becomes a "stick."
+- **The AVL Law:** For every single node, the height of the left and right subtrees can differ by **at most 1**.
+- **The Fix (Rotations):** If the height difference becomes **2**, the tree is "wobbly." We perform a rotation (moving a child up to become the parent) to pull the tree back into balance.
+
+### ✅ Solution Trace for 8.1b (1, 0, 5, 4, 3, 2, 6)
+
+1.  **Insert 1**: Root is 1.
+2.  **Insert 0**: 0 is left child of 1. Balanced.
+3.  **Insert 5**: 5 is right child of 1. Balanced.
+4.  **Insert 4**: 4 is left child of 5. Balanced.
+5.  **Insert 3**: 3 is left child of 4. Node 5 is now unbalanced (Height Left=2, Right=0). 
+    - **Rotation**: **Right Rotation** at 5. 4 becomes parent of 3 and 5.
+6.  **Insert 2**: 2 is left child of 3. Node 1 is now unbalanced (Height Left=1, Right=3).
+    - **Rotation**: **Left Rotation** at 1. 4 becomes the new root.
+7.  **Insert 6**: 6 is right child of 5.
+
+**Final AVL Tree structure**:
+- Root: 4
+- Left Subtree: 2 (Parent of 1 and 3, with 0 as child of 1)
+- Right Subtree: 5 (Parent of 6)
+
+## 🍰 Topic 11: Dynamic Programming (The "Torten-Stapler")
+
+### 🧠 The Theory: Don't Guess, Remember!
+
+Professor Hirnriss wants to know how many ways he can stack $n$ cake pieces using pans of size 1, 2, or 5.
+
+- **ADHD Tip (Analogy):** Think of this like a **Video Game Save Point**. If you know how to get through Level 4, you don't start from Level 1 every time you try Level 5. You just add the last step.
+- **The Formula:** To make a cake of size $n$, your last layer was either size 1, 2, or 5.
+    - `Total(n) = Total(n-1) + Total(n-2) + Total(n-5)`
+- **The "Bottom-Up" Way:** We start with $n=0$ (1 way: don't build a cake!) and $n=1, 2, 3...$ filling out a table until we hit our target $n$.
+
+### ✅ Solution 8.2a (n=5)
+Using pans {1, 2, 5}:
+- 1+1+1+1+1
+- 1+1+1+2 (and permutations)
+- 1+2+2 (and permutations)
+- 5
+(Total ways: 9)
+
+---
+*Status: Blatt 13 down to 8 Complete.*
