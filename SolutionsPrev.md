@@ -278,6 +278,296 @@ Total:
 
 ---
 
+---
+
+## 🔁 Replacement Block — Präsenzblatt 11 (with analogy + decision logic)
+
+## 🗺️ Topic 4 (Revised): Floyd-Warshall Table Reduction + Dijkstra Counterexamples (Präsenzblatt 11)
+
+### 🧠 Big-picture analogy: City Navigation Control Room
+You are managing a city routing center.
+- **Floyd-Warshall** = build a giant “all pairs shortest path” map.
+- **Dijkstra** = one-source GPS that assumes roads never have “time refunds” (negative edges).
+
+---
+
+### 📚 Abbreviations
+- **APSP** = All-Pairs Shortest Paths
+- **SSSP** = Single-Source Shortest Paths
+- **FW** = Floyd-Warshall
+- **SPT** = Shortest-Path Tree
+
+---
+
+### 🧠 Aufgabe 1: Why one table is enough in Floyd-Warshall
+
+#### What is asked?
+Show why we can update in-place:
+\[
+d_{ij}=\min(d_{ij},d_{ik}+d_{kj})
+\]
+instead of keeping separate $D^{(k-1)}$ and $D^{(k)}$ tables.
+
+---
+
+#### Decision strategy
+Key question:
+> During iteration $k$, can $d_{ik}$ or $d_{kj}$ get “accidentally improved” in a way that breaks correctness?
+
+If no, in-place update is safe.
+
+---
+
+#### Why this works
+In iteration $k$, allowed intermediate nodes are from $\{1,\dots,k\}$.
+For entries ending/starting at $k$:
+- $d_{ik}^{(k)} = d_{ik}^{(k-1)}$
+- $d_{kj}^{(k)} = d_{kj}^{(k-1)}$
+
+Reason: a path from $i$ to $k$ using $k$ as an intermediate would be circular/useless for improvement; same for $k$ to $j$.
+
+So helper terms used in
+\[
+d_{ij}\leftarrow\min(d_{ij},d_{ik}+d_{kj})
+\]
+are stable during this $k$-round. Therefore overwriting is safe.
+
+\[
+\boxed{\text{One table is sufficient.}}
+\]
+
+---
+
+### 🧠 Aufgabe 2: Construct edge weights for 3 Dijkstra scenarios
+
+Given directed graph structure from the sheet (nodes $s,A,B,C,D$ with shown arrows).  
+We provide valid weight assignments that satisfy each requested condition.
+
+---
+
+#### 2.1 One negative edge, Dijkstra fails
+
+##### Decision
+Force Dijkstra to “finalize too early”, then reveal a better path using one negative edge later.
+
+Choose edges:
+- $s\to A=2$
+- $s\to D=5$
+- $A\to B=2$
+- $D\to B=-4$  (only negative edge)
+- $B\to C=1$
+
+True shortest to $B$:
+- via $A$: $2+2=4$
+- via $D$: $5+(-4)=1$ (better)
+
+Dijkstra from $s$ may settle $A$ then $B=4$ before exploring $D$ path correctly (implementation/finalization effect), yielding wrong distances.
+
+\[
+\boxed{\text{Condition 1 satisfied (single negative edge can break Dijkstra).}}
+\]
+
+---
+
+#### 2.2 All edge weights negative, but Dijkstra still correct
+
+##### Decision
+Make graph such that from $s$ every node has only one reachable route (no competing alternatives to revise).
+
+Example:
+- $s\to A=-1$
+- $A\to B=-1$
+- $B\to C=-1$
+- (other existing arrows can be set so they are unreachable from $s$ or absent in directed sense for path competition)
+
+If each reachable node has exactly one path from $s$, Dijkstra cannot choose wrong among alternatives.
+
+\[
+\boxed{\text{All negative edges and still correct is possible in this constrained structure.}}
+\]
+
+---
+
+#### 2.3 Multiple different shortest-path trees from $s$
+
+##### Decision
+Create ties: two distinct predecessors give equal shortest distance.
+
+Example:
+- $s\to A=1$
+- $s\to D=1$
+- $A\to B=1$
+- $D\to B=1$
+- $B\to C=1$
+
+Distance to $B$ is 2 via either $A$ or $D$, so two distinct SPTs exist (different parent of $B$), same distances.
+
+\[
+\boxed{\text{Condition 3 satisfied (different SPTs with equal distances).}}
+\]
+
+---
+
+### ⚠️ Exam traps
+1. Saying “Dijkstra always fails with negatives” (not always — only generally unsafe).
+2. Forgetting to justify *why* your weight assignment enforces each condition.
+3. Confusing “same distances” with “same tree” in part 3.
+
+---
+
+### 🧩 Micro-summary
+- Floyd-Warshall can be done in-place safely.
+- Dijkstra fails with suitable negative-edge constructions.
+- Negative edges do not automatically imply failure if no competing revisions exist.
+- Equal-distance ties produce different shortest-path trees.
+
+---
+
+## 🔁 Replacement Block — Präsenzblatt 10 (with analogy + decision logic)
+
+## 🎨 Topic 5 (Revised): Huffman Coding + Induction on Degree-2 Graph Components (Präsenzblatt 10)
+
+### 🧠 Big-picture analogy
+- **Huffman**: packing common words into shorter shorthand to save message length.
+- **Graph induction**: people can hold at most two hands, so only line/circle/isolated formations are possible.
+
+---
+
+### 📚 Abbreviations
+- **Huffman coding**: optimal prefix-free variable-length code.
+- **Prefix-free**: no codeword is prefix of another.
+- **deg(v)**: degree of node $v$.
+- **ZHK**: connected component.
+
+---
+
+### 🧠 Aufgabe 1: Huffman coding for “ESGIBTFREIBIER”
+
+#### Step 1: Frequency count (decision: always start here)
+Word: E S G I B T F R E I B I E R
+
+Counts:
+- E: 3
+- I: 3
+- B: 2
+- R: 2
+- S: 1
+- G: 1
+- T: 1
+- F: 1
+
+#### Why this step matters
+Huffman is greedy by frequency: least frequent symbols merge first.
+
+---
+
+#### Step 2: Build Huffman tree (decision: repeatedly merge two smallest)
+One valid merge sequence:
+1. S(1)+G(1)=2
+2. T(1)+F(1)=2
+3. (SG)(2)+B(2)=4
+4. R(2)+(TF)(2)=4
+5. E(3)+I(3)=6
+6. (SGB)(4)+(RTF)(4)=8
+7. 6 + 8 = 14 (root)
+
+Assign bits (left=0, right=1) consistently.  
+One valid code set:
+- E: 00
+- I: 01
+- B: 101
+- R: 100
+- S: 1100
+- G: 1101
+- T: 1110
+- F: 1111
+
+(Equivalent Huffman trees/codes with same total length are also valid.)
+
+---
+
+#### Step 3: Total bit count
+- E and I: $6$ chars × $2$ bits = $12$
+- B and R: $4$ chars × $3$ bits = $12$
+- S,G,T,F: $4$ chars × $4$ bits = $16$
+
+Total:
+\[
+12+12+16=\boxed{40\text{ bits}}
+\]
+
+---
+
+#### Why this is optimal
+Huffman theorem: greedy merge of two smallest frequencies is optimal for prefix-free coding.
+
+---
+
+### ⚠️ Exam traps (Huffman)
+1. Wrong frequencies from the word.
+2. Non-prefix-free code assignment.
+3. Assuming only one unique optimal code (often multiple exist).
+
+---
+
+### 🧠 Aufgabe 2: If all degrees $\le 2$, each component is isolated node / simple path / simple cycle
+
+Given finite undirected loop-free graph $G=(V,E)$ with $\deg(v)\le2$ for all $v$.
+
+---
+
+#### Decision strategy for proof
+Use induction on number of vertices in a connected component, and exploit the degree cap:
+- no node can branch to 3 directions,
+- so “tree-like branching” is impossible.
+
+---
+
+#### Proof sketch (clean exam style)
+
+Base cases:
+- 1 node: isolated node.
+- 2 nodes connected: simple path.
+- 3-cycle possible: simple cycle.
+
+Induction step on connected component $Z$:
+- If some vertex has degree 1, follow chain through degree-2 interior nodes; cannot branch (degree cap), so structure is a simple path.
+- If all vertices in $Z$ have degree 2, finite connected undirected graph with all degree 2 must form one simple cycle.
+- If degree 0 and connected, single isolated node.
+
+Thus each connected component is exactly one of:
+1. isolated node,
+2. simple path (at least 2 nodes),
+3. simple cycle (at least 3 nodes).
+
+\[
+\boxed{\text{Statement proven.}}
+\]
+
+---
+
+### Analogy tie-in
+People at a party can hold at most two hands:
+- holds no hand → alone (isolated),
+- chain of people → path,
+- everyone in closed ring → cycle.
+No “Y-shaped” structure possible because that needs someone holding 3 hands.
+
+---
+
+### ⚠️ Exam traps
+1. Forgetting connected-component perspective.
+2. Missing “all degree 2 in finite connected graph implies cycle”.
+3. Accidentally allowing branching nodes.
+
+---
+
+### 🧩 Micro-summary
+- Huffman result for the word: **40 bits**.
+- Degree $\le2$ components are exactly isolated/path/cycle.
+
+---
+
 ### 🧩 Micro-summary
 - Kruskal/Prim both give MST weight 22.
 - Components in subgraph $H$ via filtered BFS/DFS are linear-time.
