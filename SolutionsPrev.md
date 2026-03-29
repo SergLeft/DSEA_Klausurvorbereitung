@@ -1,5 +1,3 @@
----
-
 ## 🔁 Replacement Block — Präsenzblatt 13 (with analogy + decision logic)
 
 ## 🏗 Topic 1 (Revised): Heap Construction Runtime and Correctness (Präsenzblatt 13, Aufgabe 1)
