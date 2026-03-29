@@ -379,7 +379,7 @@ So:
 ---
 ## 🔁 Final Retrofitted Replacement — Übungsblatt 3 (Operational, Blank-Slate, ADHD-Oriented)
 
-## 🧩 Topic 1: Inversionen via MergeSort-Logik — Warum O(n log n) möglich ist
+## 🧩 Topic 1: Inversionen via MergeSort-Logik — Warum \(O(n \log n)\) möglich ist
 
 ---
 
