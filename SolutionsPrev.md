@@ -1,5 +1,3 @@
----
-
 ## 🔁 Replacement Block — Präsenzblatt 13 (Deep-Theory Version)
 
 ## 🏗 Topic 1 (Revised): Heap Build Runtime + Correctness (Präsenzblatt 13, Aufgabe 1)
