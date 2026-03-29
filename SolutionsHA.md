@@ -21,7 +21,7 @@ You need to solve four things:
 4. **Three induction proofs**:
    - sum formula,
    - divisibility by 5,
-   - inequality \(2^n > n\).
+   - inequality $2^n > n$.
 
 ---
 
@@ -37,7 +37,7 @@ A matching is stable if there is no “blocking deviation”:
 - two parties that would both prefer each other over their current situation.
 
 #### 3) What changes with university capacities?
-Now one university may hold up to \(c_i\) students.
+Now one university may hold up to $c_i$ students.
 This is the **hospital/residents** version of stable matching.
 
 #### 4) Why induction?
@@ -51,8 +51,8 @@ Induction is the “domino proof”:
 ## 🧠 Aufgabe 1 — University admissions with capacities
 
 ### Problem restated
-- \(m\) universities with capacities \(c_1,\dots,c_m\),
-- \(n\) applicants, \(n \ge \sum_i c_i\),
+- $m$ universities with capacities $c_1,\dots,c_m$,
+- $n$ applicants, $n \ge \sum_i c_i$,
 - strict preferences on both sides,
 - we require all seats filled, and no blocking under conditions (i) and (ii).
 
@@ -65,11 +65,11 @@ A stable assignment **always exists**.
 1. Initially all applicants free, all university slots empty.
 2. While there is a free applicant with remaining universities on their list:
    - applicant proposes to best university not yet proposed to.
-   - university tentatively keeps the best \(c_i\) proposers seen so far (according to its preference), rejects the rest.
+   - university tentatively keeps the best $c_i$ proposers seen so far (according to its preference), rejects the rest.
 3. Rejected applicants become free again and continue proposing.
 4. Stop when no proposal possible.
 
-Because \(n \ge \sum c_i\), and with complete preference lists, all university slots can be filled.
+Because $n \ge \sum c_i$, and with complete preference lists, all university slots can be filled.
 
 ### Why stable?
 Same deferred-acceptance logic as classic Gale–Shapley:
@@ -82,7 +82,7 @@ At most one proposal per applicant-university pair:
 \[
 O(nm)
 \]
-(plus data-structure factors for maintaining current top \(c_i\), still polynomial and efficient).
+(plus data-structure factors for maintaining current top $c_i$, still polynomial and efficient).
 
 ---
 
@@ -110,24 +110,24 @@ Therefore they must end matched.
 
 ## 🧠 Aufgabe 3 — General pairings (2n people), given n=2 example
 
-People: \(p_1,p_2,p_3,p_4\)
+People: $p_1,p_2,p_3,p_4$
 
 Preferences (best to worst from left):
-- \(p_1: p_4 \succ p_2 \succ p_3\)
-- \(p_2: p_4 \succ p_3 \succ p_1\)
-- \(p_3: p_4 \succ p_1 \succ p_2\)
-- \(p_4: p_3 \succ p_1 \succ p_2\)
+- $p_1: p_4 \succ p_2 \succ p_3$
+- $p_2: p_4 \succ p_3 \succ p_1$
+- $p_3: p_4 \succ p_1 \succ p_2$
+- $p_4: p_3 \succ p_1 \succ p_2$
 
 Possible perfect pairings for 4 people:
-1. \(\{(p_1,p_2),(p_3,p_4)\}\)
-2. \(\{(p_1,p_3),(p_2,p_4)\}\)
-3. \(\{(p_1,p_4),(p_2,p_3)\}\)
+1. $\{(p_1,p_2),(p_3,p_4)\}$
+2. $\{(p_1,p_3),(p_2,p_4)\}$
+3. $\{(p_1,p_4),(p_2,p_3)\}$
 
 Check stability quickly:
 
-- Pairing 1: \(p_1\) and \(p_4\) prefer each other over current partners ⇒ blocking.
-- Pairing 2: \(p_3\) and \(p_4\) prefer each other over current partners ⇒ blocking.
-- Pairing 3: \(p_3\) and \(p_4\) again prefer each other over current partners ⇒ blocking.
+- Pairing 1: $p_1$ and $p_4$ prefer each other over current partners ⇒ blocking.
+- Pairing 2: $p_3$ and $p_4$ prefer each other over current partners ⇒ blocking.
+- Pairing 3: $p_3$ and $p_4$ again prefer each other over current partners ⇒ blocking.
 
 So no stable pairing exists in this instance.
 
@@ -139,10 +139,10 @@ So no stable pairing exists in this instance.
 
 ## 🧠 Aufgabe 4 — Induction proofs
 
-### (a) \(\sum_{k=1}^{n} k = \frac{n(n+1)}{2}\)
+### (a) $\sum_{k=1}^{n} k = \frac{n(n+1)}{2}$
 
-- Base \(n=1\): \(1 = \frac{1\cdot2}{2}\).
-- Step: assume true for \(n\):
+- Base $n=1$: $1 = \frac{1\cdot2}{2}$.
+- Step: assume true for $n$:
   \[
   \sum_{k=1}^{n+1}k=\left(\sum_{k=1}^{n}k\right)+(n+1)=\frac{n(n+1)}{2}+(n+1)=\frac{(n+1)(n+2)}{2}.
   \]
@@ -150,18 +150,18 @@ Done.
 
 ---
 
-### (b) \(n^5-n\) divisible by 5 for all \(n\in\mathbb N_0\)
+### (b) $n^5-n$ divisible by 5 for all $n\in\mathbb N_0$
 
 Use factorization:
 \[
 n^5-n=n(n^4-1)=n(n^2-1)(n^2+1)=n(n-1)(n+1)(n^2+1).
 \]
-Among three consecutive integers \(n-1,n,n+1\), one is divisible by 5? Not always.  
+Among three consecutive integers $n-1,n,n+1$, one is divisible by 5? Not always.  
 So better modular route:
 \[
 n^5 \equiv n \pmod 5
 \]
-(by Fermat or direct residue check \(n=0,1,2,3,4\)). Hence
+(by Fermat or direct residue check $n=0,1,2,3,4$). Hence
 \[
 n^5-n \equiv 0 \pmod 5.
 \]
@@ -169,17 +169,17 @@ Divisible by 5.
 
 ---
 
-### (c) \(2^n > n\) for all \(n\in\mathbb N_0\)?
+### (c) $2^n > n$ for all $n\in\mathbb N_0$?
 
-As written, this is **false for \(n=1\)** since \(2^1=1\) is not greater.
+As written, this is **false for $n=1$** since $2^1=1$ is not greater.
 
 Corrected valid statement:
-- \(2^n \ge n\) for all \(n\in\mathbb N_0\), and
-- \(2^n > n\) for all \(n\ge 2\).
+- $2^n \ge n$ for all $n\in\mathbb N_0$, and
+- $2^n > n$ for all $n\ge 2$.
 
-Induction for \(n\ge2\):
-- Base \(n=2\): \(4>2\).
-- Step: assume \(2^n>n\) (\(n\ge2\)):
+Induction for $n\ge2$:
+- Base $n=2$: $4>2$.
+- Step: assume $2^n>n$ ($n\ge2$):
   \[
   2^{n+1}=2\cdot2^n>2n\ge n+1.
   \]
@@ -191,7 +191,7 @@ Done.
 1. Forgetting capacity version is many-to-one deferred acceptance.
 2. In Aufgabe 2, overlooking the “mutual first-choice lock”.
 3. In Aufgabe 3, checking only one pairing.
-4. In induction (c), missing the false case \(n=1\).
+4. In induction (c), missing the false case $n=1$.
 
 ---
 
@@ -205,10 +205,10 @@ Done.
 
 ## ✅ UB1 compact exam answers
 
-1. Stable assignment with capacities exists; applicant-proposing deferred acceptance computes one in \(O(nm)\).
+1. Stable assignment with capacities exists; applicant-proposing deferred acceptance computes one in $O(nm)$.
 2. No, Triton cannot prevent Arielle/Eric pairing.
-3. Given \(n=2\) instance: no stable pairing.
-4. (a) and (b) proven; (c) as stated false at \(n=1\), true for \(n\ge2\).
+3. Given $n=2$ instance: no stable pairing.
+4. (a) and (b) proven; (c) as stated false at $n=1$, true for $n\ge2$.
 
 ---
 
@@ -227,58 +227,58 @@ You need to do four blocks:
 1. Prove several Landau-symbol statements.
 2. Explore naive recursive Fibonacci and explain exponential blow-up.
 3. Run and prove Selection Sort, analyze comparisons, and evaluate min+max variant.
-4. Show that combining two stable matchings via applicant-wise better assignment \(X\vee Y\) remains stable.
+4. Show that combining two stable matchings via applicant-wise better assignment $X\vee Y$ remains stable.
 
 ---
 
 ### 📚 Zero-to-functional foundations
 
 #### 1) What are Landau symbols?
-- \(O(g)\): asymptotic upper bound.
-- \(\Omega(g)\): asymptotic lower bound.
-- \(\Theta(g)\): both bounds.
+- $O(g)$: asymptotic upper bound.
+- $\Omega(g)$: asymptotic lower bound.
+- $\Theta(g)$: both bounds.
 
 #### 2) What is asymptotic proof style?
-You compare growth for large \(n\), ignoring constants and low-order terms.
+You compare growth for large $n$, ignoring constants and low-order terms.
 
 #### 3) Selection Sort core
 Repeatedly pick minimum of unsorted suffix and swap to front.
 
-#### 4) Why “\(X\vee Y\)” in stable matching?
+#### 4) Why “$X\vee Y$” in stable matching?
 You compare two stable outcomes applicant-by-applicant and keep preferred assignment per applicant.
 
 ---
 
 ## 🧠 Aufgabe 1 — Landau symbols
 
-### (a) \(100n^2 \in O(n^3)\)
+### (a) $100n^2 \in O(n^3)$
 \[
 \frac{100n^2}{n^3}=\frac{100}{n}\to 0
 \]
 So yes.
 
-### (b) \(n^2 \in \Omega\!\left(\frac{2n^2+4n+2}{n+1}\right)\)
+### (b) $n^2 \in \Omega\!\left(\frac{2n^2+4n+2}{n+1}\right)$
 
 Simplify RHS:
 \[
 \frac{2n^2+4n+2}{n+1}=2n+2.
 \]
-Need \(n^2 \in \Omega(n)\), true.
+Need $n^2 \in \Omega(n)$, true.
 
-### (c) \(\log_b n \in \Theta(\ln n)\), fixed \(b>1\)
+### (c) $\log_b n \in \Theta(\ln n)$, fixed $b>1$
 \[
 \log_b n = \frac{\ln n}{\ln b},
 \]
-constant factor only ⇒ same \(\Theta\)-class.
+constant factor only ⇒ same $\Theta$-class.
 
-### (d) \(g\in O(f)\iff f\in\Omega(g)\)
+### (d) $g\in O(f)\iff f\in\Omega(g)$
 This is exactly the definition duality.
 
-### (e) \(\sum_{i=1}^n \frac{1}{i}\in O(\log n)\)
-Harmonic sum \(H_n\le 1+\ln n\), so yes.
+### (e) $\sum_{i=1}^n \frac{1}{i}\in O(\log n)$
+Harmonic sum $H_n\le 1+\ln n$, so yes.
 
-### (f) If \(\limsup_{k\to\infty}\frac{g(k)}{f(k)}<\infty\), then \(g=O(f)\) (with \(f(n)\neq0\))
-Bounded limsup means ratio eventually bounded by some constant \(C\), which is definition of \(O\).
+### (f) If $\limsup_{k\to\infty}\frac{g(k)}{f(k)}<\infty$, then $g=O(f)$ (with $f(n)\neq0$)
+Bounded limsup means ratio eventually bounded by some constant $C$, which is definition of $O$.
 
 ---
 
@@ -306,16 +306,16 @@ So asymptotically exponential.
 
 ## 🧠 Aufgabe 3 — Selection Sort
 
-### (a) Example on \([5,3,4,2,1]\)
-- Pass 1: min=1, swap with first → \([1,3,4,2,5]\)
-- Pass 2: min in suffix \([3,4,2,5]\) is 2 → \([1,2,4,3,5]\)
-- Pass 3: min in \([4,3,5]\) is 3 → \([1,2,3,4,5]\)
-- Pass 4: min in \([4,5]\) is 4 (no change)
+### (a) Example on $[5,3,4,2,1]$
+- Pass 1: min=1, swap with first → $[1,3,4,2,5]$
+- Pass 2: min in suffix $[3,4,2,5]$ is 2 → $[1,2,4,3,5]$
+- Pass 3: min in $[4,3,5]$ is 3 → $[1,2,3,4,5]$
+- Pass 4: min in $[4,5]$ is 4 (no change)
 
 ### (b) Correctness invariant
-After pass \(i\), first \(i\) elements are the \(i\) smallest elements in sorted order.
-Initialization true for \(i=0\).  
-Maintenance by selecting minimum of remainder and placing at position \(i+1\).  
+After pass $i$, first $i$ elements are the $i$ smallest elements in sorted order.
+Initialization true for $i=0$.  
+Maintenance by selecting minimum of remainder and placing at position $i+1$.  
 Termination gives full sorted array.
 
 ### (c) Number of comparisons
@@ -324,11 +324,11 @@ Termination gives full sorted array.
 \]
 
 ### (d) Min+max modification
-Still \(\Theta(n^2)\) comparisons asymptotically. Constant factor may improve, class does not.
+Still $\Theta(n^2)$ comparisons asymptotically. Constant factor may improve, class does not.
 
 ---
 
-## 🧠 Aufgabe 4 — Combine stable matchings: \(X\vee Y\)
+## 🧠 Aufgabe 4 — Combine stable matchings: $X\vee Y$
 
 Definition:
 \[
@@ -337,14 +337,14 @@ X\vee Y:=\{(p,\max_p(X(p),Y(p)))\mid p\in P\},
 i.e., each applicant gets the preferred of their two assignments.
 
 ### Claim
-\(X\vee Y\) is stable.
+$X\vee Y$ is stable.
 
 ### Proof idea (standard lattice argument sketch)
-Assume \(X\vee Y\) unstable with blocking pair \((p,s)\).  
-Then \(p\) prefers \(s\) over \((X\vee Y)(p)\), hence over both \(X(p)\) and \(Y(p)\) or at least over the better one.  
-Using stability of \(X\) and \(Y\), this forces incompatible preference relations at \(s\) with the partners assigned in \(X\) and \(Y\).  
-One derives a contradiction to at least one stability condition in \(X\) or \(Y\).  
-Therefore no blocking pair exists in \(X\vee Y\).
+Assume $X\vee Y$ unstable with blocking pair $(p,s)$.  
+Then $p$ prefers $s$ over $(X\vee Y)(p)$, hence over both $X(p)$ and $Y(p)$ or at least over the better one.  
+Using stability of $X$ and $Y$, this forces incompatible preference relations at $s$ with the partners assigned in $X$ and $Y$.  
+One derives a contradiction to at least one stability condition in $X$ or $Y$.  
+Therefore no blocking pair exists in $X\vee Y$.
 
 So:
 \[
@@ -354,9 +354,9 @@ So:
 ---
 
 ### ⚠️ Pitfalls (UB2)
-1. Mixing up \(O\) and \(\Omega\) directions.
+1. Mixing up $O$ and $\Omega$ directions.
 2. Forgetting harmonic sum growth is logarithmic.
-3. Claiming modified Selection Sort becomes \(O(n\log n)\) (false).
+3. Claiming modified Selection Sort becomes $O(n\log n)$ (false).
 4. For Aufgabe 4, proving informally without contradiction structure.
 
 ---
@@ -364,17 +364,17 @@ So:
 ### 🧩 UB2 micro-summary
 - Landau statements all hold.
 - Naive Fibonacci recursion is exponential.
-- Selection Sort: correct via invariant, \(\Theta(n^2)\) comparisons.
-- \(X\vee Y\) preserves stability.
+- Selection Sort: correct via invariant, $\Theta(n^2)$ comparisons.
+- $X\vee Y$ preserves stability.
 
 ---
 
 ## ✅ UB2 compact exam answers
 
 1. (a)–(f): all true with standard asymptotic arguments.
-2. Naive Fibonacci recursion has exponential runtime \(\Theta(\varphi^n)\).
-3. Selection Sort comparisons: \(\Theta(n^2)\); min+max variant remains \(\Theta(n^2)\).
-4. \(X\vee Y\) is stable.
+2. Naive Fibonacci recursion has exponential runtime $\Theta(\varphi^n)$.
+3. Selection Sort comparisons: $\Theta(n^2)$; min+max variant remains $\Theta(n^2)$.
+4. $X\vee Y$ is stable.
 
 ---
 ## 🔁 Final Retrofitted Replacement — Übungsblatt 3 (Operational, Blank-Slate, ADHD-Oriented)
@@ -387,7 +387,7 @@ So:
 You must:
 1. count inversions in one concrete array and its halves,
 2. explain what Merge’s cross-comparisons count,
-3. conclude an \(O(n\log n)\)-algorithm.
+3. conclude an $O(n\log n)$-algorithm.
 
 So this is a “counting + divide-and-conquer correctness” task.
 
@@ -396,14 +396,14 @@ So this is a “counting + divide-and-conquer correctness” task.
 ### 📚 Zero-to-functional foundations
 
 #### 1) What is an inversion?
-Given array \(a_1,\dots,a_n\), an inversion is a pair \((i,j)\) with
+Given array $a_1,\dots,a_n$, an inversion is a pair $(i,j)$ with
 \[
 i<j \quad\text{and}\quad a_i>a_j.
 \]
 Interpretation: a pair is “out of sorted order.”
 
-- sorted ascending array \(\Rightarrow 0\) inversions.
-- sorted descending array \(\Rightarrow \frac{n(n-1)}2\) inversions (maximum).
+- sorted ascending array $\Rightarrow 0$ inversions.
+- sorted descending array $\Rightarrow \frac{n(n-1)}2$ inversions (maximum).
 
 ---
 
@@ -429,42 +429,42 @@ That number of overtakes is exactly the number of crossing inversions contribute
 
 ---
 
-## 🧠 Aufgabe 1a — Count \(I\), \(I_1\), \(I_2\)
+## 🧠 Aufgabe 1a — Count $I$, $I_1$, $I_2$
 
 Given:
 \[
 a=(1,8,5,3,4,2,7,6).
 \]
 Halves:
-- left: \((1,8,5,3)\),
-- right: \((4,2,7,6)\).
+- left: $(1,8,5,3)$,
+- right: $(4,2,7,6)$.
 
-### Left-half inversions \(I_1\)
+### Left-half inversions $I_1$
 Pairs:
-- \(8>5\), \(8>3\), \(5>3\) \(\Rightarrow 3\).
+- $8>5$, $8>3$, $5>3$ $\Rightarrow 3$.
 
 So:
 \[
 I_1=3.
 \]
 
-### Right-half inversions \(I_2\)
+### Right-half inversions $I_2$
 Pairs:
-- \(4>2\), \(7>6\) \(\Rightarrow 2\).
+- $4>2$, $7>6$ $\Rightarrow 2$.
 
 So:
 \[
 I_2=2.
 \]
 
-### Total \(I\) in full array
+### Total $I$ in full array
 Additional crossing inversions (left index in first half, right index in second half):
-- from \(8\): \(8>4,2,7,6\) \(\Rightarrow 4\),
-- from \(5\): \(5>4,2\) \(\Rightarrow 2\),
-- from \(3\): \(3>2\) \(\Rightarrow 1\),
-- from \(1\): none.
+- from $8$: $8>4,2,7,6$ $\Rightarrow 4$,
+- from $5$: $5>4,2$ $\Rightarrow 2$,
+- from $3$: $3>2$ $\Rightarrow 1$,
+- from $1$: none.
 
-Crossing total \(=7\).
+Crossing total $=7$.
 
 Hence:
 \[
@@ -477,20 +477,20 @@ I=I_1+I_2+7=3+2+7=12.
 
 ---
 
-## 🧠 Aufgabe 1b — Merge step and \(I-(I_1+I_2)\)
+## 🧠 Aufgabe 1b — Merge step and $I-(I_1+I_2)$
 
 Sorted halves given:
-- \(L=(1,3,5,8)\),
-- \(R=(2,4,6,7)\).
+- $L=(1,3,5,8)$,
+- $R=(2,4,6,7)$.
 
 During merge:
-- compare 1 vs 2 \(\to\) take 1 (no new crossing inversion),
-- compare 3 vs 2 \(\to\) take 2; remaining left \((3,5,8)\) all \(>2\): +3,
-- compare 3 vs 4 \(\to\) take 3,
-- compare 5 vs 4 \(\to\) take 4; remaining left \((5,8)\): +2,
-- compare 5 vs 6 \(\to\) take 5,
-- compare 8 vs 6 \(\to\) take 6; remaining left \((8)\): +1,
-- compare 8 vs 7 \(\to\) take 7; remaining left \((8)\): +1,
+- compare 1 vs 2 $\to$ take 1 (no new crossing inversion),
+- compare 3 vs 2 $\to$ take 2; remaining left $(3,5,8)$ all $>2$: +3,
+- compare 3 vs 4 $\to$ take 3,
+- compare 5 vs 4 $\to$ take 4; remaining left $(5,8)$: +2,
+- compare 5 vs 6 $\to$ take 5,
+- compare 8 vs 6 $\to$ take 6; remaining left $(8)$: +1,
+- compare 8 vs 7 $\to$ take 7; remaining left $(8)$: +1,
 - append 8.
 
 Crossing inversions counted in merge:
@@ -510,15 +510,15 @@ So merge step computes the crossing part.
 
 ---
 
-## 🧠 Aufgabe 1c — Show \(O(n\log n)\)
+## 🧠 Aufgabe 1c — Show $O(n\log n)$
 
 ### Algorithm idea
 Function `count_inversions(A)`:
-1. if length \(\le 1\): return (A, 0),
-2. split into \(L,R\),
-3. recursively get \((L_{sorted}, I_L)\), \((R_{sorted}, I_R)\),
-4. merge while counting crossing inversions \(I_C\),
-5. return \((A_{sorted}, I_L+I_R+I_C)\).
+1. if length $\le 1$: return (A, 0),
+2. split into $L,R$,
+3. recursively get $(L_{sorted}, I_L)$, $(R_{sorted}, I_R)$,
+4. merge while counting crossing inversions $I_C$,
+5. return $(A_{sorted}, I_L+I_R+I_C)$.
 
 ### Correctness sketch
 By partition of inversion types:
@@ -550,9 +550,9 @@ T(n)=O(n\log n).
 ---
 
 ### 🧩 Task-1 micro-summary
-- \(I=12\), \(I_1=3\), \(I_2=2\),
-- merge-cross part is \(7=I-(I_1+I_2)\),
-- total inversion count via merge-based divide-and-conquer in \(O(n\log n)\).
+- $I=12$, $I_1=3$, $I_2=2$,
+- merge-cross part is $7=I-(I_1+I_2)$,
+- total inversion count via merge-based divide-and-conquer in $O(n\log n)$.
 
 ---
 
@@ -561,14 +561,14 @@ T(n)=O(n\log n).
 ---
 
 ### 🧠 What this asks
-Find smallest and second smallest with fewer than naive \(2n-3\) comparisons.
+Find smallest and second smallest with fewer than naive $2n-3$ comparisons.
 
 ---
 
 ### 📚 Foundation
 Naive:
-- min in \(n-1\),
-- second min among rest in \(n-2\),
+- min in $n-1$,
+- second min among rest in $n-2$,
 \[
 2n-3.
 \]
@@ -578,25 +578,25 @@ Better idea: **tournament tree**.
 - smallest element is tournament winner,
 - second smallest must be among elements that directly lost to winner.
 
-Winner has \(\log_2 n\) wins (because \(n\) is power of 2), so only \(\log_2 n\) candidates for second smallest.
+Winner has $\log_2 n$ wins (because $n$ is power of 2), so only $\log_2 n$ candidates for second smallest.
 
 ---
 
 ### 🌉 Analogy: Knockout bracket
-Gold medalist (smallest) beats \(\log_2 n\) players.
+Gold medalist (smallest) beats $\log_2 n$ players.
 Silver (second smallest) must be one of those defeated directly by champion, not arbitrary participant.
 
 ---
 
 ### Efficient comparison count
-- tournament to find min: \(n-1\),
-- min over loser-list of size \(\log_2 n\): \(\log_2 n-1\).
+- tournament to find min: $n-1$,
+- min over loser-list of size $\log_2 n$: $\log_2 n-1$.
 
 Total:
 \[
 n+\log_2 n-2.
 \]
-This is \(\le \frac32 n-2\) for \(n\ge2\), so required bound holds.
+This is $\le \frac32 n-2$ for $n\ge2$, so required bound holds.
 
 \[
 \boxed{n+\log_2 n-2\ \text{comparisons}}
@@ -609,17 +609,17 @@ This is \(\le \frac32 n-2\) for \(n\ge2\), so required bound holds.
 ---
 
 ### Statement
-“Exactly then there is an \(O(f)\)-algorithm for squaring \(n\)-digit numbers iff one can multiply two \(n\)-digit numbers in \(O(f)\).”
+“Exactly then there is an $O(f)$-algorithm for squaring $n$-digit numbers iff one can multiply two $n$-digit numbers in $O(f)$.”
 
-### Direction 1 (\(\Rightarrow\) trivial part)
-If multiplication is \(O(f)\), then squaring is special case:
+### Direction 1 ($\Rightarrow$ trivial part)
+If multiplication is $O(f)$, then squaring is special case:
 \[
 x^2=x\cdot x
 \]
-also \(O(f)\).
+also $O(f)$.
 
 ### Direction 2 (nontrivial)
-If squaring is \(O(f)\), can we multiply in \(O(f)\)? Yes via identity:
+If squaring is $O(f)$, can we multiply in $O(f)$? Yes via identity:
 \[
 xy=\frac{(x+y)^2-x^2-y^2}{2}.
 \]
@@ -629,7 +629,7 @@ Total:
 \[
 O(f(n))+O(n).
 \]
-For standard multiplication contexts \(f(n)\in\Omega(n)\), this is \(O(f(n))\).
+For standard multiplication contexts $f(n)\in\Omega(n)$, this is $O(f(n))$.
 
 \[
 \boxed{\text{Aussage gilt (unter üblicher Annahme }f(n)\ge cn\text{).}}
@@ -667,27 +667,27 @@ For standard multiplication contexts \(f(n)\in\Omega(n)\), this is \(O(f(n))\).
 ---
 
 ### 🧠 What this asks
-You must compare algorithms for \((n\times n)\)-matrix multiplication:
+You must compare algorithms for $(n\times n)$-matrix multiplication:
 1. naive formula,
 2. straightforward block recursion,
 3. Strassen recursion,
 4. asymptotic memory usage.
 
-Assume \(n=2^k\), arithmetic op cost constant.
+Assume $n=2^k$, arithmetic op cost constant.
 
 ---
 
 ### 📚 Foundations
 
 #### Matrix multiplication definition
-For \(C=AB\):
+For $C=AB$:
 \[
 c_{ij}=\sum_{k=1}^n a_{ik}b_{kj}.
 \]
 
 Naive cost:
-- \(n^2\) entries,
-- each entry does \(n\) multiplications (+ additions),
+- $n^2$ entries,
+- each entry does $n$ multiplications (+ additions),
 \[
 \Theta(n^3).
 \]
@@ -707,8 +707,8 @@ Block recurrence:
 T(n)=8T(n/2)+\Theta(n^2),\quad T(1)=\Theta(1).
 \]
 Master:
-- \(a=8,b=2\Rightarrow n^{\log_2 8}=n^3\),
-- combine term \(n^2\) smaller,
+- $a=8,b=2\Rightarrow n^{\log_2 8}=n^3$,
+- combine term $n^2$ smaller,
 
 \[
 T(n)=\Theta(n^3).
@@ -725,8 +725,8 @@ So asymptotically same as naive.
 ## 🧠 Aufgabe 1b — Strassen recurrence
 
 Strassen:
-- 7 recursive mults of size \(n/2\),
-- plus \(\Theta(n^2)\) for additions/subtractions.
+- 7 recursive mults of size $n/2$,
+- plus $\Theta(n^2)$ for additions/subtractions.
 
 \[
 S(n)=7S(n/2)+\Theta(n^2).
@@ -744,24 +744,24 @@ S(n)=\Theta\!\left(n^{\log_2 7}\right)\approx \Theta(n^{2.807}).
 
 ## 🧠 Aufgabe 1c — Memory usage
 
-Need to store matrices/submatrices and temporary \(M_1,\dots,M_7\)-style buffers.
+Need to store matrices/submatrices and temporary $M_1,\dots,M_7$-style buffers.
 
-At recursion level \(i\), total active matrix-area is geometric and dominated by top level \(n^2\).  
-Recursion stack contributes only \(O(\log n)\) frames.
+At recursion level $i$, total active matrix-area is geometric and dominated by top level $n^2$.  
+Recursion stack contributes only $O(\log n)$ frames.
 
 Hence asymptotic auxiliary memory:
 \[
 \boxed{\Theta(n^2)}.
 \]
 
-(Implementation constants differ by in-place strategy, but order remains \(n^2\).)
+(Implementation constants differ by in-place strategy, but order remains $n^2$.)
 
 ---
 
 ### ⚠️ Pitfalls
 1. Confusing time with memory.
-2. Forgetting addition cost \(\Theta(n^2)\) per level.
-3. Claiming Strassen is \(O(n^2)\) (false).
+2. Forgetting addition cost $\Theta(n^2)$ per level.
+3. Claiming Strassen is $O(n^2)$ (false).
 
 ---
 
@@ -771,9 +771,9 @@ Hence asymptotic auxiliary memory:
 
 ### 🧠 What this asks
 For algorithm that recursively sorts:
-1. first \(2/3\),
-2. last \(2/3\),
-3. first \(2/3\) again,
+1. first $2/3$,
+2. last $2/3$,
+3. first $2/3$ again,
 
 you must show:
 - correctness,
@@ -802,17 +802,17 @@ Overlap ensures dirt pushed across boundary eventually disappears globally.
 
 ## 🧠 Aufgabe 2a — Correctness idea
 
-(Using simplification \(l\ge3\) divisible by 3.)
+(Using simplification $l\ge3$ divisible by 3.)
 
-Let segment length \(l\), \(k=l/3\):
-- call 1 sorts \(A[i..j-k]\),
-- call 2 sorts \(A[i+k..j]\),
-- call 3 sorts \(A[i..j-k]\) again.
+Let segment length $l$, $k=l/3$:
+- call 1 sorts $A[i..j-k]$,
+- call 2 sorts $A[i+k..j]$,
+- call 3 sorts $A[i..j-k]$ again.
 
-Induction on \(l\):
-- base \(l\le2\): direct swap correct.
+Induction on $l$:
+- base $l\le2$: direct swap correct.
 - step: recursive calls sort overlapping large segments.
-Because overlap size \(l/3\) is nonempty, extremes move toward correct sides:
+Because overlap size $l/3$ is nonempty, extremes move toward correct sides:
   - smallest element gets forced into left segment and remains,
   - largest gets forced into right segment and remains,
   - recursive sorting + overlap yields full sorted order.
@@ -827,11 +827,11 @@ Thus algorithm sorts correctly.
 
 ## 🧠 Aufgabe 2b — Runtime recurrence
 
-Each level does 3 recursive calls on size about \(2n/3\), plus constant overhead:
+Each level does 3 recursive calls on size about $2n/3$, plus constant overhead:
 \[
 T(n)=3T(2n/3)+\Theta(1).
 \]
-(Or \(\Theta(n^0)\) combine term.)
+(Or $\Theta(n^0)$ combine term.)
 
 Master-like evaluation:
 \[
@@ -853,7 +853,7 @@ Case 3 of Master needs regularity:
 \[
 a f(n/b)\le c f(n)\quad\text{for some }c<1\text{ eventually}.
 \]
-Without it, wildly oscillating \(f(n)\) can break naive “\(T(n)=\Theta(f(n))\)” conclusion.
+Without it, wildly oscillating $f(n)$ can break naive “$T(n)=\Theta(f(n))$” conclusion.
 
 ---
 
@@ -868,15 +868,15 @@ T(n)=O(n(\sin(\pi n/2)+2)).
 But unsafe.
 
 ### (b) Why regularity fails
-Take \(n=3+12k\Rightarrow \sin(\pi n/2)=-1\), so \(f(n)=n\).  
-But for \(n/3\)-related values sine may be \(+1\), making \(f(n/3)\) comparatively too large; no uniform contraction factor \(c<1\).
+Take $n=3+12k\Rightarrow \sin(\pi n/2)=-1$, so $f(n)=n$.  
+But for $n/3$-related values sine may be $+1$, making $f(n/3)$ comparatively too large; no uniform contraction factor $c<1$.
 
 ### (c) Why induction breaks
-Trying \(T(n)\le C f(n)\):
+Trying $T(n)\le C f(n)$:
 \[
 T(n)\le C f(n/3)+f(n).
 \]
-Need \(C f(n/3)\le (C-1)f(n)\), equivalent to regularity-type bound. If absent, step fails.
+Need $C f(n/3)\le (C-1)f(n)$, equivalent to regularity-type bound. If absent, step fails.
 
 ### (d) Same issue for
 \[
@@ -937,9 +937,9 @@ You are training exactly the type of thinking needed in DSEA:
 ## Global mini-glossary (used across tasks)
 
 ### 1) Asymptotic notation
-- \(O(g(n))\): upper bound (at most this growth rate up to constants).
-- \(\Theta(g(n))\): tight bound (same growth rate up to constants).
-- \(\Omega(g(n))\): lower bound (at least this growth rate up to constants).
+- $O(g(n))$: upper bound (at most this growth rate up to constants).
+- $\Theta(g(n))$: tight bound (same growth rate up to constants).
+- $\Omega(g(n))$: lower bound (at least this growth rate up to constants).
 
 ### 2) Expected value
 The “long-run average” value of a random variable:
@@ -961,7 +961,7 @@ An equation that defines a quantity using smaller input sizes (e.g., divide-and-
 
 ### A1) Start from zero: what is a polynomial in coefficient form?
 
-A polynomial over \(\mathbb{R}\) or \(\mathbb{C}\) is
+A polynomial over $\mathbb{R}$ or $\mathbb{C}$ is
 \[
 A(x)=a_0+a_1x+\dots+a_{n-1}x^{n-1}.
 \]
@@ -992,14 +992,14 @@ This is called **convolution** of coefficient vectors.
 ### A3) Algorithm 1: naive (schoolbook) multiplication
 
 #### Idea
-For every pair \((i,j)\), add \(a_i b_j\) to output position \(i+j\).
+For every pair $(i,j)$, add $a_i b_j$ to output position $i+j$.
 
 #### Why correct?
-Because every term \(a_i x^i\cdot b_j x^j = a_i b_j x^{i+j}\) contributes exactly to degree \(i+j\), and summing all such pairs is exactly the definition of polynomial multiplication.
+Because every term $a_i x^i\cdot b_j x^j = a_i b_j x^{i+j}$ contributes exactly to degree $i+j$, and summing all such pairs is exactly the definition of polynomial multiplication.
 
 #### Runtime
-If both have length \(n\):
-- \(n^2\) pair multiplications + additions,
+If both have length $n$:
+- $n^2$ pair multiplications + additions,
 \[
 \Theta(n^2).
 \]
@@ -1008,20 +1008,20 @@ If both have length \(n\):
 
 ### A4) Why do we need a faster method?
 
-For large \(n\), \(\Theta(n^2)\) becomes expensive.  
-The **Fast Fourier Transform (FFT)** computes multiplication in \(\Theta(n\log n)\), which is much faster asymptotically.
+For large $n$, $\Theta(n^2)$ becomes expensive.  
+The **Fast Fourier Transform (FFT)** computes multiplication in $\Theta(n\log n)$, which is much faster asymptotically.
 
 ---
 
 ### A5) New concepts thoroughly: DFT and FFT
 
 #### DFT = Discrete Fourier Transform
-The **Discrete Fourier Transform (DFT)** converts a length-\(N\) vector from:
+The **Discrete Fourier Transform (DFT)** converts a length-$N$ vector from:
 - coefficient/time domain  
 to
 - value/frequency domain.
 
-For \(\omega_N=e^{2\pi i/N}\) (an \(N\)-th root of unity):
+For $\omega_N=e^{2\pi i/N}$ (an $N$-th root of unity):
 \[
 \hat a_k=\sum_{j=0}^{N-1} a_j\omega_N^{jk},\quad k=0,\dots,N-1.
 \]
@@ -1036,12 +1036,12 @@ The **Fast Fourier Transform (FFT)** is an algorithm to compute the DFT quickly 
 \[
 \Theta(N\log N)
 \]
-instead of \(\Theta(N^2)\).
+instead of $\Theta(N^2)$.
 
 It uses divide-and-conquer:
 - split coefficients into even-index and odd-index parts,
 - recursively compute smaller DFTs,
-- combine with “twiddle factors” (\(\omega\)-powers).
+- combine with “twiddle factors” ($\omega$-powers).
 
 ---
 
@@ -1051,7 +1051,7 @@ Core theorem:
 - Convolution in coefficient domain = pointwise multiplication in DFT domain.
 
 So algorithm:
-1. Zero-pad both coefficient arrays to length \(N\),
+1. Zero-pad both coefficient arrays to length $N$,
 2. FFT both arrays,
 3. Multiply entry-wise,
 4. Inverse FFT.
@@ -1060,13 +1060,13 @@ So algorithm:
 
 ### A7) Zero-padding explained thoroughly
 
-If \(\deg A=n-1,\deg B=m-1\), then \(\deg C=n+m-2\), so output needs \(n+m-1\) coefficients.
+If $\deg A=n-1,\deg B=m-1$, then $\deg C=n+m-2$, so output needs $n+m-1$ coefficients.
 
-For FFT, choose \(N\) as power of 2 with
+For FFT, choose $N$ as power of 2 with
 \[
 N\ge n+m-1.
 \]
-Why power of 2? Because standard recursive FFT implementation is simplest and fastest with sizes \(2^k\).
+Why power of 2? Because standard recursive FFT implementation is simplest and fastest with sizes $2^k$.
 
 ---
 
@@ -1163,16 +1163,16 @@ if __name__ == "__main__":
 
 ---
 
-### A10) Runtime measurement for \(n=2^{17}\): what to do and what to expect
+### A10) Runtime measurement for $n=2^{17}$: what to do and what to expect
 
-- Generate random coefficient arrays of length \(2^{17}\).
+- Generate random coefficient arrays of length $2^{17}$.
 - Measure wall-clock time:
   - `poly_mul_naive`
   - `poly_mul_fft`
 
 Expected trend:
-- naive \(\Theta(n^2)\) explodes quickly,
-- FFT \(\Theta(n\log n)\) scales much better.
+- naive $\Theta(n^2)$ explodes quickly,
+- FFT $\Theta(n\log n)$ scales much better.
 
 Practical note: Python recursion/constants are large; still, asymptotic trend remains.
 
@@ -1180,7 +1180,7 @@ Practical note: Python recursion/constants are large; still, asymptotic trend re
 
 ### A11) Common mistakes in Aufgabe 1
 1. forgetting zero-padding,
-2. wrong FFT length (\(N < n+m-1\)),
+2. wrong FFT length ($N < n+m-1$),
 3. forgetting inverse normalization (/N),
 4. not rounding floating-point noise.
 
@@ -1203,7 +1203,7 @@ P(H)=\frac13,\quad P(T)=\frac23.
 A process with uncertain outcome (coin flips).
 
 #### Geometric distribution (important in this task)
-If success probability per trial is \(p\), expected number of trials to first success:
+If success probability per trial is $p$, expected number of trials to first success:
 \[
 E[\text{trials}] = \frac{1}{p}.
 \]
@@ -1259,7 +1259,7 @@ For exam prep, the critical conceptual point is:
 
 ---
 
-### B3) Part (c): simulate biased \(p=1/3\) from a fair coin
+### B3) Part (c): simulate biased $p=1/3$ from a fair coin
 
 Now fair coin has:
 \[
@@ -1278,16 +1278,16 @@ P(H)=1/3,\quad P(T)=2/3.
 
 ---
 
-### B4) Part (d): simulate \(P(H)=1/n\) from fair coin
+### B4) Part (d): simulate $P(H)=1/n$ from fair coin
 
 #### Algorithm (rejection sampling on binary integers)
-1. Set \(k=\lceil \log_2 n\rceil\).
-2. Flip fair coin \(k\) times => integer \(X\in\{0,\dots,2^k-1\}\) uniformly.
-3. If \(X\ge n\), reject and repeat.
-4. If \(X<n\): output H iff \(X=0\), else T.
+1. Set $k=\lceil \log_2 n\rceil$.
+2. Flip fair coin $k$ times => integer $X\in\{0,\dots,2^k-1\}$ uniformly.
+3. If $X\ge n$, reject and repeat.
+4. If $X<n$: output H iff $X=0$, else T.
 
 #### Why correct?
-Conditioned on acceptance, \(X\) is uniform on \(\{0,\dots,n-1\}\).  
+Conditioned on acceptance, $X$ is uniform on $\{0,\dots,n-1\}$.  
 Exactly one outcome gives H.
 
 Hence:
@@ -1306,21 +1306,21 @@ P(H)=\frac1n.
 
 ---
 
-## Section C — Aufgabe 3: Prove \(c_{2n-1}=0\) in FFT framework
+## Section C — Aufgabe 3: Prove $c_{2n-1}=0$ in FFT framework
 
 ---
 
 ### C0) New concepts in this proof
 
 #### Root of unity
-A complex number \(\omega\) with \(\omega^N=1\).  
-Primitive \(N\)-th root:
+A complex number $\omega$ with $\omega^N=1$.  
+Primitive $N$-th root:
 \[
 \omega_N=e^{2\pi i/N}.
 \]
 
 #### Nullsum lemma (orthogonality of roots)
-For \(q\not\equiv 0 \pmod N\):
+For $q\not\equiv 0 \pmod N$:
 \[
 \sum_{k=0}^{N-1}\omega_N^{kq}=0.
 \]
@@ -1335,7 +1335,7 @@ A(x)=\sum_{i=0}^{n-1}a_ix^i,\quad
 B(x)=\sum_{i=0}^{n-1}b_ix^i,\quad
 C(x)=A(x)B(x).
 \]
-Then \(\deg C\le 2n-2\), so coefficient \(c_{2n-1}\) should be zero.
+Then $\deg C\le 2n-2$, so coefficient $c_{2n-1}$ should be zero.
 
 Given expression:
 \[
@@ -1346,7 +1346,7 @@ c_{2n-1}=\frac{1}{2n}\sum_{k=0}^{2n-1}A(\omega^k)B(\omega^k)\left(\omega^{-(2n-1
 
 ### C2) Proof by expansion + orthogonality
 
-Since \(C=A\cdot B\):
+Since $C=A\cdot B$:
 \[
 A(\omega^k)B(\omega^k)=C(\omega^k)=\sum_{j=0}^{2n-2}c_j\omega^{kj}.
 \]
@@ -1362,7 +1362,7 @@ c_{2n-1}
 \underbrace{\sum_{k=0}^{2n-1}\omega^{k(j-(2n-1))}}_{=0}.
 \]
 Why inner sum is 0:
-- exponent multiplier \(j-(2n-1)\) is never divisible by \(2n\) for \(j\in[0,2n-2]\),
+- exponent multiplier $j-(2n-1)$ is never divisible by $2n$ for $j\in[0,2n-2]$,
 - thus Nullsum lemma applies.
 
 So all terms vanish:
@@ -1392,11 +1392,11 @@ DFT orthogonality “filters it out” to zero.
 3. recurse on both sides.
 
 #### Random variable for runtime
-\(T(n)\) is random because pivot choice is random.
-We analyze \(E[T(n)]\), not fixed worst-case \(T(n)\).
+$T(n)$ is random because pivot choice is random.
+We analyze $E[T(n)]$, not fixed worst-case $T(n)$.
 
 #### Law of total expectation
-If cases \(C_i\) partition outcomes:
+If cases $C_i$ partition outcomes:
 \[
 E[X]=\sum_i E[X\mid C_i]P(C_i).
 \]
@@ -1405,11 +1405,11 @@ E[X]=\sum_i E[X\mid C_i]P(C_i).
 
 ### D1) Part (a): derive recurrence
 
-If pivot has rank \(i\in\{1,\dots,n\}\), then:
-- left size \(i-1\),
-- right size \(n-i\),
-- partition cost \(cn\),
-with probability \(1/n\).
+If pivot has rank $i\in\{1,\dots,n\}$, then:
+- left size $i-1$,
+- right size $n-i$,
+- partition cost $cn$,
+with probability $1/n$.
 
 So:
 \[
@@ -1429,7 +1429,7 @@ This gives a clean upper bound for the induction in part (c).
 
 ---
 
-### D3) Part (c): show \(E[T(n)]\in O(n\log n)\)
+### D3) Part (c): show $E[T(n)]\in O(n\log n)$
 
 From recurrence:
 \[
@@ -1450,7 +1450,7 @@ Apply bound from (b):
 \[
 E[T(n)]\le a n\log n - \frac{a}{4}n + cn.
 \]
-Choose \(a\ge4c\), then \(-\frac a4 n + cn\le0\), hence:
+Choose $a\ge4c$, then $-\frac a4 n + cn\le0$, hence:
 \[
 E[T(n)]\le a n\log n.
 \]
@@ -1461,33 +1461,33 @@ Therefore:
 
 ---
 
-### D4) Why this does NOT mean worst-case \(O(n\log n)\)
-Worst case (bad pivots every time) is still \(\Theta(n^2)\).  
+### D4) Why this does NOT mean worst-case $O(n\log n)$
+Worst case (bad pivots every time) is still $\Theta(n^2)$.  
 The result is about **expected** runtime over random pivots.
 
 ---
 
 ### D5) Common mistakes in Aufgabe 4
 1. mixing expected and worst-case analysis,
-2. forgetting factor \(2\) when combining two symmetric sums,
-3. sloppy induction constants (must choose \(a\) large enough).
+2. forgetting factor $2$ when combining two symmetric sums,
+3. sloppy induction constants (must choose $a$ large enough).
 
 ---
 
 ## ✅ Compact exam answers (UB5)
 
 1. **Polynomial multiplication**
-   - naive: \(\Theta(n^2)\),
-   - FFT-based: \(\Theta(n\log n)\) with zero-padding to \(N\ge n+m-1\), \(N=2^k\).
+   - naive: $\Theta(n^2)$,
+   - FFT-based: $\Theta(n\log n)$ with zero-padding to $N\ge n+m-1$, $N=2^k$.
 2. **Coin simulations**
-   - fair from \(p=1/3\): Von Neumann, expected flips \(9/2\),
-   - \(p=1/3\) from fair: rejection on 2-bit outcomes,
-   - \(1/n\) from fair: binary rejection sampling.
+   - fair from $p=1/3$: Von Neumann, expected flips $9/2$,
+   - $p=1/3$ from fair: rejection on 2-bit outcomes,
+   - $1/n$ from fair: binary rejection sampling.
 3. **DFT coefficient**
-   - \(c_{2n-1}=0\) via expansion + root-of-unity nullsum lemma.
+   - $c_{2n-1}=0$ via expansion + root-of-unity nullsum lemma.
 4. **Quicksort expectation**
    - recurrence by conditioning on pivot rank,
-   - induction gives \(E[T(n)]\in O(n\log n)\).
+   - induction gives $E[T(n)]\in O(n\log n)$.
 
 ---
 
@@ -1524,13 +1524,13 @@ This is exactly the kind of sheet where understanding the *reasoning patterns* m
 An algorithm with no randomness: same input → same execution path/output.
 
 ### 2) Worst-case runtime
-Maximum runtime over all inputs of size \(n\).
+Maximum runtime over all inputs of size $n$.
 
 ### 3) Expected runtime / expected value
 Average value over randomness (either algorithmic randomness or random input model).
 
 ### 4) Unbiased estimator (erwartungstreuer Schätzer)
-A random estimate \(X\) for a quantity \(\mu\) is unbiased if:
+A random estimate $X$ for a quantity $\mu$ is unbiased if:
 \[
 E[X]=\mu.
 \]
@@ -1539,7 +1539,7 @@ E[X]=\mu.
 If two elements have equal key and one appears earlier in input, it also appears earlier in output.
 
 ### 6) In-place algorithm
-Uses only \(O(1)\) or very small extra memory beyond input storage (ignoring recursion stack if stated).
+Uses only $O(1)$ or very small extra memory beyond input storage (ignoring recursion stack if stated).
 
 ---
 
@@ -1551,9 +1551,9 @@ Uses only \(O(1)\) or very small extra memory beyond input storage (ignoring rec
 
 ### A0) First principles: what problem is being solved?
 
-We want the \(k\)-th smallest element (selection problem), not full sorting.
+We want the $k$-th smallest element (selection problem), not full sorting.
 
-Given \(n\) distinct numbers and rank \(k\in\{1,\dots,n\}\), return the element with rank \(k\).
+Given $n$ distinct numbers and rank $k\in\{1,\dots,n\}$, return the element with rank $k$.
 
 ---
 
@@ -1562,9 +1562,9 @@ Given \(n\) distinct numbers and rank \(k\in\{1,\dots,n\}\), return the element 
 **Quickselect**:
 1. choose pivot,
 2. partition into smaller/greater,
-3. recurse only into side containing rank \(k\).
+3. recurse only into side containing rank $k$.
 
-If pivot is bad repeatedly, worst-case is \(\Theta(n^2)\).  
+If pivot is bad repeatedly, worst-case is $\Theta(n^2)$.  
 So we want a pivot strategy that guarantees balanced enough splits.
 
 #### What is a pivot?
@@ -1582,17 +1582,17 @@ In partition-based algorithms (like Quickselect/Quicksort), pivot quality is cru
 
 Median-of-Medians (MoM) is a deterministic pivot strategy:
 
-1. split elements into groups of fixed size \(g\) (classically \(g=5\)),
+1. split elements into groups of fixed size $g$ (classically $g=5$),
 2. compute each group median,
-3. recursively select the median of these medians → pivot \(\bar m\),
-4. partition around \(\bar m\),
+3. recursively select the median of these medians → pivot $\bar m$,
+4. partition around $\bar m$,
 5. recurse into relevant side.
 
-Key benefit: guaranteed discard fraction each step → linear worst-case for selection (with suitable \(g\), e.g. 5).
+Key benefit: guaranteed discard fraction each step → linear worst-case for selection (with suitable $g$, e.g. 5).
 
 ---
 
-### A3) Part (a): Why deterministic-pivot Quicksort can be \(O(n\log n)\)
+### A3) Part (a): Why deterministic-pivot Quicksort can be $O(n\log n)$
 
 If we use a deterministic pivot algorithm (MoM) to choose a ���good” pivot in every Quicksort partition:
 - each partition step can be done in linear time,
@@ -1602,12 +1602,12 @@ Then Quicksort recurrence behaves like:
 \[
 Q(n)\le Q(\alpha n)+Q((1-\alpha)n)+O(n)
 \]
-with constant \(\alpha<1\) bounded away from 0/1, yielding:
+with constant $\alpha<1$ bounded away from 0/1, yielding:
 \[
 Q(n)=O(n\log n).
 \]
 
-**Important**: If pivot selection itself costs \(O(n)\) per partition level, total remains \(O(n\log n)\).
+**Important**: If pivot selection itself costs $O(n)$ per partition level, total remains $O(n\log n)$.
 
 ---
 
@@ -1624,15 +1624,15 @@ which is linear because coefficients satisfy shrink condition.
 
 For groups of 9, we estimate guaranteed large-side bound.
 
-- Number of full groups: about \(n/9\).
-- Half of group medians are \(\ge \bar m\).
-- In each such group, at least 5 elements are \(\ge\) its median, thus \(\ge \bar m\).
+- Number of full groups: about $n/9$.
+- Half of group medians are $\ge \bar m$.
+- In each such group, at least 5 elements are $\ge$ its median, thus $\ge \bar m$.
 
 So at least roughly:
 \[
 \frac12\cdot\frac n9\cdot5=\frac{5n}{18}
 \]
-elements are \(\ge\bar m\), similarly \(\le\bar m\) on other side.
+elements are $\ge\bar m$, similarly $\le\bar m$ on other side.
 
 So recursive larger side has size at most:
 \[
@@ -1658,9 +1658,9 @@ So yes, analysis still works with 9-packets.
 
 For groups of 3:
 
-- \(\approx n/3\) medians,
-- half medians \(\ge \bar m\),
-- each such group contributes at least 2 elements \(\ge \bar m\) (group median + largest).
+- $\approx n/3$ medians,
+- half medians $\ge \bar m$,
+- each such group contributes at least 2 elements $\ge \bar m$ (group median + largest).
 
 Guaranteed on each side:
 \[
@@ -1713,11 +1713,11 @@ Too small subgroup size (3) gives weaker guarantee and less discard progress.
 
 ## Section B — Aufgabe 2: Sampling mean is unbiased
 
-We have fixed numbers \(a_1,\dots,a_n\), true mean:
+We have fixed numbers $a_1,\dots,a_n$, true mean:
 \[
 \mu=\frac1n\sum_{i=1}^n a_i.
 \]
-We sample \(k\) times uniformly *with replacement* from these \(n\) values and compute sample mean \(X\).
+We sample $k$ times uniformly *with replacement* from these $n$ values and compute sample mean $X$.
 
 Need to show:
 \[
@@ -1728,8 +1728,8 @@ E[X]=\mu.
 
 ### B1) Define random variables cleanly
 
-Let sampled values be \(Y_1,\dots,Y_k\).  
-Each \(Y_t\) is uniformly chosen from \(\{a_1,\dots,a_n\}\).
+Let sampled values be $Y_1,\dots,Y_k$.  
+Each $Y_t$ is uniformly chosen from $\{a_1,\dots,a_n\}$.
 
 Then:
 \[
@@ -1744,7 +1744,7 @@ By linearity of expectation:
 \[
 E[X]=\frac1k\sum_{t=1}^k E[Y_t].
 \]
-Each \(Y_t\) has:
+Each $Y_t$ has:
 \[
 E[Y_t]=\frac1n\sum_{i=1}^n a_i=\mu.
 \]
@@ -1772,16 +1772,16 @@ It means sampling does not systematically overestimate or underestimate the true
 
 ---
 
-## Section C — Aufgabe 3a: Coupon Collector (\(O(n\log n)\))
+## Section C — Aufgabe 3a: Coupon Collector ($O(n\log n)$)
 
-Ross collects one of \(n\) coupons uniformly at random each purchase.  
-How many purchases needed in expectation to collect all \(n\)?
+Ross collects one of $n$ coupons uniformly at random each purchase.  
+How many purchases needed in expectation to collect all $n$?
 
 ---
 
 ### C1) Phase decomposition method
 
-Suppose already collected \(i\) distinct coupons (\(0\le i<n\)).  
+Suppose already collected $i$ distinct coupons ($0\le i<n$).  
 Probability next purchase is *new*:
 \[
 p_i=\frac{n-i}{n}.
@@ -1796,7 +1796,7 @@ E[T]=\sum_{i=0}^{n-1}\frac{n}{n-i}
 = n\sum_{j=1}^{n}\frac1j
 = nH_n.
 \]
-Harmonic number \(H_n=\Theta(\log n)\), so:
+Harmonic number $H_n=\Theta(\log n)$, so:
 \[
 \boxed{E[T]=\Theta(n\log n).}
 \]
@@ -1804,20 +1804,20 @@ Harmonic number \(H_n=\Theta(\log n)\), so:
 ---
 
 ### C2) Intuition
-Early coupons are easy; last missing coupon is hard (probability \(1/n\)).  
-That tail makes total \(n\log n\), not \(n\).
+Early coupons are easy; last missing coupon is hard (probability $1/n$).  
+That tail makes total $n\log n$, not $n$.
 
 ---
 
 ---
 
-## Section D — Aufgabe 3b: Gale–Shapley worst-case requests are \(\Theta(n^2)\)
+## Section D — Aufgabe 3b: Gale–Shapley worst-case requests are $\Theta(n^2)$
 
 ---
 
 ### D0) New algorithm explained: Gale–Shapley (Deferred Acceptance)
 
-Setting: \(n\) applicants, \(n\) positions (one-to-one stable matching).
+Setting: $n$ applicants, $n$ positions (one-to-one stable matching).
 
 Applicant-proposing version:
 1. any free applicant proposes to highest-ranked position not yet proposed to,
@@ -1826,11 +1826,11 @@ Applicant-proposing version:
 
 ---
 
-### D1) Why worst-case \(O(n^2)\)
-Each applicant can propose to at most \(n\) positions.  
-Total proposals \(\le n^2\).
+### D1) Why worst-case $O(n^2)$
+Each applicant can propose to at most $n$ positions.  
+Total proposals $\le n^2$.
 
-### D2) Why also \(\Omega(n^2)\) in worst case
+### D2) Why also $\Omega(n^2)$ in worst case
 There exist preference profiles causing almost full proposal matrix exploration.  
 Hence tight:
 \[
@@ -1841,7 +1841,7 @@ Hence tight:
 
 ---
 
-## Section E — Aufgabe 3c (star): expected requests \(O(n\log n)\) via “forgetful” upper bound
+## Section E — Aufgabe 3c (star): expected requests $O(n\log n)$ via “forgetful” upper bound
 
 This part is subtle; let’s structure it carefully.
 
@@ -1850,7 +1850,7 @@ This part is subtle; let’s structure it carefully.
 ### E1) Idea from statement
 We analyze a modified (“forgetful”) randomized process:
 
-- free applicant chooses a position uniformly from all \(n\), even if already tried before,
+- free applicant chooses a position uniformly from all $n$, even if already tried before,
 - repeated failed repeats are allowed,
 - this can only increase expected number of proposals compared to non-forgetful process.
 
@@ -1863,13 +1863,13 @@ Interpret “position has received at least one proposal” as “coupon collect
 
 To terminate with all matched, intuitively we need enough coverage of positions; in this simplified upper-bound argument, number of proposals is controlled by how long it takes to “hit” all positions.
 
-Expected proposals to hit all \(n\) positions:
+Expected proposals to hit all $n$ positions:
 \[
 \Theta(n\log n)
 \]
 by coupon collector from Section C.
 
-Thus expected requests in forgetful process is \(O(n\log n)\), hence also an upper-bound style argument for randomized Gale–Shapley expectation.
+Thus expected requests in forgetful process is $O(n\log n)$, hence also an upper-bound style argument for randomized Gale–Shapley expectation.
 
 \[
 \boxed{E[\#\text{requests}]=O(n\log n)\ \text{(under given randomized model argument).}}
@@ -1886,7 +1886,7 @@ This is a modeling upper-bound argument using “principle of deferred decisions
 
 ## Section F — Aufgabe 4: MSD Radix Sort
 
-Given algorithm MSD (Most Significant Digit first), base \(b\), recursive bucket sort by digit \(k\to k-1\).
+Given algorithm MSD (Most Significant Digit first), base $b$, recursive bucket sort by digit $k\to k-1$.
 
 ---
 
@@ -1918,19 +1918,19 @@ If bucket insertion preserves order and recursive calls do same, equal keys pres
 
 ---
 
-### F2) Part (b): In-place MSD for binary (\(b=2\))
+### F2) Part (b): In-place MSD for binary ($b=2$)
 
 For binary digits, each level partitions subarray into:
 - digit 0 part,
 - digit 1 part
-at bit \(k\), then recurse on both parts for \(k-1\).
+at bit $k$, then recurse on both parts for $k-1$.
 
 In-place partition approach:
-1. two pointers in subarray \([L,R]\),
+1. two pointers in subarray $[L,R]$,
 2. move 0-bit items left, 1-bit items right (similar to quicksort partition),
 3. recurse on the two ranges with next bit.
 
-This uses \(O(1)\) extra array memory (ignoring recursion stack), so in-place.
+This uses $O(1)$ extra array memory (ignoring recursion stack), so in-place.
 
 ---
 
@@ -1970,16 +1970,16 @@ MSD recursively zooms into bins.
 ## ✅ Compact exam answers (UB6)
 
 1. **Median-of-Medians variants**
-   - deterministic-pivot Quicksort can be \(O(n\log n)\),
-   - groups of 9: selection still \(O(n)\),
-   - groups of 3: selection becomes \(\Theta(n\log n)\).
+   - deterministic-pivot Quicksort can be $O(n\log n)$,
+   - groups of 9: selection still $O(n)$,
+   - groups of 3: selection becomes $\Theta(n\log n)$.
 2. **Sampling mean**
-   - sample mean is unbiased: \(E[X]=\mu\).
+   - sample mean is unbiased: $E[X]=\mu$.
 3. **Coupon collector**
-   - expected purchases for all \(n\) types: \(\Theta(n\log n)\).
+   - expected purchases for all $n$ types: $\Theta(n\log n)$.
 4. **Gale–Shapley**
-   - worst-case proposals: \(\Theta(n^2)\),
-   - randomized forgetful upper-bound argument: \(O(n\log n)\) expectation.
+   - worst-case proposals: $\Theta(n^2)$,
+   - randomized forgetful upper-bound argument: $O(n\log n)$ expectation.
 5. **MSD radix**
    - given bucket-list MSD stable,
    - simple in-place binary partition variant not stable.
@@ -2014,14 +2014,14 @@ This is exam gold because it trains both exact calculation and proof-style proba
 ## Global glossary (new terms)
 
 ### 1) Cardinality
-\(|A|\) means number of elements in set \(A\).
+$|A|$ means number of elements in set $A$.
 
 ### 2) Intersection / union
-- \(A\cap B\): elements in both sets.
-- \(A\cup B\): elements in at least one set.
+- $A\cap B$: elements in both sets.
+- $A\cup B$: elements in at least one set.
 
 ### 3) Indicator random variable
-A variable \(X\) that is 1 if an event happens, 0 otherwise.
+A variable $X$ that is 1 if an event happens, 0 otherwise.
 
 ### 4) Expected value linearity
 \[
@@ -2041,10 +2041,10 @@ measures spread around the mean.
 **Hashing** is a method for storing and querying data quickly by mapping a key (e.g., number/string) to an index in an array (called a hash table).
 
 Goal:
-- insert/search/delete keys in expected \(O(1)\) time.
+- insert/search/delete keys in expected $O(1)$ time.
 
 #### What is a hash function?
-A **hash function** \(h\) maps keys from a large universe \(U\) to table indices \(\{0,\dots,m-1\}\):
+A **hash function** $h$ maps keys from a large universe $U$ to table indices $\{0,\dots,m-1\}$:
 \[
 h: U \to \{0,\dots,m-1\}.
 \]
@@ -2058,23 +2058,23 @@ x\neq y,\quad h(x)=h(y).
 Collisions are unavoidable when universe is larger than table (pigeonhole principle), so algorithm quality depends on how often they occur and how we handle them.
 
 #### Why collisions matter
-If too many keys land in same bucket, operations slow down (e.g., long chains / many probes), potentially degrading from expected \(O(1)\) toward \(O(n)\).
+If too many keys land in same bucket, operations slow down (e.g., long chains / many probes), potentially degrading from expected $O(1)$ toward $O(n)$.
 
 #### What is a hash family?
-A **hash family** \(H\) is a set of hash functions, not just one function.  
-At runtime, we choose one function \(h\in H\) randomly.
+A **hash family** $H$ is a set of hash functions, not just one function.  
+At runtime, we choose one function $h\in H$ randomly.
 
 Why this helps:
 - with a random choice, adversarial input cannot easily force worst-case collisions for a fixed known hash function.
 
 #### What is universal hashing?
-A family \(H\) is called (roughly) **universal** if for any two distinct keys \(x\neq y\), the probability (over random \(h\in H\)) that they collide is small (on the order of \(1/m\)).
+A family $H$ is called (roughly) **universal** if for any two distinct keys $x\neq y$, the probability (over random $h\in H$) that they collide is small (on the order of $1/m$).
 
 Typical formal style:
 \[
 \Pr_{h\sim H}[h(x)=h(y)] \le \frac{c}{m}
 \]
-for a small constant \(c\) (often \(c=1\) in strict universality definitions).
+for a small constant $c$ (often $c=1$ in strict universality definitions).
 
 Interpretation:
 - no key pair is “special” in a bad way,
@@ -2105,8 +2105,8 @@ Formula:
 \]
 
 Interpretation:
-- \(\rho=1\): sets are identical,
-- \(\rho=0\): no overlap at all,
+- $\rho=1$: sets are identical,
+- $\rho=0$: no overlap at all,
 - values in between: partial similarity.
 
 Why useful:
@@ -2121,11 +2121,11 @@ For nonempty sets:
 \[
 \rho(X,Y)=\frac{|X\cap Y|}{|X\cup Y|}.
 \]
-Value range: \([0,1]\).
+Value range: $[0,1]$.
 - 1 means identical sets,
 - 0 means disjoint sets.
 
-#### Compute \(\rho(A,B)\)
+#### Compute $\rho(A,B)$
 \[
 A\cap B=\{2\}\Rightarrow |A\cap B|=1
 \]
@@ -2136,7 +2136,7 @@ A\cup B=\{1,2,3,4\}\Rightarrow |A\cup B|=4
 \rho(A,B)=\frac14.
 \]
 
-#### Compute \(\rho(A,C)\)
+#### Compute $\rho(A,C)$
 \[
 A\cap C=\{1,2\},\ |A\cap C|=2
 \]
@@ -2147,7 +2147,7 @@ A\cup C=\{1,2,3,4,5,6\},\ |A\cup C|=6
 \rho(A,C)=\frac{2}{6}=\frac13.
 \]
 
-#### Compute \(\rho(B,C)\)
+#### Compute $\rho(B,C)$
 \[
 B\cap C=\{2,4\},\ |B\cap C|=2
 \]
@@ -2168,27 +2168,27 @@ B\cup C=\{1,2,4,5,6\},\ |B\cup C|=5
 
 #### If arrays unsorted and no hashing
 Need membership checks by scanning:
-- can lead to \(O(n^2)\) worst-case.
+- can lead to $O(n^2)$ worst-case.
 
 #### Better exact methods
 1. **Sort both arrays first**, then two-pointer merge:
-   - sorting dominates: \(O(n\log n)\) worst-case.
+   - sorting dominates: $O(n\log n)$ worst-case.
 2. **Hash table**:
    - build hash set for one array and scan the other,
-   - expected \(O(n)\), worst-case can degrade if collisions adversarial.
+   - expected $O(n)$, worst-case can degrade if collisions adversarial.
 
 So best common answers:
-- worst-case deterministic (comparison model): \(\Theta(n\log n)\),
-- expected with hashing: \(\Theta(n)\).
+- worst-case deterministic (comparison model): $\Theta(n\log n)$,
+- expected with hashing: $\Theta(n)$.
 
-(Here \(n\) means total input size scale.)
+(Here $n$ means total input size scale.)
 
 ---
 
 ### A3) Part (c): MinHash variable values for given permutation
 
 #### New concept: permutation
-A permutation \(\pi\in S_n\) is a bijective reordering of \(\{1,\dots,n\}\).
+A permutation $\pi\in S_n$ is a bijective reordering of $\{1,\dots,n\}$.
 
 Given:
 \[
@@ -2211,9 +2211,9 @@ Meaning: element of set with smallest permuted value.
 
 Compute each:
 
-- \(MH(A)\), \(A=\{1,2,3\}\): values \(6,4,2\), min at element \(3\), so \(MH(A)=3\).
-- \(MH(B)\), \(B=\{2,4\}\): values \(4,1\), min at \(4\), so \(MH(B)=4\).
-- \(MH(C)\), \(C=\{1,2,4,5,6\}\): values \(6,4,1,5,3\), min at \(4\), so \(MH(C)=4\).
+- $MH(A)$, $A=\{1,2,3\}$: values $6,4,2$, min at element $3$, so $MH(A)=3$.
+- $MH(B)$, $B=\{2,4\}$: values $4,1$, min at $4$, so $MH(B)=4$.
+- $MH(C)$, $C=\{1,2,4,5,6\}$: values $6,4,1,5,3$, min at $4$, so $MH(C)=4$.
 
 Indicator:
 \[
@@ -2234,12 +2234,12 @@ X_{A,B}=0,\quad X_{A,C}=0,\quad X_{B,C}=1.
 
 ---
 
-### A4) Part (d): show \(E[X_{A,B}]=\rho(A,B)\)
+### A4) Part (d): show $E[X_{A,B}]=\rho(A,B)$
 
-Let \(U=A\cup B\), \(I=A\cap B\).  
-Under random permutation, the minimum-permutation element of \(U\) is equally likely to be any element of \(U\).
+Let $U=A\cup B$, $I=A\cap B$.  
+Under random permutation, the minimum-permutation element of $U$ is equally likely to be any element of $U$.
 
-Event \(MH(A)=MH(B)\) happens exactly when this minimum lies in \(I\).
+Event $MH(A)=MH(B)$ happens exactly when this minimum lies in $I$.
 
 Therefore:
 \[
@@ -2256,13 +2256,13 @@ E[X_{A,B}]=\rho(A,B).
 
 ---
 
-### A5) Part (e): average of \(k\) independent MinHash indicators
+### A5) Part (e): average of $k$ independent MinHash indicators
 
 Define:
 \[
 Y=\frac1k\sum_{\ell=1}^k X^{(\ell)}
 \]
-where each \(X^{(\ell)}\) is from an independent random permutation.
+where each $X^{(\ell)}$ is from an independent random permutation.
 
 Then:
 \[
@@ -2278,9 +2278,9 @@ E[Y]
 
 ---
 
-### A6) Part (f): variance of \(Y\)
+### A6) Part (f): variance of $Y$
 
-Each \(X^{(\ell)}\) is Bernoulli with parameter
+Each $X^{(\ell)}$ is Bernoulli with parameter
 \[
 p=\rho(A,B).
 \]
@@ -2299,7 +2299,7 @@ Hence:
 \[
 \boxed{\mathrm{Var}[Y]=\frac{\rho(A,B)\bigl(1-\rho(A,B)\bigr)}{k}}
 \]
-So increasing \(k\) reduces estimation noise by factor \(1/k\).
+So increasing $k$ reduces estimation noise by factor $1/k$.
 
 ---
 
@@ -2311,10 +2311,10 @@ Who appears first from each group? If two groups share many students, they’re 
 ---
 
 ### A8) Common mistakes in Aufgabe 1
-1. confusing element value with permuted value \(\pi(x)\),
-2. forgetting that MinHash minimum is over \(\pi(x)\), not over \(x\),
+1. confusing element value with permuted value $\pi(x)$,
+2. forgetting that MinHash minimum is over $\pi(x)$, not over $x$,
 3. using independence where only linearity is needed,
-4. forgetting the \(1/k^2\) factor in variance of average.
+4. forgetting the $1/k^2$ factor in variance of average.
 
 ---
 
@@ -2325,7 +2325,7 @@ Who appears first from each group? If two groups share many students, they’re 
 ---
 
 ### B0) New concept: record (left-to-right maximum)
-In sequence \(s_1,\dots,s_n\), position \(i\) is a **record** if:
+In sequence $s_1,\dots,s_n$, position $i$ is a **record** if:
 \[
 s_i > s_j\ \forall j<i.
 \]
@@ -2333,7 +2333,7 @@ In algorithm “scan and update current max,” updates occur exactly at record 
 
 ---
 
-### B1) Part (a): worst case for updates \(X(s)\)
+### B1) Part (a): worst case for updates $X(s)$
 
 Worst-case order is strictly increasing sequence:
 \[
@@ -2347,13 +2347,13 @@ Thus:
 \[
 \boxed{X(s)\in\Omega(n)}
 \]
-(and also \(O(n)\), so worst-case is \(\Theta(n)\)).
+(and also $O(n)$, so worst-case is $\Theta(n)$).
 
 ---
 
-### B2) Part (b): average case \(E[X(s)]\in O(\ln n)\)
+### B2) Part (b): average case $E[X(s)]\in O(\ln n)$
 
-Assume all \(n!\) permutations equally likely.
+Assume all $n!$ permutations equally likely.
 
 Define indicators:
 \[
@@ -2367,11 +2367,11 @@ Then:
 \[
 X=\sum_{i=1}^n X_i,\quad E[X]=\sum_{i=1}^n E[X_i].
 \]
-Probability \(s_i\) is largest among first \(i\) values:
+Probability $s_i$ is largest among first $i$ values:
 \[
 P(X_i=1)=\frac1i
 \]
-(by symmetry, each of first \(i\) elements is equally likely to be largest).
+(by symmetry, each of first $i$ elements is equally likely to be largest).
 
 So:
 \[
@@ -2387,9 +2387,9 @@ E[X]=\sum_{i=1}^n \frac1i = H_n = \Theta(\ln n).
 ### B3) Part (c): expected inversions in random permutation
 
 #### Definition inversion
-Pair \((i,j)\), \(i<j\), is inversion if \(s_i>s_j\).
+Pair $(i,j)$, $i<j$, is inversion if $s_i>s_j$.
 
-For each pair \((i,j)\), indicator:
+For each pair $(i,j)$, indicator:
 \[
 I_{ij}=
 \begin{cases}
@@ -2423,9 +2423,9 @@ E[I]
 ---
 
 ### B4) Common mistakes in Aufgabe 2
-1. assuming \(X_i\) independent (not needed),
+1. assuming $X_i$ independent (not needed),
 2. forgetting harmonic sum in record analysis,
-3. counting inversion pairs incorrectly (\(\binom n2\)).
+3. counting inversion pairs incorrectly ($\binom n2$).
 
 ---
 
@@ -2433,17 +2433,17 @@ E[I]
 
 ## Section C — Aufgabe 3: Universal hash functions
 
-We have prime \(p\), universe \(U=\{0,\dots,p-1\}\), table size \(1\le m<p\).
+We have prime $p$, universe $U=\{0,\dots,p-1\}$, table size $1\le m<p$.
 
 ---
 
 ### C0) New concepts
 
 #### Collision
-Two distinct keys \(x\ne y\) collide if \(h(x)=h(y)\).
+Two distinct keys $x\ne y$ collide if $h(x)=h(y)$.
 
-#### \(c\)-universality (pairwise collision bound form)
-Family \(H\) is \(c\)-universal if for all \(x\ne y\):
+#### $c$-universality (pairwise collision bound form)
+Family $H$ is $c$-universal if for all $x\ne y$:
 \[
 P_{h\sim H}[h(x)=h(y)] \le \frac{c}{m}.
 \]
@@ -2456,13 +2456,13 @@ P_{h\sim H}[h(x)=h(y)] \le \frac{c}{m}.
 H=\{h_{a,b}\mid 0\le a,b<p\},\quad
 h_{a,b}(x)=ax+b\mod m
 \]
-(and note missing mod \(p\) before mod \(m\)).
+(and note missing mod $p$ before mod $m$).
 
 Take:
 \[
 S=\{0,m,2m,\dots,\lfloor p/m\rfloor m\}\subseteq U.
 \]
-For any \(x,y\in S\), \(x\equiv y\equiv 0\pmod m\). Then:
+For any $x,y\in S$, $x\equiv y\equiv 0\pmod m$. Then:
 \[
 ax+b \equiv b \pmod m,\quad ay+b \equiv b \pmod m.
 \]
@@ -2472,7 +2472,7 @@ h_{a,b}(x)=h_{a,b}(y)\ \text{for all }x,y\in S.
 \]
 Thus collisions are forced massively for every function in family on this subset.
 
-So family cannot satisfy strong universality bound; in particular not \(c\)-universal for any \(c<m\) (as requested).
+So family cannot satisfy strong universality bound; in particular not $c$-universal for any $c<m$ (as requested).
 
 \[
 \boxed{\text{Family is fundamentally non-universal due to arithmetic structure mod }m}
@@ -2486,7 +2486,7 @@ h_{a,b}(x)=((ax+b)\bmod p)\bmod m.
 \]
 This is the standard “mod prime then mod table size” pattern.
 
-Task asks Python program: given \(p,m\), compute smallest \(c\) such that family is \(c\)-universal (empirically exact over all pairs).
+Task asks Python program: given $p,m$, compute smallest $c$ such that family is $c$-universal (empirically exact over all pairs).
 
 ---
 
@@ -2535,13 +2535,13 @@ if __name__ == "__main__":
     main()
 ```
 
-Note: this is exact but expensive for large \(p\). Fine for assignment-scale inputs.
+Note: this is exact but expensive for large $p$. Fine for assignment-scale inputs.
 
 ---
 
 ### C4) Common mistakes in Aufgabe 3
-1. forgetting difference between the two families (with/without mod \(p\)),
-2. mixing key universe size \(p\) and table size \(m\),
+1. forgetting difference between the two families (with/without mod $p$),
+2. mixing key universe size $p$ and table size $m$,
 3. using floating-point instead of exact fractions for rational output.
 
 ---
@@ -2569,7 +2569,7 @@ E[\text{inversions}]=\frac{n(n-1)}4.
 \]
 5. Hashing:
 - first family is non-universal in strong sense (structured collisions),
-- second family can be analyzed computationally for smallest \(c\).
+- second family can be analyzed computationally for smallest $c$.
 
 ---
 
@@ -2611,9 +2611,9 @@ Height = number of edges on longest downward path to a leaf.
 (Convention note: some courses count nodes instead; always follow your course convention.)
 
 ### 3) Binary Search Tree (BST)
-A binary tree where for each node with key \(x\):
-- all keys in left subtree are \(<x\),
-- all keys in right subtree are \(>x\).
+A binary tree where for each node with key $x$:
+- all keys in left subtree are $<x$,
+- all keys in right subtree are $>x$.
 
 This gives efficient search by value comparisons.
 
@@ -2622,7 +2622,7 @@ An **AVL tree** is a self-balancing **Binary Search Tree (BST)**.
 
 #### What does “balancing” mean (in words)?
 Balancing means keeping the tree’s shape from becoming too “one-sided” (like a long chain).  
-If a BST becomes too skewed, search/insert/delete can degrade toward linear time \(O(n)\), which is bad.
+If a BST becomes too skewed, search/insert/delete can degrade toward linear time $O(n)$, which is bad.
 
 In an AVL tree, after updates, we actively repair the shape so that:
 - left and right subtree heights at each node differ by at most 1.
@@ -2638,7 +2638,7 @@ Think of balancing as **weight distribution in a mobile**: if one side gets too 
 \[
 \mathrm{bf}(v)=h(\text{left}(v))-h(\text{right}(v)).
 \]
-Allowed values in AVL: \(-1,0,1\).
+Allowed values in AVL: $-1,0,1$.
 
 ### 6) Rotation
 A local pointer restructuring operation that restores balance while preserving BST order:
@@ -2660,22 +2660,22 @@ Merging two ordered trees into one tree containing all keys.
 ## Section A — Aufgabe 1: Golden-ratio lower bound for AVL node count
 
 Task:
-a) Show AVL tree of height \(h\) has at least
+a) Show AVL tree of height $h$ has at least
 \[
 \left(\frac{1+\sqrt5}{2}\right)^h
 \]
 nodes (up to constant-factor/start-index conventions).  
-b) Conclude height upper bound in terms of \(n\).
+b) Conclude height upper bound in terms of $n$.
 
 ---
 
 ### A1) Core structural recurrence
 
-Let \(N(h)\) be minimum number of nodes in an AVL tree of height \(h\).
+Let $N(h)$ be minimum number of nodes in an AVL tree of height $h$.
 
 To minimize nodes for fixed height:
-- one child should have height \(h-1\),
-- the other \(h-2\) (largest allowed imbalance 1).
+- one child should have height $h-1$,
+- the other $h-2$ (largest allowed imbalance 1).
 
 So:
 \[
@@ -2697,13 +2697,13 @@ Fibonacci numbers grow like:
 F_t \approx \varphi^t,\quad
 \varphi=\frac{1+\sqrt5}{2}\approx1.618.
 \]
-Since \(N(h)\) satisfies same type of recurrence, \(N(h)\) is bounded below by exponential in \(\varphi^h\).
+Since $N(h)$ satisfies same type of recurrence, $N(h)$ is bounded below by exponential in $\varphi^h$.
 
 A standard induction-friendly bound:
 \[
 N(h)\ge \varphi^h
 \]
-(for suitable base handling; sometimes shifted index appears, e.g. \(N(h)\ge F_{h+2}-1\)).
+(for suitable base handling; sometimes shifted index appears, e.g. $N(h)\ge F_{h+2}-1$).
 
 \[
 \boxed{N(h)=\Omega(\varphi^h)}
@@ -2713,11 +2713,11 @@ N(h)\ge \varphi^h
 
 ### A3) Derive height bound from node bound
 
-If tree has \(n\) nodes, then
+If tree has $n$ nodes, then
 \[
 n\ge N(h)\ge \varphi^h.
 \]
-Take logarithm base \(\varphi\):
+Take logarithm base $\varphi$:
 \[
 h\le \log_{\varphi}(n).
 \]
@@ -2733,15 +2733,15 @@ This is the key reason AVL operations are logarithmic.
 
 ### A4) ADHD analogy
 Think of AVL as “almost perfectly balanced shelves.”  
-If each extra height level requires multiplying minimum stored items by about \(1.618\), then tall trees require many nodes.  
+If each extra height level requires multiplying minimum stored items by about $1.618$, then tall trees require many nodes.  
 So for fixed node count, height cannot grow too much.
 
 ---
 
 ### A5) Common mistakes
-1. wrong base conditions for \(N(h)\),
-2. forgetting “minimum nodes at height \(h\)” uses \((h-1,h-2)\) children,
-3. confusing lower bound on \(N(h)\) with upper bound on \(h\).
+1. wrong base conditions for $N(h)$,
+2. forgetting “minimum nodes at height $h$” uses $(h-1,h-2)$ children,
+3. confusing lower bound on $N(h)$ with upper bound on $h$.
 
 ---
 
@@ -2750,10 +2750,10 @@ So for fixed node count, height cannot grow too much.
 ## Section B — Aufgabe 2a: Reconstruct BST uniquely from preorder
 
 Given:
-- BST \(T\),
-- preorder sequence \(V=[v_1,\dots,v_n]\).
+- BST $T$,
+- preorder sequence $V=[v_1,\dots,v_n]$.
 
-Show \(T\) is uniquely reconstructible from \(V\).
+Show $T$ is uniquely reconstructible from $V$.
 
 ---
 
@@ -2764,8 +2764,8 @@ In preorder, first element is root:
 r=v_1.
 \]
 In BST:
-- all left-subtree keys are \(<r\),
-- all right-subtree keys are \(>r\).
+- all left-subtree keys are $<r$,
+- all right-subtree keys are $>r$.
 
 In preorder listing, left subtree appears as a contiguous block after root (because preorder visits whole left subtree before right subtree).
 
@@ -2780,10 +2780,10 @@ Then recurse on each block.
 
 ### B2) Induction proof sketch
 
-- Base \(n=0,1\): trivial.
-- Step \(n>1\):
+- Base $n=0,1$: trivial.
+- Step $n>1$:
   - root fixed by first element,
-  - partition point between \(<r\) and \(>r\) is unique,
+  - partition point between $<r$ and $>r$ is unique,
   - by induction each subtree reconstruction unique.
 Hence whole tree unique.
 
@@ -2794,13 +2794,13 @@ Hence whole tree unique.
 ---
 
 ### B3) Practical reconstruction algorithm idea
-Recursive function with allowable key interval \((L,U)\) and pointer in preorder:
+Recursive function with allowable key interval $(L,U)$ and pointer in preorder:
 - if next key out of interval, return empty,
 - create node,
-- build left with \((L,key)\),
-- build right with \((key,U)\).
+- build left with $(L,key)$,
+- build right with $(key,U)$.
 
-Runs in \(O(n)\).
+Runs in $O(n)$.
 
 ---
 
@@ -2824,37 +2824,37 @@ Below is the conceptual specification to implement correctly.
 \[
 node.height = 1+\max(h(node.left),h(node.right))
 \]
-with empty child height convention (often \(-1\) or 0 depending template).
+with empty child height convention (often $-1$ or 0 depending template).
 
 ### C2) `_get_balance(node)`
 \[
 bf = h(left)-h(right)
 \]
 Used to detect imbalance:
-- \(bf>1\): left-heavy,
-- \(bf<-1\): right-heavy.
+- $bf>1$: left-heavy,
+- $bf<-1$: right-heavy.
 
 ---
 
 ### C3) Rotations (critical)
 
-#### Right rotation at \(y\)
+#### Right rotation at $y$
 Before:
-- \(x=y.left\),
-- \(T2=x.right\).
+- $x=y.left$,
+- $T2=x.right$.
 
 After rotation:
-- \(x.right=y\),
-- \(y.left=T2\).
+- $x.right=y$,
+- $y.left=T2$.
 
 Then update heights bottom-up (`y`, then `x`).
 
-#### Left rotation at \(x\)
+#### Left rotation at $x$
 Symmetric:
-- \(y=x.right\),
-- \(T2=y.left\),
-- \(y.left=x\),
-- \(x.right=T2\),
+- $y=x.right$,
+- $T2=y.left$,
+- $y.left=x$,
+- $x.right=T2$,
 - update heights.
 
 ---
@@ -2882,7 +2882,7 @@ Standard BST search:
 - else go right,
 - empty node => False.
 
-Runtime \(O(\log n)\) due to AVL height bound.
+Runtime $O(\log n)$ due to AVL height bound.
 
 ---
 
@@ -2896,21 +2896,21 @@ Runtime \(O(\log n)\) due to AVL height bound.
 
 ---
 
-## Section D — Aufgabe 3.1: Output maximal height in \(O(\log n)\) when storing balance info
+## Section D — Aufgabe 3.1: Output maximal height in $O(\log n)$ when storing balance info
 
-Statement: AVL tree stores only balance info \(\in\{-1,0,1\}\) per node. Show maximal height can be output in \(O(\log n)\).
+Statement: AVL tree stores only balance info $\in\{-1,0,1\}$ per node. Show maximal height can be output in $O(\log n)$.
 
 ---
 
 ### D1) Key argument
-An AVL with \(n\) nodes has height \(h=O(\log n)\).  
-Any algorithm that traverses one root-to-leaf path takes \(O(h)=O(\log n)\).
+An AVL with $n$ nodes has height $h=O(\log n)$.  
+Any algorithm that traverses one root-to-leaf path takes $O(h)=O(\log n)$.
 
 Using stored balance factors:
 - at each node, choose child direction that can realize larger possible subtree height,
 - continue until leaf.
 
-Path length is at most tree height, hence \(O(\log n)\).
+Path length is at most tree height, hence $O(\log n)$.
 
 \[
 \boxed{\text{Maximal height retrievable in }O(\log n)}
@@ -2922,11 +2922,11 @@ Path length is at most tree height, hence \(O(\log n)\).
 
 ---
 
-## Section E — Aufgabe 3.2: Meld two AVL trees in \(O(\log n+\log m)\)
+## Section E — Aufgabe 3.2: Meld two AVL trees in $O(\log n+\log m)$
 
-Given AVL trees \(T_1, T_2\) with:
-- all keys in \(T_1\) smaller than all keys in \(T_2\),
-- sizes \(n,m\).
+Given AVL trees $T_1, T_2$ with:
+- all keys in $T_1$ smaller than all keys in $T_2$,
+- sizes $n,m$.
 
 Need merge into AVL containing all keys in
 \[
@@ -2937,9 +2937,9 @@ O(\log n+\log m).
 
 ### E1) High-level algorithm
 
-1. Remove max key \(x\) from \(T_1\) (or min from \(T_2\)); this is \(O(\log n)\).
-2. Use \(x\) as bridge root between remaining \(T_1'\) and \(T_2\):
-   - if heights similar (difference \(\le1\)), attach directly.
+1. Remove max key $x$ from $T_1$ (or min from $T_2$); this is $O(\log n)$.
+2. Use $x$ as bridge root between remaining $T_1'$ and $T_2$:
+   - if heights similar (difference $\le1$), attach directly.
    - else descend spine of taller tree until matching height point.
 3. Attach bridge node and rebalance while unwinding path (rotations like insertion).
 4. Total traversal/rebalance along one root-to-leaf path of each involved tree: logarithmic.
@@ -2952,7 +2952,7 @@ O(\log n)+O(\log m)=O(\log n+\log m).
 ---
 
 ### E2) Why correctness
-- BST order preserved because all keys \(T_1 < x < T_2\).
+- BST order preserved because all keys $T_1 < x < T_2$.
 - Rebalancing by AVL rotations restores AVL invariant.
 - All keys kept exactly once.
 
@@ -2965,7 +2965,7 @@ Pick one “connector brick” and splice stacks at matching heights, then tight
 ---
 
 ### E4) Common mistakes
-1. attempting full inorder merge (\(O(n+m)\), too slow),
+1. attempting full inorder merge ($O(n+m)$, too slow),
 2. forgetting order condition when choosing bridge key,
 3. not rebalancing upward along modified path.
 
@@ -2981,9 +2981,9 @@ N(h)=1+N(h-1)+N(h-2)\Rightarrow N(h)=\Omega(\varphi^h),\ \varphi=\frac{1+\sqrt5}
 \[
 h=O(\log_\varphi n).
 \]
-3. BST uniquely reconstructible from preorder (root-first + unique \(<\)/\(>\) split + induction).
+3. BST uniquely reconstructible from preorder (root-first + unique $<$/$>$ split + induction).
 4. AVL template functions: BST insert + height update + balance check + LL/RR/LR/RL rotations.
-5. Maximal height query with stored balance info in \(O(\log n)\).
+5. Maximal height query with stored balance info in $O(\log n)$.
 6. Meld two ordered AVLs in:
 \[
 O(\log n+\log m)
@@ -3034,7 +3034,7 @@ A method to solve problems by:
 - reusing them instead of recomputing.
 
 ### 4) Pseudo-polynomial runtime
-Polynomial in numeric value of parameters (e.g., \(n,m\)) but potentially exponential in input bit-length encoding.
+Polynomial in numeric value of parameters (e.g., $n,m$) but potentially exponential in input bit-length encoding.
 
 ### 5) Greedy algorithm
 Builds solution step-by-step by taking a locally best choice each step.
@@ -3045,7 +3045,7 @@ Builds solution step-by-step by taking a locally best choice each step.
 
 ## Section A — Aufgabe 1: Longest Subpalindrome (Longest Palindromic Subsequence)
 
-Given word \(w\) of length \(n\).  
+Given word $w$ of length $n$.  
 Goal: remove as few letters as possible so remaining subsequence is a palindrome, i.e., find **maximum length palindromic subsequence**.
 
 We denote this as **LPS** length.
@@ -3075,11 +3075,11 @@ L(i,j)=\text{LPS length in }w[i..j].
 \]
 
 Base cases:
-- \(i>j\): 0 (empty interval),
-- \(i=j\): 1 (single char is palindrome).
+- $i>j$: 0 (empty interval),
+- $i=j$: 1 (single char is palindrome).
 
 Recurrence:
-- if \(w[i]=w[j]\):
+- if $w[i]=w[j]$:
   \[
   L(i,j)=2+L(i+1,j-1)
   \]
@@ -3089,8 +3089,8 @@ Recurrence:
   \]
 
 #### Why this recurrence is correct (step justification)
-- If ends equal, we can include both as symmetric outer characters; optimal inside is exactly subproblem \((i+1,j-1)\).
-- If ends differ, an optimal subsequence cannot use both ends as matching pair at same outer layer, so at least one end must be excluded. Excluding left gives \((i+1,j)\), excluding right gives \((i,j-1)\); take better one.
+- If ends equal, we can include both as symmetric outer characters; optimal inside is exactly subproblem $(i+1,j-1)$.
+- If ends differ, an optimal subsequence cannot use both ends as matching pair at same outer layer, so at least one end must be excluded. Excluding left gives $(i+1,j)$, excluding right gives $(i,j-1)$; take better one.
 
 #### Runtime of naive recursion
 - Worst case (many mismatches): branches into two calls often:
@@ -3110,23 +3110,23 @@ Recurrence:
 
 ---
 
-### A2) Part (b): DP in \(O(n^2)\)
+### A2) Part (b): DP in $O(n^2)$
 
-Use table `dp[i][j]=L(i,j)` for \(0\le i\le j<n\).
+Use table `dp[i][j]=L(i,j)` for $0\le i\le j<n$.
 
 Fill order:
-- increasing interval length \(\ell=1..n\),
-because each state depends on smaller intervals (\(\ell-1,\ell-2\)).
+- increasing interval length $\ell=1..n$,
+because each state depends on smaller intervals ($\ell-1,\ell-2$).
 
 Transition:
-- if \(w[i]=w[j]\): `dp[i][j] = 2 + dp[i+1][j-1]` (or 2 if \(\ell=2\))
+- if $w[i]=w[j]$: `dp[i][j] = 2 + dp[i+1][j-1]` (or 2 if $\ell=2$)
 - else `dp[i][j] = max(dp[i+1][j], dp[i][j-1])`
 
 States count:
 \[
 \frac{n(n+1)}2 = O(n^2),
 \]
-each state \(O(1)\), so:
+each state $O(1)$, so:
 \[
 \boxed{O(n^2)\text{ time},\ O(n^2)\text{ space}}
 \]
@@ -3141,22 +3141,22 @@ We replaced repeated exponential subcalls by one-time table computation for each
 Need not only length, but all optimal subsequences.
 
 #### Modification idea
-After filling `dp`, run backtracking from \((0,n-1)\) with memoization over states \((i,j)\), returning set of optimal strings for each state.
+After filling `dp`, run backtracking from $(0,n-1)$ with memoization over states $(i,j)$, returning set of optimal strings for each state.
 
 Rules:
-- if \(i>j\): return {""}
-- if \(i=j\): return {w[i]}
-- if \(w[i]=w[j]\) and this match is used in optimal length:
-  wrap all strings from \((i+1,j-1)\) with `w[i]` and `w[j]`.
-- if `dp[i+1][j] == dp[i][j]`, include solutions from \((i+1,j)\)
-- if `dp[i][j-1] == dp[i][j]`, include solutions from \((i,j-1)\)
+- if $i>j$: return {""}
+- if $i=j$: return {w[i]}
+- if $w[i]=w[j]$ and this match is used in optimal length:
+  wrap all strings from $(i+1,j-1)$ with `w[i]` and `w[j]`.
+- if `dp[i+1][j] == dp[i][j]`, include solutions from $(i+1,j)$
+- if `dp[i][j-1] == dp[i][j]`, include solutions from $(i,j-1)$
 
 Use set to deduplicate.
 
 Sorting final set alphabetically gives requested order.
 
 #### Complexity target
-If \(k\) is number of maximal subsequences, output-sensitive bound:
+If $k$ is number of maximal subsequences, output-sensitive bound:
 \[
 O(n^2 + nk)
 \]
@@ -3164,7 +3164,7 @@ is reasonable with memoization + string construction strategy.
 
 ---
 
-### A4) Part (d): length-only in \(O(n)\) space
+### A4) Part (d): length-only in $O(n)$ space
 
 Observation: `dp[i][j]` depends on:
 - current row/diagonal neighbors from previous interval lengths.
@@ -3172,7 +3172,7 @@ Observation: `dp[i][j]` depends on:
 Use diagonal iteration with rolling arrays:
 - keep previous diagonal(s) only.
 
-Equivalent alternative: compute via LCS with reversed string using 2-row DP (also \(O(n)\) space for length only).
+Equivalent alternative: compute via LCS with reversed string using 2-row DP (also $O(n)$ space for length only).
 
 Hence:
 \[
@@ -3264,7 +3264,7 @@ DP is like filling a workbook of all intervals so you never re-solve the same be
 
 ### A7) Common mistakes
 1. confusing subsequence with substring,
-2. wrong base case \(i>j\),
+2. wrong base case $i>j$,
 3. exponential recursion without memoization,
 4. duplicate strings when outputting all LPS.
 
@@ -3274,18 +3274,18 @@ DP is like filling a workbook of all intervals so you never re-solve the same be
 
 ## Section B — Aufgabe 2: Römerpassage (cover all resources with minimum island cost)
 
-We have resources \(R=\{1,\dots,n\}\).  
-Each island \(i\) provides interval \([l_i,r_i]\) and has cost \(c_i\).  
-Need minimum total cost so every resource \(1..n\) is covered by selected islands.
+We have resources $R=\{1,\dots,n\}$.  
+Each island $i$ provides interval $[l_i,r_i]$ and has cost $c_i$.  
+Need minimum total cost so every resource $1..n$ is covered by selected islands.
 
-Target runtime \(O(mn)\), where \(m\)=number of islands.
+Target runtime $O(mn)$, where $m$=number of islands.
 
 ---
 
 ### B0) Theory intuition
 This is a weighted interval covering of a line of resource indices.
 
-Because resources are ordered \(1..n\) and islands cover contiguous intervals, DP over prefix positions is natural.
+Because resources are ordered $1..n$ and islands cover contiguous intervals, DP over prefix positions is natural.
 
 ---
 
@@ -3301,7 +3301,7 @@ dp[0]=0,\quad dp[t]=\infty\text{ initially for }t>0.
 \]
 
 Transition idea:
-If we choose island \(i\) covering \([l_i,r_i]\), then it can “complete coverage” up to \(r_i\) provided prefix up to \(l_i-1\) is already covered.
+If we choose island $i$ covering $[l_i,r_i]$, then it can “complete coverage” up to $r_i$ provided prefix up to $l_i-1$ is already covered.
 
 So for each island:
 \[
@@ -3309,12 +3309,12 @@ dp[r_i] = \min(dp[r_i],\ dp[l_i-1] + c_i).
 \]
 But this alone misses cases where we cover beyond exact endpoints. Better robust formulation:
 
-For every target \(t\), consider any island \(i\) with \(r_i\ge t\), then using island \(i\) requires coverage up to \(l_i-1\):
+For every target $t$, consider any island $i$ with $r_i\ge t$, then using island $i$ requires coverage up to $l_i-1$:
 \[
 dp[t]=\min_{i: r_i\ge t}\bigl(dp[l_i-1]+c_i\bigr).
 \]
 
-This yields \(O(mn)\): for each \(t\in[1..n]\), scan all \(m\) islands.
+This yields $O(mn)$: for each $t\in[1..n]$, scan all $m$ islands.
 
 \[
 \boxed{dp[n]\text{ is optimal minimum cost}}
@@ -3324,13 +3324,13 @@ This yields \(O(mn)\): for each \(t\in[1..n]\), scan all \(m\) islands.
 
 ### B2) Why this recurrence is correct (step justification)
 
-For any optimal solution covering \(1..t\), look at one selected island that covers resource \(t\); call it \(i\).
-- Then all resources before \(l_i\) (i.e. \(1..l_i-1\)) must be covered by remaining selected islands.
+For any optimal solution covering $1..t$, look at one selected island that covers resource $t$; call it $i$.
+- Then all resources before $l_i$ (i.e. $1..l_i-1$) must be covered by remaining selected islands.
 - cost decomposes into:
   \[
   \text{cost for }1..l_i-1 + c_i.
   \]
-Taking min over all possible “last covering island for \(t\)” gives exact optimum.
+Taking min over all possible “last covering island for $t$” gives exact optimum.
 
 This is standard optimal-substructure argument.
 
@@ -3339,13 +3339,13 @@ This is standard optimal-substructure argument.
 ### B3) Common mistakes
 1. greedy picking cheapest interval first (not always optimal),
 2. forgetting that intervals can overlap heavily,
-3. wrong DP indexing around \(l_i-1\).
+3. wrong DP indexing around $l_i-1$.
 
 ---
 
 ### B4) Analogy
-Think of building a continuous oxygen pipeline from resource 1 to resource \(t\).  
-The last island you pick that reaches \(t\) has a “left boundary”; everything before that must already be solved optimally — classic DP cut point.
+Think of building a continuous oxygen pipeline from resource 1 to resource $t$.  
+The last island you pick that reaches $t$ has a “left boundary”; everything before that must already be solved optimally — classic DP cut point.
 
 ---
 
@@ -3364,7 +3364,7 @@ At each step, do what looks best **right now**, without revisiting previous deci
 3. Return the constructed solution.
 
 #### Why greedy can be great
-- often very fast (frequently \(O(n)\), \(O(n\log n)\)),
+- often very fast (frequently $O(n)$, $O(n\log n)$),
 - simple to implement,
 - can be optimal for certain problem structures.
 
@@ -3385,17 +3385,17 @@ Plate set first:
 \[
 \{1,5,10,20\}
 \]
-unlimited copies, want minimum number of plates for target \(x\).
+unlimited copies, want minimum number of plates for target $x$.
 
 ---
 
 ### C0) Foundational concept: canonical coin-like systems
 Some denomination systems have the property that “take largest possible denomination first” is always optimal.  
-\(\{1,5,10,20\}\) is such a system.
+$\{1,5,10,20\}$ is such a system.
 
 ---
 
-### C1) Part (a): greedy algorithm + result for \(x=355\)
+### C1) Part (a): greedy algorithm + result for $x=355$
 
 Greedy:
 1. take as many 20s as possible,
@@ -3403,7 +3403,7 @@ Greedy:
 3. then 5s,
 4. then 1s.
 
-For \(355\):
+For $355$:
 \[
 355 = 17\cdot20 + 1\cdot10 + 1\cdot5 + 0\cdot1.
 \]
@@ -3418,7 +3418,7 @@ Total plates:
 
 ---
 
-### C2) Part (b): prove greedy optimal for \(\{1,5,10,20\}\)
+### C2) Part (b): prove greedy optimal for $\{1,5,10,20\}$
 
 #### Step 1: local upper bounds in any optimal solution
 - At most 4 plates of 1 (because 5 ones can be replaced by one 5 with fewer plates),
@@ -3431,15 +3431,15 @@ Hence greedy is optimal.
 
 ---
 
-### C3) Part (c): generalize to set \(\{c^0,c^1,\dots,c^n\}\)
+### C3) Part (c): generalize to set $\{c^0,c^1,\dots,c^n\}$
 
-This is base-\(c\) place value system.
+This is base-$c$ place value system.
 
 Greedy choice = repeated division by powers:
-- number of \(c^k\)-coins is digit in base \(c\).
+- number of $c^k$-coins is digit in base $c$.
 
 Why optimal:
-- \(c\) coins of \(c^k\) equal one \(c^{k+1}\) but with more coins, so optimal solution must have each digit \(<c\).
+- $c$ coins of $c^k$ equal one $c^{k+1}$ but with more coins, so optimal solution must have each digit $<c$.
 - greedy produces exactly this normalized representation, therefore minimum coin count.
 
 \[
@@ -3450,16 +3450,16 @@ Why optimal:
 
 ### C4) Part (d): counterexample system where greedy fails
 
-Need denominations that can represent all positive integers but greedy is suboptimal for some \(x\).
+Need denominations that can represent all positive integers but greedy is suboptimal for some $x$.
 
 Classic example:
 \[
 \{1,3,4\},\quad x=6.
 \]
 Greedy:
-- take 4, then 1, then 1 \(\Rightarrow 3\) coins.
+- take 4, then 1, then 1 $\Rightarrow 3$ coins.
 Optimal:
-- \(3+3\Rightarrow 2\) coins.
+- $3+3\Rightarrow 2$ coins.
 
 \[
 \boxed{\text{Greedy fails for }\{1,3,4\}\text{ at }x=6}
@@ -3476,7 +3476,7 @@ This works perfectly in “well-structured currency systems” (powers/base syst
 ### C6) Common mistakes
 1. assuming greedy always works with coin-like problems,
 2. proving by examples only (need exchange argument),
-3. forgetting to provide explicit failing \(x\) in counterexample part.
+3. forgetting to provide explicit failing $x$ in counterexample part.
 
 ---
 
@@ -3492,8 +3492,8 @@ L(i,j)=
 \max(L(i+1,j),L(i,j-1)),& w_i\ne w_j
 \end{cases}
 \]
-Naive recursion: best \(\Theta(n)\), worst exponential.  
-DP: \(O(n^2)\) time, \(O(n^2)\) space; length-only possible in \(O(n)\) space.
+Naive recursion: best $\Theta(n)$, worst exponential.  
+DP: $O(n^2)$ time, $O(n^2)$ space; length-only possible in $O(n)$ space.
 
 2. All LPS output via memoized backtracking over DP choices; deduplicate via set; sorted output.
 
@@ -3501,11 +3501,11 @@ DP: \(O(n^2)\) time, \(O(n^2)\) space; length-only possible in \(O(n)\) space.
 \[
 dp[t]=\min_{i:r_i\ge t}(dp[l_i-1]+c_i),\ dp[0]=0
 \]
-in \(O(mn)\), answer \(dp[n]\).
+in $O(mn)$, answer $dp[n]$.
 
-4. Plates \(\{1,5,10,20\}\): greedy optimal, for 355 gives 19 plates.
+4. Plates $\{1,5,10,20\}$: greedy optimal, for 355 gives 19 plates.
 
-5. Powers system \(\{c^0,\dots,c^n\}\): greedy always optimal.
+5. Powers system $\{c^0,\dots,c^n\}$: greedy always optimal.
 
 6. Greedy-failure example:
 \[
@@ -3540,11 +3540,11 @@ This sheet teaches exactly when greedy is guaranteed optimal — and when it is 
 ## Global glossary (new concepts)
 
 ### 1) Knapsack problem
-Given items with weight \(w_i\) and value \(p_i\), and capacity \(W\), choose items maximizing total value under weight limit.
+Given items with weight $w_i$ and value $p_i$, and capacity $W$, choose items maximizing total value under weight limit.
 
 ### 2) Fractional knapsack
-You may take fractions \(c_i\in[0,1]\) of items.  
-Taken value = \(c_i p_i\), taken weight = \(c_i w_i\).
+You may take fractions $c_i\in[0,1]$ of items.  
+Taken value = $c_i p_i$, taken weight = $c_i w_i$.
 
 ### 3) Value density
 \[
@@ -3572,13 +3572,13 @@ Graph traversal exploring in layers by distance from start node, using a queue.
 
 ---
 
-## Section A — Aufgabe 1: Fractional Knapsack in \(O(n\log n)\)
+## Section A — Aufgabe 1: Fractional Knapsack in $O(n\log n)$
 
 ---
 
 ### A0) Problem restatement
 
-We choose fractions \(c_1,\dots,c_n\in[0,1]\) to maximize:
+We choose fractions $c_1,\dots,c_n\in[0,1]$ to maximize:
 \[
 \sum_{i=1}^n c_i p_i
 \]
@@ -3598,17 +3598,17 @@ This removes combinatorial all-or-nothing barriers of 0/1 knapsack.
 
 ### A2) Greedy algorithm (fully explicit)
 
-1. Compute density \(d_i=p_i/w_i\) for each item.
-2. Sort items by decreasing \(d_i\).
-3. Initialize remaining capacity \(R=W\).
+1. Compute density $d_i=p_i/w_i$ for each item.
+2. Sort items by decreasing $d_i$.
+3. Initialize remaining capacity $R=W$.
 4. For each item in that order:
-   - if \(w_i\le R\): take fully \(c_i=1\), set \(R:=R-w_i\),
-   - else take fraction \(c_i=R/w_i\), set \(R:=0\), stop.
-5. Return \(c_i\) vector and total value.
+   - if $w_i\le R$: take fully $c_i=1$, set $R:=R-w_i$,
+   - else take fraction $c_i=R/w_i$, set $R:=0$, stop.
+5. Return $c_i$ vector and total value.
 
 Runtime:
-- sorting \(O(n\log n)\),
-- scan \(O(n)\),
+- sorting $O(n\log n)$,
+- scan $O(n)$,
 total:
 \[
 \boxed{O(n\log n)}.
@@ -3619,7 +3619,7 @@ total:
 ### A3) Why this is optimal (exchange argument, step-by-step)
 
 Suppose some solution takes lower-density weight while not fully taking a higher-density item.  
-Move a tiny amount \(\delta\) weight from lower-density item \(j\) to higher-density item \(i\):
+Move a tiny amount $\delta$ weight from lower-density item $j$ to higher-density item $i$:
 - value change:
 \[
 \delta\cdot d_i-\delta\cdot d_j=\delta(d_i-d_j)>0.
@@ -3645,7 +3645,7 @@ If splitting bottles is allowed, you always pour highest concentration first. An
 
 ### A5) Common mistakes
 1. mixing fractional and 0/1 knapsack logic,
-2. sorting by value \(p_i\) or weight \(w_i\) instead of \(p_i/w_i\),
+2. sorting by value $p_i$ or weight $w_i$ instead of $p_i/w_i$,
 3. forgetting partial last item.
 
 ---
@@ -3678,7 +3678,7 @@ Map each symbol to a bitstring.
 \[
 \sum_{\sigma\in\Sigma} h(\sigma)\cdot \ell(\sigma)
 \]
-where \(h(\sigma)\) is frequency and \(\ell(\sigma)\) codeword length.
+where $h(\sigma)$ is frequency and $\ell(\sigma)$ codeword length.
 
 #### Why prefix-free?
 If no codeword is prefix of another, decoding is unambiguous while reading bitstream left-to-right.
@@ -3692,7 +3692,7 @@ If no codeword is prefix of another, decoding is unambiguous while reading bitst
 2. repeatedly merge two smallest-frequency nodes,
 3. assign 0/1 on edges to derive codewords.
 
-Sorted frequencies: \(1,1,1,1,1,3,3\).
+Sorted frequencies: $1,1,1,1,1,3,3$.
 
 Merge sequence (one valid):
 - 1+1=2
@@ -3723,9 +3723,9 @@ Weighted code length equals sum of merge sums:
 3. assign 0/1 to groups,
 4. recurse on each group.
 
-For frequencies \(3,3,1,1,1,1,1\), one balanced split:
-- Group 1: \(3+3=6\)
-- Group 2: \(1+1+1+1+1=5\)
+For frequencies $3,3,1,1,1,1,1$, one balanced split:
+- Group 1: $3+3=6$
+- Group 2: $1+1+1+1+1=5$
 
 Then recurse similarly.
 
@@ -3849,7 +3849,7 @@ Compression rate (common definition):
 \[
 \text{rate}=\frac{L_{\text{huff}}}{L_{\text{orig}}}
 \]
-(or savings \(1-\text{rate}\)).
+(or savings $1-\text{rate}$).
 
 Since files are “provided example texts,” run program on each and compute above.
 
@@ -3870,7 +3870,7 @@ Shannon-Fano = divide frequency list into near halves recursively; intuitive, of
 
 ---
 
-## Section C — Aufgabe 3: Bipartite test in \(O(|V|+|E|)\)
+## Section C — Aufgabe 3: Bipartite test in $O(|V|+|E|)$
 
 ---
 
@@ -3896,12 +3896,12 @@ If graph is bipartite, parity layers naturally correspond to two colors.
 
 ### C2) Algorithm (full)
 
-For each unvisited node \(s\):
+For each unvisited node $s$:
 1. assign color 0,
-2. BFS queue starts with \(s\),
-3. when exploring edge \((u,v)\):
-   - if \(v\) uncolored: set color \(1-\text{color}(u)\), enqueue,
-   - if \(v\) already colored and \(\text{color}(v)=\text{color}(u)\): conflict → not bipartite.
+2. BFS queue starts with $s$,
+3. when exploring edge $(u,v)$:
+   - if $v$ uncolored: set color $1-\text{color}(u)$, enqueue,
+   - if $v$ already colored and $\text{color}(v)=\text{color}(u)$: conflict → not bipartite.
 4. If all components processed with no conflict: bipartite.
 
 ---
@@ -3919,8 +3919,8 @@ Hence algorithm is correct both ways.
 
 ### C4) Runtime
 
-Each vertex enqueued/dequeued at most once: \(O(|V|)\).  
-Each edge checked at most twice (undirected adjacency): \(O(|E|)\).  
+Each vertex enqueued/dequeued at most once: $O(|V|)$.  
+Each edge checked at most twice (undirected adjacency): $O(|E|)$.  
 Total:
 \[
 \boxed{O(|V|+|E|)}.
@@ -3976,9 +3976,9 @@ If someone is forced to sit at both tables simultaneously, contradiction → imp
 ## ✅ Compact exam answers (UB10)
 
 1. Fractional knapsack:
-   - sort by density \(p_i/w_i\),
+   - sort by density $p_i/w_i$,
    - fill greedily (possibly partial last item),
-   - runtime \(O(n\log n)\),
+   - runtime $O(n\log n)$,
    - optimal by exchange argument.
 
 2. BANANENSAFT Huffman:
@@ -3997,7 +3997,7 @@ Shannon-Fano usually slightly worse/not guaranteed optimal.
 5. Bipartite check:
    - BFS two-coloring over all components,
    - detect same-color edge conflict,
-   - runtime \(O(|V|+|E|)\).
+   - runtime $O(|V|+|E|)$.
 
 ---
 
@@ -4028,19 +4028,19 @@ This is highly exam-relevant because it tests modeling + algorithm design + corr
 ## Global glossary (deep definitions)
 
 ### 1) Graph, directed/undirected
-A graph \(G=(V,E)\) has vertices \(V\) and edges \(E\).  
-- Undirected edge: \(\{u,v\}\), symmetric relation.
-- Directed edge: \((u,v)\), one-way relation.
+A graph $G=(V,E)$ has vertices $V$ and edges $E$.  
+- Undirected edge: $\{u,v\}$, symmetric relation.
+- Directed edge: $(u,v)$, one-way relation.
 
 ### 2) Adjacency list
-For each vertex \(u\), store list \(A[u]\) of neighbors.  
-Total length of all adjacency lists in undirected graph is \(2|E|\).
+For each vertex $u$, store list $A[u]$ of neighbors.  
+Total length of all adjacency lists in undirected graph is $2|E|$.
 
 ### 3) All-Pairs Shortest Paths (APSP)
-Compute shortest path distance for every ordered pair \((u,v)\).
+Compute shortest path distance for every ordered pair $(u,v)$.
 
 ### 4) Topological order
-For DAG (Directed Acyclic Graph), an ordering \(v_1,\dots,v_n\) where every edge \((v_i,v_j)\) satisfies \(i<j\).
+For DAG (Directed Acyclic Graph), an ordering $v_1,\dots,v_n$ where every edge $(v_i,v_j)$ satisfies $i<j$.
 
 ### 5) Cycle
 A path returning to start with at least one edge and no repeated internal vertices.
@@ -4056,10 +4056,10 @@ Sequence of currency exchanges that yields more money than you started with (pro
 
 ---
 
-## Section A — Aufgabe 1: Sort all adjacency lists in \(O(|V|+|E|)\)
+## Section A — Aufgabe 1: Sort all adjacency lists in $O(|V|+|E|)$
 
-Given undirected graph with vertex set \(\{1,\dots,n\}\), adjacency lists \(A[u]\).  
-Need to sort each \(A[u]\) in ascending order in total linear time.  
+Given undirected graph with vertex set $\{1,\dots,n\}$, adjacency lists $A[u]$.  
+Need to sort each $A[u]$ in ascending order in total linear time.  
 Constraint says do not use plain Counting Sort as keyword shortcut — but conceptually we exploit bounded key range.
 
 ---
@@ -4072,31 +4072,31 @@ If we independently comparison-sort each list:
 \]
 not linear in general.
 
-But neighbor IDs are integers in \([1..n]\), i.e., small bounded domain.  
+But neighbor IDs are integers in $[1..n]$, i.e., small bounded domain.  
 Bounded key domain allows linear-time bucket-style processing.
 
 ---
 
 ### A2) One linear-time strategy (conceptual)
 
-For each vertex \(u\):
+For each vertex $u$:
 1. Create temporary boolean/int marker array `mark[1..n]` initially false (or use timestamp trick to avoid full reinitialization).
-2. For each neighbor \(v\in A[u]\), mark \(v\).
-3. Scan \(v=1..n\), output those marked in ascending order into new list for \(u\).
+2. For each neighbor $v\in A[u]$, mark $v$.
+3. Scan $v=1..n$, output those marked in ascending order into new list for $u$.
 4. Unmark used entries (or via timestamps avoid explicit cleanup).
 
-Naively scanning 1..n per vertex gives \(O(n^2)\), too much.  
+Naively scanning 1..n per vertex gives $O(n^2)$, too much.  
 So we need a smarter global trick:
 
 ### A3) Better linear approach via edge-bucket distribution per source
 
-Because vertices are already labeled 1..n, we can sort each list by **radix-like single pass** if we first represent each undirected edge twice as directed pairs \((u,v)\), then stable-bucket by first component then second component globally:
+Because vertices are already labeled 1..n, we can sort each list by **radix-like single pass** if we first represent each undirected edge twice as directed pairs $(u,v)$, then stable-bucket by first component then second component globally:
 
-1. Build list \(L\) of directed pairs \((u,v)\) for all adjacency entries (size \(2|E|\)).
-2. Stable bucket by second key \(v\in[1..n]\), then stable bucket by first key \(u\in[1..n]\) (or vice versa depending assembly).
-3. Gather contiguous block for each \(u\); inside block, neighbors \(v\) are sorted.
+1. Build list $L$ of directed pairs $(u,v)$ for all adjacency entries (size $2|E|$).
+2. Stable bucket by second key $v\in[1..n]$, then stable bucket by first key $u\in[1..n]$ (or vice versa depending assembly).
+3. Gather contiguous block for each $u$; inside block, neighbors $v$ are sorted.
 
-Using bucket arrays over range \([1..n]\), each pass is linear in \(n+|L| = O(|V|+|E|)\).  
+Using bucket arrays over range $[1..n]$, each pass is linear in $n+|L| = O(|V|+|E|)$.  
 Two passes still linear.
 
 \[
@@ -4108,7 +4108,7 @@ Two passes still linear.
 ### A4) Why this works (step-justification)
 - Bucket passes exploit bounded integer labels.
 - Stability preserves previously ordered key when sorting by next key.
-- After two-key sorting, entries grouped by source \(u\), and inside each group neighbors sorted ascending.
+- After two-key sorting, entries grouped by source $u$, and inside each group neighbors sorted ascending.
 
 ---
 
@@ -4121,7 +4121,7 @@ Now all mail from same sender is grouped, receivers inside naturally sorted.
 
 ### A6) Common mistakes
 1. sorting each adjacency list separately with comparison sort,
-2. accidental \(O(n^2)\) due to full-range scan per vertex,
+2. accidental $O(n^2)$ due to full-range scan per vertex,
 3. forgetting undirected graph has each edge in two lists.
 
 ---
@@ -4134,9 +4134,9 @@ Need DP table:
 \[
 M[k][u][v] = \text{length of shortest }u\to v\text{ path using at most }k\text{ edges}
 \]
-for \(k=0,\dots,n-1\).
+for $k=0,\dots,n-1$.
 
-Target best runtime around \(O(n^2m)\).
+Target best runtime around $O(n^2m)$.
 
 ---
 
@@ -4147,13 +4147,13 @@ Classic shortest paths can be framed by:
 or
 - limit on number of edges (this task).
 
-“at most \(k\) edges” naturally grows by one edge per layer.
+“at most $k$ edges” naturally grows by one edge per layer.
 
 ---
 
 ### B1) Base layer
 
-For \(k=0\):
+For $k=0$:
 \[
 M[0][u][u]=0,\quad M[0][u][v]=+\infty\ (u\ne v).
 \]
@@ -4162,9 +4162,9 @@ M[0][u][u]=0,\quad M[0][u][v]=+\infty\ (u\ne v).
 
 ### B2) Transition
 
-To get a path with at most \(k\) edges from \(u\) to \(v\), either:
-- already had one with at most \(k-1\) edges, or
-- last edge is \((x,v)\), and before that from \(u\) to \(x\) with at most \(k-1\) edges.
+To get a path with at most $k$ edges from $u$ to $v$, either:
+- already had one with at most $k-1$ edges, or
+- last edge is $(x,v)$, and before that from $u$ to $x$ with at most $k-1$ edges.
 
 So:
 \[
@@ -4180,9 +4180,9 @@ M[k-1][u][v],\
 
 ### B3) Runtime
 
-For each \(k\in[1..n-1]\):  
-for each \(u\in V\):  
-for each edge \((x,v)\in E\): update candidate for \(M[k][u][v]\).
+For each $k\in[1..n-1]$:  
+for each $u\in V$:  
+for each edge $(x,v)\in E$: update candidate for $M[k][u][v]$.
 
 Complexity:
 \[
@@ -4190,14 +4190,14 @@ O(n\cdot n\cdot m)=O(n^2m).
 \]
 
 Memory:
-- full 3D table: \(O(n^3)\),
-- rolling two layers in \(k\): \(O(n^2)\) if only final distances needed.
+- full 3D table: $O(n^3)$,
+- rolling two layers in $k$: $O(n^2)$ if only final distances needed.
 
 ---
 
 ### B4) Why correct
-Induction on \(k\):
-- base \(k=0\) correct by definition,
+Induction on $k$:
+- base $k=0$ correct by definition,
 - recurrence enumerates exactly all ways to extend paths by one final edge.
 Taking minimum preserves optimal shortest value.
 
@@ -4207,14 +4207,14 @@ No negative cycles assumption guarantees shortest distances are well-defined.
 
 ### B5) Analogy
 Think of “travel plans with a stop-budget.”  
-Layer \(k\) = best routes allowed up to \(k\) flights.  
-To build \(k\)-flight routes, either keep old plan or append one final flight to a \((k-1)\)-flight plan.
+Layer $k$ = best routes allowed up to $k$ flights.  
+To build $k$-flight routes, either keep old plan or append one final flight to a $(k-1)$-flight plan.
 
 ---
 
 ### B6) Common mistakes
-1. using exactly \(k\) edges instead of at most \(k\) without handling carry-over minimum,
-2. wrong base initialization for \(u\ne v\),
+1. using exactly $k$ edges instead of at most $k$ without handling carry-over minimum,
+2. wrong base initialization for $u\ne v$,
 3. forgetting edge direction in directed graph.
 
 ---
@@ -4223,7 +4223,7 @@ To build \(k\)-flight routes, either keep old plan or append one final flight to
 
 ## Section C — Aufgabe 3: “Get rich fast” (arbitrage detection)
 
-Given exchange rates matrix \(r_{ij}\) for currencies \(i\to j\).  
+Given exchange rates matrix $r_{ij}$ for currencies $i\to j$.  
 Need detect whether sequence of exchanges can increase money (arbitrage).
 
 ---
@@ -4252,7 +4252,7 @@ Then cycle sum:
 \sum w = -\ln\!\left(\prod r\right).
 \]
 So:
-- product \(>1\)  \(\iff\)  \(-\ln(\text{product})<0\)  \(\iff\)  cycle weight \(<0\).
+- product $>1$  $\iff$  $-\ln(\text{product})<0$  $\iff$  cycle weight $<0$.
 
 Arbitrage exists iff graph has a **negative cycle**.
 
@@ -4262,7 +4262,7 @@ Arbitrage exists iff graph has a **negative cycle**.
 
 Run Bellman-Ford (or multi-source Bellman-Ford via super-source):
 1. initialize distances,
-2. relax edges \(|V|-1\) times,
+2. relax edges $|V|-1$ times,
 3. one extra pass: if any edge still relaxes → negative cycle exists.
 
 If negative cycle exists:
@@ -4274,25 +4274,25 @@ Runtime:
 \[
 O(|V||E|)=O(n^3)
 \]
-for dense currency graph (\(E\approx n^2\)).
+for dense currency graph ($E\approx n^2$).
 
 ---
 
 ### C3) Why correct
-Bellman-Ford detects reachability of negative cycles by “extra relaxation after \(|V|-1\) rounds.”  
+Bellman-Ford detects reachability of negative cycles by “extra relaxation after $|V|-1$ rounds.”  
 Log transform preserves arbitrage condition exactly.
 
 ---
 
 ### C4) Analogy
 Exchange rates are like multipliers in a game economy.  
-Taking \(-\log\) turns multipliers into additive “energy costs.”  
+Taking $-\log$ turns multipliers into additive “energy costs.”  
 A profitable loop becomes a loop with negative total energy.
 
 ---
 
 ### C5) Common mistakes
-1. using \(+\log\) instead of \(-\log\),
+1. using $+\log$ instead of $-\log$,
 2. checking shortest path only between two nodes (need cycle detection),
 3. floating precision issues in practical implementation (use tolerance).
 
@@ -4306,14 +4306,14 @@ You have statements like “Zwerg A < Zwerg B” (“A is smaller than B”).
 Need:
 a) detect contradictions,  
 b,c) prove relation to cycles/topological order,  
-d) compute ordering in \(O(|V|+|E|)\).
+d) compute ordering in $O(|V|+|E|)$.
 
 ---
 
 ### D0) Modeling to directed graph
 
 Create vertex per dwarf.  
-For statement \(A<B\), add directed edge:
+For statement $A<B$, add directed edge:
 \[
 A\to B.
 \]
@@ -4331,7 +4331,7 @@ Algorithm:
 - else consistent.
 
 Why:
-Cycle \(A<B<C<\dots<A\) impossible in strict order.
+Cycle $A<B<C<\dots<A$ impossible in strict order.
 
 ---
 
@@ -4353,9 +4353,9 @@ Role in topological order:
 
 ### D3) Part (c): graph topologically sortable iff acyclic
 
-(\(\Rightarrow\)) If topological order exists, edges always go forward in order; cycle would force impossible strict increase returning to start.
+($\Rightarrow$) If topological order exists, edges always go forward in order; cycle would force impossible strict increase returning to start.
 
-(\(\Leftarrow\)) If acyclic, repeatedly remove sink/source to build order (induction on \(|V|\)).
+($\Leftarrow$) If acyclic, repeatedly remove sink/source to build order (induction on $|V|$).
 
 \[
 \boxed{\text{DAG} \iff \text{topological ordering exists}}
@@ -4363,17 +4363,17 @@ Role in topological order:
 
 ---
 
-### D4) Part (d): algorithm in \(O(|V|+|E|)\)
+### D4) Part (d): algorithm in $O(|V|+|E|)$
 
 Use **Kahn’s algorithm** (source-removal):
 1. compute indegree of each node,
 2. queue all indegree-0 nodes,
 3. pop one, append to output,
-4. for each outgoing edge \(u\to v\): decrement indegree(v); if becomes 0, enqueue,
-5. end: if output size < \(|V|\), cycle exists (“impossible”).
+4. for each outgoing edge $u\to v$: decrement indegree(v); if becomes 0, enqueue,
+5. end: if output size < $|V|$, cycle exists (“impossible”).
 
 Runtime:
-- indegree init \(O(|V|+|E|)\),
+- indegree init $O(|V|+|E|)$,
 - each node/enqueue once, each edge processed once:
 \[
 O(|V|+|E|).
@@ -4423,7 +4423,7 @@ def find_topological_ordering(names, edges):
 
 ### D6) Analogy
 You’re scheduling tasks with prerequisites:
-- edge \(A\to B\): task A must be done before B.
+- edge $A\to B$: task A must be done before B.
 A cycle means circular dependency (“do A before B before C before A”) — impossible.
 
 Topological sorting = producing a valid schedule.
@@ -4453,12 +4453,12 @@ runtime:
 O(n^2m).
 \]
 3. Arbitrage detection:
-- transform weights \(w(i,j)=-\ln r_{ij}\),
+- transform weights $w(i,j)=-\ln r_{ij}$,
 - detect negative cycle via Bellman-Ford.
 4. Dwarf consistency:
 - contradictions iff directed cycle.
 - topological order exists iff acyclic.
-- compute in \(O(|V|+|E|)\) with Kahn/DFS.
+- compute in $O(|V|+|E|)$ with Kahn/DFS.
 
 ---
 
@@ -4492,11 +4492,11 @@ This sheet is exam-critical because it tests both:
 ## Global glossary (deep definitions)
 
 ### 1) Spanning tree
-For connected undirected graph \(G=(V,E)\), a spanning tree is a subgraph that:
+For connected undirected graph $G=(V,E)$, a spanning tree is a subgraph that:
 - includes all vertices,
 - is connected,
 - has no cycles.
-It has exactly \(|V|-1\) edges.
+It has exactly $|V|-1$ edges.
 
 ### 2) MST (Minimum Spanning Tree)
 A spanning tree with minimum possible total edge weight.
@@ -4505,7 +4505,7 @@ A spanning tree with minimum possible total edge weight.
 In any cycle, the heaviest edge cannot belong to an MST (for distinct weights; with ties: at least one maximum edge can be excluded).
 
 ### 4) Cut property (MST)
-For any cut \((S,V\setminus S)\), the lightest edge crossing the cut is safe (belongs to some MST; with distinct weights: must belong to the unique MST).
+For any cut $(S,V\setminus S)$, the lightest edge crossing the cut is safe (belongs to some MST; with distinct weights: must belong to the unique MST).
 
 ### 5) Bottleneck (of a tree)
 Maximum edge weight inside that tree.
@@ -4525,7 +4525,7 @@ Repeatedly, each current component chooses its cheapest outgoing edge; add all c
 
 ## Section A — Aufgabe 1: MST proof statements
 
-Given connected graph \(G=(V,E)\) with pairwise distinct edge weights \(c:E\to \mathbb{R}\).
+Given connected graph $G=(V,E)$ with pairwise distinct edge weights $c:E\to \mathbb{R}$.
 
 Need prove:
 a) heaviest edge in any cycle not in MST,  
@@ -4536,12 +4536,12 @@ c) MST minimizes bottleneck among spanning trees.
 
 ### A1) Part (a): heaviest edge on a cycle cannot be in MST
 
-Let cycle \(C\) and \(e_{\max}\) be its unique heaviest edge (distinct weights assumption).
+Let cycle $C$ and $e_{\max}$ be its unique heaviest edge (distinct weights assumption).
 
-Assume for contradiction \(e_{\max}\in T\) for MST \(T\).  
-Removing \(e_{\max}\) disconnects \(T\) into two components \(X\) and \(Y\).  
-In cycle \(C\), there is another edge \(f\) connecting \(X\) and \(Y\) (because cycle offers alternate route).  
-Since \(e_{\max}\) is heaviest on \(C\):
+Assume for contradiction $e_{\max}\in T$ for MST $T$.  
+Removing $e_{\max}$ disconnects $T$ into two components $X$ and $Y$.  
+In cycle $C$, there is another edge $f$ connecting $X$ and $Y$ (because cycle offers alternate route).  
+Since $e_{\max}$ is heaviest on $C$:
 \[
 w(f)<w(e_{\max}).
 \]
@@ -4549,7 +4549,7 @@ Then
 \[
 T' = T - e_{\max} + f
 \]
-is a spanning tree (connectivity restored, still acyclic) with strictly smaller total weight — contradiction to minimality of \(T\).
+is a spanning tree (connectivity restored, still acyclic) with strictly smaller total weight — contradiction to minimality of $T$.
 
 \[
 \boxed{e_{\max}\notin \text{MST}}
@@ -4563,12 +4563,12 @@ If you keep the most expensive edge among redundant options, you can replace it 
 
 ### A2) Part (b): MST is unique (distinct weights)
 
-Suppose two different MSTs \(T_1,T_2\).  
-Take smallest-weight edge \(e\) that is in exactly one of them, say \(e\in T_1\setminus T_2\).  
-Add \(e\) to \(T_2\): creates cycle \(C\).  
-Cycle must contain some edge \(f\in T_2\setminus T_1\).  
-By minimality choice of \(e\), all differing edges lighter than \(e\) cannot exist, so \(w(e)<w(f)\).  
-Replace \(f\) by \(e\) in \(T_2\), get strictly smaller spanning tree than \(T_2\), contradiction.
+Suppose two different MSTs $T_1,T_2$.  
+Take smallest-weight edge $e$ that is in exactly one of them, say $e\in T_1\setminus T_2$.  
+Add $e$ to $T_2$: creates cycle $C$.  
+Cycle must contain some edge $f\in T_2\setminus T_1$.  
+By minimality choice of $e$, all differing edges lighter than $e$ cannot exist, so $w(e)<w(f)$.  
+Replace $f$ by $e$ in $T_2$, get strictly smaller spanning tree than $T_2$, contradiction.
 
 \[
 \boxed{\text{MST is unique when all edge weights are distinct}}
@@ -4581,15 +4581,15 @@ Distinct weights remove tie ambiguity; every “safe” choice becomes forced.
 
 ### A3) Part (c): MST minimizes bottleneck edge weight
 
-Claim: if \(T\) is MST, then among all spanning trees it has minimum possible maximum edge weight.
+Claim: if $T$ is MST, then among all spanning trees it has minimum possible maximum edge weight.
 
 Proof sketch via cut/cycle logic:
-- Let \(e^*\) be heaviest edge in MST \(T\), weight \(W^*\).
-- Remove \(e^*\): split \(T\) into two components \(S\) and \(V\setminus S\).
+- Let $e^*$ be heaviest edge in MST $T$, weight $W^*$.
+- Remove $e^*$: split $T$ into two components $S$ and $V\setminus S$.
 - Any spanning tree must include at least one crossing edge of this cut.
-- By cut-property reasoning and distinctness, \(e^*\) is the minimum-weight crossing edge that can connect these sides at this stage (otherwise MST improvable).
-Thus any spanning tree must use an edge with weight \(\ge W^*\).  
-So no spanning tree has smaller bottleneck than \(T\).
+- By cut-property reasoning and distinctness, $e^*$ is the minimum-weight crossing edge that can connect these sides at this stage (otherwise MST improvable).
+Thus any spanning tree must use an edge with weight $\ge W^*$.  
+So no spanning tree has smaller bottleneck than $T$.
 
 \[
 \boxed{T\text{ is a minimum-bottleneck spanning tree}}
@@ -4618,8 +4618,8 @@ Think of building a road network:
 ## Section B — Aufgabe 2: Rebel cities + surface oxygen (implementation with Union-Find)
 
 Problem idea:
-- \(n\) underground cities (red points),
-- each city has its own possible surface access point (blue point) directly above on sphere of radius \(r\),
+- $n$ underground cities (red points),
+- each city has its own possible surface access point (blue point) directly above on sphere of radius $r$,
 - you may connect city-city or city-surface with straight tunnels,
 - need minimum total tunnel length so every city has a path to *some* surface access.
 
@@ -4630,16 +4630,16 @@ Sheet hint: “You don’t need all surface accesses; each city must somehow rea
 ### B0) Modeling trick (critical concept)
 
 Create augmented graph:
-- vertices: cities \(1..n\) plus one **super-surface node** \(s\),
+- vertices: cities $1..n$ plus one **super-surface node** $s$,
 - city-city edge weight = Euclidean distance between city coordinates,
-- city \(i\) to super node \(s\): weight = distance from city \(i\) to its surface point (radial difference to radius \(r\)).
+- city $i$ to super node $s$: weight = distance from city $i$ to its surface point (radial difference to radius $r$).
 
 Then problem becomes:
 \[
 \text{Find MST of augmented graph on }n+1\text{ nodes.}
 \]
 Why?
-- In MST, all cities connected and connected to \(s\) somehow,
+- In MST, all cities connected and connected to $s$ somehow,
 - equivalent to each city having oxygen path to surface.
 
 ---
@@ -4647,7 +4647,7 @@ Why?
 ### B1) Why this reduction is correct (step justification)
 
 Any feasible oxygen network induces connectivity from each city to at least one surface point.  
-By contracting all surface points into super node \(s\), we preserve feasibility notion (“connected to surface”) while simplifying structure.
+By contracting all surface points into super node $s$, we preserve feasibility notion (“connected to surface”) while simplifying structure.
 
 Among connected networks, MST minimizes total length while keeping connectivity.
 
@@ -4658,7 +4658,7 @@ So computing MST on augmented graph solves original optimization goal.
 ### B2) Union-Find (DSU) operations needed
 
 #### `find(x)`
-Return representative (root) of component containing \(x\).  
+Return representative (root) of component containing $x$.  
 Use path compression:
 - recursively find root and set parent directly to root.
 
@@ -4666,7 +4666,7 @@ Use path compression:
 Merge components if roots differ.  
 Use rank/size heuristic to attach smaller tree under larger one.
 
-Amortized complexity per op is almost constant (\(\alpha(n)\), inverse Ackermann).
+Amortized complexity per op is almost constant ($\alpha(n)$, inverse Ackermann).
 
 ---
 
@@ -4676,10 +4676,10 @@ Amortized complexity per op is almost constant (\(\alpha(n)\), inverse Ackermann
    - city-city edges,
    - city-super edges.
 2. Sort edges by length ascending.
-3. Initialize DSU on \(n+1\) vertices.
+3. Initialize DSU on $n+1$ vertices.
 4. Traverse sorted edges:
    - if endpoints in different components, add edge to solution and union them.
-5. Stop after selecting \(n\) edges (for \(n+1\) nodes MST has \(n\) edges).
+5. Stop after selecting $n$ edges (for $n+1$ nodes MST has $n$ edges).
 6. Output edges as required index format.
 
 Runtime dominated by sorting edges.
@@ -4689,8 +4689,8 @@ Runtime dominated by sorting edges.
 ### B4) Complexity
 
 If fully dense city-city graph:
-- city-city edges \(\Theta(n^2)\),
-- plus \(n\) city-super edges.
+- city-city edges $\Theta(n^2)$,
+- plus $n$ city-super edges.
 Sorting:
 \[
 O(n^2\log n).
@@ -4701,7 +4701,7 @@ DSU operations near linear in edge count.
 
 ### B5) Common mistakes
 1. forgetting super-node trick (then hard to enforce “reach any surface” elegantly),
-2. wrong index mapping for output (k>n indicates surface access of city \(k-n\)),
+2. wrong index mapping for output (k>n indicates surface access of city $k-n$),
 3. missing path compression/union-by-rank bugs in DSU.
 
 ---
@@ -4726,8 +4726,8 @@ Need:
 a) why distinct weights needed (for stated deterministic correctness path),  
 b) marked edges must belong to MST,  
 c) result is spanning tree,  
-d) number of rounds \(\le \log|V|\),  
-e) total runtime \(O(|E|\log|V|)\).
+d) number of rounds $\le \log|V|$,  
+e) total runtime $O(|E|\log|V|)$.
 
 ---
 
@@ -4746,7 +4746,7 @@ Distinct weights ensure each component has unique cheapest outgoing edge, simpli
 
 ### C2) Part (b): marked edge is MST-safe
 
-For any component \(X\), chosen edge \(e_X\) is lightest edge crossing cut \((X,V\setminus X)\).  
+For any component $X$, chosen edge $e_X$ is lightest edge crossing cut $(X,V\setminus X)$.  
 By cut property, such lightest crossing edge is safe (belongs to some MST; with distinct weights effectively forced).
 
 So every marked edge is MST-compatible.
@@ -4758,13 +4758,13 @@ So every marked edge is MST-compatible.
 - We only merge components by crossing edges, so eventually components connect.
 - Safe-edge argument prevents selecting “bad” edges outside all MSTs.
 - When one component remains, marked edges connect all vertices.
-- Since each merge reduces number of components and we can avoid cycle addition by component-based union reasoning, final marked set has tree structure (connected + \(|V|-1\) edges in effect).
+- Since each merge reduces number of components and we can avoid cycle addition by component-based union reasoning, final marked set has tree structure (connected + $|V|-1$ edges in effect).
 
 Thus algorithm returns MST.
 
 ---
 
-### C4) Part (d): at most \(\log |V|\) rounds
+### C4) Part (d): at most $\log |V|$ rounds
 
 In each round, every current component selects at least one outgoing edge (unless already isolated, but graph connected overall).
 
@@ -4772,15 +4772,15 @@ When these selected edges are added, each resulting merged component has size at
 - each old component “points” outward via one selected edge,
 - contraction yields number of components at least halved.
 
-So if \(c_t\) is components after round \(t\):
+So if $c_t$ is components after round $t$:
 \[
 c_{t+1}\le \frac{c_t}{2}.
 \]
-Starting \(c_0=|V|\), after \(r\) rounds:
+Starting $c_0=|V|$, after $r$ rounds:
 \[
 c_r\le \frac{|V|}{2^r}.
 \]
-Need \(c_r=1\), so \(r\le \lceil\log_2 |V|\rceil\).
+Need $c_r=1$, so $r\le \lceil\log_2 |V|\rceil$.
 
 \[
 \boxed{\text{Rounds }=O(\log|V|)}
@@ -4788,7 +4788,7 @@ Need \(c_r=1\), so \(r\le \lceil\log_2 |V|\rceil\).
 
 ---
 
-### C5) Part (e): runtime \(O(|E|\log|V|)\)
+### C5) Part (e): runtime $O(|E|\log|V|)$
 
 Per round:
 - for each component, find cheapest outgoing edge.
@@ -4796,7 +4796,7 @@ If done by scanning all edges and checking component IDs via DSU/component label
 \[
 O(|E|)\text{ per round}.
 \]
-Number of rounds \(O(\log|V|)\), total:
+Number of rounds $O(\log|V|)$, total:
 \[
 \boxed{O(|E|\log|V|)}.
 \]
@@ -4830,8 +4830,8 @@ Lots of small groups fuse quickly into larger groups, roughly halving group coun
 5. Borůvka-style algorithm:
    - each component picks cheapest outgoing safe edge,
    - components shrink by at least factor 2 per round,
-   - \(O(\log|V|)\) rounds,
-   - \(O(|E|\log|V|)\) total runtime.
+   - $O(\log|V|)$ rounds,
+   - $O(|E|\log|V|)$ total runtime.
 
 ---
 
@@ -4845,7 +4845,7 @@ UB12 is MST mastery:
 This is quintessential DSEA exam material.
 
 ---
-## Übungsblatt 13 (Zusatzblatt) — Integer-Weight MST in \(O(k|V|+|E|)\), CHAOS as Max Matching via Max Flow, Binary Heap Implementation, Acyclic Flows (ADHD-Friendly, Blank-Slate, Lecture-Level)
+## Übungsblatt 13 (Zusatzblatt) — Integer-Weight MST in $O(k|V|+|E|)$, CHAOS as Max Matching via Max Flow, Binary Heap Implementation, Acyclic Flows (ADHD-Friendly, Blank-Slate, Lecture-Level)
 
 ## 🧠 Why this sheet matters
 
@@ -4872,7 +4872,7 @@ Used heavily in Prim/Dijkstra.
 
 ### 2) Bucket queue
 Priority queue variant when keys are small integers in limited range.  
-Instead of balanced tree/heap, maintain buckets by key value for \(O(1)\)-like key access (amortized over range scan).
+Instead of balanced tree/heap, maintain buckets by key value for $O(1)$-like key access (amortized over range scan).
 
 ### 3) Matching in bipartite graph
 Set of edges with no shared endpoint:
@@ -4883,29 +4883,29 @@ Set of edges with no shared endpoint:
 In directed capacitated network, assign flow values respecting:
 - capacity constraints,
 - conservation at internal nodes,
-maximize total flow from source \(s\) to sink \(t\).
+maximize total flow from source $s$ to sink $t$.
 
 ### 5) Residual network
 Graph of remaining augmenting possibilities (forward spare capacity + backward undo capacity).
 
 ### 6) Heap (binary min-heap)
 Complete binary tree with heap property:
-parent key \(\le\) child keys.
+parent key $\le$ child keys.
 Array-based indices:
-- left child \(2i+1\),
-- right child \(2i+2\),
-- parent \(\lfloor(i-1)/2\rfloor\).
+- left child $2i+1$,
+- right child $2i+2$,
+- parent $\lfloor(i-1)/2\rfloor$.
 
 ### 7) Acyclic flow
-Flow \(f\) is acyclic if subgraph of positive-flow edges contains no directed cycle.
+Flow $f$ is acyclic if subgraph of positive-flow edges contains no directed cycle.
 
 ---
 
 ---
 
-## Section A — Aufgabe 1: MST with weights in \(\{1,\dots,k\}\) in \(O(k|V|+|E|)\)
+## Section A — Aufgabe 1: MST with weights in $\{1,\dots,k\}$ in $O(k|V|+|E|)$
 
-Given connected undirected graph \(G=(V,E)\), edge weights integer in \(\{1,\dots,k\}\).  
+Given connected undirected graph $G=(V,E)$, edge weights integer in $\{1,\dots,k\}$.  
 Need MST in:
 \[
 O(k|V|+|E|).
@@ -4934,11 +4934,11 @@ Prim grows MST from a start vertex:
 ### A3) Bucket-queue design for this task
 
 #### Key observation
-In Prim, each key is always one of edge weights \(\in\{1,\dots,k\}\) (or \(\infty\) initially).  
+In Prim, each key is always one of edge weights $\in\{1,\dots,k\}$ (or $\infty$ initially).  
 So we can store vertices by key in buckets `B[1..k]` (plus an INF bucket if needed before first update).
 
 Operations:
-- `decrease-key(v,newKey)`: move \(v\) to lower bucket.
+- `decrease-key(v,newKey)`: move $v$ to lower bucket.
 - `extract-min`: find smallest non-empty bucket index.
 
 Maintain pointer `cur` to current smallest non-empty bucket.  
@@ -4946,13 +4946,13 @@ Because `cur` only moves upward through 1..k during each global “phase,” sca
 
 ---
 
-### A4) Complexity intuition to get \(O(k|V|+|E|)\)
+### A4) Complexity intuition to get $O(k|V|+|E|)$
 
-- Every edge \((u,v)\) examined once from each endpoint in adjacency scan:
+- Every edge $(u,v)$ examined once from each endpoint in adjacency scan:
   \[
   O(|E|).
   \]
-- For each extracted vertex, bucket pointer can scan at most \(k\) bucket positions in worst case:
+- For each extracted vertex, bucket pointer can scan at most $k$ bucket positions in worst case:
   \[
   O(k|V|).
   \]
@@ -4983,7 +4983,7 @@ Instead of searching whole priority queue, you keep k trays labeled by toll clas
 
 ### A7) Common mistakes
 1. forgetting to update parent edge when key decreases,
-2. treating bucket scan as \(O(k)\) once total (it can be per extraction unless carefully amortized),
+2. treating bucket scan as $O(k)$ once total (it can be per extraction unless carefully amortized),
 3. mixing Prim with Kruskal logic.
 
 ---
@@ -4993,9 +4993,9 @@ Instead of searching whole priority queue, you keep k trays labeled by toll clas
 ## Section B — Aufgabe 2: CHAOS problem reduced to max flow
 
 Given:
-- sockets \(S\),
-- devices \(E\),
-- compatibility edges \(A\subseteq S\times E\),
+- sockets $S$,
+- devices $E$,
+- compatibility edges $A\subseteq S\times E$,
 find maximum number of plugged devices with each socket/device used at most once.
 
 This is maximum bipartite matching.
@@ -5004,7 +5004,7 @@ This is maximum bipartite matching.
 
 ### B1) Why this is matching
 
-Each valid plug assignment is an edge \((s,e)\) from socket to compatible device.  
+Each valid plug assignment is an edge $(s,e)$ from socket to compatible device.  
 Constraints “at most one incident chosen edge per vertex” exactly define matching.
 
 Goal: maximize number of chosen edges = maximum matching.
@@ -5014,15 +5014,15 @@ Goal: maximize number of chosen edges = maximum matching.
 ### B2) Reduction to max flow (construction)
 
 Build directed network:
-1. source node \(s_0\),
-2. sink node \(t_0\),
-3. left layer sockets \(S\),
-4. right layer devices \(E\).
+1. source node $s_0$,
+2. sink node $t_0$,
+3. left layer sockets $S$,
+4. right layer devices $E$.
 
 Edges/capacities:
-- \(s_0 \to s\) for each socket \(s\in S\), capacity 1,
-- \(s \to e\) for each compatibility \((s,e)\in A\), capacity 1,
-- \(e \to t_0\) for each device \(e\in E\), capacity 1.
+- $s_0 \to s$ for each socket $s\in S$, capacity 1,
+- $s \to e$ for each compatibility $(s,e)\in A$, capacity 1,
+- $e \to t_0$ for each device $e\in E$, capacity 1.
 
 Run max flow.
 
@@ -5030,10 +5030,10 @@ Run max flow.
 
 ### B3) Why this reduction is correct
 
-- Any integer flow unit path \(s_0\to s\to e\to t_0\) corresponds to selecting matching edge \((s,e)\).
+- Any integer flow unit path $s_0\to s\to e\to t_0$ corresponds to selecting matching edge $(s,e)$.
 - Capacity 1 on source/socket edges ensures each socket used at most once.
 - Capacity 1 on device/sink edges ensures each device used at most once.
-- Conversely, any matching of size \(M\) gives flow of value \(M\).
+- Conversely, any matching of size $M$ gives flow of value $M$.
 
 By integrality of max flow with integer capacities, optimal flow is integral.
 
@@ -5084,10 +5084,10 @@ Task asks implementing missing heap template functions.
 4. sift-down (trickle-down) by swapping with smaller child until heap property restored.
 
 #### `decrease_key(i,newVal)` (if present)
-- decrease value at index \(i\),
+- decrease value at index $i$,
 - sift-up.
 
-#### `heapify(i)` (sift-down at index \(i\))
+#### `heapify(i)` (sift-down at index $i$)
 - compare with children,
 - swap with smaller child if needed,
 - continue recursively/iteratively.
@@ -5097,7 +5097,7 @@ Task asks implementing missing heap template functions.
 ### C2) Correctness invariants
 
 1. Shape invariant: array represents complete binary tree.
-2. Order invariant: parent \(\le\) children.
+2. Order invariant: parent $\le$ children.
 
 Each operation preserves both:
 - insert preserves shape by append, restores order by sift-up,
@@ -5106,15 +5106,15 @@ Each operation preserves both:
 ---
 
 ### C3) Runtimes
-Height of heap with \(n\) nodes:
+Height of heap with $n$ nodes:
 \[
 O(\log n).
 \]
 So:
-- insert: \(O(\log n)\),
-- extract-min: \(O(\log n)\),
-- peek-min: \(O(1)\),
-- build-heap (bottom-up): \(O(n)\).
+- insert: $O(\log n)$,
+- extract-min: $O(\log n)$,
+- peek-min: $O(1)$,
+- build-heap (bottom-up): $O(n)$.
 
 ---
 
@@ -5136,22 +5136,22 @@ Heap is like a tournament podium:
 
 ## Section D — Aufgabe 4: From arbitrary flow to acyclic flow with same value
 
-Given flow network \(G=(V,E)\), flow \(f\).  
-Need show exists flow \(f'\) with:
-- \(|f'|=|f|\),
+Given flow network $G=(V,E)$, flow $f$.  
+Need show exists flow $f'$ with:
+- $|f'|=|f|$,
 - positive-flow edge subgraph has no directed cycle.
 
 ---
 
 ### D1) High-level strategy: cycle-canceling on flow cycles
 
-If positive-flow subgraph contains directed cycle \(C\), then each edge on \(C\) has \(f(e)>0\).
+If positive-flow subgraph contains directed cycle $C$, then each edge on $C$ has $f(e)>0$.
 
 Let:
 \[
 \delta = \min_{e\in C} f(e) > 0.
 \]
-Decrease flow by \(\delta\) on every edge of \(C\):
+Decrease flow by $\delta$ on every edge of $C$:
 \[
 f(e)\leftarrow f(e)-\delta \quad \forall e\in C.
 \]
@@ -5165,8 +5165,8 @@ Flows only decrease on cycle edges, so still nonnegative and below capacities.
 
 #### Flow conservation
 At each cycle vertex:
-- one incoming cycle edge reduced by \(\delta\),
-- one outgoing cycle edge reduced by \(\delta\),
+- one incoming cycle edge reduced by $\delta$,
+- one outgoing cycle edge reduced by $\delta$,
 net balance unchanged.
 
 #### Source-sink value
@@ -5176,7 +5176,7 @@ No net change in source outflow minus inflow from this cycle operation, so total
 
 ### D3) Why process terminates
 
-Each cancellation sets at least one cycle edge flow to zero (edge achieving minimum \(\delta\)).  
+Each cancellation sets at least one cycle edge flow to zero (edge achieving minimum $\delta$).  
 Number of positive-flow edges decreases at least by one eventually, finite edges => finite steps.  
 When no directed cycle remains in positive-flow subgraph, flow is acyclic.
 
@@ -5201,7 +5201,7 @@ You can reduce the same amount on every pipe in that loop — total delivered wa
 
 ## ✅ Compact exam answers (UB13)
 
-1. Integer-weight MST (\(1..k\)):
+1. Integer-weight MST ($1..k$):
    - Prim + bucket priority queue,
    - runtime:
 \[
@@ -5215,7 +5215,7 @@ O(k|V|+|E|).
 
 3. Binary min-heap:
    - implement insert/sift-up, extract-min/sift-down, heapify, etc.,
-   - operations \(O(\log n)\), build-heap \(O(n)\).
+   - operations $O(\log n)$, build-heap $O(n)$.
 
 4. Acyclic flows:
    - repeatedly cancel positive directed cycles by subtracting minimum cycle flow,
