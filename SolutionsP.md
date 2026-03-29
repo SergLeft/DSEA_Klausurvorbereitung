@@ -302,7 +302,6 @@ Hashing is a technique used to map data of arbitrary size to fixed-size values. 
 - **Collision**: A situation that occurs when two different inputs produce the same hash output.
 - **Applications**: Hashing is widely used in data structures (like hash tables), databases, cryptography, and more.
 
-
 ### 🧠 The Theory: The "Perfect" Map
 Imagine you have a huge library (the **Universe $U$**) but a very small shelf (the **Hash Table $m$**). You want to store your favorite books so that you can find any book *instantly* ($O(1)$).
 
@@ -343,4 +342,52 @@ Set $a_2 = c$. We want $h_{a(c)}(x) \equiv h_{a(c)}(y) \pmod{11}$.
 - **Final Answer:** A collision occurs only when **$c = 10$**.
 
 ---
-*Status: Blatt 13 down to 7 Complete.*
+
+## 📉 Topic 13: Lower Bounds and Randomized Selection
+
+### 🧠 The Theory: The Wall of Information
+
+In algorithms, we often look for the "fastest" way. But sometimes, mathematics tells us there is a **physical limit**—a wall you cannot pass.
+
+- **Information Theory Lower Bound:** 
+  Imagine I'm thinking of a number between 1 and $n$. You ask "Yes/No" questions. Each question cuts the possibilities in half. 
+  - To find one specific item out of $n$, you need at least $\log_2(n)$ questions.
+  - This is why **Binary Search** is $O(\log n)$ and why you **cannot** find an element in a sorted list faster than that using only comparisons. You simply haven't gathered enough "information" yet!
+  - For **Sorting**, there are $n!$ possible ways to order a list. To find the *one* correct order, you need $\log_2(n!) \approx n \log n$ comparisons. That's the wall!
+
+- **Randomized Selection (QuickSelect):**
+  This is QuickSort's smarter sibling. Instead of sorting the *whole* array, you only care about one specific rank (e.g., the Median).
+  - **The Strategy:** Pick a "Pivot." Partition the array. If the item you want is in the left half, **ignore the right half entirely**.
+  - **The "Median of Three" Trick:** Picking a random pivot can be risky (what if you pick the smallest item?). If you pick 3 random items and use their median as the pivot, you are much more likely to land "near the middle," making the algorithm faster and more stable.
+
+### ✅ Solution 6.1: The Lower Bound for Search
+
+**Question:** Show that finding an element in a sorted list takes at least $\Omega(\log n)$ comparisons.
+
+**The Decision Tree Proof:**
+1.  Any comparison-based algorithm can be viewed as a **Decision Tree**.
+2.  Each internal node is a comparison (e.g., "Is $x < A[i]$?"). Each leaf is a possible outcome (the index where $x$ is found, or "Not Found").
+3.  There are $n+1$ possible outcomes (it could be at any of the $n$ positions, or not there at all).
+4.  A binary tree with $L$ leaves must have a height of at least $\lceil \log_2 L \rceil$.
+5.  Therefore, the height (worst-case number of comparisons) is at least $\log_2(n+1)$, which is $\Omega(\log n)$.
+
+### ✅ Solution 6.2: Randomized Partition (Median of 3)
+
+**Scenario:** We pick 3 distinct elements and use their median as the pivot.
+
+**a) Probability $p_i$:**
+The element with rank $i$ becomes the pivot if it is the median of the 3 chosen elements.
+- This means one chosen element must be smaller (from the $i-1$ options) and one must be larger (from the $n-i$ options).
+- **Formula:** $p_i = \frac{(i-1) \cdot (n-i)}{\binom{n}{3}}$
+- *Note: We multiply by 1 because the rank $i$ element is fixed as the middle choice.*
+
+**b) Median Improvement (Limit $n \to \infty$):**
+- **Old way (1 random pivot):** Chance of hitting the exact median is $1/n$.
+- **New way (Median of 3):** 
+  - Let $i = n/2$ (the median).
+  - $p_{median} \approx \frac{(n/2) \cdot (n/2)}{n^3/6} = \frac{n^2/4}{n^3/6} = \frac{1.5}{n}$.
+- **Ratio:** $\frac{1.5/n}{1/n} = 1.5$.
+- **Conclusion:** You are **50% more likely** to hit the median using the "Median of 3" strategy compared to picking just one random element. This drastically reduces the chance of the "Worst Case" $O(n^2)$ behavior!
+
+---
+*Status: Blatt 13 down to 6 Complete.*
