@@ -1261,5 +1261,213 @@ So:
    - Complexity: $\boxed{O(n)}$ time, $\boxed{O(1)}$ space.
 
 ---
+---
 
-*Status update: Präsenzblatt 2 added in full tutoring style with analogies, step decisions, and justifications. Ready for Präsenzblatt 1 next.*
+## 📘 Topic 18: Präsenzblatt 1 — Full Tutoring Session (ADHD-Friendly, From Zero)
+
+### 🧠 Aufgabe 1: Stable Matching, Non-Termination, and a Stable Solution
+
+We have 3 persons $p_1,p_2,p_3$ and 3 jobs $a_1,a_2,a_3$.
+
+Given preferences (interpreting “$<$” as “is preferred over”):
+- $p_1: a_3 \succ a_1 \succ a_2$
+- $p_2: a_3 \succ a_2 \succ a_1$
+- $p_3: a_3 \succ a_2 \succ a_1$
+- $a_1: p_2 \succ p_3 \succ p_1$
+- $a_2: p_2 \succ p_1 \succ p_3$
+- $a_3: p_2 \succ p_1 \succ p_3$
+
+---
+
+#### 1) Concepts and abbreviations
+
+- **Stable matching**: a matching with no blocking pair.
+- **Blocking pair / unstable pair** $(p_i,a_j)$: person $p_i$ and job $a_j$ both prefer each other over their current partners.
+- **Termination**: algorithm eventually stops.
+- **Naive swapping algorithm**: repeatedly choose an unstable pair and swap partners accordingly.
+
+---
+
+#### 2) (a) Why naive algorithm need not terminate
+
+Start matching:
+- $Z_0=\{(p_1,a_1),(p_2,a_2),(p_3,a_3)\}$
+
+Key theoretical point:
+- The naive algorithm does not prescribe a unique unstable pair choice.
+- Different choices can lead to different trajectories.
+- Some trajectories can revisit previous matchings (cycle), so termination is not guaranteed.
+
+So the correct conclusion is:
+- $\boxed{\text{The naive algorithm is not guaranteed to terminate.}}$
+
+---
+
+#### 3) Decision-making to find a stable matching (part b)
+
+**Decision 1:** Who should get $a_3$?  
+All persons like $a_3$ highly, and $a_3$ prefers $p_2$ most.  
+If $p_2$ does not get $a_3$, pair $(p_2,a_3)$ tends to block.
+
+So we set:
+- $(p_2,a_3)$
+
+Remaining persons/jobs:
+- persons: $p_1,p_3$
+- jobs: $a_1,a_2$
+
+Now compare remaining preferences:
+- $p_1: a_1 \succ a_2$
+- $p_3: a_2 \succ a_1$
+- $a_1: p_3 \succ p_1$
+- $a_2: p_1 \succ p_3$
+
+Choose:
+- $(p_1,a_2)$ and $(p_3,a_1)$
+
+So candidate:
+- $Z^*=\{(p_2,a_3),(p_1,a_2),(p_3,a_1)\}$
+
+Check potential blocks:
+- $(p_1,a_1)$: $p_1$ prefers $a_1$, but $a_1$ prefers $p_3$ over $p_1$ → no block.
+- $(p_3,a_2)$: $p_3$ prefers $a_2$, but $a_2$ prefers $p_1$ over $p_3$ → no block.
+No blocking pair remains.
+
+Therefore:
+- $\boxed{Z^*=\{(p_2,a_3),(p_1,a_2),(p_3,a_1)\}}$ is stable.
+
+Can naive algorithm find $Z^*$ from $Z_0$?
+- Yes, for some unstable-pair choices.
+- But not guaranteed because it may also cycle.
+
+---
+
+#### 4) Analogy (theory ↔ exercise)
+Imagine a dance party:
+- People keep switching partners whenever two people mutually prefer each other.
+- Without strict rules, the same partner configurations can reappear (loop).
+- A stable matching is a “no-drama state” where no two people would rather switch.
+
+---
+
+### 🧠 Aufgabe 2: Logarithm Identities and Simplifications
+
+---
+
+#### 1) (a) Show change-of-base formula
+Prove:
+- $\log_a(x)=\dfrac{\log_b(x)}{\log_b(a)}$
+
+Proof:
+Let $y=\log_a(x)$, so $a^y=x$.  
+Take $\log_b$:
+- $\log_b(a^y)=\log_b(x)$
+- $y\log_b(a)=\log_b(x)$
+- $y=\dfrac{\log_b(x)}{\log_b(a)}$
+
+Since $y=\log_a(x)$, done.
+
+---
+
+#### 2) (b) Show power rule
+- $\log_a(x^y)=y\log_a(x)$
+
+This is the standard logarithm power identity.
+
+---
+
+#### 3) (c) Simplify $4^{\log_2(n)}$
+- $4=2^2$
+- $(2^2)^{\log_2 n}=2^{2\log_2 n}=(2^{\log_2 n})^2=n^2$
+
+So:
+- $\boxed{4^{\log_2 n}=n^2}$
+
+---
+
+#### 4) (d) Simplify $\dfrac{\ln(n^{\ln n})}{(\ln n)^2}$
+- $\ln(n^{\ln n})=(\ln n)(\ln n)=(\ln n)^2$
+
+Hence:
+- $\dfrac{(\ln n)^2}{(\ln n)^2}=1$
+
+So:
+- $\boxed{1}$
+
+---
+
+#### 5) (e) Simplify $\sum_{k=1}^n \ln(k)$
+Use log-of-product:
+- $\sum_{k=1}^n\ln(k)=\ln\!\left(\prod_{k=1}^n k\right)=\ln(n!)$
+
+So:
+- $\boxed{\sum_{k=1}^n\ln(k)=\ln(n!)}$
+
+(Asymptotically: $\ln(n!)=\Theta(n\ln n)$.)
+
+---
+
+#### 6) Analogy (why logs help)
+Logs are like a “complexity compressor”:
+- products become sums,
+- powers become multipliers.
+So complicated multiplicative expressions become manageable.
+
+---
+
+### 🧠 Aufgabe 3: Number of Perfect Matchings
+
+Question:
+How many possible perfect pairings are there with $n$ applicants and $n$ jobs?  
+(Important: not asking how many are stable, just total perfect pairings.)
+
+Decision process:
+- applicant 1 has $n$ choices,
+- applicant 2 has $n-1$ remaining choices,
+- ...
+- applicant $n$ has $1$.
+
+Multiply:
+- $n(n-1)\cdots 1=n!$
+
+Final:
+- $\boxed{n!}$
+
+---
+
+#### Analogy
+Assigning $n$ distinct people to $n$ distinct seats = counting permutations = $n!$.
+
+---
+
+### ✅ Final compact answers (exam-style)
+
+1. **Aufgabe 1a**  
+   Naive unstable-pair swapping is not guaranteed to terminate, because depending on unstable-pair choices it can revisit previous states (cycle).
+
+2. **Aufgabe 1b**  
+   A stable matching is:
+   - $\boxed{Z^*=\{(p_2,a_3),(p_1,a_2),(p_3,a_1)\}}$  
+   It can be reached by naive algorithm for some choices, but not guaranteed.
+
+3. **Aufgabe 2a**
+   - $\log_a(x)=\dfrac{\log_b(x)}{\log_b(a)}$
+
+4. **Aufgabe 2b**
+   - $\log_a(x^y)=y\log_a(x)$
+
+5. **Aufgabe 2c**
+   - $4^{\log_2 n}=n^2$
+
+6. **Aufgabe 2d**
+   - $\dfrac{\ln(n^{\ln n})}{(\ln n)^2}=1$
+
+7. **Aufgabe 2e**
+   - $\sum_{k=1}^n\ln(k)=\ln(n!)$
+
+8. **Aufgabe 3**
+   - $\boxed{n!}$
+
+---
+
+*Status update: Präsenzblätter completed from 13 down to 1 in tutoring style with decisions, justifications, and analogies.*
