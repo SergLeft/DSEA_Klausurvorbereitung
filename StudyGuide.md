@@ -1,4 +1,4 @@
-# DSEA Study Guide: Deep Comprehension Concepts
+# DSEA Study Guide: Deep Comprehension Concepts and BattlePlan
 
 ## 🏗️ Topic 1: Binary Heaps (from absolute zero)
 
@@ -636,3 +636,119 @@ When making change (or stacking weight plates) for a target amount, the Greedy a
 *   *The Trap:* Set = $\{1, 3, 4\}$. Target = $6$.
 *   Greedy takes $4$, leaving $2$. Then takes $1$, leaving $1$. Then takes $1$. **Total = 3 coins (4, 1, 1).**
 *   Optimal: Take $3$ and $3$. **Total = 2 coins.**
+
+# ⚔️ The April 10th Battle Plan
+
+## Part 1: The "Flips" (Predicted April Candidates)
+Professors usually take the concepts from the first exam and use their "mirrored" or "advanced" versions for the Nachklausur. Here is exactly how to execute them.
+
+### 1. The Hash Map Flip: Double Hashing & Cuckoo Hashing
+*First exam had Linear Probing. Expect these instead.*
+
+*   **Double Hashing (The Smart Jump):**
+    *   *The Rule:* If $h_1(x)$ is full, you don't just walk $+1$. You calculate a custom jump size using $h_2(x)$. Your sequence is: $h_1(x)$, then $h_1(x) + h_2(x)$, then $h_1(x) + 2 \cdot h_2(x)$, etc.
+    *   *The Trap:* If $h_2(x)$ evaluates to $0$, you would jump by 0 and get stuck in an infinite loop! Exam questions usually define $h_2(x)$ so it can never be zero, but if you have to choose one, make sure it returns $\ge 1$.
+*   **Cuckoo Hashing (The Eviction):**
+    *   *The Rule:* You have TWO tables (T1 and T2) and TWO functions ($h_1$ for T1, $h_2$ for T2).
+    *   *The Trace mechanics:* 
+        1. Always try T1 first using $h_1(x)$.
+        2. If a number $Y$ is already sitting there, **kick $Y$ out** and put $X$ in its place.
+        3. Now $Y$ is "homeless". $Y$ MUST go to its backup home in T2 using $h_2(Y)$. 
+        4. If T2 is full, $Y$ kicks out whoever is there, and *that* person flies back to T1.
+
+### 2. The AVL Flip: Deletion & Double Rotations
+*First exam had a simple insertion. Expect a forced Double-Rotation or a Deletion.*
+
+*   **The Forced Double Rotation (LR / RL Case):**
+    *   *The Setup:* You insert a node, and the balance factor at the grandparent is $\pm 2$. But the "heavy path" is a zig-zag (Left then Right, or Right then Left). 
+    *   *The Execution:* DO NOT try to fix it in one move.
+        1. **Step 1:** Rotate the *child* to straighten the dog-leg into a straight line.
+        2. **Step 2:** Rotate the *parent* to fix the straight line. 
+*   **AVL Deletion (The Cascade):**
+    *   *The Rule:* If you delete a leaf, just remove it and update balances. If you delete a node with two children, you MUST replace it with its **In-Order Predecessor** (the biggest number in its left subtree) or **In-Order Successor** (the smallest number in its right subtree). 
+    *   *The Trap:* Deletion can cause a chain reaction! Fixing the balance at the bottom might shrink the height of that branch, causing an imbalance at the parent, then the grandparent, all the way to the root. Check balances ALL the way up!
+
+### 3. The Sorting/Memory Flip: QuickSelect
+*First exam had MergeSort memory tricks. Expect QuickSelect ($O(n)$ search).*
+
+*   **The Core Concept:** You need to find the $k$-th smallest element (or the median) in an unsorted array, but sorting it takes $O(n \log n)$. 
+*   **The Execution (How to write it down):**
+    1. Pick a Pivot. Partition the array (Smaller on Left, Bigger on Right).
+    2. Look at the Pivot's final index $p$.
+    3. If $p == k$, **Stop!** You found it.
+    4. If $k < p$, the target MUST be in the Left room. Recursively call QuickSelect *only* on the Left room. Throw the Right room in the trash!
+    5. Because you throw away half the array at each step, the expected runtime is $N + N/2 + N/4 \dots = \mathbf{O(n)}$.
+
+### 4. The Greedy/DP Flip: When Greedy Fails (Coin Change)
+*First exam had a working Greedy algorithm. Expect them to ask when Greedy FAILS.*
+
+*   **The Setup:** Currency system is coins of $\{1, 3, 4\}$. Target sum is $6$. 
+*   **The Greedy Trace:** Greedy takes the biggest coin first: $4$. Remaining = $2$. It takes two $1$s. Total coins used = **3 coins (4, 1, 1)**.
+*   **The Optimal Trace (DP):** The dynamic programming table checks all combinations and finds that taking two $3$s works perfectly. Total coins used = **2 coins (3, 3)**.
+*   **The Conclusion:** Because $2 < 3$, the Greedy algorithm returns a mathematically sub-optimal answer. It fails because the coin sizes do not perfectly divide into each other.
+
+---
+
+## Part 2: Nailing the Mechanics (The 4.0 Survival Guide)
+You need ~50% to pass. Here is the foolproof, "Monkey-Brain" execution protocol for the tasks that guarantee you points. Do not overthink these. Just execute the steps.
+
+### 1. The Master Theorem Protocol
+If you see $T(n) = a \cdot T(n/b) + f(n)$:
+1.  **Extract:** Write down $a = ?$ and $b = ?$. 
+2.  **Calculate the Clones:** Calculate $n^{\log_b a}$. (If $b=2$ and $a=8$, $2^3=8$, so $n^3$).
+3.  **The Battle:** Look at $f(n)$. 
+    *   If Clones are a bigger power than $f(n)$ $\to$ **$\Theta(\text{Clones})$**.
+    *   If $f(n)$ is a bigger power than Clones $\to$ **$\Theta(f(n))$**.
+    *   If they are the EXACT SAME power $\to$ **$\Theta(\text{Clones} \cdot \log n)$**.
+
+### 2. Kruskal's MST Protocol (Island Bridges)
+If they give you a graph and ask for an MST:
+1.  Write a list of EVERY edge, sorted strictly from cheapest to most expensive.
+2.  Start with an empty graph (just the nodes, no edges).
+3.  Go down your list one by one.
+4.  *Does drawing this edge create a closed circle?* 
+    *   YES $\to$ Cross it out on your list. Never look at it again.
+    *   NO $\to$ Draw it!
+5.  Stop the exact moment all nodes are connected. You're done.
+
+### 3. Dijkstra's Algorithm Protocol (The Envelopes)
+If they ask for shortest paths from node $S$:
+1.  Create a table with all nodes. Set distance to $S=0$, all others to $\infty$.
+2.  Pick the unvisited node with the *smallest current distance*. (First step is always $S$).
+3.  "Seal" that node. You will never change its distance again.
+4.  Look at all its unvisited neighbors. Calculate: `My Distance + Edge Weight`.
+5.  If this new calculation is *smaller* than the neighbor's current table value, cross out their old value and write the new one!
+6.  Repeat from Step 2 until all nodes are sealed. 
+
+---
+
+## Part 3: Mastering the "General Observations"
+Your professor loves specific styles of proofs and modeling. Memorize these two templates, and you can plug-and-play them into almost any advanced exam question.
+
+### Template A: The "Proof by Contradiction" (Widerspruchsbeweis)
+Whenever the exam asks you to "Prove that algorithm X never does Y" (like Gale-Shapley stability, or MST cut property), use this exact 4-step mad-libs structure:
+
+1.  **The Lie (Annahme des Gegenteils):** 
+    *   *"We assume for the sake of contradiction that the algorithm DOES fail, meaning [Insert Bad Scenario Here]."*
+    *   *Example:* "Assume Gale-Shapley matches a Cool Man with an Uncool Woman."
+2.  **The Logical Consequence (Die Folge):**
+    *   *"If this scenario is true, it mathematically forces [Insert consequence] to happen."*
+    *   *Example:* "Because there are equal numbers of Cool men/women, this forces at least one Cool Woman to be matched with an Uncool Man."
+3.  **The Paradox (Der Widerspruch):**
+    *   *"But wait! Look at [Entity A] and [Entity B]. According to the rules of the algorithm, they would do [Action], which violates the fundamental rule of [Holy Law]!"*
+    *   *Example:* "Both the Cool Man and Cool Woman strictly prefer each other over their assigned uncool partners. This forms a 'Blocking Pair', which violates the fundamental guarantee of Gale-Shapley."
+4.  **The Mic Drop (Die Schlussfolgerung):**
+    *   *"Since our assumption leads to a mathematical impossibility, our assumption must be false. Therefore, [Restate the original true statement]. Q.E.D."*
+
+### Template B: The "Capacity 1 Magic" (Flow Networks)
+Whenever a word problem asks you to find:
+*   Maximum number of pairs / 1-to-1 matches (Doctors/Patients, Jobs/Workers)
+*   Maximum number of completely separate/disjoint paths between two cities
+*   Minimum number of cuts/police needed to break a network
+
+**Write this exact paragraph:**
+1.  *"We model this problem as a Flow Network (Flussnetzwerk)."*
+2.  *"We introduce an artificial Super-Source ($s$) and an artificial Super-Sink ($t$)."*
+3.  *"We connect $s$ to all starting nodes, and all ending nodes to $t$."*
+4.  **THE MAGIC LINE:** *"We set the Capacity ($c$) of EVERY relevant edge to exactly **1**."*
+5.  *"We run the Ford-Fulkerson algorithm to find the Maximum Flow. Because all capacities are 1, each unit of flow represents exactly one [Match / Path / Cut]. The value of the Max Flow is our final answer, running in $O(|E| \cdot f_{max})$ time."*
