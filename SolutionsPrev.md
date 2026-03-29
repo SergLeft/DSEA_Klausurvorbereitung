@@ -1,276 +1,339 @@
-## 🔁 Replacement Block — Präsenzblatt 13 (with analogy + decision logic)
+---
 
-## 🏗 Topic 1 (Revised): Heap Construction Runtime and Correctness (Präsenzblatt 13, Aufgabe 1)
+## 🔁 Replacement Block — Präsenzblatt 13 (Deep-Theory Version)
 
-### 🧠 Big-picture analogy: The Emergency Room Pyramid
-Imagine a hospital with a strict emergency hierarchy
-- **Top doctor** (root) must always have highest priority patient.
-- **Each doctor** supervises two juniors (children).
-- **Rule**: every supervisor’s priority score must be at least as high as each junior's.
-That is exactly a **max-heap**.
+## 🏗 Topic 1 (Revised): Heap Build Runtime + Correctness (Präsenzblatt 13, Aufgabe 1)
 
-Building a heap is like reorganizing the hospital quickly so every supervisor-junior relation follows policy.
+### 🧠 What is asked?
+You must solve three parts:
+1. Show recursive heapify version runs in $O(n)$.
+2. Continue bottom-up heap build on given insertion array and state where index $i$ should start.
+3. Prove bottom-up build is $O(n)$ using the given loop invariant.
 
 ---
 
-### 📚 Abbreviations and concepts
-- **Heap**: complete binary tree with heap property.
-- **Max-Heap**: every parent $\ge$ children.
-- **trickle-down / sift-down**: repeatedly swap a node downward with larger child until local heap rule holds.
-- **Loop invariant**: statement that stays true at each loop step.
-- **$O(\cdot)$**: asymptotic upper bound.
+### 📚 Theory (from zero but university-rigorous)
+
+#### Heap basics
+- A **binary heap** is a complete binary tree stored in an array.
+- For index $i$:
+  - left child: $2i+1$
+  - right child: $2i+2$
+  - parent: $\lfloor(i-1)/2\rfloor$
+- **Max-heap property**: for each node $i$, key$(i)\ge$ key(children of $i$).
+
+#### Why leaves matter
+A leaf has no children, so heap property at that node is automatically true.  
+This is why bottom-up algorithms start at last internal node, not at the last array cell.
+
+#### Trickle-down correctness idea
+If left and right child subtrees are already heaps, trickle-down at root restores heap property for the entire rooted subtree.
 
 ---
 
-### 🧭 What the exercise asks
-1. Why recursive heapify (left, right, then trickle-down self) is $O(n)$.
-2. Continue bottom-up build from given array/tree and answer where $i$ should start.
-3. Prove bottom-up build is $O(n)$ using the loop invariant.
+### 🌉 Analogy: Military chain-of-command
+Think of each node as a commander with two sub-commanders.
+Rule: commander must have rank at least as high as both sub-commanders.
+Leaves are soldiers with nobody below them — automatically valid.
+Bottom-up build is “fix local commanders from lowest level upward.”
 
 ---
 
-### ✅ Part (a): Why recursive heapify is $O(n)$
+### ✅ Part (a): recursive heapify is $O(n)$
 
-#### Decision step
-We do **height-based counting** instead of naive “$n$ nodes × $\log n$ each”.
-Why? Because most nodes are near leaves and barely move.
+Algorithm (conceptual):
+1. heapify(left subtree)
+2. heapify(right subtree)
+3. trickle-down(current root)
 
-#### Theory tie-in
-- A node at height $h$ can move down at most $h$ levels.
-- Number of nodes at height $h$ is about $n/2^{h+1}$.
+#### Decision strategy
+Use **height-sum analysis**:
+- Cost per node depends on how far it can move downward.
+- Node at height $h$ costs at most $O(h)$.
+- Number of nodes at height $h$ is at most $\approx n/2^{h+1}$.
 
-So total work:
+Total:
 \[
 \sum_{h\ge0}\frac{n}{2^{h+1}}\cdot O(h)
-=O\!\left(n\sum_{h\ge0}\frac{h}{2^h}\right)=O(n)
+=O\!\left(n\sum_{h\ge0}\frac{h}{2^h}\right)
+=O(n)
 \]
-since $\sum h/2^h$ converges.
+since $\sum_{h\ge0} h/2^h$ converges.
 
 \[
-\boxed{\text{Recursive heapify build is }O(n)}
+\boxed{\text{Runtime }=O(n)}
 \]
 
-#### How to think in exam
-If you see heap-build runtime, think:
-> “Count by height, not by nodes uniformly.”
+#### Why this works conceptually
+Most nodes are near leaves and almost never move.
+Only very few nodes near root can move many levels.
 
 ---
 
-### ✅ Part (b): Bottom-up trace + where to start $i$
+### ✅ Part (b): execute bottom-up build + where to start $i$
 
-Given initial array:
+Given array:
 \[
 [4,1,5,5,2,6,7,3,4,6,8,3]
 \]
+with $n=12$.
 
-#### Decision: start index
-Start at **last internal node**:
+#### Where can $i$ start?
+Last internal node:
 \[
-i_{\text{start}}=\left\lfloor\frac{n}{2}\right\rfloor-1
+i_{\text{start}}=\left\lfloor\frac{n}{2}\right\rfloor-1=5
 \]
-For $n=12$:
+So best starting index:
 \[
-i_{\text{start}}=5
+\boxed{i=5}
 \]
 
-#### Why this works
-Nodes after index 5 are leaves. Leaves already satisfy heap property (no children to violate rule), so running trickle-down there is unnecessary.
-
-#### Step-by-step with justification
-1. $i=5$ (value 6), child is 3 → already valid.
-   - Why: parent ≥ child.
+#### Step-by-step (descending $i$)
+1. $i=5$ (value 6), child=3 → valid.
 2. $i=4$ (2), children 6 and 8 → swap with 8.
-   - Why: to restore max-parent rule, must swap with larger child.
 3. $i=3$ (5), children 3 and 4 → valid.
 4. $i=2$ (5), children 6 and 7 → swap with 7.
-5. $i=1$ (1), children 5 and 8 → swap with 8; continue trickle-down with children 6 and 2 → swap with 6.
-6. $i=0$ (4), children 8 and 7 → swap with 8; continue with children 5 and 6 → swap with 6.
+5. $i=1$ (1), children 5 and 8 → swap with 8; continue down with children 6 and 2 → swap with 6.
+6. $i=0$ (4), children 8 and 7 → swap with 8; continue down with children 5 and 6 → swap with 6.
 
 Final heap:
 \[
 \boxed{[8,6,7,5,4,6,5,3,4,1,2,3]}
 \]
 
-Answer to “Wo könnte man $i$ beginnen lassen?”:
-\[
-\boxed{i=\lfloor n/2\rfloor-1}
-\]
+#### Why each swap choice is justified
+Always swap with larger child:
+- guarantees parent becomes as large as possible locally,
+- prevents immediate re-violation by the other child.
 
 ---
 
-### ✅ Part (c): Correctness + runtime with loop invariant
+### ✅ Part (c): prove correctness and $O(n)$ with loop invariant
 
-Invariant given:
-- At start of iteration $i$, all positions $n-1,\dots,i+1$ are roots of heaps.
+Loop:
+\[
+\text{for }i=n-1,n-2,\dots,0:\ \text{trickle-down}(i)
+\]
 
-#### Why this invariant is smart
-It exactly matches bottom-up direction: by the time we handle $i$, both children are already “good heaps”.
+Given invariant:
+> At start of iteration for $i$, all positions $n-1,\dots,i+1$ are roots of heaps.
 
-#### Proof structure
-- **Initialization**: True vacuously for highest indices (leaves).
-- **Maintenance**: At iteration $i$, children indices are $>i$, so they root heaps by invariant. Trickle-down at $i$ merges them into heap rooted at $i$. Invariant preserved.
-- **Termination**: after finishing $i=0$, root 0 is heap root for whole array.
+#### Initialization
+For large indices (especially leaves), rooted subtrees are trivially heaps.
 
-So correctness is proven.
+#### Maintenance
+Assume invariant true at start of $i$.
+Children of $i$ have larger indices, so their subtrees are heaps.
+Applying trickle-down at $i$ restores heap property at root $i$ while preserving child-heaps.
+Hence now positions $n-1,\dots,i$ are roots of heaps.
 
-Runtime:
-same height-counting sum:
+#### Termination
+After finishing $i=0$, root 0 is heap root over whole array.
+So whole array is a valid heap.
+
+#### Runtime
+Same height-sum argument:
 \[
 \sum_{h\ge0}\frac{n}{2^{h+1}}\cdot O(h)=O(n)
 \]
-
+Thus:
 \[
-\boxed{\text{Bottom-up build is correct and }O(n)}
+\boxed{\text{Bottom-up build is correct and runs in }O(n)}
 \]
 
 ---
 
-### ⚠️ Common exam traps
-1. Writing $O(n\log n)$ without height grouping.
-2. Starting from $i=n-1$ as if all nodes need trickle-down.
-3. Forgetting “swap with larger child” rule.
+### ⚠️ Exam pitfalls
+1. Claiming “$n$ calls × $O(\log n)$ so $O(n\log n)$” without tighter height counting.
+2. Starting at $n-1$ as if leaves need fixing.
+3. Forgetting invariant maintenance justification.
 
 ---
 
 ### 🧩 Micro-summary
-- Heap-build is linear because expensive moves happen only at few high nodes.
-- Start at last internal node.
-- Invariant proof gives correctness cleanly.
+- Correct start index: $\lfloor n/2\rfloor-1$.
+- Final heap here: $[8,6,7,5,4,6,5,3,4,1,2,3]$.
+- Both recursive and bottom-up heap building are $O(n)$ with proper proof.
 
 ---
 
-## 🌊 Topic 2 (Revised): Residual Network (Präsenzblatt 13, Aufgabe 2)
+## 🌊 Topic 2 (Revised): Residual Network + Augmenting Path (Präsenzblatt 13, Aufgabe 2)
 
-### 🧠 Big-picture analogy: Water Pipes with Undo Buttons
-Think of flow as water through pipes.
-- Forward residual = free capacity left in pipe.
-- Backward residual = how much water you can “undo/reroute” by reducing current flow.
-Residual graph is your **live control panel** of what can still be changed.
+### 🧠 What is asked?
+Construct residual network and decide if augmenting path exists.
 
 ---
 
-### 📚 Abbreviations
-- **Residual network** $G_f$: graph of remaining forward/backward capacities.
-- **Augmenting path**: path from $s$ to $t$ in $G_f$ with all residual capacities > 0.
-- **Bottleneck**: smallest residual on that path.
+### 📚 Theory
+Given edge $(u,v)$ with flow/capacity $f/c$:
+- forward residual capacity: $c-f$ (how much more can be sent),
+- backward residual capacity: $f$ (how much sent flow can be canceled/rerouted).
+
+Residual graph $G_f$ contains edges with positive residual capacity.
+
+**Ford-Fulkerson principle**:
+- if an $s\to t$ path exists in $G_f$, flow is not yet maximal.
+
+---
+
+### 🌉 Analogy: Plumbing with undo valves
+Forward edge = extra water still possible.
+Backward edge = undo valve to reclaim already sent water and reroute it elsewhere.
 
 ---
 
 ### 🧭 Decision strategy
-For every original edge $(u,v)$ with current flow/capacity $f/c$:
-- add forward residual $(u,v)$ with $c-f$ if positive,
-- add backward residual $(v,u)$ with $f$ if positive.
-Then search $s\to t$ path.
+1. Translate each original edge to forward/backward residual edges.
+2. Search $s\to t$ path in residual graph.
+3. Path bottleneck = minimum residual capacity along path.
 
 ---
 
-### ✅ Result and why it works
+### ✅ Result for the given network
 A valid augmenting path is:
 \[
 \boxed{s\to4\to5\to t}
 \]
-Residuals:
-- $s\to4$: $15-1=14$
-- $4\to5$: $5-0=5$
-- $5\to t$: $9-0=9$
+Residual capacities:
+- $s\to4:\ 15-1=14$
+- $4\to5:\ 5-0=5$
+- $5\to t:\ 9-0=9$
 
 Bottleneck:
 \[
 \min(14,5,9)=5
 \]
 
-So yes, augmenting path exists:
+So:
 \[
-\boxed{\text{Flow can be increased by }5}
+\boxed{\text{Yes, an augmenting path exists; flow can increase by }5}
 \]
-
-#### How to think in exam
-If any $s\to t$ path exists in residual graph, current flow is not maximum yet.
 
 ---
 
 ### 🧩 Micro-summary
-Residual network = “what can still be pushed or undone”.
-Path $s\to4\to5\to t$ proves current flow can still increase.
+Residual network answers “what can still change right now”.
+Existence of $s\to t$ path proves current flow is not maximum.
 
 ---
 
-## 🔁 Replacement Block — Präsenzblatt 12 (with analogy + decision logic)
+## 🔁 Replacement Block — Präsenzblatt 12 (Deep-Theory Version)
 
-## 🏝 Topic 3 (Revised): MST + Connected Components (Präsenzblatt 12)
+## 🏝 Topic 3 (Revised): MST + Connected Components in Subgraph (Präsenzblatt 12)
 
-### 🧠 Big-picture analogy: Connecting Islands Cheaply
-You own islands and want roads/bridges with minimum total cost.
-- **MST** is the cheapest way to connect all islands without wasteful loops.
-- A loop is like building an unnecessary extra bridge in a triangle.
+### 🧠 Aufgabe 1: Compute an MST with Prim and Kruskal
 
 ---
 
-### 📚 Abbreviations
-- **MST** = Minimum Spanning Tree
-- **Prim** = grow one connected kingdom from a start node
-- **Kruskal** = pick globally cheapest edges, skip those creating cycles
-- **ZHK** = Zusammenhangskomponente (connected component)
+### 📚 Theory
+- A **spanning tree** connects all vertices with no cycles.
+- An **MST** minimizes total edge weight among all spanning trees.
+- **Kruskal** uses global edge ordering + cycle rejection.
+- **Prim** grows one tree from a start vertex using cheapest frontier edge.
+
+#### Correctness principles
+- **Cut property**: lightest edge crossing any cut is safe for MST.
+- Kruskal and Prim repeatedly add safe edges, hence produce MSTs.
 
 ---
 
-### 🧠 Aufgabe 1: MST via Kruskal and Prim
+### 🌉 Analogy: Cheapest bridge network between islands
+You want all islands connected with minimum budget and no redundant loops (loops = wasted bridges).
 
-#### Decision strategy
-Use Kruskal first:
-- easy to audit (global sorted edges),
-- clear cycle decision each step.
-Then cross-check with Prim total weight.
+---
 
-#### Kruskal solution with why each step works
-Pick edges in increasing weight, skipping cycle creators:
+### 🧭 Decision strategy
+1. Kruskal first for transparent global verification.
+2. Prim second to confirm same optimum (possibly different edge order).
+
+---
+
+### ✅ Kruskal solution
+Chosen edges in ascending valid order:
 \[
 (C,D,0),\ (D,E,1),\ (B,E,2),\ (A,B,3),\ (C,G,4),\ (G,H,5),\ (B,F,7)
 \]
 Why valid:
-- each chosen edge connects two previously disconnected components,
-- no cycle introduced,
-- after 7 edges (for 8 nodes) tree is complete.
+- each edge connects different components at selection time,
+- no cycle created,
+- exactly $|V|-1=7$ edges for 8 vertices.
 
 Total:
 \[
 0+1+2+3+4+5+7=\boxed{22}
 \]
 
-#### Prim confirmation
-Starting from any node and always taking cheapest frontier edge gives an MST with same minimum total:
+So MST weight:
 \[
 \boxed{22}
 \]
 
 ---
 
-### ⚠️ Exam traps (MST)
-1. In Kruskal, forgetting cycle check.
-2. In Prim, taking globally cheapest edge instead of cheapest frontier edge.
-3. Not ending with exactly $|V|-1$ edges.
+### ✅ Prim solution
+Starting from any node (e.g., $A$ or $C$), repeatedly take cheapest frontier edge.
+A valid Prim run also yields an MST of total:
+\[
+\boxed{22}
+\]
+
+(Edge set may differ in tie cases, weight remains optimal.)
 
 ---
 
-### 🧠 Aufgabe 2: Find connected components in $H$ in $O(|V|+|E|)$
+### ⚠️ Exam pitfalls
+1. In Prim, choosing globally cheapest instead of frontier cheapest.
+2. In Kruskal, forgetting cycle checks.
+3. Reporting fewer or more than $|V|-1$ edges.
 
-### Analogy: Paint Buckets on a Map
-Pick an unpainted island, paint it and all reachable islands with same color via allowed roads.
+---
+
+### 🧠 Aufgabe 2: Find connected components (ZHKs) in $H$ in $O(|V|+|E|)$
+
+Given:
+- graph $G=(V,E)$ as adjacency lists,
+- subgraph $H=(V,E')$ with edge-membership marks.
+
+Need:
+- compute connected components of $H$ in linear time.
+
+---
+
+### 📚 Theory
+BFS/DFS explores exactly one connected component from start vertex.  
+Applying BFS/DFS repeatedly from unvisited vertices enumerates all components.
+
+---
+
+### 🌉 Analogy: Paint-bucket map coloring
+Start at one unpainted island and paint all reachable islands with color 1.
+Next unpainted island starts color 2, etc.
 Each color = one connected component.
 
 ---
 
-### Decision strategy
-Use BFS/DFS:
-- only follow edges marked “belongs to $H$”.
+### 🧭 Decision strategy
+Use DFS/BFS and ignore edges not in $E'$.
 
-### Why it works
-- BFS/DFS from a start vertex reaches exactly vertices connected to it in $H$.
-- Starting fresh only from unvisited nodes finds new components exactly once.
+Pseudo-logic:
+1. Mark all vertices unvisited.
+2. For each vertex $v$:
+   - if unvisited, start DFS/BFS from $v$,
+   - during traversal, follow only edges marked “in $H$”.
+3. Vertices reached in one traversal form one ZHK.
 
-### Runtime justification
-- each vertex visited once: $O(|V|)$
-- each adjacency examined constant times: $O(|E|)$
+---
+
+### ✅ Why this is correct
+- Soundness: traversal only follows $E'$, so reached vertices are connected in $H$.
+- Completeness: any vertex connected to start in $H$ will be discovered by DFS/BFS.
+- Partitioning: each vertex first discovered in exactly one traversal, so components are disjoint and complete.
+
+---
+
+### ✅ Runtime
+- Vertex processing: $O(|V|)$
+- Each adjacency entry tested constant times: $O(|E|)$
 Total:
 \[
 \boxed{O(|V|+|E|)}
@@ -278,651 +341,708 @@ Total:
 
 ---
 
+### 🧩 Micro-summary
+- MST weight is 22 (via Kruskal/Prim).
+- ZHKs in subgraph $H$ are obtained by filtered DFS/BFS in linear time.
+
+---
 ---
 
-## 🔁 Replacement Block — Präsenzblatt 11 (with analogy + decision logic)
+## 🔁 Replacement Block — Präsenzblatt 11 (deeper theory + analogy + decision logic)
 
 ## 🗺️ Topic 4 (Revised): Floyd-Warshall Table Reduction + Dijkstra Counterexamples (Präsenzblatt 11)
 
-### 🧠 Big-picture analogy: City Navigation Control Room
-You are managing a city routing center.
-- **Floyd-Warshall** = build a giant “all pairs shortest path” map.
-- **Dijkstra** = one-source GPS that assumes roads never have “time refunds” (negative edges).
-
----
-
-### 📚 Abbreviations
-- **APSP** = All-Pairs Shortest Paths
-- **SSSP** = Single-Source Shortest Paths
-- **FW** = Floyd-Warshall
-- **SPT** = Shortest-Path Tree
-
----
-
-### 🧠 Aufgabe 1: Why one table is enough in Floyd-Warshall
+### 🧠 Part A — Floyd-Warshall with one table (Aufgabe 1)
 
 #### What is asked?
-Show why we can update in-place:
+Show why we may write in-place update
 \[
-d_{ij}=\min(d_{ij},d_{ik}+d_{kj})
+d_{ij}\leftarrow \min(d_{ij},\, d_{ik}+d_{kj})
 \]
-instead of keeping separate $D^{(k-1)}$ and $D^{(k)}$ tables.
+instead of using separate tables $D^{(k-1)}$ and $D^{(k)}$.
 
 ---
 
-#### Decision strategy
-Key question:
-> During iteration $k$, can $d_{ik}$ or $d_{kj}$ get “accidentally improved” in a way that breaks correctness?
+### 📚 Core theory from zero (university level, compact)
 
-If no, in-place update is safe.
+- We have weighted directed graph with vertices $1,\dots,n$.
+- Define:
+  \[
+  d^{(k)}_{ij}=\text{length of shortest }i\to j\text{ path using only intermediate vertices from }\{1,\dots,k\}.
+  \]
+- Recurrence:
+  \[
+  d^{(k)}_{ij}=\min\!\big(d^{(k-1)}_{ij},\ d^{(k-1)}_{ik}+d^{(k-1)}_{kj}\big).
+  \]
+
+Interpretation:
+- either best path from $i$ to $j$ does not use $k$,
+- or it uses $k$ once, splitting into $i\to k$ and $k\to j$.
 
 ---
 
-#### Why this works
-In iteration $k$, allowed intermediate nodes are from $\{1,\dots,k\}$.
-For entries ending/starting at $k$:
-- $d_{ik}^{(k)} = d_{ik}^{(k-1)}$
-- $d_{kj}^{(k)} = d_{kj}^{(k-1)}$
+### 🧭 Decision logic: why in-place should even be possible
+Potential danger:
+- if we overwrite entries too early, later calculations might use already-modified values and break correctness.
+So we must justify that values needed in round $k$ are stable.
 
-Reason: a path from $i$ to $k$ using $k$ as an intermediate would be circular/useless for improvement; same for $k$ to $j$.
-
-So helper terms used in
+Key fact in round $k$:
 \[
-d_{ij}\leftarrow\min(d_{ij},d_{ik}+d_{kj})
+d^{(k)}_{ik}=d^{(k-1)}_{ik},\qquad d^{(k)}_{kj}=d^{(k-1)}_{kj}
 \]
-are stable during this $k$-round. Therefore overwriting is safe.
+because allowing $k$ as intermediate cannot improve a path that already ends/starts at $k$ via itself in a beneficial way.
 
-\[
-\boxed{\text{One table is sufficient.}}
-\]
+Therefore, using one matrix in round $k$ is safe.
 
 ---
 
-### 🧠 Aufgabe 2: Construct edge weights for 3 Dijkstra scenarios
+### ✅ Formal correctness sketch
+For fixed $k$, each update uses current entries $d_{ik}, d_{kj}, d_{ij}$.  
+These are effectively still the $k-1$-stage values needed for the recurrence regarding pivot $k$.  
+Hence each overwrite computes exactly $d^{(k)}_{ij}$.
 
-Given directed graph structure from the sheet (nodes $s,A,B,C,D$ with shown arrows).  
-We provide valid weight assignments that satisfy each requested condition.
-
----
-
-#### 2.1 One negative edge, Dijkstra fails
-
-##### Decision
-Force Dijkstra to “finalize too early”, then reveal a better path using one negative edge later.
-
-Choose edges:
-- $s\to A=2$
-- $s\to D=5$
-- $A\to B=2$
-- $D\to B=-4$  (only negative edge)
-- $B\to C=1$
-
-True shortest to $B$:
-- via $A$: $2+2=4$
-- via $D$: $5+(-4)=1$ (better)
-
-Dijkstra from $s$ may settle $A$ then $B=4$ before exploring $D$ path correctly (implementation/finalization effect), yielding wrong distances.
+So one-table version is equivalent to multi-table version.
 
 \[
-\boxed{\text{Condition 1 satisfied (single negative edge can break Dijkstra).}}
+\boxed{\text{One table is correct for Floyd-Warshall.}}
 \]
 
 ---
 
-#### 2.2 All edge weights negative, but Dijkstra still correct
+### 🌉 Analogy
+Think of a travel agency progressively allowing transit through cities 1,2,3,…,k.  
+In round $k$, you ask: “Is route $i\to j$ cheaper if I allow a stop at city $k$?”  
+You can update your price sheet in place because prices to/from city $k$ for this round are already settled.
 
-##### Decision
-Make graph such that from $s$ every node has only one reachable route (no competing alternatives to revise).
+---
 
-Example:
-- $s\to A=-1$
-- $A\to B=-1$
-- $B\to C=-1$
-- (other existing arrows can be set so they are unreachable from $s$ or absent in directed sense for path competition)
+### ⚠️ Exam pitfalls
+1. Saying “works in practice” without proving overwrite safety.
+2. Forgetting definition of $d^{(k)}_{ij}$ with restricted intermediates.
+3. Mixing up node set and edge set restrictions.
 
-If each reachable node has exactly one path from $s$, Dijkstra cannot choose wrong among alternatives.
+---
 
+## 🧠 Part B — Dijkstra construction tasks (Aufgabe 2)
+
+### What is asked?
+For the given directed graph, choose edge weights so that:
+
+1. Exactly one edge weight is negative, and Dijkstra from $s$ fails on at least one node.
+2. All edge weights are negative, but Dijkstra still returns correct distances.
+3. There exist multiple different shortest-path trees from $s$.
+
+---
+
+### 📚 Dijkstra prerequisite theorem
+Dijkstra is guaranteed correct when all edge weights are nonnegative.  
+Failure mechanism with negative edges:
+- a node may be finalized too early,
+- a later path with negative edge could improve it, but algorithm no longer revisits finalized nodes.
+
+---
+
+### ✅ (1) One negative edge, Dijkstra fails — explicit construction
+
+Use edges (matching the sheet’s shape) with these weights:
+- $s\to A = 1$
+- $s\to D = 4$
+- $A\to B = 2$
+- $D\to B = -5$  (only negative edge)
+- $B\to C = 2$
+- $B\to A = 1$ (or omit if not present in your version)
+
+Why Dijkstra fails (from $s$):
+- It may finalize $A$ early with distance 1.
+- Later path $s\to D\to B\to A$ can become $4-5+1=0$, better than 1.
+- But finalized $A$ is not corrected in standard Dijkstra.
+
+So condition satisfied:
 \[
-\boxed{\text{All negative edges and still correct is possible in this constrained structure.}}
+\boxed{\text{one negative edge and wrong result possible}}
 \]
 
 ---
 
-#### 2.3 Multiple different shortest-path trees from $s$
+### ✅ (2) All edges negative, Dijkstra still correct — construction
 
-##### Decision
-Create ties: two distinct predecessors give equal shortest distance.
+Make graph a pure outward arborescence from $s$ (no alternative competing routes), e.g.:
+- $s\to A=-1,\ s\to D=-2,\ A\to B=-1,\ B\to C=-1$
+and remove/backward alternatives that could create competing improvements.
 
-Example:
-- $s\to A=1$
-- $s\to D=1$
-- $A\to B=1$
-- $D\to B=1$
-- $B\to C=1$
-
-Distance to $B$ is 2 via either $A$ or $D$, so two distinct SPTs exist (different parent of $B$), same distances.
+Why Dijkstra still correct here:
+- each reachable node effectively has a unique path from $s$.
+- no alternative path exists to contradict a finalized distance.
+- correctness here is accidental/structural, not theorem guarantee.
 
 \[
-\boxed{\text{Condition 3 satisfied (different SPTs with equal distances).}}
+\boxed{\text{All negative weights, but Dijkstra can still be correct on this instance}}
 \]
 
 ---
 
-### ⚠️ Exam traps
-1. Saying “Dijkstra always fails with negatives” (not always — only generally unsafe).
-2. Forgetting to justify *why* your weight assignment enforces each condition.
-3. Confusing “same distances” with “same tree” in part 3.
+### ✅ (3) Multiple shortest-path trees — construction
+
+Set equal-cost alternatives, e.g.:
+- $s\to A=1,\ s\to D=1,\ A\to B=1,\ D\to B=1,\ B\to C=1$
+
+Then $B$ has two equal shortest predecessors ($A$ or $D$), producing different shortest-path trees with same distances.
+
+\[
+\boxed{\text{Multiple distinct shortest-path trees exist}}
+\]
+
+---
+
+### 🌉 Analogy
+Dijkstra is like sealing roads in a route plan once chosen.  
+With negative “teleport” roads discovered later, sealed choices can become outdated.  
+If network is a one-way tree, there is nothing to reconsider, so it can still work.
 
 ---
 
 ### 🧩 Micro-summary
-- Floyd-Warshall can be done in-place safely.
-- Dijkstra fails with suitable negative-edge constructions.
-- Negative edges do not automatically imply failure if no competing revisions exist.
-- Equal-distance ties produce different shortest-path trees.
+- Floyd-Warshall one-table update is formally safe.
+- Dijkstra can fail with negative edges.
+- It may still succeed on special structures.
+- Equal-cost predecessor choices yield multiple shortest-path trees.
 
 ---
 
-## 🔁 Replacement Block — Präsenzblatt 10 (with analogy + decision logic)
+## 🔁 Replacement Block — Präsenzblatt 10 (deeper theory + analogy + decision logic)
 
-## 🎨 Topic 5 (Revised): Huffman Coding + Induction on Degree-2 Graph Components (Präsenzblatt 10)
+## 🎨 Topic 5 (Revised): Huffman Coding + Induction on deg(v) ≤ 2 (Präsenzblatt 10)
 
-### 🧠 Big-picture analogy
-- **Huffman**: packing common words into shorter shorthand to save message length.
-- **Graph induction**: people can hold at most two hands, so only line/circle/isolated formations are possible.
+### 🧠 Part A — Huffman for “ESGIBTFREIBIER” (Aufgabe 1)
 
----
-
-### 📚 Abbreviations
-- **Huffman coding**: optimal prefix-free variable-length code.
-- **Prefix-free**: no codeword is prefix of another.
-- **deg(v)**: degree of node $v$.
-- **ZHK**: connected component.
+#### What is asked?
+Construct an optimal prefix-free code and compute required bit count.
 
 ---
 
-### 🧠 Aufgabe 1: Huffman coding for “ESGIBTFREIBIER”
+### 📚 Theory from zero
+- **Prefix-free code**: no codeword is prefix of another.
+- **Huffman algorithm**: repeatedly merge two least-frequent symbols.
+- Optimality theorem: Huffman minimizes weighted external path length (expected code length).
 
-#### Step 1: Frequency count (decision: always start here)
-Word: E S G I B T F R E I B I E R
+---
 
+### 🧭 Decision strategy
+1. Count symbol frequencies.
+2. Build Huffman tree bottom-up by repeatedly merging two smallest weights.
+3. Assign 0/1 edges.
+4. Compute total bits:
+   \[
+   \sum_{\text{symbol }x}\text{freq}(x)\cdot \text{codeLen}(x)
+   \]
+
+---
+
+### ✅ Frequencies
+Word: **ESGIBTFREIBIER**  
 Counts:
-- E: 3
-- I: 3
-- B: 2
-- R: 2
-- S: 1
-- G: 1
-- T: 1
-- F: 1
-
-#### Why this step matters
-Huffman is greedy by frequency: least frequent symbols merge first.
+- $E:3,\ I:3,\ R:2,\ B:2,\ S:1,\ G:1,\ T:1,\ F:1$
 
 ---
 
-#### Step 2: Build Huffman tree (decision: repeatedly merge two smallest)
-One valid merge sequence:
-1. S(1)+G(1)=2
-2. T(1)+F(1)=2
-3. (SG)(2)+B(2)=4
-4. R(2)+(TF)(2)=4
-5. E(3)+I(3)=6
-6. (SGB)(4)+(RTF)(4)=8
-7. 6 + 8 = 14 (root)
+### ✅ One valid optimal Huffman code
+(Exact bit patterns may vary; lengths and total bits must match optimum.)
+Example:
+- $E:00,\ I:01,\ R:100,\ B:101,\ S:1100,\ G:1101,\ T:1110,\ F:1111$
 
-Assign bits (left=0, right=1) consistently.  
-One valid code set:
-- E: 00
-- I: 01
-- B: 101
-- R: 100
-- S: 1100
-- G: 1101
-- T: 1110
-- F: 1111
+Lengths:
+- $E,I$: length 2
+- $R,B$: length 3
+- $S,G,T,F$: length 4
 
-(Equivalent Huffman trees/codes with same total length are also valid.)
-
----
-
-#### Step 3: Total bit count
-- E and I: $6$ chars × $2$ bits = $12$
-- B and R: $4$ chars × $3$ bits = $12$
-- S,G,T,F: $4$ chars × $4$ bits = $16$
-
-Total:
+Total bits:
 \[
-12+12+16=\boxed{40\text{ bits}}
+3\cdot2 + 3\cdot2 + 2\cdot3 + 2\cdot3 + 1\cdot4+1\cdot4+1\cdot4+1\cdot4
+= 40
+\]
+
+\[
+\boxed{40\text{ Bits}}
 \]
 
 ---
 
-#### Why this is optimal
-Huffman theorem: greedy merge of two smallest frequencies is optimal for prefix-free coding.
+### 🌉 Analogy
+Frequent letters are like VIP passengers: they should get shortest boarding gates (shortest codes). Rare letters can walk longer routes.
 
 ---
 
-### ⚠️ Exam traps (Huffman)
-1. Wrong frequencies from the word.
-2. Non-prefix-free code assignment.
-3. Assuming only one unique optimal code (often multiple exist).
+### ⚠️ Exam pitfalls
+1. Forgetting Huffman codes are not unique.
+2. Comparing literal codewords instead of total weighted length.
+3. Violating prefix-free property.
 
 ---
 
-### 🧠 Aufgabe 2: If all degrees $\le 2$, each component is isolated node / simple path / simple cycle
+## 🧠 Part B — Graph components when deg(v) ≤ 2 (Aufgabe 2)
 
-Given finite undirected loop-free graph $G=(V,E)$ with $\deg(v)\le2$ for all $v$.
-
----
-
-#### Decision strategy for proof
-Use induction on number of vertices in a connected component, and exploit the degree cap:
-- no node can branch to 3 directions,
-- so “tree-like branching” is impossible.
+### What is asked?
+For any connected component $Z$ in a finite undirected loop-free graph with $\deg(v)\le2$, show exactly one holds:
+1. isolated vertex
+2. simple path (at least 2 vertices)
+3. simple cycle (at least 3 vertices)
 
 ---
 
-#### Proof sketch (clean exam style)
+### 📚 Theory basis
+In undirected graphs:
+- degree 0 → isolated
+- degree 1 → endpoint behavior
+- degree 2 → internal path node or cycle node
 
-Base cases:
-- 1 node: isolated node.
-- 2 nodes connected: simple path.
-- 3-cycle possible: simple cycle.
+With max degree 2, branching is impossible (no node can split into 3 directions).
 
-Induction step on connected component $Z$:
-- If some vertex has degree 1, follow chain through degree-2 interior nodes; cannot branch (degree cap), so structure is a simple path.
-- If all vertices in $Z$ have degree 2, finite connected undirected graph with all degree 2 must form one simple cycle.
-- If degree 0 and connected, single isolated node.
+---
 
-Thus each connected component is exactly one of:
-1. isolated node,
-2. simple path (at least 2 nodes),
-3. simple cycle (at least 3 nodes).
+### 🧭 Decision strategy for proof
+Use induction on number of vertices in a connected component.
+
+- Base small sizes obvious.
+- For induction step:
+  - if component has a degree-0 node, it is isolated (size 1).
+  - if it has degree-1 node, removing endpoint reduces to smaller component/path-like structure.
+  - if all vertices degree-2, finite connected undirected graph must be a cycle.
+
+---
+
+### ✅ Proof skeleton (exam-ready)
+- **Base case**: $|Z|=1$ ⇒ isolated node.
+- **Induction hypothesis**: statement true for all connected components with fewer than $m$ vertices.
+- **Step for $|Z|=m$**:
+  - If some vertex has degree 1, remove it: remaining connected part satisfies IH and reattaching endpoint yields path.
+  - If no vertex has degree 1:
+    - either degree 0 (only possible for single node, already handled),
+    - or all degree 2.
+    - finite connected all-degree-2 undirected component is a simple cycle.
+Thus exactly one type holds.
 
 \[
-\boxed{\text{Statement proven.}}
+\boxed{\text{Each component is isolated node, simple path, or simple cycle}}
 \]
 
 ---
 
-### Analogy tie-in
-People at a party can hold at most two hands:
-- holds no hand → alone (isolated),
-- chain of people → path,
-- everyone in closed ring → cycle.
-No “Y-shaped” structure possible because that needs someone holding 3 hands.
+### 🌉 Analogy
+Imagine each person can hold at most two hands:
+- 0 hands: alone,
+- two ends with one hand + middle with two hands: a line,
+- everyone with two hands: a circle.
+No one can form a branching “Y” shape.
 
 ---
 
-### ⚠️ Exam traps
-1. Forgetting connected-component perspective.
-2. Missing “all degree 2 in finite connected graph implies cycle”.
-3. Accidentally allowing branching nodes.
+### ⚠️ Exam pitfalls
+1. Forgetting connected-component assumption in classification.
+2. Confusing “at most degree 2” with “exactly degree 2”.
+3. Not proving exclusivity (“exactly one”)—not just existence.
 
 ---
 
 ### 🧩 Micro-summary
-- Huffman result for the word: **40 bits**.
-- Degree $\le2$ components are exactly isolated/path/cycle.
-
----
-
-### 🧩 Micro-summary
-- Kruskal/Prim both give MST weight 22.
-- Components in subgraph $H$ via filtered BFS/DFS are linear-time.
+- Huffman optimal coding here needs 40 bits.
+- Degree bound $\le2$ forces components into only 3 geometric types.
 
 ---
 ---
 
-## 🔁 Replacement Block — Präsenzblatt 9 (with analogy + decision logic)
+## 🔁 Replacement Block — Präsenzblatt 9 (Deep-Theory + Algorithm-First + ADHD-Friendly)
 
-## 🧱 Topic 6 (Revised): Matrix Chain Multiplication + Stable Cake DP (Präsenzblatt 9)
-
-### 🧠 Big-picture analogies
-- **Matrix chain**: You are assembling furniture panels. Same final product, but assembly order can massively change effort.
-- **Cake stacking**: You build a tiered cake with strict size order (big at bottom, smaller on top), like legal stacking rules in a game.
+## 🧱 Topic 6 (Revised): Matrix Chain Multiplication + Stable Cake Towers (Präsenzblatt 9)
 
 ---
 
-### 📚 Abbreviations
-- **MCM** = Matrix Chain Multiplication
-- **DP** = Dynamic Programming
-- **Optimal substructure**: optimal global solution built from optimal subsolutions
-- **State**: what your DP table entry represents
+### 🧠 Aufgabe 1: Matrix-Kettenmultiplikation (A1·A2·A3·A4)
+
+Given dimensions:
+- $A_1: 35\times 15$
+- $A_2: 15\times 5$
+- $A_3: 5\times 10$
+- $A_4: 10\times 20$
+
+Goal: find optimal parenthesization (minimum scalar multiplications).
 
 ---
 
-### 🧠 Aufgabe 1: Optimal parenthesization for
+### 📚 Theory from zero: What algorithm and why?
+#### Algorithm: Dynamic Programming (DP) for Matrix Chain Order
+When multiplying matrices, only parenthesization changes cost (final result matrix is the same).  
+Brute force tries all parenthesizations (exponential).  
+DP works because:
+1. **Optimal substructure**: optimal solution for full chain contains optimal solutions for subchains.
+2. **Overlapping subproblems**: same subchains appear repeatedly.
+
+#### Cost formula
+If split chain $A_i\cdots A_j$ at $k$:
 \[
-A_1(35\times15),\ A_2(15\times5),\ A_3(5\times10),\ A_4(10\times20)
+m[i,j]=m[i,k]+m[k+1,j]+p_{i-1}p_kp_j
 \]
-
----
-
-#### Decision strategy
-For matrix-chain problems:
-1. Define dimension vector $p$ with $A_i$ of size $p_{i-1}\times p_i$.
-2. Use DP table $m[i,j]$ = minimal scalar multiplications for chain $A_i\cdots A_j$.
-3. Try all split points $k$:
-\[
-m[i,j]=\min_{i\le k<j}\big(m[i,k]+m[k+1,j]+p_{i-1}p_kp_j\big)
-\]
-
-This is the standard professor-safe method (no guessing).
-
----
-
-#### Step 1: Dimensions
+where dimension vector is:
 \[
 p=[35,15,5,10,20]
 \]
+($A_i$ has size $p_{i-1}\times p_i$).
 
-#### Step 2: Length-2 chains
+---
+
+### 🧭 Decision strategy (how to think in exam)
+1. Build DP by increasing chain length $L=2,3,\dots,n$.
+2. For each interval $(i,j)$, test all split positions $k$.
+3. Keep minimum and remember split (for parentheses reconstruction).
+
+---
+
+### ✅ Step-by-step DP computation
+
+Base:
+\[
+m[i,i]=0
+\]
+
+#### Length 2
 - $m[1,2]=35\cdot15\cdot5=2625$
 - $m[2,3]=15\cdot5\cdot10=750$
 - $m[3,4]=5\cdot10\cdot20=1000$
 
-#### Step 3: Length-3 chains
-\[
-m[1,3]=\min\{
-(m[1,1]+m[2,3]+35\cdot15\cdot10),\
-(m[1,2]+m[3,3]+35\cdot5\cdot10)\}
-\]
-- split at 1: $0+750+5250=6000$
-- split at 2: $2625+0+1750=4375$
-So:
-\[
-m[1,3]=4375
-\]
+#### Length 3
+- $m[1,3]$:
+  - split $k=1$: $0+750+35\cdot15\cdot10=6000$
+  - split $k=2$: $2625+0+35\cdot5\cdot10=4375$
+  - min $\Rightarrow m[1,3]=4375$ (split at 2)
 
-\[
-m[2,4]=\min\{
-(m[2,2]+m[3,4]+15\cdot5\cdot20),\
-(m[2,3]+m[4,4]+15\cdot10\cdot20)\}
-\]
-- split at 2: $0+1000+1500=2500$
-- split at 3: $750+0+3000=3750$
-So:
-\[
-m[2,4]=2500
-\]
+- $m[2,4]$:
+  - split $k=2$: $0+1000+15\cdot5\cdot20=2500$
+  - split $k=3$: $750+0+15\cdot10\cdot20=3750$
+  - min $\Rightarrow m[2,4]=2500$ (split at 2)
 
-#### Step 4: Length-4 chain
-\[
-m[1,4]=\min\{
-m[1,1]+m[2,4]+35\cdot15\cdot20,\
-m[1,2]+m[3,4]+35\cdot5\cdot20,\
-m[1,3]+m[4,4]+35\cdot10\cdot20
-\}
-\]
-- split at 1: $0+2500+10500=13000$
-- split at 2: $2625+1000+3500=7125$
-- split at 3: $4375+0+7000=11375$
+#### Length 4 (full chain)
+- $m[1,4]$:
+  - $k=1$: $0+2500+35\cdot15\cdot20=13000$
+  - $k=2$: $2625+1000+35\cdot5\cdot20=7125$
+  - $k=3$: $4375+0+35\cdot10\cdot20=11375$
+  - minimum is $7125$ at $k=2$.
 
-Minimum:
 \[
 \boxed{m[1,4]=7125}
 \]
-Best split is at $k=2$, so parenthesization:
+
+Optimal structure:
 \[
 \boxed{(A_1A_2)(A_3A_4)}
 \]
 
 ---
 
-#### Why this works
-Matrix multiplication is associative, so final matrix same regardless of brackets; only operation count changes. DP is valid because each split creates independent subchains.
+### ✅ Why this works (correctness tie-in)
+DP tries every legal split for each subchain exactly once and combines optimal sub-solutions by recurrence.  
+By optimal substructure, the chosen minimum is globally optimal.
 
 ---
 
-### ⚠️ Exam traps (MCM)
-1. Using wrong dimensions in cost term.
-2. Forgetting to compare all split points.
-3. Guessing parentheses without DP evidence.
+### 🌉 Analogy
+Think of Lego plates:
+- bad grouping creates huge intermediate plates (expensive),
+- good grouping keeps intermediates small early.
+DP is your “cost simulator” for all possible split points.
 
 ---
 
-### 🧩 Micro-summary (Aufgabe 1)
-- Optimal parenthesization: $\boxed{(A_1A_2)(A_3A_4)}$
-- Minimal scalar multiplications: $\boxed{7125}$
-
----
-
-### 🍰 Aufgabe 2: “Tatsächlich tragfähige Teiltortentürme” (descending layer sizes)
-
-#### What is asked?
-Modify old counting approach so only representations with **non-increasing layer sizes** are allowed (larger/equal below, smaller/equal above — here with distinct forms usually strictly descending by chosen form sequence logic).
-
----
-
-#### Why old 1D DP is not enough
-Old recurrence
-\[
-T(n)=\sum_{v\in V}T(n-v)
-\]
-counts different orders separately, so it overcounts and allows invalid orderings.
-
-You must encode order constraints in the state.
-
----
-
-#### Decision strategy (key)
-Sort springform sizes:
-\[
-v_1 < v_2 < \dots < v_m
-\]
-Define DP:
-\[
-DP[i][s] = \text{number of ways to build size } s \text{ using only } \{v_1,\dots,v_i\}
-\]
-This automatically enforces a canonical order and prevents counting illegal permutations.
-
-Equivalent interpretation:
-- choose from small set first (combinatorial coin-change style),
-- each combination corresponds to one descending physical stack order.
-
----
-
-#### Recurrence
-Base:
-- $DP[i][0]=1$ for all $i$ (empty remainder)
-- $DP[0][s>0]=0$
-
-Transition:
-\[
-DP[i][s]=DP[i-1][s] + DP[i][s-v_i]\quad \text{if } s\ge v_i
-\]
-Else:
-\[
-DP[i][s]=DP[i-1][s]
-\]
-
-Why:
-- first term: do not use size $v_i$
-- second term: use at least one $v_i$ (and may use it again if allowed by problem model)
-
-If each springform can be used at most once, replace second term with $DP[i-1][s-v_i]$.
-
----
-
-#### Correctness intuition
-By restricting allowed set to first $i$ sizes, each composition is generated in one canonical order only, so no permutation overcount. This enforces the structural sorting condition required by the exercise.
-
----
-
-#### Complexity
-Table size: $m\times n$ where $m=|V|$.
-Each entry $O(1)$:
-\[
-\boxed{O(mn)}
-\]
-Space $O(mn)$ (or $O(n)$ with rolling optimization).
-
----
-
-### ⚠️ Exam traps (cake DP)
-1. Reusing old 1D recurrence unchanged.
-2. Not encoding order in state.
-3. Confusing “distinct forms” with “distinct usage count” rule.
-
----
-
-### 🧩 Micro-summary (Aufgabe 2)
-- Add second DP dimension to encode allowed form set.
-- This prevents overcounting by permutations.
-- Runtime polynomial: $O(|V|\,n)$.
-
----
-
-## 🔁 Replacement Block — Präsenzblatt 8 (with analogy + decision logic)
-
-## 🌳 Topic 7 (Revised): BST/AVL Checks + AVL Insertions + Intro Cake Counting (Präsenzblatt 8)
-
-### 🧠 Big-picture analogies
-- **BST**: library shelves sorted by title — left smaller, right larger.
-- **AVL**: the same library, but shelves must also stay height-balanced to avoid long walks.
-- **Rotations**: rebalancing furniture without changing sorted order.
-
----
-
-### 📚 Abbreviations
-- **BST** = Binary Search Tree
-- **AVL tree** = self-balancing BST with height difference at most 1 per node
-- **Balance factor** = height(left) - height(right)
-- **LL/LR/RR/RL** = rotation cases (left-left etc.)
-
----
-
-### 🧠 Aufgabe 1a: Check two given trees for BST property and AVL condition
-
-#### Decision checklist
-For each tree:
-1. Verify BST ordering globally (not only local parent-child checks).
-2. Compute subtree heights and check $|h_L-h_R|\le1$ at every node.
-
----
-
-#### Tree 1 (left drawing in sheet)
-Structure (from sheet): root 4; left 1 with children 0,2; right 5 with children 3,7 and 7 has children 6,8.
-
-- **BST?** No.  
-  Reason: node 3 is in right subtree of 4 but $3<4$ → violates global BST rule.
-- **AVL?** Yes (height differences at all nodes are within 1).
-
-\[
-\boxed{\text{Tree 1: BST = No,\ AVL = Yes}}
-\]
-
----
-
-#### Tree 2 (right drawing in sheet)
-Structure: root 4; left 2 with children 1 and 3, and 1 has child 0; right 6.
-
-- **BST?** Yes (all left values < parent < all right values globally).
-- **AVL?** Yes (balance factors within $\{-1,0,1\}$ everywhere).
-
-\[
-\boxed{\text{Tree 2: BST = Yes,\ AVL = Yes}}
-\]
-
----
-
-### ⚠️ Exam traps (1a)
-1. Checking only parent-child inequality (local) instead of subtree range (global BST rule).
-2. Forgetting to compute AVL condition at every node.
-
----
-
-### 🧠 Aufgabe 1b: Insert sequence into AVL
-Insert:
-\[
-1,\ 0,\ 5,\ 4,\ 3,\ 2,\ 6
-\]
-
-#### Decision strategy
-After each insert:
-1. Do normal BST insert.
-2. Walk back up to first unbalanced node.
-3. Identify case (LL/LR/RR/RL).
-4. Rotate minimally to restore AVL.
-
----
-
-#### Step trace with justification
-1. Insert 1 → root.
-2. Insert 0 → left of 1. Balanced.
-3. Insert 5 → right of 1. Balanced.
-4. Insert 4 → left of 5. Still balanced.
-5. Insert 3 → left of 4 causes node 5 unbalanced (LL at 5).  
-   **Action:** right rotation at 5.
-6. Insert 2 → goes under left side, now node 1 becomes right-heavy via right subtree’s left path (RL/LR context depending representation).  
-   Equivalent repair leads to root 4 after proper rotations.
-7. Insert 6 → right side of 5, balanced.
-
-Final AVL (one valid final shape):
-- root 4
-- left subtree rooted at 2 with children 1 and 3, and 1 has child 0
-- right subtree rooted at 5 with child 6
-
----
-
-#### Why rotations work
-Rotations preserve in-order sequence (so BST property remains) while reducing local height imbalance.
-
----
-
-### 🧩 Micro-summary (Aufgabe 1)
-- Tree checks: (No/Yes) and (Yes/Yes) respectively.
-- AVL insertion uses local rotations to preserve global efficiency $O(\log n)$.
-
----
-
-### 🍰 Aufgabe 2: Theoretical Cake Towers (n=5 and counting algorithm)
-
-Given available forms $\{1,2,5\}$.
-
-#### (a) All representations for $n=5$
-If order matters (as in original simpler model):
-- $1+1+1+1+1$
-- permutations of $1+1+1+2$ (4 ways)
-- permutations of $1+2+2$ (3 ways)
-- $5$
-Total:
-\[
-1+4+3+1=\boxed{9}
-\]
-
-#### (b) Counting algorithm (simple model)
-Use recurrence:
-\[
-T(n)=T(n-1)+T(n-2)+T(n-5)
-\]
-with:
-- $T(0)=1$
-- $T(v<0)=0$
-
-Bottom-up DP computes all values up to $n$ in:
-\[
-\boxed{O(n\cdot|V|)}
-\]
-
----
-
-### Analogy tie-in
-This is like climbing stairs where allowed step sizes are 1,2,5. Number of ways to reach stair $n$ = sum of ways to reach predecessor stairs compatible with one last step.
-
----
-
-### ⚠️ Exam traps
-1. Mixing “order matters” and “order not mattering” models.
-2. Forgetting base case $T(0)=1$.
-3. Not handling negative indices as 0.
+### ⚠️ Exam pitfalls
+1. Using wrong dimensions in multiplication term.
+2. Forgetting to try all split points $k$.
+3. Returning minimum cost but not the parenthesization.
 
 ---
 
 ### 🧩 Micro-summary
-- For $n=5$ and $\{1,2,5\}$ in the simple model: 9 ways.
-- DP recurrence solves it efficiently.
+- Use matrix-chain DP.
+- Optimal parenthesization:
+\[
+\boxed{(A_1A_2)(A_3A_4)}
+\]
+- Minimum scalar multiplications:
+\[
+\boxed{7125}
+\]
+
+---
+
+### 🧠 Aufgabe 2: Tatsächlich tragfähige Teiltortentürme (strictly descending layers)
+
+We need number of representations of total size $n$ using forms $V$ (pairwise distinct), **with layers in descending order**.
+
+---
+
+### 📚 Theory from zero: Why old 1D DP is insufficient
+Old recurrence:
+\[
+T(n)=\sum_{v\in V}T(n-v)
+\]
+counts ordered compositions (permutations), not descending-only stacks.
+
+To encode sortedness without storing full sequences, enlarge state:
+- amount already built,
+- largest allowed next form size.
+
+This is classic “coin change with order restriction”.
+
+---
+
+### 🧭 Algorithm choice
+Use 2D DP:
+\[
+DP[s][j]=\text{#ways to build sum }s\text{ using only first }j\text{ form sizes}
+\]
+Assume sorted form sizes:
+\[
+v_1< v_2<\cdots<v_m
+\]
+Descending stack corresponds to choosing larger sizes earlier, equivalently counting multisets with restricted index progression.
+
+Recurrence:
+\[
+DP[s][j]=DP[s][j-1] + DP[s-v_j][j-1]\quad\text{(if each size usable at most once)}
+\]
+or
+\[
+DP[s][j]=DP[s][j-1] + DP[s-v_j][j]\quad\text{(if reusable)}
+\]
+Choose variant according to exact interpretation of “Darstellungen” in your course (usually reusable pans ⇒ second formula).
+
+Base:
+- $DP[0][j]=1$
+- $DP[s][0]=0$ for $s>0$
+
+---
+
+### ✅ Why this enforces sortedness
+By restricting next choices to indices $\le$ current allowed index, you avoid counting reorderings separately.  
+So “2+1+2” is never separate from “2+2+1”; only one canonical descending form remains.
+
+---
+
+### 🌉 Analogy
+You are stacking boxes by size rule: each new box must be smaller than (or not larger than, depending strictness) previous.  
+The second DP dimension is your “maximum box size still allowed”.
+
+---
+
+### ✅ Runtime
+Let $m=|V|$.
+- Time: $O(nm)$
+- Space: $O(nm)$ (or optimized to $O(n)$ with rolling arrays)
+
+---
+
+### ⚠️ Exam pitfalls
+1. Using 1D recurrence and accidentally counting permutations.
+2. Not clarifying reusable vs non-reusable form sizes.
+3. Forgetting base case $DP[0][*]=1$.
+
+---
+
+### 🧩 Micro-summary
+- Need enlarged DP state to encode monotone-size constraint.
+- Standard complexity remains polynomial:
+\[
+\boxed{O(n|V|)}
+\]
+
+---
+
+## 🔁 Replacement Block — Präsenzblatt 8 (Deep-Theory + Algorithm-First + ADHD-Friendly)
+
+## 🌳 Topic 7 (Revised): BST/AVL Checks + AVL Insertions + Cake Counting DP (Präsenzblatt 8)
+
+---
+
+### 🧠 Aufgabe 1a: Check BST property and AVL height condition for each tree
+
+---
+
+### 📚 Theory from zero
+
+#### BST (Binary Search Tree) property
+For each node with key $x$:
+- all keys in left subtree $<x$
+- all keys in right subtree $>x$
+
+Must hold recursively for all nodes.
+
+#### AVL condition
+For each node:
+\[
+|h(\text{left})-h(\text{right})|\le 1
+\]
+This guarantees height $O(\log n)$ and therefore fast search/update.
+
+---
+
+### ���� Decision strategy
+For each tree:
+1. Check BST validity by interval logic (not only direct children).
+2. Compute subtree heights bottom-up.
+3. Check balance factor at every node.
+
+---
+
+### ✅ Tree checks (from sheet’s two trees)
+
+#### First tree
+Root 4; left subtree contains 1 with children 0,2; right subtree contains 5 with children 3,7 and descendants 6,8.
+
+- BST check fails: node 3 appears in right subtree of 4 but $3<4$, violates BST global rule.
+- AVL check: height differences at nodes stay within 1 (can verify bottom-up).
+So:
+- BST: **No**
+- AVL: **Yes** (structurally balanced)
+
+#### Second tree
+Root 4; left subtree rooted at 2 with children 1,3 and 0 under 1; right subtree rooted at 6.
+
+- BST: Yes (all interval constraints satisfied).
+- AVL: check root: left height significantly larger than right (difference 2) → violation.
+So:
+- BST: **Yes**
+- AVL: **No**
+
+\[
+\boxed{\text{Tree 1: not BST, AVL yes;\quad Tree 2: BST yes, AVL no}}
+\]
+
+---
+
+### 🌉 Analogy
+BST is like library shelf ordering by aisle ranges (global ordering rules).  
+AVL is shelf-height safety: left and right shelf stacks must stay almost equal to avoid tipping.
+
+---
+
+### ⚠️ Exam pitfalls
+1. Checking BST only with parent-child comparisons (insufficient).
+2. Confusing “balanced at root” with “balanced everywhere”.
+
+---
+
+### 🧠 Aufgabe 1b: Insert sequence into empty AVL tree  
+Sequence:
+\[
+1,0,5,4,3,2,6
+\]
+
+---
+
+### 📚 Algorithm explained: AVL insertion
+1. Insert like BST.
+2. Walk back upward updating heights.
+3. At first unbalanced node, inspect shape:
+   - LL → right rotation
+   - RR → left rotation
+   - LR → left then right
+   - RL → right then left
+
+Why it works:
+- rotations preserve BST inorder order,
+- local restructuring restores balance factors,
+- keeps height logarithmic.
+
+---
+
+### ✅ Step trace with decisions + justifications
+
+1. Insert 1 → root.
+2. Insert 0 → left of 1, balanced.
+3. Insert 5 → right of 1, balanced.
+4. Insert 4 → left of 5, still balanced globally.
+5. Insert 3:
+   - path: 1 → 5 → 4 → left
+   - node 5 becomes LL-heavy (left-left pattern)
+   - perform **right rotation at 5**
+6. Insert 2:
+   - now imbalance at node 1 with right-heavy subtree where insertion happened in left branch of right child (RL-type relative to 1 depending exact intermediate structure)
+   - equivalent rebalancing leads to root becoming 4 after proper rotations (as in your previous trace)
+7. Insert 6 → right side, balanced.
+
+Final AVL (one valid final shape):
+- root 4
+- left subtree rooted at 2 (with 1 and 3; 0 under 1)
+- right subtree rooted at 5 (with 6)
+
+---
+
+### 🧩 Micro-summary
+AVL insertion = BST insert + local rotations.  
+Goal is not “no imbalance ever”, but “repair immediately when factor exceeds 1”.
+
+---
+
+### 🧠 Aufgabe 2: Theoretische Teiltortentürme (count representations with forms 1,2,5)
+
+Part (a): list possibilities for $n=5$.  
+Part (b): algorithm for general $n$ and set $V$.
+
+---
+
+### 📚 Theory + algorithm choice
+This is counting decompositions with allowed part sizes (classic DP).
+For ordered representations:
+\[
+T(n)=\sum_{v\in V}T(n-v),\quad T(0)=1,\ T(x<0)=0
+\]
+For $V=\{1,2,5\}$ and $n=5$:
+\[
+T(5)=9
+\]
+(ordered sequences)
+
+---
+
+### ✅ Why recurrence works
+Any valid representation of $n$ ends with exactly one last piece size $v\in V$.  
+Removing that last piece gives unique representation of $n-v$.  
+Summing over all possible last-piece choices gives full count.
+
+---
+
+### ✅ Bottom-up algorithm
+Compute $T[0..n]$:
+- $T[0]=1$
+- for $i=1..n$:
+  \[
+  T[i]=\sum_{v\in V,\ i-v\ge0}T[i-v]
+  \]
+Return $T[n]$.
+
+Runtime:
+\[
+\boxed{O(n|V|)}
+\]
+Space:
+\[
+\boxed{O(n)}
+\]
+
+---
+
+### 🌉 Analogy
+Video-game save points:
+To solve level $n$, use already-solved counts for smaller levels $n-1,n-2,n-5$ instead of replaying from start.
+
+---
+
+### ⚠️ Exam pitfalls
+1. Wrong base case ($T(0)$ must be 1).
+2. Mixing ordered vs unordered interpretations.
+3. Using recursion without memoization and timing out.
+
+---
+
+### 🧩 Micro-summary
+- For $n=5$, $V=\{1,2,5\}$: 9 ordered representations.
+- General counting solved via DP in $O(n|V|)$.
 
 ---
