@@ -643,5 +643,240 @@ Final:
 
 ---
 
-*Status update: Präsenzblatt 5 added in full tutoring style. Ready to continue with Präsenzblatt 4 next.*
+---
+
+## 📘 Topic 15: Präsenzblatt 4 — Full Tutoring Session (ADHD-Friendly, From Zero)
+
+### 🧠 Aufgabe 1a: Binary Search Recurrence and Runtime
+
+#### 1) What is this asking?
+You need:
+1. The recurrence equation for binary search.
+2. Its asymptotic runtime.
+3. The Master Theorem parameters $a,b,\alpha$.
+
+---
+
+#### 2) Core ideas from zero
+
+##### What is a recurrence?
+A recurrence expresses runtime $T(n)$ in terms of smaller input sizes.
+
+General form:
+- $T(n)=aT(n/b)+f(n)$
+
+where:
+- $a$ = number of recursive subproblems,
+- $n/b$ = size of each subproblem,
+- $f(n)$ = extra work outside recursion.
+
+##### How binary search works
+Binary search assumes a sorted list:
+1. Compare target with middle element.
+2. Keep only one half.
+3. Repeat.
+
+So each step does:
+- one recursive call on size $n/2$,
+- constant extra work.
+
+---
+
+#### 3) Build the recurrence
+For $n\ge 2$:
+- $T(n)=T(n/2)+c$, with $c>0$ constant and $T(1)=\Theta(1)$.
+
+Equivalent form:
+- $T(n)=T(n/2)+\Theta(1)$.
+
+---
+
+#### 4) Runtime
+Each step halves the problem size, so number of steps is about $\log_2 n$.  
+Each level costs constant time.
+
+Therefore:
+- $\boxed{T(n)=\Theta(\log n)}$
+
+---
+
+#### 5) Master Theorem parameters
+Match:
+- $T(n)=aT(n/b)+\Theta(n^\alpha)$
+
+Here:
+- $a=1$
+- $b=2$
+- $\Theta(1)=\Theta(n^0)$, so $\alpha=0$
+
+Also:
+- $\log_b a=\log_2 1=0$
+
+Equal case $\alpha=\log_b a$, so:
+- $T(n)=\Theta(n^\alpha\log n)=\Theta(\log n)$
+
+---
+
+#### 6) Micro-summary
+- Recurrence: $\boxed{T(n)=T(n/2)+\Theta(1)}$
+- Runtime: $\boxed{\Theta(\log n)}$
+- Parameters: $\boxed{a=1,\;b=2,\;\alpha=0}$
+
+---
+
+### 🧮 Aufgabe 1b: Karatsuba Multiplication for $4711\cdot1337$
+
+#### 1) What is this asking?
+Compute $4711\cdot1337$ using the **Karatsuba algorithm**, with recursion stop at 2-digit numbers.
+
+---
+
+#### 2) Core Karatsuba concept (from zero)
+Karatsuba is a faster divide-and-conquer multiplication method.
+
+Naive split of two $n$-digit numbers uses 4 half-size multiplications.  
+Karatsuba reduces this to 3 half-size multiplications plus additions/subtractions.
+
+That improves asymptotic complexity:
+- $T(n)=3T(n/2)+\Theta(n)$
+- $\Rightarrow \Theta(n^{\log_2 3})\approx\Theta(n^{1.585})$
+
+---
+
+#### 3) Karatsuba formula
+Write:
+- $x=a\cdot 10^m+b$
+- $y=c\cdot 10^m+d$
+
+Then:
+- $xy = ac\cdot 10^{2m} + \big((a+b)(c+d)-ac-bd\big)\cdot 10^m + bd$
+
+So only 3 multiplications are needed:
+- $ac$
+- $bd$
+- $(a+b)(c+d)$
+
+---
+
+#### 4) Apply to $4711$ and $1337$
+Split after 2 digits ($m=2$):
+- $4711=47\cdot100+11$ so $a=47,b=11$
+- $1337=13\cdot100+37$ so $c=13,d=37$
+
+Compute:
+- $ac=47\cdot13=611$
+- $bd=11\cdot37=407$
+- $(a+b)(c+d)=58\cdot50=2900$
+
+Middle term:
+- $(a+b)(c+d)-ac-bd=2900-611-407=1882$
+
+Recombine:
+- $xy = 611\cdot10000 + 1882\cdot100 + 407$
+- $=6{,}110{,}000 + 188{,}200 + 407$
+- $=6{,}298{,}607$
+
+Final:
+- $\boxed{4711\cdot1337=6{,}298{,}607}$
+
+---
+
+#### 5) Common exam mistakes
+1. Splitting with wrong base.
+2. Forgetting middle-term formula.
+3. Place-value errors in recombination.
+4. Arithmetic slips in subtraction.
+
+---
+
+#### 6) Micro-summary
+Karatsuba workflow:
+1. Split numbers.
+2. Compute $ac$, $bd$, $(a+b)(c+d)$.
+3. Middle term = third minus first minus second.
+4. Recombine with powers of $10^m$.
+
+Result:
+- $\boxed{6{,}298{,}607}$
+
+---
+
+### 📐 Aufgabe 2: Master Theorem Recurrences
+
+Given:
+- $T(1)=1$
+- $n$ is a power of 2
+- $c>0$
+- for $n\ge2$
+
+General form:
+- $T(n)=aT(n/b)+\Theta(n^\alpha)$
+
+---
+
+#### a) $T(n)=4T(n/2)+cn^2$
+
+Parameters:
+- $a=4,\;b=2,\;\alpha=2$
+- $\log_b a=\log_2 4=2$
+
+Equal case $\alpha=\log_b a$:
+- $T(n)=\Theta(n^\alpha\log n)=\Theta(n^2\log n)$
+
+Final:
+- $\boxed{T(n)=\Theta(n^2\log n)}$
+
+---
+
+#### b) $T(n)=3T(n/2)+cn$
+
+Parameters:
+- $a=3,\;b=2,\;\alpha=1$
+- $\log_2 3\approx1.585$
+
+Here $n^\alpha$ grows slower than $n^{\log_2 3}$, so recursion dominates:
+- $T(n)=\Theta(n^{\log_2 3})$
+
+Final:
+- $\boxed{T(n)=\Theta(n^{\log_2 3})}$
+
+---
+
+#### c) $T(n)=2T(n/2)+c\log_2 n$
+
+This is not a pure $\Theta(n^\alpha)$ polynomial term, so use recursion-tree intuition:
+
+- At level $i$: $2^i$ subproblems, each of size $n/2^i$
+- Per-node non-recursive cost: $\log(n/2^i)=\log n - i$
+- Level cost: $2^i(\log n-i)$
+- Summing over levels gives $\Theta(n)$ total non-leaf work
+- Leaves add $\Theta(n)$
+
+So:
+- $\boxed{T(n)=\Theta(n)}$
+
+---
+
+### ✅ Final compact answers (exam-style)
+
+1. **Aufgabe 1a**  
+   - $T(n)=T(n/2)+\Theta(1)$  
+   - $T(n)=\Theta(\log n)$  
+   - $a=1,\;b=2,\;\alpha=0$
+
+2. **Aufgabe 1b**  
+   - $4711\cdot1337=6{,}298{,}607$
+
+3. **Aufgabe 2a**  
+   - $T(n)=\Theta(n^2\log n)$
+
+4. **Aufgabe 2b**  
+   - $T(n)=\Theta(n^{\log_2 3})$
+
+5. **Aufgabe 2c**  
+   - $T(n)=\Theta(n)$
+
+---
+
+*Status update: Präsenzblatt 4 added in full tutoring style. Ready to continue with Präsenzblatt 3 next.*
 
