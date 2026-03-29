@@ -877,6 +877,176 @@ So:
    - $T(n)=\Theta(n)$
 
 ---
+---
 
-*Status update: Präsenzblatt 4 added in full tutoring style. Ready to continue with Präsenzblatt 3 next.*
+## 📘 Topic 16: Präsenzblatt 3 — Full Tutoring Session (ADHD-Friendly, From Zero)
+
+### 🧠 Aufgabe 1: False Induction (Why the “Merge Sort is O(n)” proof is wrong)
+
+#### 1) What is this asking?
+You are given a proof attempt that claims Merge Sort runs in $O(n)$.  
+You must identify exactly where the proof fails.
+
+---
+
+#### 2) Abbreviations and concepts (from zero)
+
+- **IA** = *Induktionsanfang* (base case)
+- **IV** = *Induktionsvoraussetzung* (induction hypothesis)
+- **IS** = *Induktionsschritt* (induction step)
+- **$O(\cdot)$** = asymptotic upper bound
+- **$\Omega(\cdot)$** = asymptotic lower bound
+- **$\Theta(\cdot)$** = asymptotically tight bound (both upper and lower)
+
+Merge Sort recurrence:
+- $T(n)\le 2T(\lceil n/2\rceil)+cn$ with $c>0$
+
+Known correct result:
+- $T(n)=\Theta(n\log n)$
+
+So if a proof claims $O(n)$, there must be a logic mistake.
+
+---
+
+#### 3) What the faulty proof does
+In the induction step it says:
+- $T(n)\le 2T(\lceil n/2\rceil)+cn$
+- by IV, $T(\lceil n/2\rceil)\in O(n)$
+- therefore first term is in $O(n)$, second term in $O(n)$
+- so sum is in $O(n)$
+
+This sounds plausible, but it is not rigorous enough for this induction claim.
+
+---
+
+#### 4) Exact logical mistake
+The proof uses Big-O too loosely and does not track constants in a closed induction inequality.
+
+A valid induction for linear bound must look like:
+- Assume for all $k<n$: $T(k)\le Ck$ (fixed constant $C$)
+- Then show: $T(n)\le Cn$
+
+Now plug into recurrence:
+- $T(n)\le 2C\lceil n/2\rceil + cn \approx Cn + cn = (C+c)n$
+
+To conclude $T(n)\le Cn$, we would need:
+- $(C+c)n\le Cn \Rightarrow c\le 0$
+
+But $c>0$, contradiction.  
+So the linear claim cannot be maintained.
+
+So the exact issue is:
+- The induction step hides growth in the extra $+cn$ term and does not preserve a fixed constant bound.
+
+---
+
+#### 5) Analogy (how theory binds to the solution)
+Imagine monthly expenses:
+- You claim: “I always stay under 1000€.”
+- But each month your old plan adds a fixed unavoidable fee.
+- If you keep saying “still around 1000€” without updating exact numbers, your claim is mathematically broken.
+
+That is what happened in the bad proof:
+- The $+cn$ is the unavoidable fee.
+- Big-O handwaving hid that the budget (constant $C$) no longer closes.
+
+---
+
+#### 6) Correct conclusion
+The induction argument is invalid.  
+Correct asymptotic runtime remains:
+- $\boxed{T(n)=\Theta(n\log n)}$
+
+---
+
+#### 7) Micro-summary
+- Error is in IS (induction step).
+- Big-O notation was used non-rigorously in place of a fixed inequality.
+- Extra linear merge term prevents proving linear total runtime.
+
+---
+
+### 🧠 Aufgabe 2: Every comparison-based sorting algorithm can be made stable
+
+#### 1) What is this asking?
+Show that any comparison-based sorting algorithm can be transformed into a stable one.
+
+---
+
+#### 2) Core concepts (from zero)
+
+##### Stable sorting
+A sorting algorithm is **stable** if equal keys keep their original relative order.
+
+Example:
+- Input: $(5,A), (3,B), (5,C)$
+- Sorted by key: $(3,B), (5,A), (5,C)$  
+Stable means $A$ stays before $C$ because it appeared earlier.
+
+##### Comparison-based sorting
+The algorithm only learns via comparisons between elements (e.g., $<$, $>$, $=$), not via bucket/radix/counting tricks.
+
+---
+
+#### 3) Construction that makes any such algorithm stable
+Replace each element $x_i$ by:
+- $(x_i, i)$  
+where $i$ is original position in input.
+
+Use comparator:
+- $(x_i,i) < (x_j,j)$ iff
+  - $x_i < x_j$, or
+  - $x_i = x_j$ and $i<j$
+
+So ties are broken by original index.
+
+---
+
+#### 4) Why this works (proof idea)
+If two elements are equal in value and one appeared earlier, index tie-break guarantees earlier one is “smaller” in comparison, hence must be placed first.  
+Therefore equal values preserve input order by construction.
+
+So transformed algorithm is stable.
+
+---
+
+#### 5) Complexity impact
+You only add constant-time tie-break logic in comparisons.  
+Asymptotic number of comparisons does not change class.  
+So runtime class stays the same asymptotically.
+
+---
+
+#### 6) Analogy (how theory binds to the solution)
+Think of exam papers:
+- Primary sorting key = score.
+- Tie-breaker = submission timestamp (or queue number).
+Then equal-score papers keep arrival order automatically.  
+That is exactly stability via secondary key.
+
+---
+
+#### 7) Micro-summary
+To stabilize any comparison-based sorter:
+1. Attach original index.
+2. Compare by (key, index).
+3. Equal keys now remain in input order.
+
+Final statement:
+- $\boxed{\text{Every comparison-based sorting algorithm can be made stable.}}$
+
+---
+
+### ✅ Final compact answers (exam-style)
+
+1. **Aufgabe 1**  
+   The proof fails in the induction step because Big-O is used informally instead of maintaining a fixed inequality $T(n)\le Cn$. The additive $+cn$ term breaks closure of a linear bound. Correct runtime is:
+   - $\boxed{T(n)=\Theta(n\log n)}$
+
+2. **Aufgabe 2**  
+   Augment each element with original position and compare lexicographically by (key, index). This enforces stable order for equal keys, so any comparison-based sorting algorithm can be made stable.
+
+---
+
+*Status update: Präsenzblatt 3 added in full tutoring style (with analogies linked directly to solution logic). Ready for Präsenzblatt 2 next.*
 
