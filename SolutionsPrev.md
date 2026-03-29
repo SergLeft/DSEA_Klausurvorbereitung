@@ -6,9 +6,9 @@
 
 ### 🧠 Big-picture analogy: The Emergency Room Pyramid
 Imagine a hospital with a strict emergency hierarchy
-- Top doctor (root) must always have highest priority patient.
-- Each doctor supervises two juniors (children).
-- Rule: every supervisor’s priority score must be at least as high as each junior's.
+- **Top doctor** (root) must always have highest priority patient.
+- **Each doctor** supervises two juniors (children).
+- **Rule**: every supervisor’s priority score must be at least as high as each junior's.
 That is exactly a **max-heap**.
 
 Building a heap is like reorganizing the hospital quickly so every supervisor-junior relation follows policy.
