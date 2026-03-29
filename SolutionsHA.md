@@ -375,3 +375,542 @@ So:
 2. Naive Fibonacci recursion has exponential runtime \(\Theta(\varphi^n)\).
 3. Selection Sort comparisons: \(\Theta(n^2)\); min+max variant remains \(\Theta(n^2)\).
 4. \(X\vee Y\) is stable.
+
+---
+## 🔁 Final Retrofitted Replacement — Übungsblatt 3 (Operational, Blank-Slate, ADHD-Oriented)
+
+## 🧩 Topic 1: Inversionen via MergeSort-Logik — Warum O(n log n) möglich ist
+
+---
+
+### 🧠 What this sheet asks (plain language)
+You must:
+1. count inversions in one concrete array and its halves,
+2. explain what Merge’s cross-comparisons count,
+3. conclude an \(O(n\log n)\)-algorithm.
+
+So this is a “counting + divide-and-conquer correctness” task.
+
+---
+
+### 📚 Zero-to-functional foundations
+
+#### 1) What is an inversion?
+Given array \(a_1,\dots,a_n\), an inversion is a pair \((i,j)\) with
+\[
+i<j \quad\text{and}\quad a_i>a_j.
+\]
+Interpretation: a pair is “out of sorted order.”
+
+- sorted ascending array \(\Rightarrow 0\) inversions.
+- sorted descending array \(\Rightarrow \frac{n(n-1)}2\) inversions (maximum).
+
+---
+
+#### 2) Why MergeSort is relevant
+MergeSort splits array into two halves:
+- recursively sorts left,
+- recursively sorts right,
+- merges both sorted halves.
+
+Inversion count also splits naturally into:
+1. inversions entirely in left half,
+2. inversions entirely in right half,
+3. inversions crossing from left to right.
+
+The merge step can count (3) efficiently.
+
+---
+
+### 🌉 Analogy: Queue discipline checker
+Imagine two already internally sorted queues (left/right).  
+Whenever right-front jumps before remaining left people, it “overtakes” all still-waiting left people.  
+That number of overtakes is exactly the number of crossing inversions contributed at that moment.
+
+---
+
+## 🧠 Aufgabe 1a — Count \(I\), \(I_1\), \(I_2\)
+
+Given:
+\[
+a=(1,8,5,3,4,2,7,6).
+\]
+Halves:
+- left: \((1,8,5,3)\),
+- right: \((4,2,7,6)\).
+
+### Left-half inversions \(I_1\)
+Pairs:
+- \(8>5\), \(8>3\), \(5>3\) \(\Rightarrow 3\).
+
+So:
+\[
+I_1=3.
+\]
+
+### Right-half inversions \(I_2\)
+Pairs:
+- \(4>2\), \(7>6\) \(\Rightarrow 2\).
+
+So:
+\[
+I_2=2.
+\]
+
+### Total \(I\) in full array
+Additional crossing inversions (left index in first half, right index in second half):
+- from \(8\): \(8>4,2,7,6\) \(\Rightarrow 4\),
+- from \(5\): \(5>4,2\) \(\Rightarrow 2\),
+- from \(3\): \(3>2\) \(\Rightarrow 1\),
+- from \(1\): none.
+
+Crossing total \(=7\).
+
+Hence:
+\[
+I=I_1+I_2+7=3+2+7=12.
+\]
+
+\[
+\boxed{I=12,\ I_1=3,\ I_2=2}
+\]
+
+---
+
+## 🧠 Aufgabe 1b — Merge step and \(I-(I_1+I_2)\)
+
+Sorted halves given:
+- \(L=(1,3,5,8)\),
+- \(R=(2,4,6,7)\).
+
+During merge:
+- compare 1 vs 2 \(\to\) take 1 (no new crossing inversion),
+- compare 3 vs 2 \(\to\) take 2; remaining left \((3,5,8)\) all \(>2\): +3,
+- compare 3 vs 4 \(\to\) take 3,
+- compare 5 vs 4 \(\to\) take 4; remaining left \((5,8)\): +2,
+- compare 5 vs 6 \(\to\) take 5,
+- compare 8 vs 6 \(\to\) take 6; remaining left \((8)\): +1,
+- compare 8 vs 7 \(\to\) take 7; remaining left \((8)\): +1,
+- append 8.
+
+Crossing inversions counted in merge:
+\[
+3+2+1+1=7.
+\]
+And exactly:
+\[
+I-(I_1+I_2)=12-(3+2)=7.
+\]
+
+So merge step computes the crossing part.
+
+\[
+\boxed{I-(I_1+I_2)=7}
+\]
+
+---
+
+## 🧠 Aufgabe 1c — Show \(O(n\log n)\)
+
+### Algorithm idea
+Function `count_inversions(A)`:
+1. if length \(\le 1\): return (A, 0),
+2. split into \(L,R\),
+3. recursively get \((L_{sorted}, I_L)\), \((R_{sorted}, I_R)\),
+4. merge while counting crossing inversions \(I_C\),
+5. return \((A_{sorted}, I_L+I_R+I_C)\).
+
+### Correctness sketch
+By partition of inversion types:
+- every inversion is either left-internal, right-internal, or crossing.
+Recursion counts first two exactly; merge counts crossing exactly.
+So sum is exact total.
+
+### Runtime
+Recurrence:
+\[
+T(n)=2T(n/2)+O(n).
+\]
+Master theorem:
+\[
+T(n)=O(n\log n).
+\]
+
+\[
+\boxed{\text{Inversion counting in }O(n\log n)\text{ time}}
+\]
+
+---
+
+### ⚠️ Pitfalls
+1. Counting only within halves and forgetting crossing inversions.
+2. Adding +1 instead of “number of remaining left elements” when taking from right.
+3. Losing stability of merge pointer logic.
+
+---
+
+### 🧩 Task-1 micro-summary
+- \(I=12\), \(I_1=3\), \(I_2=2\),
+- merge-cross part is \(7=I-(I_1+I_2)\),
+- total inversion count via merge-based divide-and-conquer in \(O(n\log n)\).
+
+---
+
+## 🧩 Topic 2: Zweitkleinstes Element mit weniger Vergleichen
+
+---
+
+### 🧠 What this asks
+Find smallest and second smallest with fewer than naive \(2n-3\) comparisons.
+
+---
+
+### 📚 Foundation
+Naive:
+- min in \(n-1\),
+- second min among rest in \(n-2\),
+\[
+2n-3.
+\]
+
+Better idea: **tournament tree**.
+- each comparison is a match,
+- smallest element is tournament winner,
+- second smallest must be among elements that directly lost to winner.
+
+Winner has \(\log_2 n\) wins (because \(n\) is power of 2), so only \(\log_2 n\) candidates for second smallest.
+
+---
+
+### 🌉 Analogy: Knockout bracket
+Gold medalist (smallest) beats \(\log_2 n\) players.
+Silver (second smallest) must be one of those defeated directly by champion, not arbitrary participant.
+
+---
+
+### Efficient comparison count
+- tournament to find min: \(n-1\),
+- min over loser-list of size \(\log_2 n\): \(\log_2 n-1\).
+
+Total:
+\[
+n+\log_2 n-2.
+\]
+This is \(\le \frac32 n-2\) for \(n\ge2\), so required bound holds.
+
+\[
+\boxed{n+\log_2 n-2\ \text{comparisons}}
+\]
+
+---
+
+## 🧩 Topic 3: “Squaring vs Multiplication” equivalence statement
+
+---
+
+### Statement
+“Exactly then there is an \(O(f)\)-algorithm for squaring \(n\)-digit numbers iff one can multiply two \(n\)-digit numbers in \(O(f)\).”
+
+### Direction 1 (\(\Rightarrow\) trivial part)
+If multiplication is \(O(f)\), then squaring is special case:
+\[
+x^2=x\cdot x
+\]
+also \(O(f)\).
+
+### Direction 2 (nontrivial)
+If squaring is \(O(f)\), can we multiply in \(O(f)\)? Yes via identity:
+\[
+xy=\frac{(x+y)^2-x^2-y^2}{2}.
+\]
+So three squarings + linear-time additions/subtractions/division by 2.
+
+Total:
+\[
+O(f(n))+O(n).
+\]
+For standard multiplication contexts \(f(n)\in\Omega(n)\), this is \(O(f(n))\).
+
+\[
+\boxed{\text{Aussage gilt (unter üblicher Annahme }f(n)\ge cn\text{).}}
+\]
+
+---
+
+### ✅ Final compact answers (exam-style, UB3)
+
+1. Inversion counts:
+\[
+\boxed{I=12,\ I_1=3,\ I_2=2,\ I-(I_1+I_2)=7.}
+\]
+2. Inversion counting algorithm:
+\[
+\boxed{O(n\log n)\ \text{via MergeSort + crossing-count merge}.}
+\]
+3. Smallest + second smallest:
+\[
+\boxed{n+\log_2 n-2\ \text{Vergleiche (damit } \le 3n/2-2\text{).}}
+\]
+4. Multiplikation vs Quadrieren:
+\[
+\boxed{\text{äquivalent in }O(f)\text{ (über }xy=((x+y)^2-x^2-y^2)/2\text{).}}
+\]
+
+---
+
+---
+
+## 🔁 Final Retrofitted Replacement — Übungsblatt 4 (Operational, Blank-Slate, ADHD-Oriented)
+
+## 🧱 Topic 1: Matrix Multiplication — Naive, Block-Recursion, Strassen, Memory
+
+---
+
+### 🧠 What this asks
+You must compare algorithms for \((n\times n)\)-matrix multiplication:
+1. naive formula,
+2. straightforward block recursion,
+3. Strassen recursion,
+4. asymptotic memory usage.
+
+Assume \(n=2^k\), arithmetic op cost constant.
+
+---
+
+### 📚 Foundations
+
+#### Matrix multiplication definition
+For \(C=AB\):
+\[
+c_{ij}=\sum_{k=1}^n a_{ik}b_{kj}.
+\]
+
+Naive cost:
+- \(n^2\) entries,
+- each entry does \(n\) multiplications (+ additions),
+\[
+\Theta(n^3).
+\]
+
+---
+
+### 🌉 Analogy: 4 workshop teams
+Split giant job into 4 quadrants.
+Naive block recursion computes 8 recursive multiplications; Strassen algebraically reduces to 7.
+
+---
+
+## 🧠 Aufgabe 1a — Naive vs simple block recursion
+
+Block recurrence:
+\[
+T(n)=8T(n/2)+\Theta(n^2),\quad T(1)=\Theta(1).
+\]
+Master:
+- \(a=8,b=2\Rightarrow n^{\log_2 8}=n^3\),
+- combine term \(n^2\) smaller,
+
+\[
+T(n)=\Theta(n^3).
+\]
+
+So asymptotically same as naive.
+
+\[
+\boxed{\Theta(n^3)}
+\]
+
+---
+
+## 🧠 Aufgabe 1b — Strassen recurrence
+
+Strassen:
+- 7 recursive mults of size \(n/2\),
+- plus \(\Theta(n^2)\) for additions/subtractions.
+
+\[
+S(n)=7S(n/2)+\Theta(n^2).
+\]
+Master:
+\[
+S(n)=\Theta\!\left(n^{\log_2 7}\right)\approx \Theta(n^{2.807}).
+\]
+
+\[
+\boxed{\Theta(n^{\log_2 7})}
+\]
+
+---
+
+## 🧠 Aufgabe 1c — Memory usage
+
+Need to store matrices/submatrices and temporary \(M_1,\dots,M_7\)-style buffers.
+
+At recursion level \(i\), total active matrix-area is geometric and dominated by top level \(n^2\).  
+Recursion stack contributes only \(O(\log n)\) frames.
+
+Hence asymptotic auxiliary memory:
+\[
+\boxed{\Theta(n^2)}.
+\]
+
+(Implementation constants differ by in-place strategy, but order remains \(n^2\).)
+
+---
+
+### ⚠️ Pitfalls
+1. Confusing time with memory.
+2. Forgetting addition cost \(\Theta(n^2)\) per level.
+3. Claiming Strassen is \(O(n^2)\) (false).
+
+---
+
+## 🧱 Topic 2: Zweidrittelsort — Correctness + Runtime
+
+---
+
+### 🧠 What this asks
+For algorithm that recursively sorts:
+1. first \(2/3\),
+2. last \(2/3\),
+3. first \(2/3\) again,
+
+you must show:
+- correctness,
+- recurrence/runtime.
+
+---
+
+### 📚 Intuition
+This is StoogeSort-style overlap sorting:
+- first call fixes left-large disorder,
+- second fixes right-small disorder,
+- third re-fixes left overlap disturbed by second.
+
+The overlapping regions propagate order globally.
+
+---
+
+### 🌉 Analogy: overlapping cleaning zones
+Three passes over overlapping floor zones:
+- left big zone,
+- right big zone,
+- left big zone again.
+Overlap ensures dirt pushed across boundary eventually disappears globally.
+
+---
+
+## 🧠 Aufgabe 2a — Correctness idea
+
+(Using simplification \(l\ge3\) divisible by 3.)
+
+Let segment length \(l\), \(k=l/3\):
+- call 1 sorts \(A[i..j-k]\),
+- call 2 sorts \(A[i+k..j]\),
+- call 3 sorts \(A[i..j-k]\) again.
+
+Induction on \(l\):
+- base \(l\le2\): direct swap correct.
+- step: recursive calls sort overlapping large segments.
+Because overlap size \(l/3\) is nonempty, extremes move toward correct sides:
+  - smallest element gets forced into left segment and remains,
+  - largest gets forced into right segment and remains,
+  - recursive sorting + overlap yields full sorted order.
+
+Thus algorithm sorts correctly.
+
+\[
+\boxed{\text{ZweidrittelSort ist korrekt}}
+\]
+
+---
+
+## 🧠 Aufgabe 2b — Runtime recurrence
+
+Each level does 3 recursive calls on size about \(2n/3\), plus constant overhead:
+\[
+T(n)=3T(2n/3)+\Theta(1).
+\]
+(Or \(\Theta(n^0)\) combine term.)
+
+Master-like evaluation:
+\[
+T(n)=\Theta\!\left(n^{\log_{3/2}3}\right)\approx \Theta(n^{2.7095}).
+\]
+
+\[
+\boxed{T(n)=\Theta(n^{\log_{3/2}3})}
+\]
+
+---
+
+## 🧱 Topic 3: Regularity condition in Master theorem (why needed)
+
+---
+
+### 🧠 Core point
+Case 3 of Master needs regularity:
+\[
+a f(n/b)\le c f(n)\quad\text{for some }c<1\text{ eventually}.
+\]
+Without it, wildly oscillating \(f(n)\) can break naive “\(T(n)=\Theta(f(n))\)” conclusion.
+
+---
+
+### (a) Naive (wrong) case-3 usage on
+\[
+T(n)=T(n/3)+n(\sin(\pi n/2)+2).
+\]
+Would claim:
+\[
+T(n)=O(n(\sin(\pi n/2)+2)).
+\]
+But unsafe.
+
+### (b) Why regularity fails
+Take \(n=3+12k\Rightarrow \sin(\pi n/2)=-1\), so \(f(n)=n\).  
+But for \(n/3\)-related values sine may be \(+1\), making \(f(n/3)\) comparatively too large; no uniform contraction factor \(c<1\).
+
+### (c) Why induction breaks
+Trying \(T(n)\le C f(n)\):
+\[
+T(n)\le C f(n/3)+f(n).
+\]
+Need \(C f(n/3)\le (C-1)f(n)\), equivalent to regularity-type bound. If absent, step fails.
+
+### (d) Same issue for
+\[
+T(n)=aT(n/b)+2^{\lceil\log_2 n\rceil}
+\]
+since toll oscillates between powers of two plateaus; regularity can fail similarly.
+
+\[
+\boxed{\text{Regularitätsbedingung ist notwendig, nicht nur technische Deko.}}
+\]
+
+---
+
+### ✅ Final compact answers (exam-style, UB4)
+
+1. Simple block recursion:
+\[
+\boxed{T(n)=8T(n/2)+\Theta(n^2)=\Theta(n^3).}
+\]
+2. Strassen:
+\[
+\boxed{S(n)=7S(n/2)+\Theta(n^2)=\Theta(n^{\log_2 7}).}
+\]
+3. Memory:
+\[
+\boxed{\Theta(n^2).}
+\]
+4. Zweidrittelsort:
+\[
+\boxed{\text{korrekt (Induktion mit Überlappung), }T(n)=3T(2n/3)+\Theta(1)=\Theta(n^{\log_{3/2}3}).}
+\]
+5. Regularity:
+\[
+\boxed{\text{Case-3 ohne Regularität kann falsch sein; genau daran scheitert der Induktionsschluss.}}
+\]
+
+---
