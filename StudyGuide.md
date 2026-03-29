@@ -79,4 +79,43 @@ An **Augmenting Path** is any valid path from $s$ to $t$ using *only* the arrows
 The **Bottleneck ($\Delta$)** is the *smallest* number along that path. It dictates exactly how much extra water we can push. 
 *Analogy:* If you have a 3-lane highway that suddenly merges into a 1-lane bridge, and then opens to a 5-lane highway... you can still only send 1 car through at a time. The 1-lane bridge is the bottleneck.
 
+## 🏝️ Topic 3: Graphs, Minimum Spanning Trees, and Connected Components
 
+### 1. Graph Primitives (The Basic Vocabulary)
+*   **Vertex (Node):** A location or object (e.g., an island, a computer, a city). Represented by $|V|$ (number of vertices).
+*   **Edge:** A connection between two vertices (e.g., a bridge, a cable, a road). Represented by $|E|$ (number of edges).
+*   **Weighted Edge:** An edge that has a cost, length, or time value attached to it.
+*   **Cycle:** A path that forms a closed loop (you can walk from node A, through some edges, and end up back at A).
+*   **Connected Graph:** A graph where you can reach *any* vertex from *any* other vertex.
+
+### 2. What is a "Tree" in Graph Theory?
+In general graph theory, a **Tree** is simply any graph that is:
+1.  **Connected** (all in one piece).
+2.  **Acyclic** (has absolutely ZERO cycles/loops).
+*Rule of thumb:* A tree with $|V|$ vertices will ALWAYS have exactly $|V| - 1$ edges. If you add even one more edge, you create a loop!
+
+### 3. What is a Minimum Spanning Tree (MST)?
+*   **Spanning:** It touches (spans) every single vertex in the graph.
+*   **Tree:** It has no loops.
+*   **Minimum:** The total sum of the edge weights is the cheapest possible.
+*   *Analogy (The Island Bridge Budget):* You are a mayor of an archipelago of islands. You need to build bridges so that people can drive to *every single island*. However, your budget is extremely tight. You must pick the cheapest combination of bridges that connects everyone without building any redundant, wasteful loops.
+
+### 4. Kruskal's Algorithm (The "Global Bargain Hunter")
+Kruskal looks at the whole map at once and is obsessed with cheap prices.
+1. Put all possible bridges in a list, sorted from cheapest to most expensive.
+2. Buy the absolute cheapest bridge on the list and build it.
+3. Look at the next cheapest. If building it creates a loop (a cycle), throw the blueprint away! Loops are a waste of money. If it doesn't create a loop, build it.
+4. Repeat until you have built exactly $|V| - 1$ bridges. 
+
+### 5. Prim's Algorithm (The "Expanding Empire")
+Prim doesn't look at the whole map at once. Prim builds outward from a single starting point.
+1. Pick *any* random island to be your capital.
+2. Look at all the bridges connecting your current empire to the outside, unexplored islands. (This boundary is called the "Cut").
+3. Pick the absolute cheapest bridge that leads to an unvisited island.
+4. Build it, and absorb the new island into your empire.
+5. Repeat until the empire has absorbed every island. 
+
+### 6. Connected Components (Zusammenhangskomponenten / ZHK)
+A connected component is an isolated "cluster" of nodes that are all connected to each other, but completely cut off from the rest of the graph.
+*   *Analogy (The Paint Bucket Tool):* Imagine MS Paint. If you click on an island with the paint bucket, the color spreads across all the bridges to every island it can reach. That entire colored area is one Connected Component (ZHK). To find all ZHKs, you just keep clicking unpainted islands until everything has a color.
+*   We use **BFS** (Breadth-First Search - exploring layer by layer) or **DFS** (Depth-First Search - exploring deep down a path until a dead end) to do this "painting".
