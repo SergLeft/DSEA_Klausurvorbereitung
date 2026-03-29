@@ -573,3 +573,356 @@ No “Y-shaped” structure possible because that needs someone holding 3 hands.
 - Components in subgraph $H$ via filtered BFS/DFS are linear-time.
 
 ---
+---
+
+## 🔁 Replacement Block — Präsenzblatt 9 (with analogy + decision logic)
+
+## 🧱 Topic 6 (Revised): Matrix Chain Multiplication + Stable Cake DP (Präsenzblatt 9)
+
+### 🧠 Big-picture analogies
+- **Matrix chain**: You are assembling furniture panels. Same final product, but assembly order can massively change effort.
+- **Cake stacking**: You build a tiered cake with strict size order (big at bottom, smaller on top), like legal stacking rules in a game.
+
+---
+
+### 📚 Abbreviations
+- **MCM** = Matrix Chain Multiplication
+- **DP** = Dynamic Programming
+- **Optimal substructure**: optimal global solution built from optimal subsolutions
+- **State**: what your DP table entry represents
+
+---
+
+### 🧠 Aufgabe 1: Optimal parenthesization for
+\[
+A_1(35\times15),\ A_2(15\times5),\ A_3(5\times10),\ A_4(10\times20)
+\]
+
+---
+
+#### Decision strategy
+For matrix-chain problems:
+1. Define dimension vector $p$ with $A_i$ of size $p_{i-1}\times p_i$.
+2. Use DP table $m[i,j]$ = minimal scalar multiplications for chain $A_i\cdots A_j$.
+3. Try all split points $k$:
+\[
+m[i,j]=\min_{i\le k<j}\big(m[i,k]+m[k+1,j]+p_{i-1}p_kp_j\big)
+\]
+
+This is the standard professor-safe method (no guessing).
+
+---
+
+#### Step 1: Dimensions
+\[
+p=[35,15,5,10,20]
+\]
+
+#### Step 2: Length-2 chains
+- $m[1,2]=35\cdot15\cdot5=2625$
+- $m[2,3]=15\cdot5\cdot10=750$
+- $m[3,4]=5\cdot10\cdot20=1000$
+
+#### Step 3: Length-3 chains
+\[
+m[1,3]=\min\{
+(m[1,1]+m[2,3]+35\cdot15\cdot10),\
+(m[1,2]+m[3,3]+35\cdot5\cdot10)\}
+\]
+- split at 1: $0+750+5250=6000$
+- split at 2: $2625+0+1750=4375$
+So:
+\[
+m[1,3]=4375
+\]
+
+\[
+m[2,4]=\min\{
+(m[2,2]+m[3,4]+15\cdot5\cdot20),\
+(m[2,3]+m[4,4]+15\cdot10\cdot20)\}
+\]
+- split at 2: $0+1000+1500=2500$
+- split at 3: $750+0+3000=3750$
+So:
+\[
+m[2,4]=2500
+\]
+
+#### Step 4: Length-4 chain
+\[
+m[1,4]=\min\{
+m[1,1]+m[2,4]+35\cdot15\cdot20,\
+m[1,2]+m[3,4]+35\cdot5\cdot20,\
+m[1,3]+m[4,4]+35\cdot10\cdot20
+\}
+\]
+- split at 1: $0+2500+10500=13000$
+- split at 2: $2625+1000+3500=7125$
+- split at 3: $4375+0+7000=11375$
+
+Minimum:
+\[
+\boxed{m[1,4]=7125}
+\]
+Best split is at $k=2$, so parenthesization:
+\[
+\boxed{(A_1A_2)(A_3A_4)}
+\]
+
+---
+
+#### Why this works
+Matrix multiplication is associative, so final matrix same regardless of brackets; only operation count changes. DP is valid because each split creates independent subchains.
+
+---
+
+### ⚠️ Exam traps (MCM)
+1. Using wrong dimensions in cost term.
+2. Forgetting to compare all split points.
+3. Guessing parentheses without DP evidence.
+
+---
+
+### 🧩 Micro-summary (Aufgabe 1)
+- Optimal parenthesization: $\boxed{(A_1A_2)(A_3A_4)}$
+- Minimal scalar multiplications: $\boxed{7125}$
+
+---
+
+### 🍰 Aufgabe 2: “Tatsächlich tragfähige Teiltortentürme” (descending layer sizes)
+
+#### What is asked?
+Modify old counting approach so only representations with **non-increasing layer sizes** are allowed (larger/equal below, smaller/equal above — here with distinct forms usually strictly descending by chosen form sequence logic).
+
+---
+
+#### Why old 1D DP is not enough
+Old recurrence
+\[
+T(n)=\sum_{v\in V}T(n-v)
+\]
+counts different orders separately, so it overcounts and allows invalid orderings.
+
+You must encode order constraints in the state.
+
+---
+
+#### Decision strategy (key)
+Sort springform sizes:
+\[
+v_1 < v_2 < \dots < v_m
+\]
+Define DP:
+\[
+DP[i][s] = \text{number of ways to build size } s \text{ using only } \{v_1,\dots,v_i\}
+\]
+This automatically enforces a canonical order and prevents counting illegal permutations.
+
+Equivalent interpretation:
+- choose from small set first (combinatorial coin-change style),
+- each combination corresponds to one descending physical stack order.
+
+---
+
+#### Recurrence
+Base:
+- $DP[i][0]=1$ for all $i$ (empty remainder)
+- $DP[0][s>0]=0$
+
+Transition:
+\[
+DP[i][s]=DP[i-1][s] + DP[i][s-v_i]\quad \text{if } s\ge v_i
+\]
+Else:
+\[
+DP[i][s]=DP[i-1][s]
+\]
+
+Why:
+- first term: do not use size $v_i$
+- second term: use at least one $v_i$ (and may use it again if allowed by problem model)
+
+If each springform can be used at most once, replace second term with $DP[i-1][s-v_i]$.
+
+---
+
+#### Correctness intuition
+By restricting allowed set to first $i$ sizes, each composition is generated in one canonical order only, so no permutation overcount. This enforces the structural sorting condition required by the exercise.
+
+---
+
+#### Complexity
+Table size: $m\times n$ where $m=|V|$.
+Each entry $O(1)$:
+\[
+\boxed{O(mn)}
+\]
+Space $O(mn)$ (or $O(n)$ with rolling optimization).
+
+---
+
+### ⚠️ Exam traps (cake DP)
+1. Reusing old 1D recurrence unchanged.
+2. Not encoding order in state.
+3. Confusing “distinct forms” with “distinct usage count” rule.
+
+---
+
+### 🧩 Micro-summary (Aufgabe 2)
+- Add second DP dimension to encode allowed form set.
+- This prevents overcounting by permutations.
+- Runtime polynomial: $O(|V|\,n)$.
+
+---
+
+## 🔁 Replacement Block — Präsenzblatt 8 (with analogy + decision logic)
+
+## 🌳 Topic 7 (Revised): BST/AVL Checks + AVL Insertions + Intro Cake Counting (Präsenzblatt 8)
+
+### 🧠 Big-picture analogies
+- **BST**: library shelves sorted by title — left smaller, right larger.
+- **AVL**: the same library, but shelves must also stay height-balanced to avoid long walks.
+- **Rotations**: rebalancing furniture without changing sorted order.
+
+---
+
+### 📚 Abbreviations
+- **BST** = Binary Search Tree
+- **AVL tree** = self-balancing BST with height difference at most 1 per node
+- **Balance factor** = height(left) - height(right)
+- **LL/LR/RR/RL** = rotation cases (left-left etc.)
+
+---
+
+### 🧠 Aufgabe 1a: Check two given trees for BST property and AVL condition
+
+#### Decision checklist
+For each tree:
+1. Verify BST ordering globally (not only local parent-child checks).
+2. Compute subtree heights and check $|h_L-h_R|\le1$ at every node.
+
+---
+
+#### Tree 1 (left drawing in sheet)
+Structure (from sheet): root 4; left 1 with children 0,2; right 5 with children 3,7 and 7 has children 6,8.
+
+- **BST?** No.  
+  Reason: node 3 is in right subtree of 4 but $3<4$ → violates global BST rule.
+- **AVL?** Yes (height differences at all nodes are within 1).
+
+\[
+\boxed{\text{Tree 1: BST = No,\ AVL = Yes}}
+\]
+
+---
+
+#### Tree 2 (right drawing in sheet)
+Structure: root 4; left 2 with children 1 and 3, and 1 has child 0; right 6.
+
+- **BST?** Yes (all left values < parent < all right values globally).
+- **AVL?** Yes (balance factors within $\{-1,0,1\}$ everywhere).
+
+\[
+\boxed{\text{Tree 2: BST = Yes,\ AVL = Yes}}
+\]
+
+---
+
+### ⚠️ Exam traps (1a)
+1. Checking only parent-child inequality (local) instead of subtree range (global BST rule).
+2. Forgetting to compute AVL condition at every node.
+
+---
+
+### 🧠 Aufgabe 1b: Insert sequence into AVL
+Insert:
+\[
+1,\ 0,\ 5,\ 4,\ 3,\ 2,\ 6
+\]
+
+#### Decision strategy
+After each insert:
+1. Do normal BST insert.
+2. Walk back up to first unbalanced node.
+3. Identify case (LL/LR/RR/RL).
+4. Rotate minimally to restore AVL.
+
+---
+
+#### Step trace with justification
+1. Insert 1 → root.
+2. Insert 0 → left of 1. Balanced.
+3. Insert 5 → right of 1. Balanced.
+4. Insert 4 → left of 5. Still balanced.
+5. Insert 3 → left of 4 causes node 5 unbalanced (LL at 5).  
+   **Action:** right rotation at 5.
+6. Insert 2 → goes under left side, now node 1 becomes right-heavy via right subtree’s left path (RL/LR context depending representation).  
+   Equivalent repair leads to root 4 after proper rotations.
+7. Insert 6 → right side of 5, balanced.
+
+Final AVL (one valid final shape):
+- root 4
+- left subtree rooted at 2 with children 1 and 3, and 1 has child 0
+- right subtree rooted at 5 with child 6
+
+---
+
+#### Why rotations work
+Rotations preserve in-order sequence (so BST property remains) while reducing local height imbalance.
+
+---
+
+### 🧩 Micro-summary (Aufgabe 1)
+- Tree checks: (No/Yes) and (Yes/Yes) respectively.
+- AVL insertion uses local rotations to preserve global efficiency $O(\log n)$.
+
+---
+
+### 🍰 Aufgabe 2: Theoretical Cake Towers (n=5 and counting algorithm)
+
+Given available forms $\{1,2,5\}$.
+
+#### (a) All representations for $n=5$
+If order matters (as in original simpler model):
+- $1+1+1+1+1$
+- permutations of $1+1+1+2$ (4 ways)
+- permutations of $1+2+2$ (3 ways)
+- $5$
+Total:
+\[
+1+4+3+1=\boxed{9}
+\]
+
+#### (b) Counting algorithm (simple model)
+Use recurrence:
+\[
+T(n)=T(n-1)+T(n-2)+T(n-5)
+\]
+with:
+- $T(0)=1$
+- $T(v<0)=0$
+
+Bottom-up DP computes all values up to $n$ in:
+\[
+\boxed{O(n\cdot|V|)}
+\]
+
+---
+
+### Analogy tie-in
+This is like climbing stairs where allowed step sizes are 1,2,5. Number of ways to reach stair $n$ = sum of ways to reach predecessor stairs compatible with one last step.
+
+---
+
+### ⚠️ Exam traps
+1. Mixing “order matters” and “order not mattering” models.
+2. Forgetting base case $T(0)=1$.
+3. Not handling negative indices as 0.
+
+---
+
+### 🧩 Micro-summary
+- For $n=5$ and $\{1,2,5\}$ in the simple model: 9 ways.
+- DP recurrence solves it efficiently.
+
+---
