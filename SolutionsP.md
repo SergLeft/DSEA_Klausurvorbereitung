@@ -389,4 +389,259 @@ The element with rank $i$ becomes the pivot if it is the median of the 3 chosen 
 - **Ratio:** $\frac{1.5/n}{1/n} = 1.5$.
 - **Conclusion:** You are **50% more likely** to hit the median using the "Median of 3" strategy compared to picking just one random element. This drastically reduces the chance of the "Worst Case" $O(n^2)$ behavior!
 
+---
+
+## 📘 Topic 14: Präsenzblatt 5 — Full Tutoring Session (ADHD-Friendly, From Zero)
+
+### 🧠 Aufgabe 1: Polynomial Multiplication via DFT
+
+#### 1) What is this asking?
+You are given two polynomials:
+- $A(x)=1+2x$
+- $B(x)=3-x$
+
+You need to compute:
+- $C(x)=A(x)\cdot B(x)$
+
+but using the **DFT** method (not only direct multiplication).
+
+- **DFT** = **Discrete Fourier Transform**
+
+---
+
+#### 2) Core ideas from zero
+
+##### What is a polynomial?
+A polynomial is an expression like:
+- $a_0 + a_1x + a_2x^2 + \dots$
+
+The numbers $a_0,a_1,a_2,\dots$ are called **coefficients**.
+
+Example:
+- $1+2x = 1\cdot x^0 + 2\cdot x^1$
+- Coefficient vector: $(1,2)$
+
+##### Why use DFT for multiplication?
+Multiplying in coefficient form is a convolution-like operation.  
+DFT gives a powerful shortcut:
+
+1. Convert coefficients to values at special points.
+2. Multiply those values component-wise.
+3. Convert back to coefficients.
+
+Think of it as changing to a coordinate system where multiplication is easier.
+
+##### Roots of unity (special evaluation points)
+For length $n$, a primitive root is:
+- $\omega_n = e^{2\pi i/n}$
+
+Here length is $4$, so:
+- $\omega_4 = e^{2\pi i/4}=i$
+- and $i^2=-1$
+
+Thus the four points are:
+- $\omega_4^0=1$
+- $\omega_4^1=i$
+- $\omega_4^2=-1$
+- $\omega_4^3=-i$
+
+##### Why pad to length 4?
+Product degree can go up to degree $2$.  
+The task instructs length 4, so we use zero-padding:
+- $a'=(1,2,0,0)$
+- $b'=(3,-1,0,0)$
+
+---
+
+#### 3) Step-by-step solution
+
+We use:
+- $A(x)=1+2x$
+- $B(x)=3-x$
+- $\omega_4=i$
+
+##### Step A: Compute $DFT(a')$
+Evaluate $A$ at $1,i,-1,-i$:
+
+- $A(1)=1+2=3$
+- $A(i)=1+2i$
+- $A(-1)=1-2=-1$
+- $A(-i)=1-2i$
+
+So:
+- $DFT(a')=(3,\;1+2i,\;-1,\;1-2i)$
+
+##### Step B: Compute $DFT(b')$
+Evaluate $B$ at $1,i,-1,-i$:
+
+- $B(1)=3-1=2$
+- $B(i)=3-i$
+- $B(-1)=3-(-1)=4$
+- $B(-i)=3-(-i)=3+i$
+
+So:
+- $DFT(b')=(2,\;3-i,\;4,\;3+i)$
+
+##### Step C: Component-wise multiplication
+Let $\widehat c_k = \widehat a_k\widehat b_k$:
+
+- $k=0:\;3\cdot2=6$
+- $k=1:\;(1+2i)(3-i)=5+5i$
+- $k=2:\;(-1)\cdot4=-4$
+- $k=3:\;(1-2i)(3+i)=5-5i$
+
+Hence:
+- $DFT(c')=(6,\;5+5i,\;-4,\;5-5i)$
+
+##### Step D: Inverse DFT
+Applying inverse DFT gives:
+- $c'=(3,5,-2,0)$
+
+Therefore:
+- $\boxed{C(x)=3+5x-2x^2}$
+
+##### Quick sanity check
+Direct multiplication:
+- $(1+2x)(3-x)=3-x+6x-2x^2=3+5x-2x^2$
+
+Matches exactly ✅
+
+---
+
+#### 4) Common exam mistakes
+1. Forgetting zero-padding.
+2. Using wrong root of unity.
+3. Sign errors with $i^2=-1$.
+4. Forgetting normalization in inverse DFT.
+5. Skipping sanity check.
+
+---
+
+#### 5) Micro-summary
+- DFT turns polynomial multiplication into easy component-wise multiplication.
+- For length 4, evaluate at $1,i,-1,-i$.
+- Final answer:
+  - $\boxed{C(x)=3+5x-2x^2}$
+
+---
+
+### 🎲 Aufgabe 2: Probability with Two Dice
+
+#### 1) What is this asking?
+Alice throws two fair six-sided dice at once:
+- one red,
+- one green.
+
+Let $S$ be the sum.
+
+You need:
+1. The sample space.
+2. Whether events $S\ge 6$ and $S\le 3$ are disjoint and independent.
+3. For $n$ double-throws, the expected number with $S\ge 6$.
+
+---
+
+#### 2) Core ideas from zero
+
+##### Sample space
+Because dice are distinguishable (red vs green), outcomes are ordered pairs:
+- $\Omega=\{(r,g)\mid r,g\in\{1,2,3,4,5,6\}\}$
+
+So:
+- $|\Omega|=36$
+- each outcome has probability $1/36$
+
+##### Event
+An event is a subset of $\Omega$ (for example all outcomes with sum at least 6).
+
+##### Disjoint events
+$A,B$ are disjoint if:
+- $A\cap B=\varnothing$
+(meaning they cannot happen together).
+
+##### Independent events
+$A,B$ are independent if:
+- $P(A\cap B)=P(A)P(B)$
+(meaning one does not influence the other).
+
+##### Expected count in repeated trials
+If success probability per trial is $p$, then for $n$ trials:
+- $E[X]=np$
+
+---
+
+#### 3) Step-by-step solution
+
+Let:
+- $A=\{S\ge 6\}$
+- $B=\{S\le 3\}$
+
+##### Part 1: Sample space
+- $\Omega=\{(r,g)\mid r,g\in\{1,\dots,6\}\}$
+- $|\Omega|=36$
+
+##### Part 2a: Disjoint?
+A sum cannot be both $\ge 6$ and $\le 3$.  
+So:
+- $A\cap B=\varnothing$
+
+Yes, disjoint ✅
+
+##### Part 2b: Independent?
+Need to check:
+- $P(A\cap B)=P(A)P(B)$
+
+Left side:
+- $P(A\cap B)=0$
+
+Now compute right side.
+
+For $B$ (sum $\le 3$):
+- sum 2: 1 outcome
+- sum 3: 2 outcomes
+- total 3 outcomes
+
+So:
+- $P(B)=3/36=1/12$
+
+For $A$ (sum $\ge 6$), use complement:
+- sums 2,3,4,5 have counts $1+2+3+4=10$
+- so $P(A)=1-10/36=26/36=13/18$
+
+Thus:
+- $P(A)P(B)=\frac{13}{18}\cdot\frac{1}{12}=\frac{13}{216}>0$
+
+Since $0\ne 13/216$, they are **not independent** ❌
+
+##### Part 3: Expected number in $n$ double-throws
+Success = event $S\ge 6$, with probability:
+- $p=13/18$
+
+Let $X$ = number of successes in $n$ throws. Then:
+- $E[X]=np=n\cdot\frac{13}{18}$
+
+Final:
+- $\boxed{E[X]=\frac{13n}{18}}$
+
+---
+
+#### 4) Common exam mistakes
+1. Treating dice as indistinguishable.
+2. Confusing disjointness and independence.
+3. Wrong counting of sum outcomes.
+4. Not using complement for quicker counting.
+5. Forgetting $E[X]=np$.
+
+---
+
+#### 5) Micro-summary
+- 36 ordered outcomes.
+- $S\ge 6$ and $S\le 3$: disjoint, but not independent.
+- $P(S\ge 6)=13/18$.
+- Expected count in $n$ trials:
+  - $\boxed{E[X]=13n/18}$
+
+---
+
+*Status update: Präsenzblatt 5 added in full tutoring style. Ready to continue with Präsenzblatt 4 next.*
 
