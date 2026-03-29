@@ -390,4 +390,292 @@ The element with rank $i$ becomes the pivot if it is the median of the 3 chosen 
 - **Conclusion:** You are **50% more likely** to hit the median using the "Median of 3" strategy compared to picking just one random element. This drastically reduces the chance of the "Worst Case" $O(n^2)$ behavior!
 
 ---
-*Status: Blatt 13 down to 6 Complete.*
+## 📘 Präsenzblatt 5 — Full Tutoring Session (ADHD-Friendly, From Zero)
+
+### Aufgabe 1: Polynomial Multiplication via DFT
+
+#### 1) What is this asking?
+You are given two polynomials:
+\[
+A(x)=1+2x, \quad B(x)=3-x
+\]
+You need to compute
+\[
+C(x)=A(x)\cdot B(x)
+\]
+using the **DFT** method (not just direct multiplication).
+
+- **DFT** = **Discrete Fourier Transform**
+
+---
+
+#### 2) Core ideas from zero
+
+##### What is a polynomial?
+A polynomial is an expression like
+\[
+a_0 + a_1x + a_2x^2 + \cdots
+\]
+where the numbers \(a_0,a_1,a_2,\dots\) are called **coefficients**.
+
+Example:
+\[
+1+2x = 1\cdot x^0 + 2\cdot x^1
+\]
+So the coefficient vector is \((1,2)\).
+
+##### Why use DFT for multiplication?
+Multiplying in coefficient form is a convolution-style operation. DFT gives a powerful shortcut:
+1. Convert coefficients to values at special points.
+2. Multiply those values pointwise.
+3. Convert back to coefficients.
+
+Think of it like converting a complicated task into a format where multiplication becomes easy.
+
+##### Roots of unity (the special evaluation points)
+For length \(n\), a primitive root is
+\[
+\omega_n = e^{2\pi i/n}
+\]
+Here length is 4, so
+\[
+\omega_4 = e^{2\pi i/4}=i
+\]
+with \(i^2=-1\).
+
+So the four points are:
+\[
+\omega_4^0=1,\quad \omega_4^1=i,\quad \omega_4^2=-1,\quad \omega_4^3=-i
+\]
+
+##### Why pad to length 4?
+The product of degree-1 and degree-1 polynomials has degree 2. We therefore need enough evaluation points to reconstruct all coefficients safely. The task instructs us to use length 4:
+\[
+a'=(1,2,0,0),\quad b'=(3,-1,0,0)
+\]
+This is called **zero-padding**.
+
+---
+
+#### 3) Step-by-step solution
+
+We use
+\[
+A(x)=1+2x,\; B(x)=3-x,\; \omega_4=i
+\]
+
+##### Step A: Compute \(DFT(a')\)
+Evaluate \(A\) at \(1,i,-1,-i\):
+
+- \(A(1)=1+2=3\)
+- \(A(i)=1+2i\)
+- \(A(-1)=1-2=-1\)
+- \(A(-i)=1-2i\)
+
+So:
+\[
+DFT(a')=(3,\;1+2i,\;-1,\;1-2i)
+\]
+
+##### Step B: Compute \(DFT(b')\)
+Evaluate \(B\) at \(1,i,-1,-i\):
+
+- \(B(1)=3-1=2\)
+- \(B(i)=3-i\)
+- \(B(-1)=3-(-1)=4\)
+- \(B(-i)=3-(-i)=3+i\)
+
+So:
+\[
+DFT(b')=(2,\;3-i,\;4,\;3+i)
+\]
+
+##### Step C: Pointwise multiply
+\[
+\widehat c_k = \widehat a_k\widehat b_k
+\]
+
+- \(k=0:\;3\cdot2=6\)
+- \(k=1:\;(1+2i)(3-i)=5+5i\)
+- \(k=2:\;(-1)\cdot4=-4\)
+- \(k=3:\;(1-2i)(3+i)=5-5i\)
+
+Hence:
+\[
+DFT(c')=(6,\;5+5i,\;-4,\;5-5i)
+\]
+
+##### Step D: Inverse DFT
+Applying inverse DFT gives coefficients:
+\[
+c'=(3,5,-2,0)
+\]
+So the product polynomial is:
+\[
+\boxed{C(x)=3+5x-2x^2}
+\]
+
+##### Quick sanity check (always useful in exams)
+Direct multiplication:
+\[
+(1+2x)(3-x)=3-x+6x-2x^2=3+5x-2x^2
+\]
+Matches exactly.
+
+---
+
+#### 4) Common exam mistakes
+1. Forgetting zero-padding.
+2. Using the wrong root of unity.
+3. Sign mistakes with \(i^2=-1\).
+4. Forgetting inverse DFT normalization.
+5. Skipping a final sanity check.
+
+---
+
+#### 5) Micro-summary
+- DFT transforms polynomial multiplication into pointwise multiplication.
+- For length 4, evaluate at \(1,i,-1,-i\).
+- Final answer:
+\[
+\boxed{C(x)=3+5x-2x^2}
+\]
+
+---
+
+### Aufgabe 2: Probability with Two Dice
+
+#### 1) What is this asking?
+Alice throws two fair six-sided dice at once:
+- one red,
+- one green.
+
+Let \(S\) be the sum.
+
+You need:
+1. The sample space.
+2. Whether events \(S\ge 6\) and \(S\le 3\) are disjoint and whether they are independent.
+3. For \(n\) double-throws, the expected number of throws where \(S\ge 6\).
+
+---
+
+#### 2) Core ideas from zero
+
+##### Sample space
+Because dice are distinguishable (red vs green), outcomes are ordered pairs:
+\[
+\Omega=\{(r,g)\mid r,g\in\{1,2,3,4,5,6\}\}
+\]
+So \(|\Omega|=36\), and each has probability \(1/36\).
+
+##### Event
+An event is a subset of \(\Omega\). Example: all pairs with sum at least 6.
+
+##### Disjoint events
+Events \(A,B\) are disjoint if
+\[
+A\cap B=\varnothing
+\]
+meaning they cannot occur together.
+
+##### Independent events
+Events \(A,B\) are independent if
+\[
+P(A\cap B)=P(A)P(B)
+\]
+meaning occurrence of one does not influence the probability of the other.
+
+##### Expected count over repeated trials
+If success probability per trial is \(p\), then in \(n\) trials, expected successes are
+\[
+E[X]=np
+\]
+
+---
+
+#### 3) Step-by-step solution
+Let
+\[
+A=\{S\ge 6\},\quad B=\{S\le 3\}
+\]
+
+##### Part 1: Sample space
+\[
+\Omega=\{(r,g)\mid r,g\in\{1,\dots,6\}\},\quad |\Omega|=36
+\]
+
+##### Part 2a: Are \(A\) and \(B\) disjoint?
+A sum cannot be both \(\ge6\) and \(\le3\). So
+\[
+A\cap B=\varnothing
+\]
+Yes, disjoint.
+
+##### Part 2b: Are \(A\) and \(B\) independent?
+Need to check
+\[
+P(A\cap B)=P(A)P(B)
+\]
+Left side:
+\[
+P(A\cap B)=0
+\]
+Now compute right side.
+
+- \(P(B)=P(S\le3)\): sums 2 or 3.
+  - sum 2: 1 outcome
+  - sum 3: 2 outcomes
+  - total 3 outcomes
+\[
+P(B)=\frac{3}{36}=\frac{1}{12}
+\]
+
+- \(P(A)=P(S\ge6)\): use complement \(S\le5\).
+  - counts for sums 2,3,4,5 are 1,2,3,4 (total 10)
+\[
+P(A)=1-\frac{10}{36}=\frac{26}{36}=\frac{13}{18}
+\]
+
+Then
+\[
+P(A)P(B)=\frac{13}{18}\cdot\frac{1}{12}=\frac{13}{216}>0
+\]
+Since \(0\neq 13/216\), they are **not independent**.
+
+##### Part 3: Expected number in \(n\) double-throws
+Each throw is a success if \(S\ge6\), with probability
+\[
+p=\frac{13}{18}
+\]
+Let \(X\) be number of successes in \(n\) throws. Then
+\[
+E[X]=np=n\cdot\frac{13}{18}
+\]
+So:
+\[
+\boxed{E[X]=\frac{13n}{18}}
+\]
+
+---
+
+#### 4) Common exam mistakes
+1. Treating the two dice as indistinguishable.
+2. Confusing disjointness with independence.
+3. Counting sum outcomes incorrectly.
+4. Not using complements when convenient.
+5. Forgetting the linear expected-value formula.
+
+---
+
+#### 5) Micro-summary
+- 36 equally likely ordered outcomes.
+- \(S\ge6\) and \(S\le3\): disjoint, but not independent.
+- \(P(S\ge6)=13/18\).
+- Expected count in \(n\) trials:
+\[
+\boxed{E[X]=13n/18}
+\]
+
+---
+
+*Status update: Präsenzblatt 5 added in full tutoring style. Ready to continue with Präsenzblatt 4 next.*.*
