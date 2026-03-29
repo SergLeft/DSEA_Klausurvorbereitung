@@ -1048,5 +1048,218 @@ Final statement:
 
 ---
 
-*Status update: Präsenzblatt 3 added in full tutoring style (with analogies linked directly to solution logic). Ready for Präsenzblatt 2 next.*
+---
 
+## 📘 Topic 17: Präsenzblatt 2 — Full Tutoring Session (ADHD-Friendly, From Zero)
+
+### 🧠 Aufgabe 1: Landau Symbols and Asymptotic Growth Ordering
+
+We are given these functions:
+- $f_1(n)=\pi n$
+- $f_2(n)=10^{1/n}$
+- $f_3(n)=2^n$
+- $f_4(n)=n\ln n$
+- $f_5(n)=\log(n\log n)$
+- $f_6(n)=\sqrt{n^3}=n^{3/2}$
+
+We must order them by asymptotic growth using:
+- $f\preceq g \iff f\in O(g)$
+
+---
+
+#### 1) Concepts and abbreviations
+
+- **Landau symbols**: $O(\cdot),\Omega(\cdot),\Theta(\cdot)$
+- $f\in O(g)$: $f$ grows no faster than $g$ (up to constant factors eventually)
+- $\preceq$: “grows no faster than”
+
+---
+
+#### 2) Decision strategy (why this order of attack?)
+When multiple mixed functions appear, use this decision ladder:
+
+1. Constants / limit-to-constant terms  
+2. Logarithmic terms  
+3. Polynomial terms  
+4. Polynomial $\times$ logarithm terms  
+5. Exponential terms
+
+This prevents confusion and gives a structured way to compare.
+
+---
+
+#### 3) Step-by-step decisions with justifications
+
+##### Step A: Analyze $f_2(n)=10^{1/n}$
+Decision: compute the limit as $n\to\infty$:
+- $10^{1/n}\to 10^0=1$
+
+So:
+- $f_2\in\Theta(1)$ (constant class).
+
+**Analogy:** this is like a startup effect that fades and settles to a fixed baseline.
+
+---
+
+##### Step B: Analyze $f_5(n)=\log(n\log n)$
+Use log identity:
+- $\log(n\log n)=\log n+\log\log n$
+
+Dominant term is $\log n$, so:
+- $f_5\in\Theta(\log n)$.
+
+This is larger than constant but smaller than any positive polynomial power.
+
+---
+
+##### Step C: Analyze $f_1(n)=\pi n$
+$\pi$ is just a constant factor, so:
+- $f_1\in\Theta(n)$.
+
+---
+
+##### Step D: Analyze $f_6(n)=n^{3/2}$
+This is a polynomial of degree $1.5$, so it grows faster than linear $n$.
+
+---
+
+##### Step E: Compare $f_4(n)=n\ln n$ with $f_6(n)=n^{3/2}$
+Decision: use ratio test:
+- $\dfrac{n\ln n}{n^{3/2}}=\dfrac{\ln n}{\sqrt n}\to 0$
+
+Hence:
+- $n\ln n=o(n^{3/2})$
+
+So $n\ln n$ grows slower than $n^{3/2}$.
+
+---
+
+##### Step F: Analyze $f_3(n)=2^n$
+Exponential growth dominates all polynomial/logarithmic growth classes, so this is largest.
+
+---
+
+#### 4) Final ordering
+From smallest to largest:
+- $\boxed{f_2 \prec f_5 \prec f_1 \prec f_4 \prec f_6 \prec f_3}$
+
+Expanded:
+- $\boxed{10^{1/n} \prec \log(n\log n) \prec \pi n \prec n\ln n \prec n^{3/2} \prec 2^n}$
+
+---
+
+#### 5) Micro-summary
+Use growth ladder:
+- constant < log < linear < linear·log < higher polynomial < exponential.
+
+---
+
+### 🧠 Aufgabe 2: Pair Matching in a Sorted List (Partnersuche)
+
+Given:
+- sorted list $L=(l_1,\dots,l_n)$ of pairwise distinct heights
+- target sum $h$
+- count how many pairs satisfy $l_i+l_j=h$
+
+---
+
+#### 1) Core idea from zero
+Since the list is already sorted, we can avoid $O(n^2)$ brute force by using two pointers:
+- one from left (small values),
+- one from right (large values).
+
+---
+
+#### 2) Decision-making: why two pointers?
+We choose two pointers because sorted order lets us eliminate impossible candidates safely in each step:
+- if sum too small, only increasing the smaller value can help,
+- if sum too large, only decreasing the larger value can help.
+
+This creates a linear-time strategy.
+
+---
+
+#### 3) Algorithm (two-pointer method)
+
+Initialize:
+- $i=1$ (left pointer),
+- $j=n$ (right pointer),
+- `count = 0`.
+
+While $i<j$:
+1. $s=l_i+l_j$
+2. If $s=h$: count++, $i++$, $j--$
+3. If $s<h$: $i++$
+4. If $s>h$: $j--$
+
+Return `count`.
+
+---
+
+#### 4) Why each move is justified
+
+##### Case 1: $s<h$ → move $i$
+Current left value is too small even with the largest available partner.  
+Any partner left of $j$ is smaller, so it cannot work either.  
+Therefore discarding $l_i$ is safe.
+
+##### Case 2: $s>h$ → move $j$
+Current right value is too large even with the smallest available partner.  
+Any partner right of $i$ is larger, so it cannot work either.  
+Therefore discarding $l_j$ is safe.
+
+##### Case 3: $s=h$ → count and move both
+We found a valid pair.  
+With distinct values and pairing interpretation, we lock this pair and continue inward.
+
+---
+
+#### 5) Analogy (binds theory to solution)
+Think of a seesaw with target balance:
+- left child = lightest available
+- right child = heaviest available
+
+If too light, replace the lighter side with a heavier one (move left pointer right).  
+If too heavy, replace the heavier side with a lighter one (move right pointer left).  
+If exactly balanced, record the match and move both inward.
+
+Because the list is sorted, discarded options can never become valid later.
+
+---
+
+#### 6) Correctness argument (exam-ready)
+
+Loop invariant:
+At each loop start $(i,j)$, all pairs outside the interval $[i,j]$ are already correctly handled, and discarded elements cannot form valid pairs with remaining ones.
+
+- Initialization: true before first iteration.
+- Maintenance: pointer moves discard only impossible candidates (proved above).
+- Termination: when $i\ge j$, no candidate pair remains.
+
+Hence algorithm counts all valid pairs correctly.
+
+---
+
+#### 7) Runtime and space
+Each iteration moves at least one pointer inward.  
+Each pointer moves at most $n$ steps total.
+
+So:
+- Runtime: $\boxed{O(n)}$
+- Extra space: $\boxed{O(1)}$
+
+---
+
+### ✅ Final compact answers (exam-style)
+
+1. **Aufgabe 1**
+   - $\boxed{10^{1/n} \prec \log(n\log n) \prec \pi n \prec n\ln n \prec n^{3/2} \prec 2^n}$
+
+2. **Aufgabe 2**
+   - Use two-pointer scan on sorted list.
+   - Correct by monotonic elimination and loop invariant.
+   - Complexity: $\boxed{O(n)}$ time, $\boxed{O(1)}$ space.
+
+---
+
+*Status update: Präsenzblatt 2 added in full tutoring style with analogies, step decisions, and justifications. Ready for Präsenzblatt 1 next.*
