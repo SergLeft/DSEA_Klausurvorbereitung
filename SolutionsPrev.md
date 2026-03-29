@@ -5,7 +5,7 @@
 ## 🏗 Topic 1 (Revised): Heap Construction Runtime and Correctness (Präsenzblatt 13, Aufgabe 1)
 
 ### 🧠 What is asked?
-You must handle three parts:
+You must handle three parts
 
 1. Show recursive `heapify(left), heapify(right), trickle-down(node)` runs in $O(n)$.
 2. Continue bottom-up heap construction for given array/tree and answer where index $i$ can start.
