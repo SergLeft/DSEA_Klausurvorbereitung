@@ -39,3 +39,44 @@ The HR algorithm is called `trickle-down`:
 3. If one or both Employees are stronger, **find the STRONGEST of the two employees**.
 4. Swap the Manager with the strongest Employee.
 5. Repeat this process for the demoted manager in their new position, until they are stronger than their new employees or they hit the bottom of the company (a leaf node).
+
+## 🌊 Topic 2: Flow Networks & Residual Networks (from absolute zero)
+
+### 1. What is a Flow Network? (The Problem)
+Imagine a city's water pipe system. You have a **Source ($s$)** (the water reservoir) and a **Sink ($t$)** (the city that needs the water). In between are various pipes (edges) connecting different junction stations (nodes). 
+
+Every pipe has a **Capacity ($c$)**: the absolute maximum amount of water it can hold per second (e.g., 15 liters).
+Every pipe has a **Current Flow ($f$)**: the amount of water currently rushing through it (e.g., 12 liters).
+We write this as **$f/c$** (e.g., 12/15).
+
+**The Goal:** Push as much water as physically possible from $s$ to $t$. 
+
+### 2. The "Greedy Mistake"
+If you just blindly push water wherever there is space, you might accidentally block a crucial intersection, preventing even *more* water from taking a better route. You might reach a point where no more water can reach $t$, but you haven't actually reached the true *Maximum Flow*. 
+
+To fix this, we need an **"Undo Button"**. 
+
+### 3. The Residual Network (The Undo Button)
+The Residual Network is a *new map* we draw based on the current flow. It completely ignores the original pipes and instead shows us **what moves are legally possible right now**.
+
+For every single pipe $u \to v$ in the original network, we draw up to TWO new arrows in the Residual Network:
+
+* **The Forward Edge (Remaining Space):** 
+  How much *more* water can we push? 
+  Math: `Capacity - Flow` ($c - f$)
+  *Example:* If a pipe is 12/15, we have 3 liters of empty space. We draw a forward arrow $u \to v$ with weight **3**.
+
+* **The Backward Edge (The Undo Button):**
+  How much water can we *suck back* or *reroute*? 
+  Math: `Current Flow` ($f$)
+  *Example:* If a pipe is 12/15, there are 12 liters actively flowing. We draw a backward arrow $v \to u$ with weight **12**. This means "we are allowed to cancel up to 12 liters of flow if we find a better route for it."
+
+*(Rule of thumb: Forward = Empty space. Backward = Active flow).*
+
+### 4. Augmenting Path & Bottleneck
+An **Augmenting Path** is any valid path from $s$ to $t$ using *only* the arrows in the Residual Network. If you can find a path, it means you can increase the overall flow!
+
+The **Bottleneck ($\Delta$)** is the *smallest* number along that path. It dictates exactly how much extra water we can push. 
+*Analogy:* If you have a 3-lane highway that suddenly merges into a 1-lane bridge, and then opens to a 5-lane highway... you can still only send 1 car through at a time. The 1-lane bridge is the bottleneck.
+
+
