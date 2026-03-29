@@ -119,3 +119,26 @@ Prim doesn't look at the whole map at once. Prim builds outward from a single st
 A connected component is an isolated "cluster" of nodes that are all connected to each other, but completely cut off from the rest of the graph.
 *   *Analogy (The Paint Bucket Tool):* Imagine MS Paint. If you click on an island with the paint bucket, the color spreads across all the bridges to every island it can reach. That entire colored area is one Connected Component (ZHK). To find all ZHKs, you just keep clicking unpainted islands until everything has a color.
 *   We use **BFS** (Breadth-First Search - exploring layer by layer) or **DFS** (Depth-First Search - exploring deep down a path until a dead end) to do this "painting".
+
+## 🗺️ Topic 4: Shortest Path Algorithms (Dijkstra & Floyd-Warshall)
+
+### 1. The Core Problem
+In graph theory, we often want to find the fastest/cheapest route between cities (nodes). There are two main types of shortest path problems:
+*   **Single-Source Shortest Path (SSSP):** "I am at node $s$. Tell me the shortest path from $s$ to *every other node* in the graph." (Used in GPS navigation). We use **Dijkstra's Algorithm** for this.
+*   **All-Pairs Shortest Path (APSP):** "Give me a massive table showing the shortest path from *every* node to *every* other node." We use **Floyd-Warshall** for this.
+
+### 2. Dijkstra's Algorithm (from zero)
+Dijkstra solves the Single-Source problem. It uses a **Greedy** approach.
+*   **The Analogy (Sealing the Envelopes):** Imagine calculating travel times from your home city. You look at all neighboring cities. The closest one is 5 minutes away. You *know* for an absolute fact that no other weird detour will get you there in less than 5 minutes. So, you write "5 minutes" on an envelope, seal it, and lock it in a safe. Once a node is "sealed" (finalized), Dijkstra *never* looks at it again.
+*   **The Fatal Flaw (Negative Edges):** What if there is a magical toll booth that *pays* you to drive through it? (A negative edge weight). Dijkstra breaks! It might seal an envelope for a city saying "10 minutes", but later discover a detour with a "-20 minute" edge that makes the real time "-10 minutes". Because Dijkstra never opens sealed envelopes, it returns the wrong answer. **Dijkstra ONLY guarantees correctness if all edge weights are $\ge 0$.**
+
+### 3. Floyd-Warshall Algorithm (from zero)
+Floyd-Warshall solves the All-Pairs problem using **Dynamic Programming (DP)**. 
+*   **The DP State:** We build a 3D table: $d^{(k)}_{ij}$. This means: "What is the shortest path from $i$ to $j$, if I am ONLY allowed to use nodes $\{1, 2, \dots, k\}$ as transfer stations in between?"
+*   **The Analogy (Unlocking Train Stations):** 
+    *   At stage $k=0$, no transfer stations are unlocked. You can only take direct, non-stop trains between $i$ and $j$.
+    *   At stage $k=1$, station #1 unlocks. Now for every city pair $(i, j)$, you ask: "Is it faster to take my current route, OR is it faster to take a train to station #1, and then from #1 to my destination?"
+    *   You repeat this, unlocking station $k=2$, then $k=3$, all the way to $n$.
+*   **The Recurrence Formula:** 
+    $d^{(k)}_{ij} = \min \Big( d^{(k-1)}_{ij} , \quad d^{(k-1)}_{ik} + d^{(k-1)}_{kj} \Big)$
+    *(Plain English: The new best distance is the minimum of "the old best distance" OR "the distance from $i$ to the new station $k$ + the distance from new station $k$ to $j$").*
