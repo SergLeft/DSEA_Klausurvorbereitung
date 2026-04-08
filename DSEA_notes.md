@@ -1,49 +1,32 @@
+# DSEA Klausurvorbereitung – Study Notes
+
+> **Legend:** ✅ Solution | 💪 Good knowledge | ⚡ Weak points
+
+---
+
+## Exam Session Feedback
+
 💪 Good knowledge
-•
-
-Correctly identified that the Master Theorem requires a≥1a≥1 in Q3.
-•
-
-Successfully identified Case 1 of the Master Theorem in Q2 based on comparing the watershed function and f(n)f(n).
-•
-
-Recognized the 'polynomial gap' requirement for Case 3 and accurately predicted the extended Case 2 result of Θ(n2log⁡3n)Θ(n2log3n) in Q3.
-•
-
-Understood the impact of non-monotonicity in f(n)f(n) regarding the oscillation of the sine function in Q1.
+- Correctly identified that the Master Theorem requires $a \geq 1$ in Q3.
+- Successfully identified Case 1 of the Master Theorem in Q2 based on comparing the watershed function and f(n)f(n).
+- Recognized the 'polynomial gap' requirement for Case 3 and accurately predicted the extended Case 2 result of Θ(n2log⁡3n)Θ(n2log3n) in Q3.
+- Understood the impact of non-monotonicity in f(n)f(n) regarding the oscillation of the sine function in Q1.
 ⚡ Weak points
-•
-
-Misidentified the parameter bb in Q2, using b=3b=3 instead of the specified b=4b=4 from the problem statement.
-•
-
-Incorrectly stated that aa must be an integer; the requirement is a≥1a≥1, but aa can be a non-integer scalar.
-•
-
-Made algebraic and trigonometric errors in Q1 when attempting to prove the regularity condition violation, leading to an incorrect conclusion about the ratio R(n)R(n).
-•
-
-Failed to provide a formal definition of the regularity condition as requested in Q1.
+- Misidentified the parameter bb in Q2, using $b = 3$ instead of the specified $b = 4$ from the problem statement.
+- Incorrectly stated that aa must be an integer; the requirement is $a \geq 1$, but aa can be a non-integer scalar.
+- Made algebraic and trigonometric errors in Q1 when attempting to prove the regularity condition violation, leading to an incorrect conclusion about the ratio R(n)R(n).
+- Failed to provide a formal definition of the regularity condition as requested in Q1.
 📚 Focus on
-•
-
-Practice careful extraction of parameters (a,b,f(n)a,b,f(n)) from word problems to avoid foundational setup errors.
-•
-
-Review the formal definition of the Regularity Condition: af(n/b)≤cf(n)af(n/b)≤cf(n) for c<1c<1.
-•
-
-Study the difference between 'polynomial growth' (e.g., nϵnϵ) and 'logarithmic growth' (e.g., log⁡knlogkn) to better identify polynomial gaps.
-•
-
-Strengthen trigonometric evaluation skills for asymptotic analysis, specifically bounding sin⁡(n)sin(n) between [−1,1][−1,1] to find supremum/infimum values.
-Continue
+- Practice careful extraction of parameters (a,b,f(n)a,b,f(n)) from word problems to avoid foundational setup errors.
+- Review the formal definition of the Regularity Condition: af(n/b)≤cf(n)af(n/b)≤cf(n) for $c < 1$.
+- Study the difference between 'polynomial growth' (e.g., nϵnϵ) and 'logarithmic growth' (e.g., log⁡knlogkn) to better identify polynomial gaps.
+- Strengthen trigonometric evaluation skills for asymptotic analysis, specifically bounding sin⁡(n)sin(n) between [−1,1][−1,1] to find supremum/infimum values.
 Question 1
 68% score
 answer review
 ✅ Solution
 
-The regularity condition for Case 3 of the Master Theorem requires that there exists a constant c<1c<1 such that af(n/b)≤cf(n)af(n/b)≤cf(n) for all sufficiently large nn. This condition ensures that the work at each level of the recursion tree decreases geometrically, meaning the total work is dominated by the cost at the root, f(n)f(n). If the work does not decrease by at least a constant factor at each level, the sum of the levels might grow faster than the root alone, preventing a tight Θ(f(n))Θ(f(n)) bound. To demonstrate the violation for f(n)=n(2+sin⁡(n))f(n)=n(2+sin(n)) with a=1,b=4a=1,b=4, we examine the ratio R(n)=1⋅(n/4)(2+sin⁡(n/4))n(2+sin⁡(n))=2+sin⁡(n/4)4(2+sin⁡(n))R(n)=n(2+sin(n))1⋅(n/4)(2+sin(n/4))​=4(2+sin(n))2+sin(n/4)​. For regularity to hold, the maximum value of this ratio must be strictly less than 1. While for b=4b=4 the ratio actually stays below 1, in a typical failing case (like b=2b=2), one would show that when sin⁡(n)sin(n) is at a minimum (close to -1) and sin⁡(n/b)sin(n/b) is at a maximum (close to 1), the ratio exceeds 1, meaning the subproblems can occasionally do more work than the parent problem. When regularity is violated due to a non-monotonic driving function, T(n)T(n) may oscillate and fail to maintain a constant proportional relationship with f(n)f(n), meaning we can only guarantee T(n)=Ω(f(n))T(n)=Ω(f(n)) but lose the tight upper bound. Where you went wrong: Your calculation 2sin⁡(3π/8)≈1.82sin(3π/8)≈1.8 suggests a misunderstanding of the ratio; you must include the 1/b1/b (in this case 1/41/4) factor in your total comparison. Additionally, the asymptotic behavior T(n)=Θ(n)T(n)=Θ(n) is only a lower bound; the oscillation prevents a simple tight bound.
+The regularity condition for Case 3 of the Master Theorem requires that there exists a constant $c < 1$ such that af(n/b)≤cf(n)af(n/b)≤cf(n) for all sufficiently large nn. This condition ensures that the work at each level of the recursion tree decreases geometrically, meaning the total work is dominated by the cost at the root, f(n)f(n). If the work does not decrease by at least a constant factor at each level, the sum of the levels might grow faster than the root alone, preventing a tight Θ(f(n))Θ(f(n)) bound. To demonstrate the violation for f(n)=n(2+sin⁡(n))f(n)=n(2+sin(n)) with a=1,b=4a=1,b=4, we examine the ratio R(n)=1⋅(n/4)(2+sin⁡(n/4))n(2+sin⁡(n))=2+sin⁡(n/4)4(2+sin⁡(n))R(n)=n(2+sin(n))1⋅(n/4)(2+sin(n/4))​=4(2+sin(n))2+sin(n/4)​. For regularity to hold, the maximum value of this ratio must be strictly less than 1. While for $b = 4$ the ratio actually stays below 1, in a typical failing case (like b=2b=2), one would show that when sin⁡(n)sin(n) is at a minimum (close to -1) and sin⁡(n/b)sin(n/b) is at a maximum (close to 1), the ratio exceeds 1, meaning the subproblems can occasionally do more work than the parent problem. When regularity is violated due to a non-monotonic driving function, T(n)T(n) may oscillate and fail to maintain a constant proportional relationship with f(n)f(n), meaning we can only guarantee T(n)=Ω(f(n))T(n)=Ω(f(n)) but lose the tight upper bound. Where you went wrong: Your calculation 2sin⁡(3π/8)≈1.82sin(3π/8)≈1.8 suggests a misunderstanding of the ratio; you must include the 1/b1/b (in this case 1/41/4) factor in your total comparison. Additionally, the asymptotic behavior T(n)=Θ(n)T(n)=Θ(n) is only a lower bound; the oscillation prevents a simple tight bound.
 📚 Focus Areas
 
 The student identifies the core concepts of Case 3 dominance and correctly attempts to evaluate the regularity condition ratio. However, the calculation for the violation contains errors in algebraic manipulation and trigonometric evaluation, and the final discussion on asymptotic behavior lacks depth regarding why the upper bound fails.
@@ -56,10 +39,10 @@ Question 1
 68% score
 Question
 
-Consider the recurrence relation T(n)=aT(n/b)+f(n)T(n)=aT(n/b)+f(n) where a=1a=1, b=4b=4, and f(n)=n(2+sin⁡(n))f(n)=n(2+sin(n)). This recurrence appears to satisfy the growth requirement for Case 3 of the Master Theorem since f(n)=Ω(nlog⁡4(1)+ϵ)f(n)=Ω(nlog4​(1)+ϵ) for ϵ=1ϵ=1. However, the Master Theorem cannot be applied directly to conclude T(n)=Θ(f(n))T(n)=Θ(f(n)).
+Consider the recurrence relation T(n)=aT(n/b)+f(n)T(n)=aT(n/b)+f(n) where a=1a=1, $b = 4$, and f(n)=n(2+sin⁡(n))f(n)=n(2+sin(n)). This recurrence appears to satisfy the growth requirement for Case 3 of the Master Theorem since f(n)=Ω(nlog⁡4(1)+ϵ)f(n)=Ω(nlog4​(1)+ϵ) for ϵ=1ϵ=1. However, the Master Theorem cannot be applied directly to conclude T(n)=Θ(f(n))T(n)=Θ(f(n)).
 
     Formally define the regularity condition for Case 3 and explain its purpose in the context of the work performed at each level of the recursion tree.
-    Demonstrate that f(n)=n(2+sin⁡(n))f(n)=n(2+sin(n)) fails the regularity condition by showing there is no constant c<1c<1 such that af(n/b)≤cf(n)af(n/b)≤cf(n) for all sufficiently large nn.
+    Demonstrate that f(n)=n(2+sin⁡(n))f(n)=n(2+sin(n)) fails the regularity condition by showing there is no constant $c < 1$ such that af(n/b)≤cf(n)af(n/b)≤cf(n) for all sufficiently large nn.
     Given that the regularity condition is violated, evaluate how the total work T(n)T(n) behaves compared to f(n)f(n) as nn approaches infinity, and explain why a non-monotonic driving function f(n)f(n) complicates the asymptotic tightness of the bound.
 
 Answer
@@ -77,7 +60,6 @@ sin is min at n + nπ/2 so in our case for n = 3π/2 we would have: 3pi/4 * 2 si
 the non monotonic f complicates asymptotic tightness due to the oscilation of the sin function. the total work behaves like theta n?*
 
 
-
 Question 2
 75% score
 answer review
@@ -85,11 +67,11 @@ answer review
 
     State the Recurrence Relation: Based on the problem, the cube is partitioned into sub-cubes of size n/4n/4 with 44 recursive calls and a combination step of n2n=n2.5n2n
     ​=n2.5. The relation is T(n)=44T(n/4)+Θ(n2.5)T(n)=44T(n/4)+Θ(n2.5).
-    Apply Master Theorem: Here a=44a=44, b=4b=4, and c=2.5c=2.5. We calculate log⁡ba=log⁡444≈2.730logb​a=log4​44≈2.730. Since 2.730>2.52.730>2.5, Case 1 applies, and the complexity is Θ(nlog⁡444)≈Θ(n2.730)Θ(nlog4​44)≈Θ(n2.730).
+    Apply Master Theorem: Here a=44a=44, $b = 4$, and c=2.5c=2.5. We calculate log⁡ba=log⁡444≈2.730logb​a=log4​44≈2.730. Since 2.730>2.52.730>2.5, Case 1 applies, and the complexity is Θ(nlog⁡444)≈Θ(n2.730)Θ(nlog4​44)≈Θ(n2.730).
     Compare with Strassen: Strassen's algorithm has an exponent of log⁡27≈2.807log2​7≈2.807. Comparing the two, 2.730<2.8072.730<2.807, meaning the tensor algorithm is more efficient.
     Final Answer: The tensor algorithm is asymptotically more efficient with a complexity of Θ(n2.730)Θ(n2.730).
 
-Where you went wrong: You used b=3b=3 in your recurrence (n/3n/3) instead of b=4b=4 (n/4n/4). While log⁡344log3​44 and log⁡444log4​44 are different values, you coincidentally used the numerical value for the correct base (2.732.73) while writing the wrong base in your formula.
+Where you went wrong: You used $b = 3$ in your recurrence (n/3n/3) instead of $b = 4$ (n/4n/4). While log⁡344log3​44 and log⁡444log4​44 are different values, you coincidentally used the numerical value for the correct base (2.732.73) while writing the wrong base in your formula.
 📚 Focus Areas
 
 The student correctly identified the combination step complexity and the applicable Master Theorem case, but made a significant error by using a division factor of 3 instead of 4 in the recurrence relation. Although they correctly compared the resulting exponents to Strassen's algorithm, the foundational recurrence setup was flawed.
@@ -145,7 +127,7 @@ Question 3
 answer review
 ✅ Solution
 
-For Case 1, the Master Theorem fails because it requires a≥1a≥1. A value of a=2/3a=2/3 implies that the number of subproblems decreases at each level, which is not physically applicable to standard divide-and-conquer algorithms. Since a<1a<1, the work done at each level of the recursion tree decreases geometrically, meaning the total work is dominated by the initial cost at the root, leading to T(n)=Θ(n2)T(n)=Θ(n2). For Case 2, the watershed function is nlog⁡24=n2nlog2​4=n2. While f(n)=n2log⁡2nf(n)=n2log2n grows faster than n2n2, the ratio f(n)/nlog⁡ba=log⁡2nf(n)/nlogb​a=log2n is logarithmic rather than polynomial. This violates the 'polynomial gap' requirement for Case 3, which requires f(n)=Ω(nlog⁡ba+ϵ)f(n)=Ω(nlogb​a+ϵ) for some ϵ>0ϵ>0. It fails the standard Case 2 because f(n)f(n) is not exactly Θ(n2)Θ(n2). Where you went wrong: You stated aa must be an integer; however, aa can be any real number ≥1≥1 (e.g., a=1.5a=1.5 is valid). Your explanation for the recursion tree was slightly informal, though the intuition was correct.
+For Case 1, the Master Theorem fails because it requires $a \geq 1$. A value of a=2/3a=2/3 implies that the number of subproblems decreases at each level, which is not physically applicable to standard divide-and-conquer algorithms. Since a<1a<1, the work done at each level of the recursion tree decreases geometrically, meaning the total work is dominated by the initial cost at the root, leading to T(n)=Θ(n2)T(n)=Θ(n2). For Case 2, the watershed function is nlog⁡24=n2nlog2​4=n2. While f(n)=n2log⁡2nf(n)=n2log2n grows faster than n2n2, the ratio f(n)/nlog⁡ba=log⁡2nf(n)/nlogb​a=log2n is logarithmic rather than polynomial. This violates the 'polynomial gap' requirement for Case 3, which requires f(n)=Ω(nlog⁡ba+ϵ)f(n)=Ω(nlogb​a+ϵ) for some $\epsilon > 0$. It fails the standard Case 2 because f(n)f(n) is not exactly Θ(n2)Θ(n2). Where you went wrong: You stated aa must be an integer; however, aa can be any real number ≥1≥1 (e.g., a=1.5a=1.5 is valid). Your explanation for the recursion tree was slightly informal, though the intuition was correct.
 📚 Focus Areas
 
 The student correctly identifies that a<1a<1 is the constraint for the first case and understands the lack of a polynomial gap for Case 3 in the second recurrence. However, the explanation for Case 1 mistakenly suggests aa must be an integer (it must be ≥1≥1) and the description of the subproblems 'tending to 0' is a bit vague compared to the geometric decrease in work.
@@ -155,23 +137,21 @@ The student correctly identifies that a<1a<1 is the constraint for the first cas
     Use more formal notation when discussing the polynomial gap, specifically defining why f(n)≠Ω(nlog⁡ba+ϵ)f(n)=Ω(nlogb​a+ϵ).
 
 
+---
 
+## Divide-and-Conquer and Master Theorem
 
-
-Divide-and-Conquer and Master Theorem
-SERGIO
-98%
-GRADE
-Time spent10 minutes
-Continue
+### Exam Session
+**Score: 98%**
+*Time: 10 minutes*
 Question 1
 95% score
 Question
 
-Consider the recurrence relation T(n)=aT(n/b)+f(n)T(n)=aT(n/b)+f(n) where a=1a=1, b=4b=4, and f(n)=n(2+sin⁡(n))f(n)=n(2+sin(n)). This recurrence appears to satisfy the growth requirement for Case 3 of the Master Theorem since f(n)=Ω(nlog⁡4(1)+ϵ)f(n)=Ω(nlog4​(1)+ϵ) for ϵ=1ϵ=1. However, the Master Theorem cannot be applied directly to conclude T(n)=Θ(f(n))T(n)=Θ(f(n)).
+Consider the recurrence relation T(n)=aT(n/b)+f(n)T(n)=aT(n/b)+f(n) where a=1a=1, $b = 4$, and f(n)=n(2+sin⁡(n))f(n)=n(2+sin(n)). This recurrence appears to satisfy the growth requirement for Case 3 of the Master Theorem since f(n)=Ω(nlog⁡4(1)+ϵ)f(n)=Ω(nlog4​(1)+ϵ) for ϵ=1ϵ=1. However, the Master Theorem cannot be applied directly to conclude T(n)=Θ(f(n))T(n)=Θ(f(n)).
 
     Formally define the regularity condition for Case 3 and explain its purpose in the context of the work performed at each level of the recursion tree.
-    Demonstrate that f(n)=n(2+sin⁡(n))f(n)=n(2+sin(n)) fails the regularity condition by showing there is no constant c<1c<1 such that af(n/b)≤cf(n)af(n/b)≤cf(n) for all sufficiently large nn.
+    Demonstrate that f(n)=n(2+sin⁡(n))f(n)=n(2+sin(n)) fails the regularity condition by showing there is no constant $c < 1$ such that af(n/b)≤cf(n)af(n/b)≤cf(n) for all sufficiently large nn.
     Given that the regularity condition is violated, evaluate how the total work T(n)T(n) behaves compared to f(n)f(n) as nn approaches infinity, and explain why a non-monotonic driving function f(n)f(n) complicates the asymptotic tightness of the bound.
 
 Answer
@@ -201,7 +181,6 @@ The student correctly defined the regularity condition and its purpose in terms 
     For the non-monotonicity explanation, you could briefly mention that T(n) becomes O(f(n)) only when the summation of the series is bounded by a convergent geometric progression.
 
 
-
 Question 2
 100% score
 Question
@@ -224,7 +203,6 @@ log_ba≈2.730. 2.730>2.5, case 1: Θ(n2.730)
 Strassen's algorithm has an exponent of log⁡_27≈2.807. Comparing the two, 2.730<2.807 so the tensor algorithm is more efficient._
 
 
-
 📚 Focus Areas
 
 The student correctly identified the recurrence relation, applied Case 1 of the Master Theorem with accurate numerical approximations, and provided a correct comparison to Strassen's algorithm. The response is concise and mathematically sound, meeting all requirements of the prompt with high accuracy.
@@ -232,7 +210,6 @@ The student correctly identified the recurrence relation, applied Case 1 of the 
     Excellent work on correctly identifying the relationship between log_b(a) and the work function exponent.
     To make the presentation even stronger, explicitly state the work function f(n) in its algebraic form (n^2.5) alongside the decimal representation.
     Keep up the habit of providing decimal approximations to three places as it makes comparative analysis very clear.
-
 
 
 Question 3
@@ -255,26 +232,24 @@ For Case 2, the recursion: n^log_2(4)=n^2; f(n)=n^2log⁡^2 grows faster than n^
 
 📚 Focus Areas
 
-The student provided an excellent and concise analysis of both cases, correctly identifying the violation of the constraint a≥1a≥1 in Case 1 and the lack of a polynomial gap in Case 2. All technical requirements, such as the watershed function calculation and the explanation of growth rates, were handled with high precision.
+The student provided an excellent and concise analysis of both cases, correctly identifying the violation of the constraint $a \geq 1$ in Case 1 and the lack of a polynomial gap in Case 2. All technical requirements, such as the watershed function calculation and the explanation of growth rates, were handled with high precision.
 
     Excellent work on identifying the physical and mathematical implications of a<1a<1.
     Your explanation of the 'polynomial gap' is very clear; keep using the ratio method to check for ϵϵ.
     For a complete formal argument, you could briefly mention the 'regularity condition' often required for Case 3, though it wasn't strictly necessary for this failure analysis.
 
 
-
-
 Question 1
 65% score
 Question
 
-Consider the recurrence relation T(n)=aT(n/b)+f(n)T(n)=aT(n/b)+f(n) where a=16a=16, b=4b=4, and the driving function is defined as f(n)=n2(2+sin⁡(n))f(n)=n2(2+sin(n)).
+Consider the recurrence relation T(n)=aT(n/b)+f(n)T(n)=aT(n/b)+f(n) where a=16a=16, $b = 4$, and the driving function is defined as f(n)=n2(2+sin⁡(n))f(n)=n2(2+sin(n)).
 
     Calculate the critical exponent log⁡balogb​a and determine which case of the Master Theorem the function f(n)f(n) initially appears to satisfy based on its asymptotic growth rate relative to nlog⁡banlogb​a.
 
-    The Master Theorem Case 3 requires the regularity condition: there exists a constant c<1c<1 and a value n0n0​ such that af(n/b)≤cf(n)af(n/b)≤cf(n) for all n>n0n>n0​. Formally evaluate whether this condition holds for the given f(n)f(n). Show the derivation of the ratio 16f(n/4)f(n)f(n)16f(n/4)​.
+    The Master Theorem Case 3 requires the regularity condition: there exists a constant $c < 1$ and a value n0n0​ such that af(n/b)≤cf(n)af(n/b)≤cf(n) for all n>n0n>n0​. Formally evaluate whether this condition holds for the given f(n)f(n). Show the derivation of the ratio 16f(n/4)f(n)f(n)16f(n/4)​.
 
-    Based on your analysis of the oscillations in f(n)f(n), explain why the Master Theorem cannot provide a tight ΘΘ-bound for this recurrence, even though f(n)=Ω(nlog⁡ba+ϵ)f(n)=Ω(nlogb​a+ϵ) for some ϵ>0ϵ>0. Identify the specific values of nn (in terms of kπkπ) where the regularity condition is most severely violated.
+    Based on your analysis of the oscillations in f(n)f(n), explain why the Master Theorem cannot provide a tight ΘΘ-bound for this recurrence, even though f(n)=Ω(nlog⁡ba+ϵ)f(n)=Ω(nlogb​a+ϵ) for some $\epsilon > 0$. Identify the specific values of nn (in terms of kπkπ) where the regularity condition is most severely violated.
 
 Answer
 
@@ -302,7 +277,7 @@ it cant provide it because it fails the regularity condition as we saw. sin also
     Critical Exponent and Case Selection: Calculate log⁡ba=log⁡416=2logb​a=log4​16=2. Since 1≤(2+sin⁡(n))≤31≤(2+sin(n))≤3, we have n2≤f(n)≤3n2, meaning f(n)=Θ(n2). This fits Master Theorem Case 2.
     Regularity Condition: The ratio is R(n)=16(n/4)^2*(2+sin(n/4))/n2(2+sin(n))=2+sin(n/4)/2+sin(n). For the condition to hold, there must be a c<1c< such that R(n)≤c
     Analysis of Violation: The condition fails because the ratio R(n voscillates. Specifically, when sin⁡(n)=−1sin (at n=2kπ−π/2), the denominator is 1, and R(n)=2+sin(n/4). Since sin(x)≥−1, R(n) will be at least 1, violating c<1.
-    Final Bound: Because it satisfies the growth constraints of Case 2, the bound is T(n)=Θ(n^2logn). 
+    Final Bound: Because it satisfies the growth constraints of Case 2, the bound is T(n)=Θ(n^2logn).
 Where you went wrong: You identified Case 2 but provided the bound for Case 1/3 (Theta(n^2)) instead of the correct logarithmic bound for Case 2. You also didn't specify the exact points of violation (n=2kπ−π/2).
 
 📚 Focus Areas
@@ -312,7 +287,6 @@ The student correctly calculated the critical exponent and identified the asympt
     When applying Case 2 of the Master Theorem, remember that the complexity is T(n) = Θ(n^k log n) when f(n) = Θ(n^k).
     Show the full algebraic cancellation in your ratio derivations; specifically, show how n^2 and the constant 16 cancel out to leave only the trigonometric terms.
     To identify specific violations, look for points where the denominator of your ratio is minimized (e.g., where sin(n) = -1).
-
 
 
 Question 2
@@ -328,7 +302,6 @@ An algorithmic researcher aims to optimize tensor contractions by developing a g
 Answer
 
 T(n) = m T(n/4) + n^2 log_b(a) = log_4(m) needs to be greater than 2, ergo m has to be 48 ergo log would be approx 2,7925 and theta n^2,7925 3: for that we would need d to be at least 2,7925 thus making it a case 2. then the algo would be slower than strassen
-
 
 
 ✅ Solution
@@ -347,7 +320,6 @@ The student correctly identified the value of m as 48 and calculated the logarit
     Ensure you explicitly state the final complexity using standard Big-Theta notation to improve formal presentation.
 
 
-
 Question 3
 35% score
 Question
@@ -355,7 +327,7 @@ Question
 In the context of the Master Theorem, we define the 'watershed function' as nlog⁡banlogb​a for a recurrence T(n)=aT(n/b)+f(n)T(n)=aT(n/b)+f(n). Explain why the Master Theorem cannot be applied to T(n)=4T(n/2)+n2log⁡nT(n)=4T(n/2)+lognn2​, even though f(n)=O(nlog⁡24)f(n)=O(nlog2​4). Specifically, address the following:
 
     Formally define the 'polynomial gap' requirement (the ϵϵ condition) found in Case 1 and Case 3.
-    Calculate the ratio nlog⁡baf(n)f(n)nlogb​a​ for this recurrence and demonstrate mathematically why this ratio fails to satisfy the definition of 'polynomially larger' as n→∞n→∞.
+    Calculate the ratio nlog⁡baf(n)f(n)nlogb​a​ for this recurrence and demonstrate mathematically why this ratio fails to satisfy the definition of 'polynomially larger' as $n \to \infty$.
     Discuss the distinction between 'asymptotically smaller' and 'polynomially smaller' in this scenario, and identify whether an extended version of Case 2 could potentially solve this recurrence.
 
 Answer
@@ -373,9 +345,9 @@ Question 3
 answer review
 ✅ Solution
 
-To determine why the Master Theorem does not apply, we first identify a=4,b=2 and f(n)=n2/logn. The watershed function is nlog_2​4=n2. The polynomial gap requirement for Case 1 requires that f(n)=O(n2−ϵ) for some ϵ>0ϵ>0. When we calculate the ratio f(n)nlogb​a​=n2/lognn2​=logn. 
-For a polynomial gap to exist, we would need logn≥nϵ for some ϵ>0 as n→∞, but since any power of n grows faster than logn, this condition fails. 
-While f(n) is asymptotically smaller than n2 (their limit is zero), it is not polynomially smaller because the difference is only a logarithmic factor, not a power of nn. An extended version of Case 2 can solve this, specifically when f(n)=Θ(nlogb​alog−1n), resulting in T(n)=Θ(n2loglogn). 
+To determine why the Master Theorem does not apply, we first identify a=4,b=2 and f(n)=n2/logn. The watershed function is nlog_2​4=n2. The polynomial gap requirement for Case 1 requires that f(n)=O(n2−ϵ) for some $\epsilon > 0$. When we calculate the ratio f(n)nlogb​a​=n2/lognn2​=logn.
+For a polynomial gap to exist, we would need logn≥nϵ for some ϵ>0 as n→∞, but since any power of n grows faster than logn, this condition fails.
+While f(n) is asymptotically smaller than n2 (their limit is zero), it is not polynomially smaller because the difference is only a logarithmic factor, not a power of nn. An extended version of Case 2 can solve this, specifically when f(n)=Θ(nlogb​alog−1n), resulting in T(n)=Θ(n2loglogn).
 
 Where you went wrong: Your calculation of the ratio as 2log⁡n/n22logn/n2 was incorrect; the n2n2 terms should cancel out to leave only log⁡nlogn. You also failed to address the distinction between asymptotic and polynomial growth or finish the discussion on Case 2.
 📚 Focus Areas
@@ -387,25 +359,13 @@ The student shows a basic conceptual understanding of the need for a gap between
     Study the 'Extended Case 2' of the Master Theorem to understand how to handle logarithmic factors that fall into the gap.
 
 
-Ask
-Exam Prep
-Classrooms
-My activity
-My calendar
-Download app
-Study music
-Mock exam results
-🥳
-Excellent!
+---
 
-Divide-and-Conquer and Master Theorem
-SERGIO
-86%
-GRADE
+### Exam Session
+**Score: 86%**
 
 Mastery +1% in Divide-and-Conquer and Master Theorem
-Time spent4 minutes
-Continue
+*Time: 4 minutes*
 Question 1
 85% score
 Question
@@ -418,7 +378,7 @@ Critically analyze the limitations of the Master Theorem by evaluating the follo
 For each recurrence, perform the following tasks:
 
     Identify the critical exponent ccrit=log⁡baccrit​=logb​a and determine if there is an asymptotic gap between f(n)f(n) and nccritnccrit​.
-    Determine specifically why Case 3 of the Master Theorem fails for recurrence (1) despite f(n)=Ω(nccrit+ϵ)f(n)=Ω(nccrit​+ϵ) appearing to hold at first glance. Formally evaluate the regularity condition af(n/b)≤kf(n)af(n/b)≤kf(n) for some k<1k<1 to prove its violation.
+    Determine specifically why Case 3 of the Master Theorem fails for recurrence (1) despite f(n)=Ω(nccrit+ϵ)f(n)=Ω(nccrit​+ϵ) appearing to hold at first glance. Formally evaluate the regularity condition af(n/b)≤kf(n)af(n/b)≤kf(n) for some $k < 1$ to prove its violation.
     Explain why recurrence (2) cannot be solved using the standard three cases of the Master Theorem, focusing on the definition of 'polynomially larger/smaller' and why the ratio f(n)/nccritf(n)/nccrit​ prevents the application of Case 2 or Case 3.
 
 Answer
@@ -447,7 +407,7 @@ Recurrence 1: $T(n) = 3T(n/3) + n \cdot \frac{2 + \sin(n)}{2}
 
 Critical Exponent: ccrit=log⁡33=1ccrit​=log3​3=1. The comparison function is nccrit=nnccrit​=n. There is no polynomial gap as f(n)=Θ(n)f(n)=Θ(n).
 
-Case 3 Failure: Case 3 requires the regularity condition af(n/b)≤kf(n)af(n/b)≤kf(n) for some k<1k<1. Substituting the values: 3⋅n32+sin⁡(n/3)2≤k⋅n2+sin⁡(n)23⋅3n​22+sin(n/3)​≤k⋅n22+sin(n)​, which simplifies to 2+sin⁡(n/3)≤k(2+sin⁡(n))2+sin(n/3)≤k(2+sin(n)). Because the sine functions oscillate independently, there exist values of nn where sin⁡(n/3)≈1sin(n/3)≈1 and sin⁡(n)≈−1sin(n)≈−1, leading to 3≤k(1)3≤k(1). Since kk must be less than 1, this condition is violated.
+Case 3 Failure: Case 3 requires the regularity condition af(n/b)≤kf(n)af(n/b)≤kf(n) for some $k < 1$. Substituting the values: 3⋅n32+sin⁡(n/3)2≤k⋅n2+sin⁡(n)23⋅3n​22+sin(n/3)​≤k⋅n22+sin(n)​, which simplifies to 2+sin⁡(n/3)≤k(2+sin⁡(n))2+sin(n/3)≤k(2+sin(n)). Because the sine functions oscillate independently, there exist values of nn where sin⁡(n/3)≈1sin(n/3)≈1 and sin⁡(n)≈−1sin(n)≈−1, leading to 3≤k(1)3≤k(1). Since kk must be less than 1, this condition is violated.
 
 Where you went wrong: You correctly identified that the 'jumpiness' causes failure, but you should have formally shown the inequality 3≤k3≤k to prove the violation.
 Recurrence 2: $T(n) = 4T(n/2) + \frac{n^2}{\log n}
@@ -456,8 +416,8 @@ Critical Exponent: ccrit=log⁡24=2ccrit​=log2​4=2. The comparison function 
 
 Master Theorem Failure: The ratio f(n)/nccrit=1/log⁡nf(n)/nccrit​=1/logn.
 
-    Case 1 fails because 1/log⁡n1/logn is not polynomially smaller than n2n2; there is no ϵ>0ϵ>0 such that n2/log⁡n=O(n2−ϵ)n2/logn=O(n2−ϵ).
-    Case 2 fails because the standard theorem requires f(n)=Θ(n2log⁡kn)f(n)=Θ(n2logkn) with k≥0k≥0, but here k=−1k=−1.
+    Case 1 fails because 1/log⁡n1/logn is not polynomially smaller than n2n2; there is no $\epsilon > 0$ such that n2/log⁡n=O(n2−ϵ)n2/logn=O(n2−ϵ).
+    Case 2 fails because the standard theorem requires f(n)=Θ(n2log⁡kn)f(n)=Θ(n2logkn) with $k \geq 0$, but here k=−1k=−1.
     Case 3 fails because f(n)f(n) is smaller than n2n2, not larger.
 
 Final Answer: The Master Theorem is inapplicable because the gap between f(n)f(n) and nccritnccrit​ is logarithmic rather than polynomial.
@@ -531,7 +491,6 @@ The student demonstrated a comprehensive understanding of the Master Theorem and
     Your grasp of the relationship between the branching factor and the shrinkage factor is perfect.
 
 
-
 Question 3
 72% score
 Question
@@ -585,8 +544,6 @@ The student correctly identified the watershed function and the value of kk, but
     Practice formalizing the work distribution argument by showing the ratio of work between the root and a generic level ii.
 
 
-
- 
 Question 1
 100% score
 Question
@@ -651,7 +608,7 @@ Question
 
 Compare the computational efficiency of multiplying two polynomials of degree n−1n−1 in coefficient form versus value form. Specifically:
 
-    Explain why the standard convolution method for coefficient vectors results in a time complexity of O(n2)O(n2).
+    Explain why the standard convolution method for coefficient vectors results in a time complexity of O(n²).
     Contrast this with the pointwise multiplication approach used in the value domain, identifying its specific asymptotic complexity.
     Identify the process required to move from the coefficient domain to the value domain and state the typical time complexity of this transformation when using the Fast Fourier Transform (FFT).
 
@@ -672,16 +629,16 @@ the process required here is the inverse DFT / IFFT and has the same time comple
 
 ✅ Solution
 
-    Standard Convolution in Coefficient Form: To multiply two polynomials in coefficient form, each coefficient of the first polynomial must be multiplied by every coefficient of the second polynomial to account for all possible powers of xx. This nested loop structure results in (n)×(n)(n)×(n) operations, leading to a time complexity of O(n2)O(n2).
+    Standard Convolution in Coefficient Form: To multiply two polynomials in coefficient form, each coefficient of the first polynomial must be multiplied by every coefficient of the second polynomial to account for all possible powers of xx. This nested loop structure results in (n)×(n)(n)×(n) operations, leading to a time complexity of O(n²).
 
-    Pointwise Multiplication in Value Form: In the value domain, a polynomial is represented by its evaluations at specific points. The product of two polynomials at a point xkxk​ is simply the scalar product of their values, A(xk)⋅B(xk)A(xk​)⋅B(xk​). Since this only requires one multiplication for each of the 2n2n points, the asymptotic complexity is O(n)O(n).
+    Pointwise Multiplication in Value Form: In the value domain, a polynomial is represented by its evaluations at specific points. The product of two polynomials at a point xkxk​ is simply the scalar product of their values, A(xk)⋅B(xk)A(xk​)⋅B(xk​). Since this only requires one multiplication for each of the 2n2n points, the asymptotic complexity is O(n).
 
     Transformation via FFT: The process of moving from the coefficient domain to the value domain is the Fast Fourier Transform (FFT). It uses a divide-and-conquer approach by evaluating the polynomial at the complex roots of unity, exploiting symmetry and periodicity to achieve a time complexity of O(nlog⁡n)O(nlogn).
 
 Where you went wrong: In part 3, you identified the process as the 'Inverse DFT/IFFT.' The Inverse FFT is used to move from the value domain back to the coefficient domain; the forward FFT is used to move from coefficients to values as requested by the question.
 📚 Focus areas
 
-The student demonstrates a solid conceptual understanding of the FFT and the differences between coefficient and value domains. However, the explanation for the O(n2)O(n2) complexity is slightly imprecise in its terminology, and they incorrectly identified the transformation in part 3 as the 'inverse' when the question specifically asked for the process of moving from the coefficient domain TO the value domain.
+The student demonstrates a solid conceptual understanding of the FFT and the differences between coefficient and value domains. However, the explanation for the O(n²) complexity is slightly imprecise in its terminology, and they incorrectly identified the transformation in part 3 as the 'inverse' when the question specifically asked for the process of moving from the coefficient domain TO the value domain.
 
     Be more precise with terminology: use 'coefficients' or 'terms' instead of 'factors' when describing polynomial multiplication.
     Pay close attention to the direction of the transformation; the 'Forward' FFT moves from coefficients to values, while the 'Inverse' FFT moves back.
@@ -730,7 +687,6 @@ The student correctly identified the zero-padded coefficient vector and accurate
 
     Excellent work! Your understanding of polynomial padding and evaluation at roots of unity is spot on.
     To make your work even more professional, consider explicitly showing the substitution into the higher-degree terms (e.g., 0x2+0x30x2+0x3) to demonstrate a full grasp of the padding's role.
-
 
 
 Question 1
@@ -816,8 +772,6 @@ The student provided a perfect solution, correctly identifying the coefficients 
     Your presentation is concise and easy to follow; maintaining this level of clarity in more complex problems will be very beneficial.
 
 
-
-
 Question 3
 92% score
 Question
@@ -846,7 +800,7 @@ Both equations use the exact same values for A_even and A_odd. The only differen
 
 The Fast Fourier Transform (FFT) optimizes the evaluation of a polynomial A(x)=∑j=0n−1ajxjA(x)=∑j=0n−1​aj​xj by using a divide-and-conquer strategy. First, the polynomial is decomposed into even and odd components: A(x)=Aeven(x2)+xAodd(x2)A(x)=Aeven​(x2)+xAodd​(x2), where Aeven(x2)=a0+a2x2+…Aeven​(x2)=a0​+a2​x2+… and Aodd(x2)=a1+a3x2+…Aodd​(x2)=a1​+a3​x2+…. This reduction allows a problem of size nn to be solved using two sub-problems of size n/2n/2.
 
-The efficiency comes from the symmetry and periodicity of the nn-th roots of unity, ωnkωnk​. Specifically, the property ωnk+n/2=−ωnkωnk+n/2​=−ωnk​ implies that their squares are identical: (ωnk+n/2)2=(−ωnk)2=(ωnk)2=ωn/2k(ωnk+n/2​)2=(−ωnk​)2=(ωnk​)2=ωn/2k​. When evaluating the polynomial at these points, we get the butterfly equations: A(ωnk)=Aeven(ωn/2k)+ωnkAodd(ωn/2k)A(ωnk​)=Aeven​(ωn/2k​)+ωnk​Aodd​(ωn/2k​) A(ωnk+n/2)=Aeven(ωn/2k)−ωnkAodd(ωn/2k)A(ωnk+n/2​)=Aeven​(ωn/2k​)−ωnk​Aodd​(ωn/2k​) By reusing the results of AevenAeven​ and AoddAodd​, the algorithm performs O(nlog⁡n)O(nlogn) operations instead of O(n2)O(n2).
+The efficiency comes from the symmetry and periodicity of the nn-th roots of unity, ωnkωnk​. Specifically, the property ωnk+n/2=−ωnkωnk+n/2​=−ωnk​ implies that their squares are identical: (ωnk+n/2)2=(−ωnk)2=(ωnk)2=ωn/2k(ωnk+n/2​)2=(−ωnk​)2=(ωnk​)2=ωn/2k​. When evaluating the polynomial at these points, we get the butterfly equations: A(ωnk)=Aeven(ωn/2k)+ωnkAodd(ωn/2k)A(ωnk​)=Aeven​(ωn/2k​)+ωnk​Aodd​(ωn/2k​) A(ωnk+n/2)=Aeven(ωn/2k)−ωnkAodd(ωn/2k)A(ωnk+n/2​)=Aeven​(ωn/2k​)−ωnk​Aodd​(ωn/2k​) By reusing the results of AevenAeven​ and AoddAodd​, the algorithm performs O(nlog⁡n)O(nlogn) operations instead of O(n²).
 📚 Focus areas
 
 The student correctly identifies the decomposition of the polynomial and the core algebraic simplification provided by the symmetry property. They accurately explain how computing two evaluations from one set of sub-results reduces operations, though the mention of the 'null sum lemma' is slightly misplaced in this specific context compared to the cancellation lemma.
@@ -862,7 +816,7 @@ Question
 
 A software engineer is comparing two methods for multiplying a polynomial P(x)P(x) of degree 120 and a polynomial Q(x)Q(x) of degree 200.
 
-    Calculate the exact number of coefficient multiplications required using the naive O(n2)O(n2) multiplication method.
+    Calculate the exact number of coefficient multiplications required using the naive O(n²) multiplication method.
     To perform this multiplication using the Fast Fourier Transform (FFT), the input vectors must be zero-padded to a length NN that is a power of 2 (N=2kN=2k). Determine the smallest value of NN required to ensure the resulting product C(x)=P(x)Q(x)C(x)=P(x)Q(x) can be uniquely determined without aliasing.
     Compare the theoretical complexity of the naive approach (n2n2) against the FFT approach (Nlog⁡2NNlog2​N) for this specific case. Based on these formulas, which method performs fewer fundamental operations for these specific degrees?
 
@@ -977,25 +931,18 @@ The student provided a highly accurate and comprehensive explanation of the Halv
     Your explanation of the 'domain' reduction was excellent and showed a deep conceptual understanding.
     To reach a 'professional' level of documentation, you might consider using more formal LaTeX notation for all mathematical symbols consistently.
 
-Ask
-Exam Prep
-Classrooms
-My activity
-My calendar
-Download app
-Study music
-Mock exam results
-🥳
-Excellent!
 
-Fast Fourier Transformation (FFT) and Polynomials
-SERGIO
-100%
-GRADE
+---
+
+---
+
+## Fast Fourier Transform (FFT) and Polynomials
+
+### Exam Session
+**Score: 100%**
 
 Mastery +1% in Fast Fourier Transformation (FFT) and Polynomials
-Time spent4 minutes
-Continue
+*Time: 4 minutes*
 Question 3
 100% score
 Question
@@ -1054,7 +1001,6 @@ The student's response is excellent, demonstrating a perfect understanding of DF
     Consider mentioning that this property is the fundamental basis for the Radix-2 Cooley-Tukey FFT algorithm.
 
 
-
 Question 1
 45% score
 Question
@@ -1093,7 +1039,6 @@ The student demonstrates a basic conceptual grasp of why n!n! leaves are needed 
     Study the change-of-base formula for logarithms to see how constants like log⁡2elog2​e naturally emerge from Stirling's formula.
 
 
-
 Question 2
 100% score
 Question
@@ -1102,7 +1047,7 @@ Consider a variation of the Median-of-Medians selection algorithm where the inpu
 
     Determine the minimum number of elements that are guaranteed to be less than or equal to the pivot (the median of medians) in this 'group of 7' variant. Express your answer as a function of nn for sufficiently large nn.
     Derive the recurrence relation T(n)T(n) for the worst-case runtime of this algorithm, clearly identifying the costs associated with finding the median of medians and the subsequent recursive call on the partitioned array.
-    Using the substitution method or the Master Theorem properties, determine if this algorithm still achieves a linear worst-case time complexity O(n)O(n). Justify your conclusion based on the sum of the constants in the recursive terms.
+    Using the substitution method or the Master Theorem properties, determine if this algorithm still achieves a linear worst-case time complexity O(n). Justify your conclusion based on the sum of the constants in the recursive terms.
 
 Answer
 
@@ -1138,8 +1083,8 @@ The constant factor k for the linear runtime can be found by solving kn is great
 ✅ Solution
 
     Minimum elements guaranteed to be less than or equal to the pivot: The array is divided into ⌈n/7⌉⌈n/7⌉ groups. The median of medians xx is greater than or equal to at least half of the group medians. In each group where the median is ≤x≤x, there are 4 elements (the median and the three smaller ones) that are ≤x≤x. Excluding the group of xx and the last partial group, we have at least 4(12⋅n7−2)=2n7−84(21​⋅7n​−2)=72n​−8. For sufficiently large nn, this is 27n72​n.
-    Deriving the recurrence relation: The work consists of finding group medians (O(n)O(n)), finding the median of medians (T(n/7)T(n/7)), and recursing on the remaining elements. Since at least 2n/72n/7 elements are removed, the largest remaining subarray is n−2n/7=5n/7n−2n/7=5n/7. The recurrence is T(n)≤T(n/7)+T(5n/7)+O(n)T(n)≤T(n/7)+T(5n/7)+O(n).
-    Determining complexity: The complexity is O(n)O(n) if the sum of the recursive components is less than 1. Since 17+57=67<171​+75​=76​<1, the total work forms a converging geometric series, resulting in linear time complexity O(n)O(n).
+    Deriving the recurrence relation: The work consists of finding group medians (O(n)), finding the median of medians (T(n/7)T(n/7)), and recursing on the remaining elements. Since at least 2n/72n/7 elements are removed, the largest remaining subarray is n−2n/7=5n/7n−2n/7=5n/7. The recurrence is T(n)≤T(n/7)+T(5n/7)+O(n)T(n)≤T(n/7)+T(5n/7)+O(n).
+    Determining complexity: The complexity is O(n) if the sum of the recursive components is less than 1. Since 17+57=67<171​+75​=76​<1, the total work forms a converging geometric series, resulting in linear time complexity O(n).
 
 📚 Focus areas
 
@@ -1156,11 +1101,11 @@ Question
 
 Consider an implementation of the Most Significant Digit (MSD) Radix Sort applied to a set of nn binary strings, where each string is of length ww.
 
-    Explain how you can modify the partitioning step of the MSD Radix Sort to use only O(1)O(1) auxiliary space (in-place) for each recursive level, essentially treating each bit position as a pivot for a Quicksort-style partition.
+    Explain how you can modify the partitioning step of the MSD Radix Sort to use only O(1) auxiliary space (in-place) for each recursive level, essentially treating each bit position as a pivot for a Quicksort-style partition.
 
     Demonstrate whether this in-place modification preserves the stability of the sorting algorithm. If it is stable, explain why; if it is not, provide a specific counterexample using a small set of binary strings (e.g., S={10,11,01}S={10,11,01}).
 
-    Calculate the worst-case time complexity of this in-place binary MSD Radix Sort in terms of nn and ww, and compare it to the standard stable MSD Radix Sort that uses O(n)O(n) auxiliary space.
+    Calculate the worst-case time complexity of this in-place binary MSD Radix Sort in terms of nn and ww, and compare it to the standard stable MSD Radix Sort that uses O(n) auxiliary space.
 
 Answer
 
@@ -1381,7 +1326,7 @@ The student provided an excellent response that is both technically accurate and
     You correctly identified that nodes 'stuck' behind cycles are not processed; for even more precision, you could specify that these nodes are 'downstream' or reachable from the cycle via paths.
     Excellent use of the Pigeonhole Principle to formalize the cycle proof.
 
-DP 1st 
+## Dynamic Programming
 
 Question 1
 35% score
@@ -1391,7 +1336,7 @@ Consider the Longest Common Subsequence (LCS) problem for two strings XX and YY 
 
     Analyze how the space complexity can be reduced to O(min(n,m))O(min(n,m)) if only the length of the LCS is required. Explain the dependency between rows in the DP table that allows for this reduction.
     Evaluate the impact of this O(min(n,m))O(min(n,m)) space optimization on the process of path reconstruction (backtracking). Specifically, discuss why the standard backtracking algorithm fails in this constrained space and what additional information or algorithmic strategies (such as the Hirschberg algorithm principle) would be necessary to reconstruct the actual string while maintaining a sub-quadratic space profile.
-    In the context of the 'Bookshelf Problem' (splitting nn elements into kk chunks), determine if a similar row-by-row space reduction is applicable to the state OPT[i,l]OPT[i,l]. Justify whether we can solve this using only O(n)O(n) space while iterating through the number of chunks ll.
+    In the context of the 'Bookshelf Problem' (splitting nn elements into kk chunks), determine if a similar row-by-row space reduction is applicable to the state OPT[i,l]OPT[i,l]. Justify whether we can solve this using only O(n) space while iterating through the number of chunks ll.
 
 Answer
 
@@ -1407,9 +1352,9 @@ a row by row space reduction could work if the matrix is n x n. else, choosing t
 
     LCS Space Reduction: The recurrence DP[i,j]DP[i,j] depends only on DP[i−1,j−1]DP[i−1,j−1], DP[i−1,j]DP[i−1,j], and DP[i,j−1]DP[i,j−1]. This means to compute row ii, we only need row i−1i−1. By keeping only two rows (or one row plus a variable) and ensuring the smaller string length is used for the row width, space becomes O(min⁡(n,m))O(min(n,m)).
     Path Reconstruction: Standard backtracking fails because it requires 'looking back' at the entire n×mn×m grid to trace the sequence of matches. When space is optimized, those previous rows are deleted. Hirschberg’s algorithm solves this by using a Divide and Conquer strategy to find the middle element of the LCS and recursing on the two halves, maintaining O(min⁡(n,m))O(min(n,m)) space while roughly doubling the time complexity.
-    Bookshelf Problem: Yes, O(n)O(n) space is possible. The state OPT[i,l]OPT[i,l] (min height for ii books on ll shelves) depends only on values from OPT[…,l−1]OPT[…,l−1]. By iterating through the number of chunks ll and updating a 1D array of size nn, the optimal value can be found in O(n)O(n) space.
+    Bookshelf Problem: Yes, O(n) space is possible. The state OPT[i,l]OPT[i,l] (min height for ii books on ll shelves) depends only on values from OPT[…,l−1]OPT[…,l−1]. By iterating through the number of chunks ll and updating a 1D array of size nn, the optimal value can be found in O(n) space.
 
-Where you went wrong: In Part 1, you described 'deleting old solutions' vaguely without identifying the row-dependency. In Part 2, you missed the technical reason why backtracking fails (loss of decision history). In Part 3, you incorrectly stated O(n)O(n) space is impossible; while the time complexity includes chunks (O(n2k)O(n2k) or similar), the space complexity can indeed be reduced to O(n)O(n) for the optimal value.
+Where you went wrong: In Part 1, you described 'deleting old solutions' vaguely without identifying the row-dependency. In Part 2, you missed the technical reason why backtracking fails (loss of decision history). In Part 3, you incorrectly stated O(n) space is impossible; while the time complexity includes chunks (O(n2k)O(n2k) or similar), the space complexity can indeed be reduced to O(n) for the optimal value.
 📚 Focus areas
 
 The student demonstrates a very basic conceptual understanding of space reduction but fails to provide the technical rigor or specific algorithmic knowledge required by the question. They correctly identify that old data is deleted but miss the specific row dependency logic for LCS, fail to explain Hirschberg's algorithm (dismissing it as 'unfair'), and provide an incorrect justification for the Bookshelf problem.
@@ -1447,7 +1392,7 @@ as for question 3, i do not know what the terms p_i-1 , p_k and p_j are as they 
 
 ✅ Solution
 
-The principle of Optimal Substructure states that an optimal solution to the problem contains optimal solutions to its subproblems. In Matrix Chain Multiplication, we assume subproblems OPT(i,k)OPT(i,k) and OPT(k+1,j)OPT(k+1,j) are optimal because the final merge cost pi−1pkpjpi−1​pk​pj​ depends only on the indices i,k,i,k, and jj, not on the internal parenthesization of the sub-chains. If a sub-chain were non-optimal, we could replace it with a cheaper version to reduce the overall cost OPT(i,j)OPT(i,j). The property of Overlapping Subproblems justifies a DP table because a naive recursive approach calculates the same sub-chains (like OPT(3,5)OPT(3,5)) multiple times across different branches, leading to exponential time complexity. A DP table ensures each of the O(n2)O(n2) subproblems is computed only once. The term pi−1pkpjpi−1​pk​pj​ is necessary because it represents the cost of the actual multiplication of the two resulting matrices:
+The principle of Optimal Substructure states that an optimal solution to the problem contains optimal solutions to its subproblems. In Matrix Chain Multiplication, we assume subproblems OPT(i,k)OPT(i,k) and OPT(k+1,j)OPT(k+1,j) are optimal because the final merge cost pi−1pkpjpi−1​pk​pj​ depends only on the indices i,k,i,k, and jj, not on the internal parenthesization of the sub-chains. If a sub-chain were non-optimal, we could replace it with a cheaper version to reduce the overall cost OPT(i,j)OPT(i,j). The property of Overlapping Subproblems justifies a DP table because a naive recursive approach calculates the same sub-chains (like OPT(3,5)OPT(3,5)) multiple times across different branches, leading to exponential time complexity. A DP table ensures each of the O(n²) subproblems is computed only once. The term pi−1pkpjpi−1​pk​pj​ is necessary because it represents the cost of the actual multiplication of the two resulting matrices:
 
 one of dimension pi−1×pkpi−1​×pk​ and another of pk×pjpk​×pj​. Without it, the recurrence would only sum the costs of preparing the matrices, not the cost of combining them.
 
@@ -1460,7 +1405,9 @@ Practice deriving complexity analysis for recursive vs. DP approaches (e.g., Cat
 Review the standard notation for Matrix Chain Multiplication, specifically how dimensions are represented as an array p.
 
 
-Hirschberg algo:
+### Hirschberg Algorithm
+
+```python
 def Hirschberg(X, Y):
     n = len(X)
     m = len(Y)
@@ -1516,162 +1463,162 @@ def Forward_DP(X, Y):
             prev_diag = temp
 
     return curr
+```
 
-1. Build Table with Multiple Backpointers
+#### 1. Build All LCS with Backpointers
 
+```python
 def build_all_lcs_table(X, Y):
-	n, m = len(X), len(Y) 
-	L = [[0] * (m + 1) for _ in range(n + 1)] 
-	backpointers = [[[] for _ in range(m + 1)] for _ in range(n + 1)] 
-	for i in range(1, n + 1): 
-		for j in range(1, m + 1): 
-			if X[i-1] == Y[j-1]: 
-				L[i][j] = L[i-1][j-1] + 1 
-				backpointers[i][j].append((i-1, j-1, "match")) 
-			else: 
-				L[i][j] = max(L[i-1][j], L[i][j-1]) 
-				if L[i][j] == L[i-1][j]: 
-				backpointers[i][j].append((i-1, j, "up")) 
-					if L[i][j] == L[i][j-1]: backpointers[i][j].append((i, j-1, "left")) 
+	n, m = len(X), len(Y)
+	L = [[0] * (m + 1) for _ in range(n + 1)]
+	backpointers = [[[] for _ in range(m + 1)] for _ in range(n + 1)]
+	for i in range(1, n + 1):
+		for j in range(1, m + 1):
+			if X[i-1] == Y[j-1]:
+				L[i][j] = L[i-1][j-1] + 1
+				backpointers[i][j].append((i-1, j-1, "match"))
+			else:
+				L[i][j] = max(L[i-1][j], L[i][j-1])
+				if L[i][j] == L[i-1][j]:
+				backpointers[i][j].append((i-1, j, "up"))
+					if L[i][j] == L[i][j-1]: backpointers[i][j].append((i, j-1, "left"))
 	return L, backpointers
+```
 
-2. Recursive DFS to Find All Strings
+#### 2. Find All LCS Strings (DFS)
 
+```python
 def find_all_strings(i, j, X, backpointers, current_string):
-	if i == 0 or j == 0: 
-		return {current_string[::-1]} 
-		all_results = set() 
-	for prev_i, prev_j, move_type in backpointers[i][j]: 
-		if move_type == "match": 
-			char = X[i-1] 
-			all_results.update(find_all_strings(prev_i, prev_j, X, backpointers, current_string + char)) 
-		else: 
-			all_results.update(find_all_strings(prev_i, prev_j, X, backpointers, current_string)) 
-	return all_results 
+	if i == 0 or j == 0:
+		return {current_string[::-1]}
+		all_results = set()
+	for prev_i, prev_j, move_type in backpointers[i][j]:
+		if move_type == "match":
+			char = X[i-1]
+			all_results.update(find_all_strings(prev_i, prev_j, X, backpointers, current_string + char))
+		else:
+			all_results.update(find_all_strings(prev_i, prev_j, X, backpointers, current_string))
+	return all_results
 
+```
+
+## Greedy Algorithms
+
+```python
 # Generic Greedy Algorithm (e.g., for Change-Making/Weight Plates) # denominations: list of available values (sorted descending, e.g., [20, 10, 5, 1]) # target_weight: the total value we want to reach
-def greedy_algorithm(denominations, target_weight): 
-	solution = {} # To store the count of each plate/coin 
-	remaining = target_weight 
-	for d in denominations: 
-		if remaining == 0: 
-			break # 1. Greedy Choice: Take as many of the largest possible value as possible 
-		count = remaining // d 
-		solution[d] = count # 2. Update the remaining subproblem 
-		remaining = remaining % d 
-	return solution 
+def greedy_algorithm(denominations, target_weight):
+	solution = {} # To store the count of each plate/coin
+	remaining = target_weight
+	for d in denominations:
+		if remaining == 0:
+			break # 1. Greedy Choice: Take as many of the largest possible value as possible
+		count = remaining // d
+		solution[d] = count # 2. Update the remaining subproblem
+		remaining = remaining % d
+	return solution
 
-Dijkstra
-Start by setting the "best time" to all cities to infinity, except City A which is 0. ___
-Put all the cities into a "yet to visit" pile. ___
-While there are still cities in that "yet to visit" pile: ___
-Pick the city with the current smallest "best time" to explore next. ___
-For each road (edge) leading from that city to its neighbors: ___
-Calculate the "new potential time" = (current city's best time) + (travel time to neighbor). ___
-If this "new potential time" is smaller than the neighbor's recorded "best time": ___
-Update the neighbor's "best time" with this new, faster value. ___
-Once all neighbors are checked, move that city to the "visited" pile. ___
+```
+## Graph Algorithms
 
+### Dijkstra's Algorithm
+Start by setting the "best time" to all cities to infinity, except City A which is 0.
+Put all the cities into a "yet to visit" pile.
+While there are still cities in that "yet to visit" pile:
+Pick the city with the current smallest "best time" to explore next.
+For each road (edge) leading from that city to its neighbors:
+Calculate the "new potential time" = (current city's best time) + (travel time to neighbor).
+If this "new potential time" is smaller than the neighbor's recorded "best time":
+Update the neighbor's "best time" with this new, faster value.
+Once all neighbors are checked, move that city to the "visited" pile.
+### Floyd-Warshall Algorithm
 
-Floyd-Warshall
-
-    Create a table of size (number of cities) × (number of cities) initialized with the direct distances between them. ___
-
-    If there's no direct road between two cities, set their distance to "infinity" (except a city to itself, which is 0). ___
-
-    For each city "K" (the "intermediate" city we'll try to pass through): ___
-
-    For each starting city "I": ___
-
-    For each ending city "J": ___
-
-    Calculate: (distance from I to K) + (distance from K to J). ___
-
-    If this "new route via K" is smaller than the current best distance from I to J: ___
-
-    Update the table at [I][J] with this new, smaller value. ___
-
-    Repeat until every city has been tried as an intermediate "K" point. ___
+    Create a table of size (number of cities) × (number of cities) initialized with the direct distances between them.
+    If there's no direct road between two cities, set their distance to "infinity" (except a city to itself, which is 0).
+    For each city "K" (the "intermediate" city we'll try to pass through):
+    For each starting city "I":
+    For each ending city "J":
+    Calculate: (distance from I to K) + (distance from K to J).
+    If this "new route via K" is smaller than the current best distance from I to J:
+    Update the table at [I][J] with this new, smaller value.
+    Repeat until every city has been tried as an intermediate "K" point.
+### Bellman-Ford Algorithm
 
 
-Bellman-Ford
-
-
-Initialize the "best time" to all cities as infinity, and City A as 0. ___
-
-Count the total number of cities (VV). ___
-
-for i from 1 to (V - 1):  
-    for each edge (u, v) with weight w:  
-        if distance[u] + w < distance[v]:  
-            distance[v] = distance[u] + w  
-for each edge (u, v) with weight w:  
-    if distance[u] + w < distance[v]:  
+Initialize the "best time" to all cities as infinity, and City A as 0.
+Count the total number of cities (V).
+for i from 1 to (V - 1):
+    for each edge (u, v) with weight w:
+        if distance[u] + w < distance[v]:
+            distance[v] = distance[u] + w
+for each edge (u, v) with weight w:
+    if distance[u] + w < distance[v]:
         return "Negative Cycle Detected!"
 
 Remember how our algorithm adds edge weights to find the total distance?
 
-In currency exchange, you multiply rates. If you convert 100100 USD to EUR at a rate of 1.21.2, you have 100×1.2100×1.2.
+In currency exchange, you multiply rates. If you convert 100 USD to EUR at a rate of 1.2, you have $100 \times 1.2$.
 
-There's a cool rule in math: log⁡(a⋅b)=log⁡(a)+log⁡(b)log(a⋅b)=log(a)+log(b).
+There's a cool rule in math: $\log(a \cdot b) = \log(a) + \log(b)$.
 
 If we take the logarithm of each exchange rate, we can suddenly add those numbers together to find the total "exchange" value.
 
-And if we use negative logarithms (−log⁡(rate)−log(rate)), finding a "profitable" exchange cycle is exactly the same as finding a negative cycle in our graph!
+And if we use negative logarithms ($-\log(\text{rate})$), finding a "profitable" exchange cycle is exactly the same as finding a negative cycle in our graph!
 
 Here’s how the Topological Sort (Kahn's Algorithm) works using that logic:
 
-    count the number of incoming arrows (in-degrees) for every dwarf  
-    put all dwarves with 0 incoming arrows into a "ready" pile  
-    while the "ready" pile is not empty:  
-        pick a dwarf from the pile and add them to the final line  
-        for each statement where this dwarf is "shorter than" someone else:  
-            remove that arrow (decrease the neighbor's in-degree)  
+    count the number of incoming arrows (in-degrees) for every dwarf
+    put all dwarves with 0 incoming arrows into a "ready" pile
+    while the "ready" pile is not empty:
+        pick a dwarf from the pile and add them to the final line
+        for each statement where this dwarf is "shorter than" someone else:
+            remove that arrow (decrease the neighbor's in-degree)
             if that neighbor now has 0 incoming arrows, add them to the "ready" pile
 
-optimized version of Floyd-Warshall using only one n×nn×n table. This is exactly what they expect you to justify in the Winter 2023 exam! When we need the distance between every possible pair of vertices, we turn to the Floyd-Warshall algorithm. This is a dynamic programming powerhouse that considers all vertices as potential intermediate steps. 
+optimized version of Floyd-Warshall using only one n×nn×n table. This is exactly what they expect you to justify in the Winter 2023 exam! When we need the distance between every possible pair of vertices, we turn to the Floyd-Warshall algorithm. This is a dynamic programming powerhouse that considers all vertices as potential intermediate steps.
 
-    initialize distance[n][n] table with direct edge weights  
-    for k from 1 to n: # k is our 'intermediate' city  
-        for i from 1 to n: # i is our starting city  
-            for j from 1 to n: # j is our destination city  
-                # Check if going via city k is a shortcut  
-                if distance[i][k] + distance[k][j] < distance[i][j]:  
+    initialize distance[n][n] table with direct edge weights
+    for k from 1 to n: # k is our 'intermediate' city
+        for i from 1 to n: # i is our starting city
+            for j from 1 to n: # j is our destination city
+                # Check if going via city k is a shortcut
+                if distance[i][k] + distance[k][j] < distance[i][j]:
                     distance[i][j] = distance[i][k] + distance[k][j]
 
 
 The update rule dij=min⁡(dij,dik+dkj)dij​=min(dij​,dik​+dkj​) remains valid in a single 2D array because the entries in the kk-th row and kk-th column are invariant during the kk-th iteration. Assuming no negative cycles (dkk=0dkk​=0), the calculations dik=min⁡(dik,dik+0)dik​=min(dik​,dik​+0) and dkj=min⁡(dkj,0+dkj)dkj​=min(dkj​,0+dkj​) ensure that the reference values dikdik​ and dkjdkj​ used to update all other dijdij​ remain equivalent to their values from the previous iteration (k−1k−1).
 
-Kruskal
+### Kruskal's Algorithm
 Executing Kruskal's Algorithm
 1 Sort:
 List all edges in the graph in non-descending order of their weight.
 2 Selection:
 Pick the smallest edge. Check if adding it creates a cycle with the edges already selected.
-3 Union: 
+3 Union:
 If no cycle is formed (using Union-Find), include this edge in the MST.
 4 Repeat:
-Continue until there are V−1V−1 edges in the MST.
+Continue until there are $V-1$ edges in the MST.
 
-def kruskal_algorithm(graph): # graph contains a list of all edges (u, v) with weight w 
-	mst = [] 
-	total_cost = 0 
-# Step 1: Sort all edges from cheapest to most expensive 
-	sorted_edges = sort_by_weight(graph.edges) 
-# Step 2: Initialize Union-Find to track connected components # (Initially, every node is in its own separate group) 
-	ds = DisjointSet(graph.nodes) 
-# Step 3: Iterate through sorted edges 
-	for u, v, weight in sorted_edges: # If u and v are NOT already connected (no path between them) 
-		if ds.find(u) != ds.find(v): # Add this edge to our MST 
-			ds.union(u, v) 
-			mst.append((u, v)) 
-			total_cost += weight 
-	return mst, total_cost 
+```python
+def kruskal_algorithm(graph): # graph contains a list of all edges (u, v) with weight w
+	mst = []
+	total_cost = 0
+	# Step 1: Sort all edges from cheapest to most expensive
+	sorted_edges = sort_by_weight(graph.edges)
+	# Step 2: Initialize Union-Find to track connected components # (Initially, every node is in its own separate group)
+	ds = DisjointSet(graph.nodes)
+	# Step 3: Iterate through sorted edges
+	for u, v, weight in sorted_edges: # If u and v are NOT already connected (no path between them)
+		if ds.find(u) != ds.find(v): # Add this edge to our MST
+			ds.union(u, v)
+			mst.append((u, v))
+			total_cost += weight
+	return mst, total_cost
+```
 
-Union Find in Kruskal's (basically tree joining)
+#### Union-Find in Kruskal's (basically tree joining)
 To make Kruskal's algorithm efficient, we use a Data Structure called Union-Find (or Disjoint Set Union). It keeps track of which nodes are in which connected component. Without it, checking for cycles every time we add an edge would be computationally expensive.
 
-Optimizing Union-Find
+#### Optimizing Union-Find
 Path Compression:
 During a 'Find' operation, we make every node on the path point directly to the root, flattening the structure.
 
@@ -1680,7 +1627,7 @@ When merging two sets, we always attach the shorter tree under the root of the t
 
 Efficiency:
 With both optimizations, the operations are nearly constant time, specifically O(α(V))O(α(V)), where αα is the inverse Ackermann function.
-Advanced Applications and Modeling
+#### Advanced Applications
 
 Kruskal's Algorithm
 
@@ -1689,8 +1636,7 @@ Kruskal's Algorithm
     Why? Sorting ∣E∣∣E∣ edges takes log⁡∣E∣log∣E∣ time per edge. (Fun fact: since ∣E∣∣E∣ is at most ∣V∣2∣V∣2, this is essentially the same as O(∣E∣log⁡∣V∣)O(∣E∣log∣V∣)).
 
 
-
-Prims algo
+### Prim's Algorithm
 1. What it is & How it works
 
     Pick a starting point (any village will do, let's say village A).
@@ -1698,21 +1644,22 @@ Prims algo
     Cross the cheapest bridge to bring a new village into the group.
     Repeat until every village is in the group.
 
+```python
 def prim_algorithm(graph, start_node):
 	mst = []
-	visited = {start_node} 
-# edges_to_check is a list of all edges connected to the start_node 
+	visited = {start_node}
+	# edges_to_check is a list of all edges connected to the start_node
 	edges_to_check = get_edges(start_node)
-# While we haven't visited every village 
+	# While we haven't visited every village
 	while len(visited) < len(graph.nodes):
-# Pick the cheapest edge that connects to a NEW village
+	# Pick the cheapest edge that connects to a NEW village
 		u, v, weight = find_min_edge(edges_to_check, visited)
-# Add the new village to the group 
+	# Add the new village to the group
 		new_node = v if u in visited else u
 		if new_node not in visited:
 			visited.add(new_node)
 			mst.append((u, v))
-# Add the new village's bridges to our options for the next step
+	# Add the new village's bridges to our options for the next step
 			edges_to_check.extend(get_edges(new_node))
 	return mst
 
@@ -1724,9 +1671,8 @@ Prim's Algorithm
 Performance can also be optimized based on the data. For instance, if edge weights in Prim's algorithm are small integers in the range [1,k][1,k], we can use a bucket queue. This allows the algorithm to run in O(kV+E)O(kV+E) time instead of the standard O(Elog⁡V)O(ElogV) or O(E+Vlog⁡V)O(E+VlogV) with a Fibonacci heap.
 
 
-
-
-Boruvka
+```
+### Borůvka's Algorithm
 1. What it is & How it works
 
     Every node starts as its own component (like a tiny island).
@@ -1734,35 +1680,36 @@ Boruvka
     Add all those edges to the MST and merge the components.
     Repeat until only one component remains.
 
-2. The Logic (Listing Style)
+**Implementation:**
 
-    
-    def boruvka_algorithm(graph):
-    ....# Initially, every village is in its own group (component)
-    ....components = [[node] for node in graph.nodes]
-    ....mst = []
-    ....# Keep going until we have only one large group left
-    ....while len(components) > 1:
-    ........# Stores the absolute cheapest bridge for every current group
-    ........cheapest_edges = {}
-    ........for edge in graph.edges:
-    ............u, v, weight = edge
-    ............# Find which groups u and v belong to
-    ............comp_u = find_group(u, components)
-    ............comp_v = find_group(v, components)
-    ............# If they're in different groups, check if this is their cheapest option
-    ............if comp_u != comp_v:
-    ................check_and_update_cheapest(cheapest_edges, comp_u, edge)
-    ................check_and_update_cheapest(cheapest_edges, comp_v, edge)
-    ........# Now, officially add all the best bridges we found to our network
-    ........for edge in cheapest_edges.values():
-    ............if edge not in mst:
-    ................mst.append(edge)
-    ................# Merge the groups connected by this bridge
-    ................merge_groups(components, edge)
-    ....return mst
+```python
+def boruvka_algorithm(graph):
+        # Initially, every village is in its own group (component)
+        components = [[node] for node in graph.nodes]
+        mst = []
+        # Keep going until we have only one large group left
+        while len(components) > 1:
+            # Stores the absolute cheapest bridge for every current group
+            cheapest_edges = {}
+            for edge in graph.edges:
+                u, v, weight = edge
+                # Find which groups u and v belong to
+                comp_u = find_group(u, components)
+                comp_v = find_group(v, components)
+                # If they're in different groups, check if this is their cheapest option
+                if comp_u != comp_v:
+                    check_and_update_cheapest(cheapest_edges, comp_u, edge)
+                    check_and_update_cheapest(cheapest_edges, comp_v, edge)
+            # Now, officially add all the best bridges we found to our network
+            for edge in cheapest_edges.values():
+                if edge not in mst:
+                    mst.append(edge)
+                    # Merge the groups connected by this bridge
+                    merge_groups(components, edge)
+        return mst
+```
 
-Borũvka's Algorithm
+**Borůvka's Performance:**
 
     Number of rounds: log⁡∣V∣log∣V∣
     Work per round: We look at every edge, which is ∣E∣∣E∣.
@@ -1777,7 +1724,7 @@ The O(log⁡∣V∣)O(log∣V∣) bound follows naturally from this:
 
 The algorithm stops when you have only 1 component left. Solving ∣V∣/2i=1∣V∣/2i=1 gives you i=log⁡2∣V∣i=log2​∣V∣.
 
-1. What it is & How it works Union Find
+### Union-Find (Disjoint Set Union)
 
 Imagine every village starts in its own "club." Union-Find manages these clubs with two main powers:
     Find: "Which club does Village A belong to?" (It returns a "leader" or "representative" for the club).
@@ -1787,28 +1734,29 @@ Imagine every village starts in its own "club." Union-Find manages these clubs w
 
 To keep it fast, we use two tricks: Path Compression (making everyone report directly to the big boss) and Union by Rank (always merging the smaller club into the larger one).
 
-    class UnionFind:
-    ....def __init__(self, nodes):
-    ........# Everyone starts as their own parent (their own leader)
-    ........self.parent = {node: node for node in nodes}
-    ........self.rank = {node: 0 for node in nodes}
-    ....def find(self, node):
-    ........# If I'm not the leader, find my leader's leader
-    ........if self.parent[node] != node:
-    ............# Path Compression: jump straight to the top boss!
-    ............self.parent[node] = self.find(self.parent[node])
-    ........return self.parent[node]
-    ....def union(self, u, v):
-    ........root_u = self.find(u)
-    ........root_v = self.find(v)
-    ........if root_u != root_v:
-    ............# Union by Rank: attach the shorter tree to the taller one
-    ............if self.rank[root_u] > self.rank[root_v]:
-    ................self.parent[root_v] = root_u
-    ............else:
-    ................self.parent[root_u] = root_v
-    ................if self.rank[root_u] == self.rank[root_v]:
-    ....................self.rank[root_v] += 1
+```python
+class UnionFind:
+    def __init__(self, nodes):
+            # Everyone starts as their own parent (their own leader)
+            self.parent = {node: node for node in nodes}
+            self.rank = {node: 0 for node in nodes}
+        def find(self, node):
+            # If I'm not the leader, find my leader's leader
+            if self.parent[node] != node:
+                # Path Compression: jump straight to the top boss!
+                self.parent[node] = self.find(self.parent[node])
+            return self.parent[node]
+        def union(self, u, v):
+            root_u = self.find(u)
+            root_v = self.find(v)
+            if root_u != root_v:
+                # Union by Rank: attach the shorter tree to the taller one
+                if self.rank[root_u] > self.rank[root_v]:
+                    self.parent[root_v] = root_u
+                else:
+                    self.parent[root_u] = root_v
+                    if self.rank[root_u] == self.rank[root_v]:
+                        self.rank[root_v] += 1
 
 3. Example (Using Kruskal's)
 
@@ -1822,7 +1770,8 @@ If you're looking at link A-B:
 Because of those two tricks (Path Compression and Union by Rank), the operations are nearly instant. The runtime is O(α(n))O(α(n)), where αα is the "Inverse Ackermann function"—for any number of atoms in the universe, α(n)α(n) is less than 5. It's basically constant time!
 Path Compression ensures that each node visited during a 'find' operation points directly to the root. This 'flattens' the structure, making future operations nearly constant time, specifically O(α(n))O(α(n)).
 
-1. What it is & How it works MST vs Dijkstra
+```
+### MST vs Dijkstra Comparison
 
     MST (Minimum Spanning Tree): Its goal is to connect all nodes with the lowest total weight (minimizing the sum of all edges in the tree).
     Dijkstra (Shortest Path Tree): Its goal is to find the shortest distance from one specific source to every other node.
@@ -1837,9 +1786,9 @@ If you were a mayor trying to save the most money on a city-wide power grid, wou
 A Shortest-Path Tree would be great if you were running a high-speed ambulance service where the only thing that mattered was how fast you could get from the Hospital (the source) to any specific house.
 
 
-Defining the Minimum Spanning Tree
+### Minimum Spanning Tree – Theory
 
-A Minimum Spanning Tree (MST) is a subset of the edges of a connected, undirected, edge-weighted graph. It must connect all vertices together, without any cycles, and with the minimum possible total edge weight. If a graph has VV vertices, any spanning tree will have exactly V−1V−1 edges. 
+A Minimum Spanning Tree (MST) is a subset of the edges of a connected, undirected, edge-weighted graph. It must connect all vertices together, without any cycles, and with the minimum possible total edge weight. If a graph has V vertices, any spanning tree will have exactly $V-1$ edges.
 📖The Uniqueness Property
 
 If all edge weights in a graph are distinct (no two edges have the same weight), the graph has exactly one unique Minimum Spanning Tree.
@@ -1866,7 +1815,9 @@ An MST minimizes the maximum weight edge required to connect any two nodes, whic
 The Algorithms: Kruskal vs. Prim
 There are several ways to find an MST, each with a different 'greedy' strategy. Kruskal's algorithm focuses on edges, while Prim's algorithm grows a single tree from a starting node. A third approach, Borũvka’s algorithm, works by merging components in rounds and is guaranteed to finish in at most log⁡VlogV rounds because the number of components at least halves in every step.
 
-Graphs exam
+---
+
+## Graph Algorithms – Exam Session
 
 Question 1
 100% score
@@ -1965,7 +1916,7 @@ Feedback:
 • Study Borůvka's algorithm as an alternative parallelizable approach to finding MSTs.
 
 
-HEAPS
+## Heaps and Priority Queues
 1. The Priority Queue (The "What")
 
 Imagine a regular queue (like at a supermarket): First In, First Out (FIFO). If you’re first in line, you’re served first.
@@ -1991,7 +1942,7 @@ Given a node at index i (using 0-based indexing):
 
 
 Why they belong together:
-A Priority Queue is a concept (I want the most important thing next), and a Heap is the tool we use to make it happen efficiently (O(log⁡n)O(logn) time).
+A Priority Queue is a concept (I want the most important thing next), and a Heap is the tool we use to make it happen efficiently (O(log n) time).
 
 Why Heaps matter for Dijkstra (Shortest Path)
 
@@ -2022,7 +1973,7 @@ In our O(n) Build-Heap:
     Only the one node at the very top (the root) might have to travel all the way to the bottom. Effort: High.
 
 3. The Math Magic
-Because the majority of the work is being done by the nodes that are already near the bottom, they have very short distances to travel. When you add up all those small distances, it actually totals to O(n)O(n), not O(nlog⁡n)O(nlogn).
+Because the majority of the work is being done by the nodes that are already near the bottom, they have very short distances to travel. When you add up all those small distances, it actually totals to O(n), not O(nlog⁡n)O(nlogn).
 In short: We save time by making the "crowd" at the bottom do almost no work, and only making the "elite" few at the top do the heavy lifting.
 
 Here is the Build-Heap algorithm broken down exactly how you need it:
@@ -2035,13 +1986,14 @@ Here is the Build-Heap algorithm broken down exactly how you need it:
         Repeat this comparison for the new position of that value until it's larger than both its new children or it hits the bottom of the tree.
     Move to the next index Decrement ii and repeat Step 4 until you have processed index 0.
 
-Why we skip the second half of the array: 
+Why we skip the second half of the array:
 Since the array represents a complete tree, the elements from index ⌊n/2⌋ to n−1 are all leaves (they have no children). A node with no children is already a "perfect" heap by default, so we don't need to waste time "fixing" them!
 
 The range: (n // 2) - 1 is the parent of the very last element.
 The skip: We skip the leaves (the bottom-most nodes) because they don't have children—so they're already "perfect" heaps by themselves!
 The direction: By going backwards toward index 0, we ensure that by the time we reach the root, all the subtrees below it are already fixed.
 
+```python
 
 def build_max_heap(A):
     n = len(A)
@@ -2063,12 +2015,15 @@ def max_heapify(A, n, i):
     if largest != i:
         A[i], A[largest] = A[largest], A[i]
         max_heapify(A, n, largest)
+```
+
+
 
 heapify has a O(n) complexity when transforming an unordered array of n elements into a heap, because the work required decreases as you move down the tree where most nodes reside. Building a heap element-by-element would instead take O(nlogn).
 
 The sift-down (or trickle-down) procedure is used when the root violates the heap property by being larger than its children in a Min-Heap. It swaps the node with its smallest child until the property is restored or a leaf is reached.
 
-In the context of the Build-Heap algorithm, why do we iterate from index n/2 down to 1 instead of 1 up to n? 
+In the context of the Build-Heap algorithm, why do we iterate from index n/2 down to 1 instead of 1 up to n?
 The Build-Heap algorithm processes nodes from the bottom up. Since all leaves (nodes from n/2+1 to n) are already valid heaps by definition, the algorithm only needs to call heapify on internal nodes to merge these sub-heaps.
 
 Extract-Max (removing the most important item).
@@ -2106,6 +2061,7 @@ Continue swapping downward until the element is smaller/larger than its children
 
 The Python-style Pseudocode
 
+```python
     def extract_max(A):
         if len(A) < 1: return "Error: Heap is empty"
         # 1. Grab the max value from the root
@@ -2133,6 +2089,8 @@ The Python-style Pseudocode
         if largest != i:
             A[i], A[largest] = A[largest], A[i]
             sift_down(A, largest)
+```
+
 
 A Max-Heap is stored in an array. After removing the maximum element and replacing the root with the last element, what is the maximum number of swaps required if the heap has height h? The restoration process (sift-down) travels from the root down to a leaf. Since the height hh represents the longest path from root to leaf, the maximum number of swaps is equal to the height, which is ⌊log2​n⌋.
 
@@ -2166,6 +2124,7 @@ The Python-style Pseudocode
 
 Increase-Key (Floating Up)
 
+```python
     def increase_key(A, i, new_val):
         if new_val < A[i]: return "Error: New value is smaller"
         # 1. Update the value at index i
@@ -2176,15 +2135,20 @@ Increase-Key (Floating Up)
             # 3. Swap with parent and move index up
             A[i], A[parent] = A[parent], A[i]
             i = parent
+```
+
 
 Decrease-Key (Sinking Down)
 
+```python
     def decrease_key(A, i, new_val):
         if new_val > A[i]: return "Error: New value is larger"
         # 1. Update the value at index i
         A[i] = new_val
         # 2. Use our 'sift_down' function to let it sink
         sift_down(A, i)
+```
+
 
 Summary of Directions
     More Urgent? Go Up (Increase-Key).
@@ -2210,10 +2174,11 @@ Step-by-Step Breakdown (The Invariant)
     Termination (The End): The loop ends when i=−1i=−1.
         Logic: According to our invariant, every node from 0,1,…,n−10,1,…,n−1 is now the root of a valid heap. That means the entire tree is a heap!
 
-The proof for O(n) complexity involves the loop invariant: 'At the start of the iteration for index ii, all elements at positions n−1,...,i+1 are roots of valid heaps.' Mathematically, the work decreases as we move up the tree; while the top nodes move further down, there are exponentially fewer of them. The sum of the heights results in a convergent series bounded by O(n). 
+The proof for O(n) complexity involves the loop invariant: 'At the start of the iteration for index ii, all elements at positions n−1,...,i+1 are roots of valid heaps.' Mathematically, the work decreases as we move up the tree; while the top nodes move further down, there are exponentially fewer of them. The sum of the heights results in a convergent series bounded by O(n).
 
 The Python-style Pseudocode (with the Invariant)
 
+```python
     def build_max_heap(A):
         n = len(A)
         # Start from the last parent
@@ -2222,6 +2187,8 @@ The Python-style Pseudocode (with the Invariant)
             max_heapify(A, n, i)
             # After this, node i is also the root of a heap
         # TERMINATION: All nodes from 0 to n-1 are roots of heaps
+```
+
 
 Summary for your ADHD brain:
 
@@ -2240,13 +2207,13 @@ Heap Exam 1
 Q1
 Analyze the structural and algorithmic differences between the bottom-up construction of a binary heap (Floyd's algorithm) and the top-down approach of n successive insertions into an initially empty heap.
 
-    Formulate the mathematical summation that represents the total number of comparisons performed during a bottom-up heapification of an array of size nn, where hh is the height of the tree. Explain how the distribution of nodes at each level allows this sum to converge to O(n)O(n).
-    Prove why the naive top-down construction method, which applies the 'sift-up' procedure to each element in sequence from index 1 to nn, results in a tighter lower bound of Ω(nlog⁡n)Ω(nlogn) rather than O(n)O(n). Specifically, consider the work required for the nodes located at the leaf level compared to the bottom-up approach.
+    Formulate the mathematical summation that represents the total number of comparisons performed during a bottom-up heapification of an array of size nn, where hh is the height of the tree. Explain how the distribution of nodes at each level allows this sum to converge to O(n).
+    Prove why the naive top-down construction method, which applies the 'sift-up' procedure to each element in sequence from index 1 to nn, results in a tighter lower bound of Ω(nlog⁡n)Ω(nlogn) rather than O(n). Specifically, consider the work required for the nodes located at the leaf level compared to the bottom-up approach.
     Identify the exact number of nodes that must be processed using the 'sift-down' operation in a complete binary tree of size n=2k−1n=2k−1 to satisfy the heap property using the linear-time algorithm.
 
 ✅ Solution
 
-    Mathematical Summation for Bottom-Up Construction: The total number of comparisons is represented by T(n)=∑i=0hi⋅n2i+1T(n)=∑i=0h​i⋅2i+1n​. This converges to O(n)O(n) because the number of nodes decreases exponentially as the height (and thus the work per node) increases linearly. The majority of nodes are leaves that perform 0 work, while only the root performs O(log⁡n)O(logn) work.
+    Mathematical Summation for Bottom-Up Construction: The total number of comparisons is represented by T(n)=∑i=0hi⋅n2i+1T(n)=∑i=0h​i⋅2i+1n​. This converges to O(n) because the number of nodes decreases exponentially as the height (and thus the work per node) increases linearly. The majority of nodes are leaves that perform 0 work, while only the root performs O(log n) work.
     Complexity of Top-Down Construction: In the top-down approach using sift-up, the work for a node at depth dd is proportional to dd. Since there are 2d2d nodes at depth dd, the total work is ∑d=0hd⋅2d∑d=0h​d⋅2d. Because approximately half the nodes are at the maximum depth h≈log⁡nh≈logn, the leaf level alone contributes n2log⁡n2n​logn work, establishing a lower bound of Ω(nlog⁡n)Ω(nlogn).
     Exact Number of Nodes Processed: In a complete binary tree of size n=2k−1n=2k−1, the sift-down operation is only applied to internal nodes. The number of leaf nodes is 2k−12k−1. Therefore, the number of nodes processed is (2k−1)−2k−1=2k−1−1(2k−1)−2k−1=2k−1−1, which is also equivalent to ⌊n/2⌋⌊n/2⌋ or (n−1)/2(n−1)/2.
 
@@ -2309,7 +2276,7 @@ The student provided correct formulas for the parent and child indices and corre
 
 Feedback
 💪 Good knowledge
-• Demonstrated a deep understanding of the mathematical convergence of Floyd's algorithm to O(n)O(n).
+• Demonstrated a deep understanding of the mathematical convergence of Floyd's algorithm to O(n).
 • Accurately differentiated between the work distribution of sift-up (top-down) and sift-down (bottom-up) approaches.
 • Perfectly executed the Extract-Max trace, including the intermediate array states and structure verification.
 • Successfully derived general index formulas for dd-ary heaps in a 0-indexed system.
@@ -2321,7 +2288,7 @@ Feedback
 • Analyze the trade-offs of increasing dd in priority queues used in Dijkstra's shortest path algorithm.
 
 
-BST AVL 
+## BST and AVL Trees
 
 1. Binary Search Trees (BST)
 
@@ -2352,45 +2319,51 @@ The "Meld" Operation: This is a high-level exam favorite. It's the art of taking
 
 BST Search (With Dot Nesting)
 
+```python
     def search(node, key):
-    ....# Base Case: found it or reached the bottom
-    ....if node is None or node.key == key:
-    ........return node
-    ....# If smaller, look in the left subtree
-    ....if key < node.key:
-    ........return search(node.left, key)
-    ....# If larger, look in the right subtree
-    ....else:
-    ........return search(node.right, key)
+        # Base Case: found it or reached the bottom
+        if node is None or node.key == key:
+            return node
+        # If smaller, look in the left subtree
+        if key < node.key:
+            return search(node.left, key)
+        # If larger, look in the right subtree
+        else:
+            return search(node.right, key)
+```
+
 
 AVL Insertion (With Dot Nesting)
 
+```python
     def insert(node, key):
-    ....# 1. Standard BST Insertion
-    ....if not node:
-    ........return Node(key)
-    ....if key < node.key:
-    ........node.left = insert(node.left, key)
-    ....else:
-    ........node.right = insert(node.right, key)
-    ....# 2. Update node height for balancing
-    ....node.height = 1 + max(get_height(node.left), get_height(node.right))
-    ....# 3. Calculate Balance Factor (BF)
-    ....balance = get_height(node.left) - get_height(node.right)
-    ....# 4. Check for Unbalance (4 Rotation Cases)
-    ....if balance > 1: # Left-heavy side
-    ........if key < node.left.key: # Single Rotation
-    ............return right_rotate(node) # Case: LL
-    ........else: # Double Rotation
-    ............node.left = left_rotate(node.left)
-    ............return right_rotate(node) # Case: LR
-    ....if balance < -1: # Right-heavy side
-    ........if key > node.right.key: # Single Rotation
-    ............return left_rotate(node) # Case: RR
-    ........else: # Double Rotation
-    ............node.right = right_rotate(node.right)
-    ............return left_rotate(node) # Case: RL
-    ....return node
+        # 1. Standard BST Insertion
+        if not node:
+            return Node(key)
+        if key < node.key:
+            node.left = insert(node.left, key)
+        else:
+            node.right = insert(node.right, key)
+        # 2. Update node height for balancing
+        node.height = 1 + max(get_height(node.left), get_height(node.right))
+        # 3. Calculate Balance Factor (BF)
+        balance = get_height(node.left) - get_height(node.right)
+        # 4. Check for Unbalance (4 Rotation Cases)
+        if balance > 1: # Left-heavy side
+            if key < node.left.key: # Single Rotation
+                return right_rotate(node) # Case: LL
+            else: # Double Rotation
+                node.left = left_rotate(node.left)
+                return right_rotate(node) # Case: LR
+        if balance < -1: # Right-heavy side
+            if key > node.right.key: # Single Rotation
+                return left_rotate(node) # Case: RR
+            else: # Double Rotation
+                node.right = right_rotate(node.right)
+                return left_rotate(node) # Case: RL
+        return node
+```
+
 
 1. The AVL Height Condition & Balance Factor
 
@@ -2404,17 +2377,20 @@ In an AVL tree, we don't just care about the total number of books; we care abou
 
 Calculating Balance (Pseudocode)
 
+```python
     def get_height(node):
-    ....# Base case: empty spots have 0 height
-    ....if node is None:
-    ........return 0
-    ....return node.height
+        # Base case: empty spots have 0 height
+        if node is None:
+            return 0
+        return node.height
     def get_balance(node):
-    ....# If the node is empty, it's perfectly balanced
-    ....if node is None:
-    ........return 0
-    ....# Rule: Left height minus Right height
-    ....return get_height(node.left) - get_height(node.right)
+        # If the node is empty, it's perfectly balanced
+        if node is None:
+            return 0
+        # Rule: Left height minus Right height
+        return get_height(node.left) - get_height(node.right)
+```
+
 
 When you see a tree on the exam and they ask "Is this an AVL tree?", follow these ADHD-friendly steps:
 
@@ -2441,19 +2417,22 @@ Sometimes the "heaviness" is in a zig-zag shape (<or><or>). A single rotation wo
 
 Rotation Logic (Pseudocode)
 
+```python
     def right_rotate(y):
-    ....# Step 1: Identify the "pivot" (the left child)
-    ....x = y.left
-    ....# Step 2: The pivot's right side moves to the parent
-    ....T2 = x.right
-    ....# Step 3: Perform the actual "swing"
-    ....x.right = y
-    ....y.left = T2
-    ....# Step 4: Re-calculate heights (order matters!)
-    ....y.height = 1 + max(get_height(y.left), get_height(y.right))
-    ....x.height = 1 + max(get_height(x.left), get_height(x.right))
-    ....# Step 5: The pivot is now the new "top" of this section
-    ....return x
+        # Step 1: Identify the "pivot" (the left child)
+        x = y.left
+        # Step 2: The pivot's right side moves to the parent
+        T2 = x.right
+        # Step 3: Perform the actual "swing"
+        x.right = y
+        y.left = T2
+        # Step 4: Re-calculate heights (order matters!)
+        y.height = 1 + max(get_height(y.left), get_height(y.right))
+        x.height = 1 + max(get_height(x.left), get_height(x.right))
+        # Step 5: The pivot is now the new "top" of this section
+        return x
+```
+
 
 On the exam, you'll be asked to "Insert the numbers [1,2,3][1,2,3] and show rotations."
 
@@ -2478,21 +2457,24 @@ A Binary Search Tree is uniquely reconstructible if you have:
 
 Reconstruction Logic (Pseudocode)
 
+```python
     def build_from_preorder(preorder):
-    ....# Base case: empty list means no tree
-    ....if not preorder:
-    ........return None
-    ....# Step 1: The first element is ALWAYS the root
-    ....root = Node(preorder[0])
-    ....# Step 2: Separate the remaining items
-    ....# Everything smaller than root goes to the left
-    ....left_elements = [x for x in preorder[1:] if x < root.val]
-    ....# Everything larger than root goes to the right
-    ....right_elements = [x for x in preorder[1:] if x > root.val]
-    ....# Step 3: Repeat the process for each side (Recursion!)
-    ....root.left = build_from_preorder(left_elements)
-    ....root.right = build_from_preorder(right_elements)
-    ....return root
+        # Base case: empty list means no tree
+        if not preorder:
+            return None
+        # Step 1: The first element is ALWAYS the root
+        root = Node(preorder[0])
+        # Step 2: Separate the remaining items
+        # Everything smaller than root goes to the left
+        left_elements = [x for x in preorder[1:] if x < root.val]
+        # Everything larger than root goes to the right
+        right_elements = [x for x in preorder[1:] if x > root.val]
+        # Step 3: Repeat the process for each side (Recursion!)
+        root.left = build_from_preorder(left_elements)
+        root.right = build_from_preorder(right_elements)
+        return root
+```
+
 
 If the exam asks you to "Show that a BST is uniquely reconstructible from its preorder," here is how you answer:
     Identify the Root: State that the first element in the preorder sequence V=[v1,…,vn]V=[v1​,…,vn​] must be the root.
@@ -2514,15 +2496,18 @@ To prove how tall an AVL tree can get, we look at the thinnest possible AVL tree
 
 The Height Bound (Logic Flow)
 
+```python
     def calculate_min_nodes(height):
-    ....# Base Cases
-    ....if height == 0:
-    ........return 0
-    ....if height == 1:
-    ........return 1
-    ....# Recursive Step (Thinnest possible AVL configuration)
-    ....# Parent (1) + taller child (h-1) + shorter child (h-2)
-    ....return 1 + calculate_min_nodes(height - 1) + calculate_min_nodes(height - 2)
+        # Base Cases
+        if height == 0:
+            return 0
+        if height == 1:
+            return 1
+        # Recursive Step (Thinnest possible AVL configuration)
+        # Parent (1) + taller child (h-1) + shorter child (h-2)
+        return 1 + calculate_min_nodes(height - 1) + calculate_min_nodes(height - 2)
+```
+
 
 On the exam, they might ask you to "Show that an AVL tree of height hh has at least ΦhΦh nodes." Here is how you explain it:
     Define the recurrence: Write down N(h)=1+N(h−1)+N(h−2).
@@ -2542,41 +2527,47 @@ Meld and Split (Logic Flow)
 
 The Meld (Merge)
 
+```python
     def meld(T1, T2):
-    ....# Step 1: Find the "bridge" key
-    ....# We take the largest key from T1 as our new root 'k'
-    ....k = delete_max(T1)
-    ....# Step 2: Use the Join operation to link them
-    ....return join(T1, k, T2)
+        # Step 1: Find the "bridge" key
+        # We take the largest key from T1 as our new root 'k'
+        k = delete_max(T1)
+        # Step 2: Use the Join operation to link them
+        return join(T1, k, T2)
+```
+
 
 The Split
 
+```python
     def split(node, key):
-    ....# Returns two trees: one with keys < key, one with keys > key
-    ....if node is None:
-    ........return (None, None)
-    ....if key < node.key:
-    ........# Split the left child
-    ........(L, R) = split(node.left, key)
-    ........# Join the right side of the split with the parent's right side
-    ........return (L, join(R, node.key, node.right))
-    ....else:
-    ........# (Repeat logic for the right side...)
+        # Returns two trees: one with keys < key, one with keys > key
+        if node is None:
+            return (None, None)
+        if key < node.key:
+            # Split the left child
+            (L, R) = split(node.left, key)
+            # Join the right side of the split with the parent's right side
+            return (L, join(R, node.key, node.right))
+        else:
+            # (Repeat logic for the right side...)
+```
 
-If the exam asks: "Design an algorithm to meld two AVL trees T1T1​ and T2T2​ in O(log⁡n)O(logn) time," here is your checklist:
+
+If the exam asks: "Design an algorithm to meld two AVL trees T1T1​ and T2T2​ in O(log n) time," here is your checklist:
 
     Assumed Order: State that we assume all keys in T1<T1​< all keys in T2T2​.
     Compare Heights: If h(T1)≈h(T2)h(T1​)≈h(T2​), just make a new root with a bridge key.
     Find the Insertion Point: If h(T1)>h(T2)h(T1​)>h(T2​), follow the right spine of T1T1​.
     Rebalance: Mention that after "hooking" the trees, you must update heights and perform rotations (just like a normal insertion) as you walk back up to the root.
-    Complexity: Explain that since the height of an AVL tree is O(log⁡n)O(logn), traveling down the spine only takes logarithmic time.
+    Complexity: Explain that since the height of an AVL tree is O(log n), traveling down the spine only takes logarithmic time.
 
 
 Here are the most relevant time complexities for BSTs and AVL trees.
 1. Basic Operations (Search, Insert, Delete)
 
-    BST (Worst Case): O(n)O(n)
-    AVL Tree (Worst Case): O(log⁡n)O(logn)
+    BST (Worst Case): O(n)
+    AVL Tree (Worst Case): O(log n)
 
 Der Beweis (The Proof):
 
@@ -2589,7 +2580,7 @@ Der Beweis (The Proof):
 
 2. Rotations (LL, RR, LR, RL)
 
-    Complexity: O(1)O(1) (Constant time)
+    Complexity: O(1) (Constant time)
 
 Der Beweis (The Proof):
 
@@ -2602,7 +2593,7 @@ Der Beweis (The Proof):
 
 3. Tree Traversals (Inorder, Preorder, Postorder)
 
-    Complexity: O(n)O(n)
+    Complexity: O(n)
 
 Der Beweis (The Proof):
 
@@ -2625,7 +2616,7 @@ Der Beweis (The Proof):
 
 5. Advanced: Build a BST from a Sorted List
 
-    Complexity: O(n)O(n)
+    Complexity: O(n)
 
 Der Beweis (The Proof):
 
@@ -2634,12 +2625,13 @@ Der Beweis (The Proof):
     This follows the same logic as "Binary Search" or "Merge Sort" partitioning.
     Since every element is processed once to become a node, it results in $O(n)$.
 
-Operation	BST (Worst)	AVL (Worst)	Why?
-Search	O(n)O(n)	O(log⁡n)O(logn)	Height-based
-Insert	O(n)O(n)	O(log⁡n)O(logn)	Search + O(1)O(1) Rotation
-Delete	O(n)O(n)	O(log⁡n)O(logn)	Search + O(log⁡n)O(logn) Rotations
-Rotation	N/AN/A	O(1)O(1)	Just changing pointers
-Meld	N/AN/A	O(log⁡n)O(logn)	Travel down the "spine"
+| Operation | BST (Worst) | AVL (Worst) | Why? |
+|---|---|---|---|
+| Search | O(n) | O(log n) | Height-based |
+| Insert | O(n) | O(log n) | Search + O(1) Rotation |
+| Delete | O(n) | O(log n) | Search + O(log n) Rotations |
+| Rotation | N/A | O(1) | Just changing pointers |
+| Meld | N/A | O(log n) | Travel down the "spine" |
 
 examples:
 
@@ -2844,7 +2836,7 @@ The AVL Meld operation is significantly more efficient than iterative insertion.
 
     Meld Performance: The operation takes O(∣h1−h2∣+1)O(∣h1​−h2​∣+1) time because it only traverses the spine of the taller tree down to the height of the shorter tree, performs a constant-time pointer swap (using a bridge node), and rebalances only along that specific path of length d=∣h1−h2∣d=∣h1​−h2​∣.
 
-    Efficiency Gain: While a naive approach of inserting nn elements into a tree of size mm takes O(nlog⁡(m+n))O(nlog(m+n)), the Meld takes O(log⁡(max⁡(n,m)))O(log(max(n,m))). This represents an exponential speedup relative to the number of elements in the smaller tree (O(n)O(n) vs O(log⁡n)O(logn)).
+    Efficiency Gain: While a naive approach of inserting nn elements into a tree of size mm takes O(nlog⁡(m+n))O(nlog(m+n)), the Meld takes O(log⁡(max⁡(n,m)))O(log(max(n,m))). This represents an exponential speedup relative to the number of elements in the smaller tree (O(n) vs O(log n)).
 
     Logarithmic Rebalancing: Because the AVL height is bounded by h≤1.44log⁡2(N)h≤1.44log2​(N), and rebalancing only occurs on the insertion path back to the root, the number of balance factor updates is strictly limited to the height difference. Furthermore, AVL properties ensure that at most one rotation (single or double) is required to restore height and terminate the update process, keeping the complexity within O(log⁡N)O(logN).
 
@@ -2859,7 +2851,7 @@ Think of a Hash Table like a massive wall of numbered mailboxes.
 
 h(k)=indexh(k)=index
 
-Instead of searching through a list one by one (O(n)O(n)), you just run the function and go straight to the index. In the best case, this takes O(1)O(1) time.
+Instead of searching through a list one by one (O(n)), you just run the function and go straight to the index. In the best case, this takes O(1) time.
 
 2. What is Collision Handling?
 
@@ -2874,39 +2866,40 @@ The Concept:
     To Insert: Calculate index, append to the list at that index.
     To Search: Calculate index, look through the small list at that index.
 
+```python
 class SimpleHashTable:
-. def init(self, size):
-. . self.m = size
-. . # Create a list containing 'm' empty sub-lists (buckets)
-. . self.buckets = [[] for _ in range(self.m)]
-. def get_hash(self, key):
-. . # The basic modulo hash function
-. . return key % self.m
-. def insert(self, key, value):
-. . # 1. Find the right bucket
-. . index = self.get_hash(key)
-. . # 2. Check if key exists in that bucket to update it
-. . for item in self.buckets[index]:
-. . . if item[0] == key:
-. . . . item[1] = value
-. . . . return
-. . # 3. If not found, add a new [key, value] pair to the bucket
-. . self.buckets[index].append([key, value])
-. def search(self, key):
-. . # 1. Go directly to the correct bucket
-. . index = self.get_hash(key)
-. . # 2. Only search through this specific bucket (fast!)
-. . for item in self.buckets[index]:
-. . . if item[0] == key:
-. . . . return item[1]
-. . return "Not Found"
+    def init(self, size):
+        self.m = size
+        # Create a list containing 'm' empty sub-lists (buckets)
+        self.buckets = [[] for _ in range(self.m)]
+    def get_hash(self, key):
+        # The basic modulo hash function
+        return key % self.m
+    def insert(self, key, value):
+        # 1. Find the right bucket
+        index = self.get_hash(key)
+        # 2. Check if key exists in that bucket to update it
+        for item in self.buckets[index]:
+            if item[0] == key:
+                item[1] = value
+                return
+        # 3. If not found, add a new [key, value] pair to the bucket
+        self.buckets[index].append([key, value])
+    def search(self, key):
+        # 1. Go directly to the correct bucket
+        index = self.get_hash(key)
+        # 2. Only search through this specific bucket (fast!)
+        for item in self.buckets[index]:
+            if item[0] == key:
+                return item[1]
+        return "Not Found"
 
 1. What is Linear Probing? (The ADHD "Mailbox" Analogy)
 
 Imagine you have a row of mailboxes numbered 00 to m−1m−1.
 
-    The Goal: Put your letter (key kk) into the mailbox h(k)h(k).
-    The Conflict: If you go to mailbox h(k)h(k) and someone else's mail is already there (Collision), you don't panic. You just walk to the very next mailbox on the right (+1+1).
+    The Goal: Put your letter (key kk) into the mailbox h(k).
+    The Conflict: If you go to mailbox h(k) and someone else's mail is already there (Collision), you don't panic. You just walk to the very next mailbox on the right (+1+1).
     The Loop: If that one is full too, you keep walking right (+2,+3...+2,+3...). If you hit the end of the row, you wrap around back to mailbox 00.
 
 The Exam Formula: h(k,i)=(h′(k)+i)mod  mh(k,i)=(h′(k)+i)modm
@@ -2920,32 +2913,32 @@ The Exam Formula: h(k,i)=(h′(k)+i)mod  mh(k,i)=(h′(k)+i)modm
 Here is how the insertion works. Notice the loop that "walks" through the table.
 
     def insert_linear_probing(table, m, key):
-    . # Start at the initial hash position
-    . initial_index = key % m
-    .
-    . # Try up to 'm' times to find a spot
-    . for i in range(m):
-    . . # Calculate the current probe position (the 'step')
-    . . current_index = (initial_index + i) % m
-    . .
-    . . # 1. If we find an empty slot (None), put the key there
-    . . if table[current_index] is None:
-    . . . table[current_index] = key
-    . . . return True
-    . .
-    . . # 2. If we find the key already there, we're done (Duplicate)
-    . . if table[current_index] == key:
-    . . . return True
-    .
-    . # If the loop finishes, the table is 100% full
-    . return "Table Full"
+    # Start at the initial hash position
+    initial_index = key % m
+
+    # Try up to 'm' times to find a spot
+    for i in range(m):
+        # Calculate the current probe position (the 'step')
+        current_index = (initial_index + i) % m
+
+        # 1. If we find an empty slot (None), put the key there
+        if table[current_index] is None:
+            table[current_index] = key
+            return True
+
+        # 2. If we find the key already there, we're done (Duplicate)
+        if table[current_index] == key:
+            return True
+
+    # If the loop finishes, the table is 100% full
+    return "Table Full"
 
 3. The "Clustering" Problem (Exam Theory)
 
 In your Übungsblatt 6 (P), Exercise 6.3, they ask about Primary Clustering.
 
     The Problem: Because we only move +1+1 at a time, long "blocks" of occupied slots start to form.
-    The Result: Any new key that hashes to anywhere in that block has to walk all the way to the end of it. This makes the O(1)O(1) speed drop significantly as the table fills up (α→1α→1).
+    The Result: Any new key that hashes to anywhere in that block has to walk all the way to the end of it. This makes the O(1) speed drop significantly as the table fills up (α→1α→1).
 
 4. Search & Deletion (The "Tombstone" Trick)
 
@@ -2959,11 +2952,11 @@ Time Complexity (The αα Factor)
 
 In hashing, performance depends on the Load Factor α=nmα=mn​ (where nn is the number of items and mm is the table size).
 
-    Best Case: O(1)O(1) — The very first slot we check is empty (for insertion) or contains our key (for search).
-    Worst Case: O(n)O(n) — If the table is almost full or every key hashes to the same initial index, we might have to check every single slot.
+    Best Case: O(1) — The very first slot we check is empty (for insertion) or contains our key (for search).
+    Worst Case: O(n) — If the table is almost full or every key hashes to the same initial index, we might have to check every single slot.
     Average Case (The Exam Formula): For a successful search, the expected number of probes is approximately: 12(1+11−α)21​(1+1−α1​) As αα approaches 11 (table gets full), the time complexity spikes because of Primary Clustering.
 
-2. The Proof: Why O(1)O(1) on average?
+2. The Proof: Why O(1) on average?
 
 The formal proof relies on the Uniform Hashing Assumption, which states that each key is equally likely to hash to any of the mm slots.
 
@@ -2973,32 +2966,32 @@ Proof Sketch:
     The probability that the first slot is occupied is nm=αmn​=α.
     The probability that the second slot is also occupied (given the first was) is approximately αα again (assuming independence).
     The expected number of probes is a geometric series: E[X]=1+α+α2+α3+⋯=11−αE[X]=1+α+α2+α3+⋯=1−α1​
-    As long as the table isn't 100% full (e.g., α=0.5α=0.5), then 11−0.5=21−0.51​=2 probes, which is constant time O(1)O(1).
+    As long as the table isn't 100% full (e.g., α=0.5α=0.5), then 11−0.5=21−0.51​=2 probes, which is constant time O(1).
 
 3. Updated Python-style Pseudo Code (with Search)
 
 Let's add the Search logic so you see how the complexity actually plays out in code.
 
     def search_linear_probing(table, m, key):
-    . # Start at the initial hash position
-    . start_index = key % m
-    .
-    . # Look through the table until we find it or hit a truly empty slot
-    . for i in range(m):
-    . . current_index = (start_index + i) % m
-    . .
-    . . # 1. If we find the key, return the index (SUCCESS - O(1) avg)
-    . . if table[current_index] == key:
-    . . . return current_index
-    . .
-    . . # 2. If we hit None, the key isn't here (STOP - O(1) avg)
-    . . # Note: We do NOT stop at "DELETED" markers!
-    . . if table[current_index] is None:
-    . . . return "Not Found"
-    .
-    . # If we looped through the whole table (m steps), it's not here
-    . # (WORST CASE - O(n))
-    . return "Not Found"
+    # Start at the initial hash position
+    start_index = key % m
+
+    # Look through the table until we find it or hit a truly empty slot
+    for i in range(m):
+        current_index = (start_index + i) % m
+
+        # 1. If we find the key, return the index (SUCCESS - O(1) avg)
+        if table[current_index] == key:
+            return current_index
+
+        # 2. If we hit None, the key isn't here (STOP - O(1) avg)
+        # Note: We do NOT stop at "DELETED" markers!
+        if table[current_index] is None:
+            return "Not Found"
+
+    # If we looped through the whole table (m steps), it's not here
+    # (WORST CASE - O(n))
+    return "Not Found"
 
 4. Exam "Pro-Tip": The Clustering Proof
 
@@ -3011,14 +3004,14 @@ The Proof of Clustering: Suppose we have a block of kk occupied slots. The proba
 In Linear Probing, everyone walks +1+1 step. This creates traffic jams (clustering). In Double Hashing, every key gets its own personal jump size.
 
     The first function h1(k)h1​(k): Tells you which "mailbox" to try first.
-    The second function h2(k)h2​(k): Tells you how many slots to "jump" if the first one is full.
+    The second function h₂(k): Tells you how many slots to "jump" if the first one is full.
 
 If h2(15)=3h2​(15)=3, key 15 will check mailbox 1, then 4, then 7... If h2(8)=2h2​(8)=2, key 8 will check mailbox 1, then 3, then 5... They both collided at slot 1, but they immediately go their separate ways! ✌️
 
 The Exam Formula: h(k,i)=(h1(k)+i⋅h2(k))mod  mh(k,i)=(h1​(k)+i⋅h2​(k))modm
 
     i=0,1,2…i=0,1,2… (the attempt number).
-    Crucial Rule: h2(k)h2​(k) must never be 00, and it must be relatively prime to mm (so you eventually visit every slot instead of getting stuck in a tiny loop).
+    Crucial Rule: h₂(k) must never be 00, and it must be relatively prime to mm (so you eventually visit every slot instead of getting stuck in a tiny loop).
 
 2. Time Complexity
 
@@ -3026,27 +3019,27 @@ The complexity is the same as Linear Probing, but the "constant" is much better 
 
     Average Case (Unsuccessful Search): O(11−α)O(1−α1​)
     Average Case (Successful Search): O(1αln⁡11−α)O(α1​ln1−α1​)
-    Worst Case: O(n)O(n) (still possible if the table is 99% full).
+    Worst Case: O(n) (still possible if the table is 99% full).
 
 3. Python-style Pseudo Code
 
     def insert_double_hashing(table, m, key):
-    . # 1. Calculate the initial spot
-    . pos = key % m
-    . # 2. Calculate the CUSTOM jump size (h2)
-    . # Formula usually ensures h2 is never 0, e.g., 1 + (key % (m-1))
-    . jump = 1 + (key % (m - 1))
-    .
-    . for i in range(m):
-    . . # Calculate probe index: (initial + attempt * jump)
-    . . current_index = (pos + i * jump) % m
-    . .
-    . . # If empty or marked "Deleted", take it!
-    . . if table[current_index] is None or table[current_index] == "DELETED":
-    . . . table[current_index] = key
-    . . . return True
-    .
-    . return "Table Full"
+    # 1. Calculate the initial spot
+    pos = key % m
+    # 2. Calculate the CUSTOM jump size (h2)
+    # Formula usually ensures h2 is never 0, e.g., 1 + (key % (m-1))
+    jump = 1 + (key % (m - 1))
+
+    for i in range(m):
+        # Calculate probe index: (initial + attempt * jump)
+        current_index = (pos + i * jump) % m
+
+        # If empty or marked "Deleted", take it!
+        if table[current_index] is None or table[current_index] == "DELETED":
+            table[current_index] = key
+            return True
+
+    return "Table Full"
 
 4. The Proof: Why is it better? (Uniform Hashing)
 
@@ -3061,12 +3054,12 @@ The Proof Sketch:
 
 1. What is Universal Hashing? (The ADHD "Rigged Game" Analogy)
 
-Imagine a hacker knows exactly which hash function h(k)=kmod  10h(k)=kmod10 you use. They can send 1,000 keys like {10,20,30,… }{10,20,30,…} that all land in slot 00. Your O(1)O(1) table becomes a slow O(n)O(n) mess.
+Imagine a hacker knows exactly which hash function h(k)=kmod  10h(k)=kmod10 you use. They can send 1,000 keys like {10,20,30,… }{10,20,30,…} that all land in slot 00. Your O(1) table becomes a slow O(n) mess.
 
 The Solution: Instead of one function, you have a Family HH of functions. You pick one at random at the start. The hacker doesn't know which one you picked, so they can't "rig" the inputs against you.
 
 The Formal Definition: A family HH is universal if for any two distinct keys x≠yx=y, the number of functions h∈Hh∈H that cause a collision is at most ∣H∣/m∣H∣/m. P(h(x)=h(y))≤1mP(h(x)=h(y))≤m1​
-2. The Time Complexity (The Proof of O(1)O(1))
+2. The Time Complexity (The Proof of O(1))
 
 In your Übungsblatt 7 (P), Exercise 7.1, they ask for the expected length of a chain.
 
@@ -3077,7 +3070,7 @@ The Proof:
     For any key xx, the expected number of collisions with other keys yy is: E[collisions with x]=∑y≠xP(h(x)=h(y))E[collisions with x]=∑y=x​P(h(x)=h(y))
     By the universal property, P(h(x)=h(y))≤1/mP(h(x)=h(y))≤1/m.
     There are n−1n−1 other keys, so: E[collisions]≤n−1m<nm=αE[collisions]≤mn−1​<mn​=α
-    Conclusion: The expected search time is 1+α1+α. If αα is constant (e.g., n≈mn≈m), the search is O(1)O(1).
+    Conclusion: The expected search time is 1+α1+α. If αα is constant (e.g., n≈mn≈m), the search is O(1).
 
 3. The Construction (The Formula for your Exam)
 
@@ -3097,19 +3090,19 @@ The "Why" (ADHD logic):
 
     import random
     class UniversalHashTable:
-    . def init(self, m, p):
-    . . self.m = m
-    . . self.p = p # Prime number > m
-    . . # 1. Pick a random function from the family at runtime
-    . . self.a = random.randint(1, p - 1)
-    . . self.b = random.randint(0, p - 1)
-    . . self.table = [[] for _ in range(m)] # Use Chaining
-    . def get_hash(self, k):
-    . . # 2. Apply the universal formula
-    . . return ((self.a * k + self.b) % self.p) % self.m
-    . def insert(self, k):
-    . . index = self.get_hash(k)
-    . . self.table[index].append(k)
+    def init(self, m, p):
+        self.m = m
+        self.p = p # Prime number > m
+        # 1. Pick a random function from the family at runtime
+        self.a = random.randint(1, p - 1)
+        self.b = random.randint(0, p - 1)
+        self.table = [[] for _ in range(m)] # Use Chaining
+    def get_hash(self, k):
+        # 2. Apply the universal formula
+        return ((self.a * k + self.b) % self.p) % self.m
+    def insert(self, k):
+        index = self.get_hash(k)
+        self.table[index].append(k)
 
 5. Exam "Gotcha": The a≠0a=0 Requirement
 
@@ -3127,8 +3120,8 @@ In a hash table, you want your data spread out like houses in a suburb. Clusteri
 2. Comparing the Methods (Your ub6.txt Task)
 Method	Type of Clustering	Why?
 Linear Probing	Primary	Step size is always +1+1. If you hit a cluster, you join it.
-Quadratic Probing	Secondary	Step size grows (12,22,3212,22,32). No long blocks, but keys with same h(k)h(k) still follow the same path.
-Double Hashing	Minimal	Step size is unique to the key (h2(k)h2​(k)). Even if two keys start at the same spot, they "jump" differently.
+Quadratic Probing	Secondary	Step size grows (1², 2², 3²). No long blocks, but keys with same h(k) still follow the same path.
+Double Hashing	Minimal	Step size is unique to the key (h₂(k)). Even if two keys start at the same spot, they "jump" differently.
 3. The Efficiency Math (Load Factor αα)
 
 In SolutionsHA.pdf (Exercise 6.2), you have to calculate the cost of a search.
@@ -3153,15 +3146,15 @@ The Proof of Primary Clustering:
 In an exam, you might be asked to write a function that calculates if a table needs to be Resized (Rehashed) based on αα.
 
     def check_efficiency(table, m, n):
-    . # 1. Calculate the Load Factor (alpha)
-    . alpha = n / m
-    .
-    . # 2. Standard threshold is 0.7 to 0.75 for Probing
-    . if alpha > 0.75:
-    . . # 3. Double the size and REHASH all elements
-    . . return "Time to Rehash (O(n) operation)"
-    .
-    . return "Efficiency OK (O(1) expected)"
+    # 1. Calculate the Load Factor (alpha)
+    alpha = n / m
+
+    # 2. Standard threshold is 0.7 to 0.75 for Probing
+    if alpha > 0.75:
+        # 3. Double the size and REHASH all elements
+        return "Time to Rehash (O(n) operation)"
+
+    return "Efficiency OK (O(1) expected)"
 
 1. Cuckoo Hashing (The ADHD "Musical Chairs" Analogy)
 
@@ -3170,7 +3163,7 @@ In standard hashing, if a slot is full, you just find another. In Cuckoo Hashing
 The Setup:
 
     You have two tables (T1,T2T1​,T2​) and two different hash functions (h1,h2h1​,h2​).
-    A key kk can only be in T1[h1(k)]T1​[h1​(k)] or T2[h2(k)]T2​[h2​(k)]. This makes lookup O(1)O(1) (you only ever check two spots).
+    A key kk can only be in T1[h1(k)]T1​[h1​(k)] or T2[h2(k)]T2​[h2​(k)]. This makes lookup O(1) (you only ever check two spots).
 
 The "Kick-Out" Sequence (Übungsblatt 7.4 Trace):
 
@@ -3182,7 +3175,7 @@ The "Kick-Out" Sequence (Übungsblatt 7.4 Trace):
 
 2. Perfect Hashing / FKS Hashing (The "Double Filter")
 
-In Altklausur 2023, they ask why this is "Perfect." Standard hashing is O(1)O(1) on average, but FKS Hashing is O(1)O(1) in the absolute worst case.
+In Altklausur 2023, they ask why this is "Perfect." Standard hashing is O(1) on average, but FKS Hashing is O(1) in the absolute worst case.
 
 The Construction (Two-Level Hashing):
 
@@ -3191,43 +3184,45 @@ The Construction (Two-Level Hashing):
     The Secret: The second-level table size is mi=ci2mi​=ci2​ (where cici​ is the number of collisions in that bucket).
     The Proof: By making the table size the square of the number of elements, the probability of a collision in the second level becomes so low that we can find a "perfect" (collision-free) function very quickly.
 
-Why is it O(1)O(1) worst-case? Because you compute hmain(k)hmain​(k), go to the sub-table, compute hsub(k)hsub​(k), and you are guaranteed to find your item or an empty slot immediately. No searching through lists!
+Why is it O(1) worst-case? Because you compute hmain(k)hmain​(k), go to the sub-table, compute hsub(k)hsub​(k), and you are guaranteed to find your item or an empty slot immediately. No searching through lists!
 3. Python-style Pseudo Code (Cuckoo Insert)
 
     def cuckoo_insert(T1, T2, key, limit=10):
-    . for i in range(limit):
-    . . # 1. Try Table 1
-    . . pos1 = h1(key)
-    . . if T1[pos1] is None:
-    . . . T1[pos1] = key
-    . . . return "Success"
-    . .
-    . . # 2. Kick out whoever is in T1 and take their spot
-    . . evicted_key = T1[pos1]
-    . . T1[pos1] = key
-    . . key = evicted_key # Now we need to find a home for the evicted key
-    . .
-    . . # 3. Try Table 2 for the evicted key
-    . . pos2 = h2(key)
-    . . if T2[pos2] is None:
-    . . . T2[pos2] = key
-    . . . return "Success"
-    . .
-    . . # 4. Kick out whoever is in T2 and repeat
-    . . evicted_key = T2[pos2]
-    . . T2[pos2] = key
-    . . key = evicted_key
-    .
-    . return "Cycle Detected - Rehash Table"
+    for i in range(limit):
+        # 1. Try Table 1
+        pos1 = h1(key)
+        if T1[pos1] is None:
+            T1[pos1] = key
+            return "Success"
+
+        # 2. Kick out whoever is in T1 and take their spot
+        evicted_key = T1[pos1]
+        T1[pos1] = key
+        key = evicted_key # Now we need to find a home for the evicted key
+
+        # 3. Try Table 2 for the evicted key
+        pos2 = h2(key)
+        if T2[pos2] is None:
+            T2[pos2] = key
+            return "Success"
+
+        # 4. Kick out whoever is in T2 and repeat
+        evicted_key = T2[pos2]
+        T2[pos2] = key
+        key = evicted_key
+
+    return "Cycle Detected - Rehash Table"
 
 4. Time Complexity & Proof
-Technique	Lookup (Worst)	Insert (Average)	Space
-Cuckoo	O(1)O(1)	O(1)O(1)	O(n)O(n)
-FKS (Perfect)	O(1)O(1)	O(n)O(n) (Pre-computation)	O(n)O(n)
+| Technique | Lookup (Worst) | Insert (Average) | Space |
+|---|---|---|---|
+| Cuckoo | O(1) | O(1) | O(n) |
+| FKS (Perfect) | O(1) | O(n) (pre-computation) | O(n) |
 
-The FKS Space Proof: You might worry that squaring the bucket sizes (mi=ci2mi​=ci2​) would use too much memory. Theorem: If you pick a universal hash function for Level 1, the expected total space is: E[∑mi]=E[∑ci2]<2nE[∑mi​]=E[∑ci2​]<2n So, even though we square the sizes, the total space remains O(n)O(n). This is a common "True/False" question!
+The FKS Space Proof: You might worry that squaring the bucket sizes (mi=ci2mi​=ci2​) would use too much memory. Theorem: If you pick a universal hash function for Level 1, the expected total space is: E[∑mi]=E[∑ci2]<2nE[∑mi​]=E[∑ci2​]<2n So, even though we square the sizes, the total space remains O(n). This is a common "True/False" question!
 
-Probability, expected value and sampling.
+```
+## Probability, Expected Value and Sampling
 
 1. Fundamentals: Indicator Variables & Linearity
  An indicator variable is a switch that is either ON (1) or OFF (0).
@@ -3256,24 +3251,25 @@ The Step-by-Step Proof:
 
 Python-style Pseudo Code (Simulating the Logic)
 
-    def count_hiring_events(candidates):
-    . n = len(candidates)
-    . hire_count = 0
-    . best_so_far = -float('inf')
-    .
-    . for i in range(n):
-    . . # This is our Indicator Event Xi
-    . . if candidates[i] > best_so_far:
-    . . . # Event Xi = 1
-    . . . hire_count += 1
-    . . . best_so_far = candidates[i]
-    .
-    . return hire_count
+```python
+def count_hiring_events(candidates):
+    n = len(candidates)
+    hire_count = 0
+    best_so_far = -float('inf')
 
+    for i in range(n):
+        # This is our Indicator Event Xi
+        if candidates[i] > best_so_far:
+            # Event Xi = 1
+            hire_count += 1
+            best_so_far = candidates[i]
+
+    return hire_count
+```
 
 2. Randomized Sorting & Selection (The "Big" Proofs)
 
-prove that even though the worst case is O(n2)O(n2), the Expected Time is O(nlog⁡n)O(nlogn).
+prove that even though the worst case is O(n²), the Expected Time is O(nlog⁡n)O(nlogn).
 
 The Indicator Variable Trick:
 
@@ -3293,7 +3289,7 @@ This is from Übungsblatt 9 (HA), Exercise 9.3. It’s used to find the kk-th sm
 
 The Logic: Unlike QuickSort, which recurses on both sides of the pivot, QuickSelect only recurses on one side (where the kk-th element must be).
 
-The Proof of O(n)O(n):
+The Proof of O(n):
 
     Let T(n)T(n) be the expected time.
     If we pick a "good" pivot (one that splits the array roughly 1/41/4 to 3/43/4), we reduce the problem size significantly.
@@ -3303,26 +3299,28 @@ The Proof of O(n)O(n):
 
 Python-style Pseudo Code (QuickSelect)
 
-    import random
-    def quick_select(A, k):
-    . if len(A) == 1:
-    . . return A[0]
-    .
-    . # 1. Pick a random pivot (The "Randomized" part)
-    . pivot = random.choice(A)
-    .
-    . # 2. Partition into 3 piles
-    . lows = [x for x in A if x < pivot]
-    . highs = [x for x in A if x > pivot]
-    . pivots = [x for x in A if x == pivot]
-    .
-    . # 3. Recurse only on the relevant pile (The "Select" part)
-    . if k < len(lows):
-    . . return quick_select(lows, k)
-    . elif k < len(lows) + len(pivots):
-    . . return pivots[0]
-    . else:
-    . . return quick_select(highs, k - len(lows) - len(pivots))
+```python
+import random
+def quick_select(A, k):
+    if len(A) == 1:
+        return A[0]
+
+    # 1. Pick a random pivot (The "Randomized" part)
+    pivot = random.choice(A)
+
+    # 2. Partition into 3 piles
+    lows = [x for x in A if x < pivot]
+    highs = [x for x in A if x > pivot]
+    pivots = [x for x in A if x == pivot]
+
+    # 3. Recurse only on the relevant pile (The "Select" part)
+    if k < len(lows):
+        return quick_select(lows, k)
+    elif k < len(lows) + len(pivots):
+        return pivots[0]
+    else:
+        return quick_select(highs, k - len(lows) - len(pivots))
+```
 
 3. Sampling Models (Balls, Bins, and Coupons)
 
@@ -3336,7 +3334,7 @@ Key Questions for Exams:
         The Answer: Roughly mm
         ​. For a table of size 365, you only need ~23 keys to have a 50% chance of a collision.
     Max Load: How full is the fullest bin?
-        The Answer: If n=mn=m, the max load is ≈ln⁡nln⁡ln⁡n≈lnlnnlnn​ with high probability. This proves that Chaining stays very efficient (O(log⁡n)O(logn) max search).
+        The Answer: If n=mn=m, the max load is ≈ln⁡nln⁡ln⁡n≈lnlnnlnn​ with high probability. This proves that Chaining stays very efficient (O(log n) max search).
     Empty Bins: How many bins stay empty?
         The Answer: Approximately m⋅e−n/mm⋅e−n/m. If n=mn=m, about 37%37% (1/e1/e) of your hash table stays empty!
 
@@ -3355,33 +3353,35 @@ The Step-by-Step Proof:
 
 Exam Connection: This explains why Linear Probing becomes so slow as the table fills up—finding that last empty "coupon" (slot) takes a long time!
 
-. Python-style Pseudo Code (The Coupon Simulation)
+    Python-style Pseudo Code (The Coupon Simulation)
 
-    import random
-    def simulate_coupon_collector(m):
-    . bins = [False] * m
-    . total_tosses = 0
-    . unique_collected = 0
-    .
-    . # While we haven't hit every bin
-    . while unique_collected < m:
-    . . # 1. "Throw a ball" (Sample a random bin)
-    . . target_bin = random.randint(0, m - 1)
-    . . total_tosses += 1
-    . .
-    . . # 2. Check if this is a new "coupon"
-    . . if not bins[target_bin]:
-    . . . bins[target_bin] = True
-    . . . unique_collected += 1
-    .
-    . return total_tosses # Should be around m * ln(m)
+```python
+import random
+def simulate_coupon_collector(m):
+    bins = [False] * m
+    total_tosses = 0
+    unique_collected = 0
+
+    # While we haven't hit every bin
+    while unique_collected < m:
+        # 1. "Throw a ball" (Sample a random bin)
+        target_bin = random.randint(0, m - 1)
+        total_tosses += 1
+
+        # 2. Check if this is a new "coupon"
+        if not bins[target_bin]:
+            bins[target_bin] = True
+            unique_collected += 1
+
+    return total_tosses  # Should be around m * ln(m)
+```
 
 4. Advanced Probability (Boundaries)
 Markov’s Inequality (The Basic Bound)
 
 From your Übungsblatt 9 (HA), Exercise 9.4. It only requires that the random variable XX is non-negative (like time or comparisons).
 
-The Rule: P(X≥a)≤E[X]aP(X≥a)≤aE[X]​ The ADHD "Why": It says that if the average weight of a person is 70kg, it's impossible for more than 50% of people to weigh 140kg. Exam Example: If Randomized QuickSort takes 100100 steps on average, what is the probability it takes ≥400≥400 steps? P(X≥400)≤100400=25%P(X≥400)≤400100​=25%
+The Rule: P(X≥a)≤E[X]aP(X≥a)≤aE[X]​ The ADHD "Why": It says that if the average weight of a person is 70kg, it's impossible for more than 50% of people to weigh 140kg. Exam Example: If Randomized QuickSort takes 100 steps on average, what is the probability it takes ≥400≥400 steps? P(X≥400)≤100400=25%P(X≥400)≤400100​=25%
 
 Chebyshev’s Inequality (The Variance Bound)
 
@@ -3394,21 +3394,23 @@ In Altklausur 2023, Task 1 (Bonus), they ask why Randomized QuickSort is "tightl
 
 The Logic: When you have a sum of many independent events (like many random pivot choices), the probability of the total being far from the average drops exponentially.
 
-    The Result: The chance of QuickSort taking O(n2)O(n2) isn't just low; for large nn, it's smaller than the chance of a cosmic ray hitting your computer and flipping a bit. 🌌
+    The Result: The chance of QuickSort taking O(n²) isn't just low; for large nn, it's smaller than the chance of a cosmic ray hitting your computer and flipping a bit. 🌌
 
 Python-style Pseudo Code (Probability Bounding)
 
-    def check_worst_case_probability(expected_time, actual_time):
-    . # 1. Apply Markov's Inequality
-    . # P(X >= actual) <= E[X] / actual
-    . upper_bound = expected_time / actual_time
-    .
-    . if upper_bound < 0.01:
-    . . return "Extremely unlikely to be this slow"
-    . else:
-    . . return "Possible, but not the average case"
+```python
+def check_worst_case_probability(expected_time, actual_time):
+    # 1. Apply Markov's Inequality
+    # P(X >= actual) <= E[X] / actual
+    upper_bound = expected_time / actual_time
 
-stable marriage and gale-shapley 
+    if upper_bound < 0.01:
+        return "Extremely unlikely to be this slow"
+    else:
+        return "Possible, but not the average case"
+
+```
+## Stable Matching – Gale-Shapley
 
 What is a "Stable Marriage"? (The ADHD "No Regrets" Analogy)
 
@@ -3434,36 +3436,37 @@ The Logic: "Proposers" are aggressive; "Accepters" are choosy.
 
 Python-style Pseudo Code
 
-    def gale_shapley(proposers_prefs, accepters_prefs):
-    . n = len(proposers_prefs)
-    . free_proposers = list(range(n))
-    . proposer_next_choice = [0] * n # Index of next person to ask
-    . accepter_fiance = [-1] * n # -1 means currently free
-    .
-    . while free_proposers:
-    . . p = free_proposers.pop(0)
-    . . # Get the next best accepter for this proposer
-    . . a = proposers_prefs[p][proposer_next_choice[p]]
-    . . proposer_next_choice[p] += 1
-    . .
-    . . if accepter_fiance[a] == -1:
-    . . . # Accepter is free, they get engaged
-    . . . accepter_fiance[a] = p
-    . . else:
-    . . . current_p = accepter_fiance[a]
-    . . . # Accepter checks if they prefer 'p' over 'current_p'
-    . . . if prefers(accepters_prefs[a], p, current_p):
-    . . . . accepter_fiance[a] = p
-    . . . . free_proposers.append(current_p) # Old fiance is now free
-    . . . else:
-    . . . . free_proposers.append(p) # New proposer was rejected
-    .
-    . return accepter_fiance
+```python
+def gale_shapley(proposers_prefs, accepters_prefs):
+    n = len(proposers_prefs)
+    free_proposers = list(range(n))
+    proposer_next_choice = [0] * n # Index of next person to ask
+    accepter_fiance = [-1] * n # -1 means currently free
+
+    while free_proposers:
+        p = free_proposers.pop(0)
+        # Get the next best accepter for this proposer
+        a = proposers_prefs[p][proposer_next_choice[p]]
+        proposer_next_choice[p] += 1
+
+        if accepter_fiance[a] == -1:
+            # Accepter is free, they get engaged
+            accepter_fiance[a] = p
+        else:
+            current_p = accepter_fiance[a]
+            # Accepter checks if they prefer 'p' over 'current_p'
+            if prefers(accepters_prefs[a], p, current_p):
+                accepter_fiance[a] = p
+                free_proposers.append(current_p) # Old fiance is now free
+            else:
+                free_proposers.append(p) # New proposer was rejected
+
+    return accepter_fiance
 
 Time Complexity & Proof
 Metric	Result	Why?
-Time Complexity	O(n2)O(n2)	In the worst case, every proposer asks every single accepter once.
-Space Complexity	O(n2)O(n2)	To store the preference lists of nn people.
+Time Complexity	O(n²)	In the worst case, every proposer asks every single accepter once.
+Space Complexity	O(n²)	To store the preference lists of nn people.
 
 The Proofs (Three Big Ones for Exams):
 
@@ -3476,9 +3479,10 @@ The Proofs (Three Big Ones for Exams):
 
 In SolutionsHA.pdf, they emphasize that the group that proposes gets the best possible outcome for themselves (Proposer-Optimal). The group that is asked gets the worst stable outcome (Accepter-Pessimal).
 
-Wait, didn't we have this? Yes! You likely saw this in the Greedy Algorithms or Graph Matching section of your ub11.txt. It's a great example of an algorithm that looks like it might loop forever but is mathematically guaranteed to find a perfect, stable solution in O(n2)O(n2).
+Wait, didn't we have this? Yes! You likely saw this in the Greedy Algorithms or Graph Matching section of your ub11.txt. It's a great example of an algorithm that looks like it might loop forever but is mathematically guaranteed to find a perfect, stable solution in O(n²).
 
-flow networks and modelling
+```
+## Flow Networks and Modelling
 
 What is a Flow Network? (The ADHD "Plumbing" Analogy)
 
@@ -3509,30 +3513,32 @@ The Logic:
 
 3. Python-style Pseudo Code (The Core Logic)
 
-    def max_flow(graph, s, t):
-    . total_flow = 0
-    .
-    . # 1. Keep searching for a path with space left
-    . while True:
-    . . path, bottleneck = find_augmenting_path(graph, s, t)
-    . . if not path:
-    . . . break # No more paths = Max Flow reached!
-    . .
-    . . # 2. Update the flow along the path
-    . . for u, v in path:
-    . . . # Increase forward flow
-    . . . flow[u][v] += bottleneck
-    . . . # DECREASE reverse flow (the "undo" button)
-    . . . flow[v][u] -= bottleneck
-    . .
-    . . total_flow += bottleneck
-    .
-    . return total_flow
+```python
+def max_flow(graph, s, t):
+    total_flow = 0
+
+    # 1. Keep searching for a path with space left
+    while True:
+        path, bottleneck = find_augmenting_path(graph, s, t)
+        if not path:
+            break # No more paths = Max Flow reached!
+
+        # 2. Update the flow along the path
+        for u, v in path:
+            # Increase forward flow
+            flow[u][v] += bottleneck
+            # DECREASE reverse flow (the "undo" button)
+            flow[v][u] -= bottleneck
+
+        total_flow += bottleneck
+
+    return total_flow
+```
 
 4. Time Complexity & Proof
 Algorithm	Search Method	Time Complexity	Why?
 Ford-Fulkerson	Any Path (DFS)	**$O(E \cdot	f^*
-Edmonds-Karp	Shortest Path (BFS)	O(V⋅E2)O(V⋅E2)	BFS ensures we find the "shortest" augmenting path.
+Edmonds-Karp	Shortest Path (BFS)	O(V·E²)	BFS ensures we find the "shortest" augmenting path.
 
 The Max-Flow Min-Cut Theorem (Crucial for Exams!): In any network, the Maximum Flow is exactly equal to the capacity of the Minimum Cut.
 
@@ -3563,52 +3569,53 @@ If Ford-Fulkerson is like walking aimlessly until you find the sink, Edmonds-Kar
 
 2. Python-style Pseudo Code (BFS-based)
 
-    def edmonds_karp(capacity_matrix, source, sink):
-    . n = len(capacity_matrix)
-    . flow_matrix = [[0] * n for _ in range(n)]
-    . total_flow = 0
-    .
-    . while True:
-    . . # 1. Use BFS to find the SHORTEST path (fewest edges)
-    . . parent = [-1] * n
-    . . queue = [source]
-    . . while queue:
-    . . . u = queue.pop(0)
-    . . . for v in range(n):
-    . . . . # If there is residual capacity and v hasn't been visited
-    . . . . if parent[v] == -1 and v != source and capacity_matrix[u][v] - flow_matrix[u][v] > 0:
-    . . . . . parent[v] = u
-    . . . . . queue.append(v)
-    . .
-    . . # 2. If no path to sink, we are done
-    . . if parent[sink] == -1:
-    . . . break
-    . .
-    . . # 3. Find the bottleneck (minimum residual capacity on the path)
-    . . path_flow = float('Inf')
-    . . s = sink
-    . . while s != source:
-    . . . path_flow = min(path_flow, capacity_matrix[parent[s]][s] - flow_matrix[parent[s]][s])
-    . . . s = parent[s]
-    . .
-    . . # 4. Update the flow along the path (forward and backward)
-    . . v = sink
-    . . while v != source:
-    . . . u = parent[v]
-    . . . flow_matrix[u][v] += path_flow
-    . . . flow_matrix[v][u] -= path_flow # The reverse edge
-    . . . v = parent[v]
-    . .
-    . . total_flow += path_flow
-    .
-    . return total_flow
+```python
+def edmonds_karp(capacity_matrix, source, sink):
+    n = len(capacity_matrix)
+    flow_matrix = [[0] * n for _ in range(n)]
+    total_flow = 0
+
+    while True:
+        # 1. Use BFS to find the SHORTEST path (fewest edges)
+        parent = [-1] * n
+        queue = [source]
+        while queue:
+            u = queue.pop(0)
+            for v in range(n):
+                # If there is residual capacity and v hasn't been visited
+                if parent[v] == -1 and v != source and capacity_matrix[u][v] - flow_matrix[u][v] > 0:
+                    parent[v] = u
+                    queue.append(v)
+
+        # 2. If no path to sink, we are done
+        if parent[sink] == -1:
+            break
+
+        # 3. Find the bottleneck (minimum residual capacity on the path)
+        path_flow = float('Inf')
+        s = sink
+        while s != source:
+            path_flow = min(path_flow, capacity_matrix[parent[s]][s] - flow_matrix[parent[s]][s])
+            s = parent[s]
+
+        # 4. Update the flow along the path (forward and backward)
+        v = sink
+        while v != source:
+            u = parent[v]
+            flow_matrix[u][v] += path_flow
+            flow_matrix[v][u] -= path_flow # The reverse edge
+            v = parent[v]
+
+        total_flow += path_flow
+
+    return total_flow
 
 3. Time Complexity & Proof
 Metric	Result	Why?
-Time Complexity	O(V⋅E2)O(V⋅E2)_	Each augmentation takes O(E)O(E). The total number of augmentations is O(V⋅E)O(V⋅E).
-Space Complexity	O(V2)O(V2) or O(V+E)O(V+E)	To store the graph and the parent pointers.
+Time Complexity	O(V·E²)_	Each augmentation takes O(E)O(E). The total number of augmentations is O(V⋅E)O(V⋅E).
+Space Complexity	O(V²) or O(V+E)	To store the graph and the parent pointers.
 
-The Proof: Why is it O(V⋅E2)O(V⋅E2)?
+The Proof: Why is it O(V·E²)?
 
     Distance Increases: Every time an edge (u,v)(u,v) becomes the "bottleneck" and is removed from the residual graph, the distance from the source to vv can only increase in future BFS runs.
     Edge Limits: Each of the EE edges can be a bottleneck at most V/2V/2 times before the distance becomes too large to be in a path.
@@ -3623,8 +3630,9 @@ In your SolutionsAltklausuren.pdf, they might ask: "When is Ford-Fulkerson bette
     The Trap: If the capacities are huge (like 10121012), Ford-Fulkerson can take trillions of steps, while Edmonds-Karp will still finish in a few milliseconds because it doesn't care about the capacity values, only the number of edges.
 
 
-amortized analysis methods
-the Concept: Some operations are expensive (O(n)O(n)), but they happen so rarely that the average cost over a long sequence is small (O(1)O(1)). Amortized analysis proves this "average" without using probability.
+```
+## Amortized Analysis Methods
+the Concept: Some operations are expensive (O(n)), but they happen so rarely that the average cost over a long sequence is small (O(1)). Amortized analysis proves this "average" without using probability.
 
 There are three main methods you need to know for the exam:
 
@@ -3633,8 +3641,8 @@ The Aggregate Method (The "Total Sum")
 You calculate the total cost of nn operations and divide by nn.
 
     The Math: Tamortized=Total Cost of n operations/n     Example (Dynamic Array):
-        Most inserts take O(1)O(1).
-        When the array is full, we double it (Cost O(n)O(n)).
+        Most inserts take O(1).
+        When the array is full, we double it (Cost O(n)).
         Total cost for nn inserts is ≈3n≈3n.
         Amortized Cost: 3n/n=O(1)3n/n=O(1).
 
@@ -3647,7 +3655,7 @@ You "overcharge" cheap operations and save the extra as credits to pay for expen
         Push: Actual cost 1. We charge 2 credits. (1 for the push, 1 "savings").
         Pop: Actual cost 1. We use the 1 credit saved during its Push.
         Multi-Pop(kk): Even if it pops 100 items, each item already has a credit waiting in the bank to pay for its removal.
-        Amortized Cost: O(1)O(1) per operation because the bank covers the big spikes.
+        Amortized Cost: O(1) per operation because the bank covers the big spikes.
 
 The Potential Method (The "Physics" Approach)
 
@@ -3674,6 +3682,6 @@ Imagine a bit-counter (000 → 001 → 010). Flipping 1→01→0 can trigger a c
     Analysis:
         A 0→10→1 flip costs 1 and increases ΦΦ by 1. (Total amortized = 2).
         Each 1→01→0 flip costs 1 but decreases ΦΦ by 1. (Total amortized = 0).
-        Result: Since only one 0→10→1 flip happens per increment, the amortized cost is always O(1)O(1).
+        Result: Since only one 0→10→1 flip happens per increment, the amortized cost is always O(1).
 
 
