@@ -3536,9 +3536,10 @@ def max_flow(graph, s, t):
 ```
 
 4. Time Complexity & Proof
-Algorithm	Search Method	Time Complexity	Why?
-Ford-Fulkerson	Any Path (DFS)	**$O(E \cdot	f^*
-Edmonds-Karp	Shortest Path (BFS)	O(V·E²)	BFS ensures we find the "shortest" augmenting path.
+| Algorithm | Search Method | Time Complexity | Why? |
+|---|---|---|---|
+| Ford-Fulkerson | Any Path (DFS) | $O(E \cdot f^*)$ | Depends on maximum flow value $f^*$. |
+| Edmonds-Karp | Shortest Path (BFS) | O(V·E²) | BFS ensures we find the "shortest" augmenting path. |
 
 The Max-Flow Min-Cut Theorem (Crucial for Exams!): In any network, the Maximum Flow is exactly equal to the capacity of the Minimum Cut.
 
@@ -3668,10 +3669,11 @@ This is the most formal and common one in Altklausuren. You define a Potential F
     Condition: Φ(Dn)≥Φ(D0)Φ(Dn​)≥Φ(D0​) must hold to ensure we didn't cheat the "physics" of the system.
 
 Comparison Table for Exams
-Method	Best Used For...	Core Idea
-Aggregate	Simple structures	Total cost divided by nn.
-Accounting	Different types of ops	Pay now, save for later.
-Potential	Complex proofs (Heaps)	Change in "potential energy".
+| Method | Best Used For | Core Idea |
+|---|---|---|
+| Aggregate | Simple structures | Total cost divided by n. |
+| Accounting | Different types of ops | Pay now, save for later. |
+| Potential | Complex proofs (Heaps) | Change in "potential energy". |
 
 Exam Example: The Binary Counter
 
