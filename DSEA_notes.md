@@ -26,7 +26,7 @@ Question 1
 answer review
 ✅ Solution
 
-The regularity condition for Case 3 of the Master Theorem requires that there exists a constant $c < 1$ such that af(n/b)≤cf(n) for all sufficiently large n. This condition ensures that the work at each level of the recursion tree decreases geometrically, meaning the total work is dominated by the cost at the root, f(n). If the work does not decrease by at least a constant factor at each level, the sum of the levels might grow faster than the root alone, preventing a tight Θ(f(n)) bound. To demonstrate the violation for f(n)=n(2+sin(n)) with a=1,b=4, we examine the ratio R(n)=1⋅(n/4)(2+sin(n/4))n(2+sin(n))=2+sin(n/4)4(2+sin(n))R(n)=n(2+sin(n))1⋅(n/4)(2+sin(n/4))=4(2+sin(n))2+sin(n/4). For regularity to hold, the maximum value of this ratio must be strictly less than 1. While for $b = 4$ the ratio actually stays below 1, in a typical failing case (like b=2), one would show that when sin(n) is at a minimum (close to -1) and sin(n/b) is at a maximum (close to 1), the ratio exceeds 1, meaning the subproblems can occasionally do more work than the parent problem. When regularity is violated due to a non-monotonic driving function, T(n) may oscillate and fail to maintain a constant proportional relationship with f(n), meaning we can only guarantee T(n)=Ω(f(n)) but lose the tight upper bound. Where you went wrong: Your calculation 2sin(3π/8)≈1.8 suggests a misunderstanding of the ratio; you must include the 1/b (in this case 1/4) factor in your total comparison. Additionally, the asymptotic behavior T(n)=Θ(n) is only a lower bound; the oscillation prevents a simple tight bound.
+The regularity condition for Case 3 of the Master Theorem requires that there exists a constant $c < 1$ such that af(n/b)≤cf(n) for all sufficiently large n. This condition ensures that the work at each level of the recursion tree decreases geometrically, meaning the total work is dominated by the cost at the root, f(n). If the work does not decrease by at least a constant factor at each level, the sum of the levels might grow faster than the root alone, preventing a tight Θ(f(n)) bound. To demonstrate the violation for f(n)=n(2+sin(n)) with a=1,b=4, we examine the ratio R(n) = (2+sin(n/4)) / (4(2+sin(n))). For regularity to hold, the maximum value of this ratio must be strictly less than 1. While for $b = 4$ the ratio actually stays below 1, in a typical failing case (like b=2), one would show that when sin(n) is at a minimum (close to -1) and sin(n/b) is at a maximum (close to 1), the ratio exceeds 1, meaning the subproblems can occasionally do more work than the parent problem. When regularity is violated due to a non-monotonic driving function, T(n) may oscillate and fail to maintain a constant proportional relationship with f(n), meaning we can only guarantee T(n)=Ω(f(n)) but lose the tight upper bound. Where you went wrong: Your calculation 2sin(3π/8)≈1.8 suggests a misunderstanding of the ratio; you must include the 1/b (in this case 1/4) factor in your total comparison. Additionally, the asymptotic behavior T(n)=Θ(n) is only a lower bound; the oscillation prevents a simple tight bound.
 📚 Focus Areas
 
 The student identifies the core concepts of Case 3 dominance and correctly attempts to evaluate the regularity condition ratio. However, the calculation for the violation contains errors in algebraic manipulation and trigonometric evaluation, and the final discussion on asymptotic behavior lacks depth regarding why the upper bound fails.
@@ -89,7 +89,7 @@ A research team develops a recursive tensor decomposition algorithm that process
 ) operations.
 
     State the recurrence relation T(n) for this algorithm.
-    Using the Master Theorem, determine the asymptotic complexity of this algorithm in ΘΘ-notation.
+    Using the Master Theorem, determine the asymptotic complexity of this algorithm in Θ-notation.
     Compare the efficiency of this algorithm to Strassen’s Algorithm for matrix multiplication, which follows the recurrence T(n)=7T(n/2)+Θ(n2). Specifically, determine which algorithm has a better asymptotic runtime by comparing their exponents (approximate to three decimal places).
 
 Answer
@@ -107,9 +107,9 @@ Question 3
 82% score
 Question
 
-The Master Theorem serves as a powerful tool for analyzing recurrences of the form T(n)=aT(n/b)+f(n), yet its applicability is restricted by specific structural and asymptotic constraints. Analyze the following two cases and explain precisely why the standard Master Theorem fails to provide a tight ΘΘ bound for each:
+The Master Theorem serves as a powerful tool for analyzing recurrences of the form T(n)=aT(n/b)+f(n), yet its applicability is restricted by specific structural and asymptotic constraints. Analyze the following two cases and explain precisely why the standard Master Theorem fails to provide a tight Θ bound for each:
 
-    T(n)=23T(n/4)+n2T(n)=32T(n/4)+n2: Identify the constraint regarding the number of subproblems (a) and explain the logical consequence of this value for the growth of the recursion tree.
+    T(n)=(2/3)T(n/4)+n²: Identify the constraint regarding the number of subproblems (a) and explain the logical consequence of this value for the growth of the recursion tree.
 
     T(n)=4T(n/2)+n2log2n: Evaluate the relationship between the 'watershed' function nlogba and the driving function f(n). Explain why this specific relationship fails the 'polynomial gap' requirement necessary for Case 1 or Case 3, and why it does not fit the standard definition of Case 2.
 
@@ -127,12 +127,12 @@ Question 3
 answer review
 ✅ Solution
 
-For Case 1, the Master Theorem fails because it requires $a \geq 1$. A value of a=2/3 implies that the number of subproblems decreases at each level, which is not physically applicable to standard divide-and-conquer algorithms. Since a<1, the work done at each level of the recursion tree decreases geometrically, meaning the total work is dominated by the initial cost at the root, leading to T(n)=Θ(n2). For Case 2, the watershed function is nlog24=n2. While f(n)=n2log2n grows faster than n2n2, the ratio f(n)/nlogba=log2n is logarithmic rather than polynomial. This violates the 'polynomial gap' requirement for Case 3, which requires f(n)=Ω(nlogba+ϵ) for some $\epsilon > 0$. It fails the standard Case 2 because f(n) is not exactly Θ(n2). Where you went wrong: You stated a must be an integer; however, a can be any real number ≥1≥1 (e.g., a=1.5 is valid). Your explanation for the recursion tree was slightly informal, though the intuition was correct.
+For Case 1, the Master Theorem fails because it requires $a \geq 1$. A value of a=2/3 implies that the number of subproblems decreases at each level, which is not physically applicable to standard divide-and-conquer algorithms. Since a<1, the work done at each level of the recursion tree decreases geometrically, meaning the total work is dominated by the initial cost at the root, leading to T(n)=Θ(n2). For Case 2, the watershed function is nlog24=n2. While f(n)=n2log2n grows faster than n², the ratio f(n)/nlogba=log2n is logarithmic rather than polynomial. This violates the 'polynomial gap' requirement for Case 3, which requires f(n)=Ω(nlogba+ϵ) for some $\epsilon > 0$. It fails the standard Case 2 because f(n) is not exactly Θ(n2). Where you went wrong: You stated a must be an integer; however, a can be any real number ≥1 (e.g., a=1.5 is valid). Your explanation for the recursion tree was slightly informal, though the intuition was correct.
 📚 Focus Areas
 
-The student correctly identifies that a<1 is the constraint for the first case and understands the lack of a polynomial gap for Case 3 in the second recurrence. However, the explanation for Case 1 mistakenly suggests a must be an integer (it must be ≥1≥1) and the description of the subproblems 'tending to 0' is a bit vague compared to the geometric decrease in work.
+The student correctly identifies that a<1 is the constraint for the first case and understands the lack of a polynomial gap for Case 3 in the second recurrence. However, the explanation for Case 1 mistakenly suggests a must be an integer (it must be ≥1) and the description of the subproblems 'tending to 0' is a bit vague compared to the geometric decrease in work.
 
-    Clarify that the requirement for a is to be ≥1≥1, not necessarily an integer.
+    Clarify that the requirement for a is to be ≥1, not necessarily an integer.
     In Case 1, explicitly mention that the total work is dominated by the root node because the work per level decreases.
     Use more formal notation when discussing the polynomial gap, specifically defining why f(n)≠Ω(nlogba+ϵ)f(n)=Ω(nlogba+ϵ).
 
@@ -189,7 +189,7 @@ A research team develops a recursive tensor decomposition algorithm that process
 ) operations.
 
     State the recurrence relation T(n) for this algorithm.
-    Using the Master Theorem, determine the asymptotic complexity of this algorithm in ΘΘ-notation.
+    Using the Master Theorem, determine the asymptotic complexity of this algorithm in Θ-notation.
     Compare the efficiency of this algorithm to Strassen’s Algorithm for matrix multiplication, which follows the recurrence T(n)=7T(n/2)+Θ(n2). Specifically, determine which algorithm has a better asymptotic runtime by comparing their exponents (approximate to three decimal places).
 
 Answer
@@ -216,9 +216,9 @@ Question 3
 100% score
 Question
 
-The Master Theorem serves as a powerful tool for analyzing recurrences of the form T(n)=aT(n/b)+f(n), yet its applicability is restricted by specific structural and asymptotic constraints. Analyze the following two cases and explain precisely why the standard Master Theorem fails to provide a tight ΘΘ bound for each:
+The Master Theorem serves as a powerful tool for analyzing recurrences of the form T(n)=aT(n/b)+f(n), yet its applicability is restricted by specific structural and asymptotic constraints. Analyze the following two cases and explain precisely why the standard Master Theorem fails to provide a tight Θ bound for each:
 
-    T(n)=23T(n/4)+n2T(n)=32T(n/4)+n2: Identify the constraint regarding the number of subproblems (a) and explain the logical consequence of this value for the growth of the recursion tree.
+    T(n)=(2/3)T(n/4)+n²: Identify the constraint regarding the number of subproblems (a) and explain the logical consequence of this value for the growth of the recursion tree.
 
     T(n)=4T(n/2)+n2log2n: Evaluate the relationship between the 'watershed' function nlogba and the driving function f(n). Explain why this specific relationship fails the 'polynomial gap' requirement necessary for Case 1 or Case 3, and why it does not fit the standard definition of Case 2.
 
@@ -249,7 +249,7 @@ Consider the recurrence relation T(n)=aT(n/b)+f(n) where a=16, $b = 4$, and the 
 
     The Master Theorem Case 3 requires the regularity condition: there exists a constant $c < 1$ and a value n0n0 such that af(n/b)≤cf(n) for all n>n0. Formally evaluate whether this condition holds for the given f(n). Show the derivation of the ratio 16f(n/4)f(n)16f(n/4).
 
-    Based on your analysis of the oscillations in f(n), explain why the Master Theorem cannot provide a tight ΘΘ-bound for this recurrence, even though f(n)=Ω(nlogba+ϵ) for some $\epsilon > 0$. Identify the specific values of n (in terms of kπkπ) where the regularity condition is most severely violated.
+    Based on your analysis of the oscillations in f(n), explain why the Master Theorem cannot provide a tight Θ-bound for this recurrence, even though f(n)=Ω(nlogba+ϵ) for some $\epsilon > 0$. Identify the specific values of n (in terms of kπ) where the regularity condition is most severely violated.
 
 Answer
 
@@ -296,7 +296,7 @@ Question
 An algorithmic researcher aims to optimize tensor contractions by developing a generalized recursive multiplication scheme. The proposed algorithm decomposes a problem into sub-problems of size n/k (where k>1 is an integer) and performs m recursive calls, alongside a combine step requiring f(n)=Θ(nd) work. Suppose the current state-of-the-art complexity for this problem is defined by Strassen’s Algorithm, T(n)=7T(n/2)+O(n2).
 
     For a specific hardware implementation where k=4, determine the maximum integer value of m such that the new algorithm remains strictly asymptotically faster than Strassen's Algorithm, assuming the combine step work f(n) is quadratic (d=2).
-    Given the value of m found above, calculate the specific value of logkm (to four decimal places) and state the resulting ΘΘ-notation for the algorithm's complexity.
+    Given the value of m found above, calculate the specific value of logkm (to four decimal places) and state the resulting Θ-notation for the algorithm's complexity.
     Determine the threshold value of the combine step exponent d at which the recursion ceases to be the dominant factor in the runtime for this specific k and m, and explain how this transition affects the comparison with Strassen's complexity.
 
 Answer
@@ -324,7 +324,7 @@ Question 3
 35% score
 Question
 
-In the context of the Master Theorem, we define the 'watershed function' as nlogba for a recurrence T(n)=aT(n/b)+f(n). Explain why the Master Theorem cannot be applied to T(n)=4T(n/2)+n2lognT(n)=4T(n/2)+lognn2, even though f(n)=O(nlog24). Specifically, address the following:
+In the context of the Master Theorem, we define the 'watershed function' as nlogba for a recurrence T(n)=aT(n/b)+f(n). Explain why the Master Theorem cannot be applied to T(n)=4T(n/2)+n²log(n), even though f(n)=O(nlog24). Specifically, address the following:
 
     Formally define the 'polynomial gap' requirement (the ϵϵ condition) found in Case 1 and Case 3.
     Calculate the ratio nlogbaf(n)nlogba for this recurrence and demonstrate mathematically why this ratio fails to satisfy the definition of 'polynomially larger' as $n \to \infty$.
@@ -349,7 +349,7 @@ To determine why the Master Theorem does not apply, we first identify a=4,b=2 an
 For a polynomial gap to exist, we would need logn≥nϵ for some ϵ>0 as n→∞, but since any power of n grows faster than logn, this condition fails.
 While f(n) is asymptotically smaller than n2 (their limit is zero), it is not polynomially smaller because the difference is only a logarithmic factor, not a power of n. An extended version of Case 2 can solve this, specifically when f(n)=Θ(nlogbalog−1n), resulting in T(n)=Θ(n2logn).
 
-Where you went wrong: Your calculation of the ratio as 2logn/n2 was incorrect; the n2n2 terms should cancel out to leave only logn. You also failed to address the distinction between asymptotic and polynomial growth or finish the discussion on Case 2.
+Where you went wrong: Your calculation of the ratio as 2logn/n2 was incorrect; the n² terms should cancel out to leave only logn. You also failed to address the distinction between asymptotic and polynomial growth or finish the discussion on Case 2.
 📚 Focus Areas
 
 The student shows a basic conceptual understanding of the need for a gap between the driving and watershed functions, but the response is largely incomplete and contains significant mathematical errors. Most notably, the calculation of the ratio is incorrect, and the discussion of Case 2 and the distinction between asymptotic and polynomial growth is missing or cut off.
@@ -372,14 +372,14 @@ Question
 
 Critically analyze the limitations of the Master Theorem by evaluating the following two recurrences:
 
-    T(n)=3T(n/3)+n⋅2+sin(n)2T(n)=3T(n/3)+n⋅22+sin(n)
-    T(n)=4T(n/2)+n2lognT(n)=4T(n/2)+lognn2
+    T(n)=3T(n/3)+n(2+sin(n))
+    T(n)=4T(n/2)+n²log(n)
 
 For each recurrence, perform the following tasks:
 
-    Identify the critical exponent ccrit=logba and determine if there is an asymptotic gap between f(n) and nccrit.
-    Determine specifically why Case 3 of the Master Theorem fails for recurrence (1) despite f(n)=Ω(nccrit+ϵ) appearing to hold at first glance. Formally evaluate the regularity condition af(n/b)≤kf(n) for some $k < 1$ to prove its violation.
-    Explain why recurrence (2) cannot be solved using the standard three cases of the Master Theorem, focusing on the definition of 'polynomially larger/smaller' and why the ratio f(n)/nccrit prevents the application of Case 2 or Case 3.
+    Identify the critical exponent ccrit=logba and determine if there is an asymptotic gap between f(n) and n^{c_crit}.
+    Determine specifically why Case 3 of the Master Theorem fails for recurrence (1) despite f(n)=Ω(n^{c_crit}+ϵ) appearing to hold at first glance. Formally evaluate the regularity condition af(n/b)≤kf(n) for some $k < 1$ to prove its violation.
+    Explain why recurrence (2) cannot be solved using the standard three cases of the Master Theorem, focusing on the definition of 'polynomially larger/smaller' and why the ratio f(n)/n^{c_crit} prevents the application of Case 2 or Case 3.
 
 Answer
 
@@ -405,22 +405,22 @@ answer review
 ✅ Solution
 Recurrence 1: $T(n) = 3T(n/3) + n \cdot \frac{2 + \sin(n)}{2}
 
-Critical Exponent: ccrit=log33=1. The comparison function is nccrit=n. There is no polynomial gap as f(n)=Θ(n).
+Critical Exponent: ccrit=log33=1. The comparison function is n^{c_crit}=n. There is no polynomial gap as f(n)=Θ(n).
 
-Case 3 Failure: Case 3 requires the regularity condition af(n/b)≤kf(n) for some $k < 1$. Substituting the values: 3⋅n32+sin(n/3)2≤k⋅n2+sin(n)23⋅3n22+sin(n/3)≤k⋅n22+sin(n), which simplifies to 2+sin(n/3)≤k(2+sin(n)). Because the sine functions oscillate independently, there exist values of n where sin(n/3)≈1 and sin(n)≈−1, leading to 3≤k(1). Since k must be less than 1, this condition is violated.
+Case 3 Failure: Case 3 requires the regularity condition af(n/b)≤kf(n) for some $k < 1$. Substituting the values: 3·(n/3)·(2+sin(n/3)) ≤ k·n·(2+sin(n)), which simplifies to 2+sin(n/3)≤k(2+sin(n)). Because the sine functions oscillate independently, there exist values of n where sin(n/3)≈1 and sin(n)≈−1, leading to 3≤k(1). Since k must be less than 1, this condition is violated.
 
 Where you went wrong: You correctly identified that the 'jumpiness' causes failure, but you should have formally shown the inequality 3≤k to prove the violation.
 Recurrence 2: $T(n) = 4T(n/2) + \frac{n^2}{\log n}
 
-Critical Exponent: ccrit=log24=2. The comparison function is n2n2.
+Critical Exponent: ccrit=log24=2. The comparison function is n².
 
-Master Theorem Failure: The ratio f(n)/nccrit=1/logn.
+Master Theorem Failure: The ratio f(n)/n^{c_crit}=1/logn.
 
-    Case 1 fails because 1/logn is not polynomially smaller than n2n2; there is no $\epsilon > 0$ such that n2/logn=O(n2−ϵ).
+    Case 1 fails because 1/logn is not polynomially smaller than n²; there is no $\epsilon > 0$ such that n2/logn=O(n2−ϵ).
     Case 2 fails because the standard theorem requires f(n)=Θ(n2logkn) with $k \geq 0$, but here k=−1.
-    Case 3 fails because f(n) is smaller than n2n2, not larger.
+    Case 3 fails because f(n) is smaller than n², not larger.
 
-Final Answer: The Master Theorem is inapplicable because the gap between f(n) and nccrit is logarithmic rather than polynomial.
+Final Answer: The Master Theorem is inapplicable because the gap between f(n) and n^{c_crit} is logarithmic rather than polynomial.
 📚 Focus Areas
 
 The student demonstrates a solid conceptual understanding of why the Master Theorem fails in both cases, correctly identifying the critical exponents and the non-polynomial nature of the gaps. While the explanation of the regularity condition and Case 2/Case 3 limitations is logically sound, it lacks formal mathematical proofs, such as the symbolic evaluation of the regularity inequality.
@@ -479,8 +479,8 @@ answer review
 
     Asymptotic Runtimes: For Alpha, a=8,b=2,d=2. Since log28=3>2, T(n)=Θ(n3). For Beta, a=7,b=2,d=2. Since log27≈2.81>2, T(n)=Θ(n2.81).
     Strategy Gamma Max k: We require log4k<3, which implies k<43=64. The maximum integer k is 63.
-    Strategy Gamma Parity: To match Beta, log4k=log27. Using change of base: lnkln4=ln7ln2  ⟹  lnk2ln2=ln7ln2  ⟹  lnk=2ln7=ln(72)ln4lnk=ln2ln7⟹2lnk=ln2ln7⟹lnk=2ln7=ln(72), so k=49.
-    Branching vs. Shrinkage: All algorithms fall under Case 1 because nlogba dominates f(n). The n2n2 overhead is asymptotically negligible because the work at the leaves of the recursion tree grows faster than the work at the top levels, meaning the 'toll fee' does not influence the ranking of the algorithms.
+    Strategy Gamma Parity: To match Beta, log4k=log27. Using change of base: ln(k)/ln(4) = ln(7)/ln(2)  ⟹  ln(k) = 2·ln(7) = ln(49), so k=49.
+    Branching vs. Shrinkage: All algorithms fall under Case 1 because nlogba dominates f(n). The n² overhead is asymptotically negligible because the work at the leaves of the recursion tree grows faster than the work at the top levels, meaning the 'toll fee' does not influence the ranking of the algorithms.
 
 📚 Focus Areas
 
@@ -495,7 +495,7 @@ Question 3
 72% score
 Question
 
-Consider the recurrence relation T(n)=8T(n/2)+n3log2nlog(logn)T(n)=8T(n/2)+log(logn)n3log2n. This recurrence involves a non-polynomial factor that complicates the standard Master Theorem Case 2 application.
+Consider the recurrence relation T(n)=8T(n/2)+n³log²(n)·log(log(n)). This recurrence involves a non-polynomial factor that complicates the standard Master Theorem Case 2 application.
 
     Identify the 'watershed function' nlogba and determine the value of k such that the driving function f(n) is of the form Θ(nlogbalogkn⋅g(n)), where g(n) is a lower-order logarithmic growth term.
     Using the Extended Master Theorem for polylogarithmic factors, calculate the tight asymptotic bound Θ(g(n)) for this recurrence.
@@ -530,11 +530,11 @@ answer review
 ✅ Solution
 
     Identify the watershed function and form: The watershed function is nlog28=n3. The driving function is f(n)=n3log2n(logn)−1. Thus, k=2 and g(n)=(logn)−1.
-    Apply the Extended Master Theorem: Because f(n) is of the form nlogbalogkn⋅g(n), the total work is T(n)=Θ(nlogba∑i=0logn(logn−i)kg(2logn−i))T(n)=Θ(nlogba∑i=0logng(2logn−i)(logn−i)k). For f(n)=n3log2nlognf(n)=lognn3log2n, the summation results in Θ(n3log3nlogn)Θ(lognn3log3n).
-    Work Distribution: In standard Case 2, work is balanced. Here, the work at level i is Wi=n3(logn−i)2log(logn−i)Wi=n3log(logn−i)2. Since this expression decreases as i increases (moving toward the leaves), the work is concentrated at the root.
-    Final Answer: T(n)=Θ(n3log3nlogn)T(n)=Θ(lognn3log3n).
+    Apply the Extended Master Theorem: Because f(n) is of the form nlogbalogkn⋅g(n), the total work is T(n)=Θ(nlogba · ∑i=0..logn (logn−i)^k · g(2^(logn−i))). For f(n)=n³log²(n)/log(n), the summation results in Θ(n³log³(n)/log(n)).
+    Work Distribution: In standard Case 2, work is balanced. Here, the work at level i is Wi=n³·(logn−i)²·log(logn−i). Since this expression decreases as i increases (moving toward the leaves), the work is concentrated at the root.
+    Final Answer: T(n)=Θ(n³log²(n)).
 
-Where you went wrong: You treated (logn) as a multiplier in the numerator, whereas the original problem defined it as a divisor (f(n)=…lognf(n)=logn…). This caused your final bound to be n3log3nlogn instead of the correct fraction.
+Where you went wrong: You treated (logn) as a multiplier in the numerator, whereas the original problem defined it as a divisor (f(n)=…/log(n)). This caused your final bound to be n3log3nlogn instead of the correct fraction.
 📚 Focus Areas
 
 The student correctly identified the watershed function and the value of k, but failed to notice that g(n) was in the denominator (1/logn) rather than a numerator factor. This led to an incorrect final asymptotic bound, although the conceptual reasoning regarding work distribution being concentrated at the root was correct and well-justified.
@@ -548,11 +548,11 @@ Question 1
 100% score
 Question
 
-The Orthogonality (Nullsum) Lemma states that for any integer k, the sum S=∑j=0n−1(ωnk)j evaluates to n if k is a multiple of n, and 00 otherwise. Analyze how this property is used during the Inverse Discrete Fourier Transform (IDFT) to isolate a specific coefficient amam from the set of point-values yk=A(ωnk). Specifically:
+The Orthogonality (Nullsum) Lemma states that for any integer k, the sum S=∑j=0n−1(ωnk)j evaluates to n if k is a multiple of n, and 0 otherwise. Analyze how this property is used during the Inverse Discrete Fourier Transform (IDFT) to isolate a specific coefficient am from the set of point-values yk=A(ωnk). Specifically:
 
-    Express the IDFT formula for a coefficient amam as a summation involving ykyk and the inverse roots of unity.
+    Express the IDFT formula for a coefficient am as a summation involving yk and the inverse roots of unity.
     Explain why the sum of terms ykωn−mk simplifies to exactly n⋅am when expanded, referencing the behavior of the roots of unity when the exponents are not multiples of n.
-    State the final scaling factor required to recover amam after the summation is performed.
+    State the final scaling factor required to recover am after the summation is performed.
 
 Answer
 
@@ -592,7 +592,7 @@ The final scaling factor required is 1/n. Multiplying the total sum by this fact
 
 ✅ Solution
 
-The coefficient amam is recovered using the IDFT formula: am=1n∑k=0n−1ykωn−mkam=n1∑k=0n−1ykωn−mk. By substituting yk=∑j=0n−1ajωnkj into this expression and swapping the order of summation, we obtain ∑j=0n−1aj(∑k=0n−1ωnk(j−m)). According to the Orthogonality Lemma, the inner sum evaluates to n if j=m (because ωn0=1) and evaluates to 00 if j≠mj=m (because the roots of unity cancel out). This reduces the entire expression to aj⋅n, which necessitates the scaling factor of 1/n to isolate amam.
+The coefficient am is recovered using the IDFT formula: am = (1/n)·∑k=0..n−1 yk·ωn^(−mk). By substituting yk=∑j=0n−1ajωnkj into this expression and swapping the order of summation, we obtain ∑j=0n−1aj(∑k=0n−1ωnk(j−m)). According to the Orthogonality Lemma, the inner sum evaluates to n if j=m (because ωn0=1) and evaluates to 0 if j≠mj=m (because the roots of unity cancel out). This reduces the entire expression to aj⋅n, which necessitates the scaling factor of 1/n to isolate am.
 📚 Focus areas
 
 The student provided a perfect response that correctly identifies the IDFT formula, accurately performs the algebraic expansion by swapping summation order, and correctly applies the Orthogonality Lemma for both cases. The explanation of the scaling factor is logical and matches the derivation.
@@ -818,7 +818,7 @@ A software engineer is comparing two methods for multiplying a polynomial P(x) o
 
     Calculate the exact number of coefficient multiplications required using the naive O(n²) multiplication method.
     To perform this multiplication using the Fast Fourier Transform (FFT), the input vectors must be zero-padded to a length NN that is a power of 2 (N=2k). Determine the smallest value of NN required to ensure the resulting product C(x)=P(x)Q(x) can be uniquely determined without aliasing.
-    Compare the theoretical complexity of the naive approach (n2n2) against the FFT approach (Nlog2N) for this specific case. Based on these formulas, which method performs fewer fundamental operations for these specific degrees?
+    Compare the theoretical complexity of the naive approach (n²) against the FFT approach (Nlog2N) for this specific case. Based on these formulas, which method performs fewer fundamental operations for these specific degrees?
 
 Answer
 
@@ -988,7 +988,7 @@ When adding these, the odd-indexed terms (a1 and a3) cancel out because 1 + (-1)
 ✅ Solution
 
     Calculate k=0 and k=2: Using the coefficients a=[5,−1,5,−1], for k=0, y0=5−1+5−1=8. For k=2, the roots of unity are (−1)j, so y2=5(1)−1(−1)+5(1)−1(−1)=5+1+5+1=12.
-    Conjugate Symmetry: Since R(x) has real coefficients, Rk=Rn−k‾Rk=Rn−k. For n=4 and k=1, R3=R1‾=8−6i‾=8+6iR3=R1=8−6i=8+6i.
+    Conjugate Symmetry: Since R(x) has real coefficients, Rk=R̄(n−k). For n=4 and k=1, R3=R̄1=conj(8−6i)=8+6i.
     Justification: The DFT of a real sequence exhibits conjugate symmetry because the summation terms involve pairs of complex conjugate roots of unity. The Nullsum Lemma (∑ωnj=0) explains why odd-indexed coefficients cancel when computing P(1)+P(−1), as the roots of unity for n=2 (1 and -1) sum to zero, effectively filtering for even-indexed terms.
     Final Answer: y0=8,y2=12,R3=8+6i.
 
@@ -1008,7 +1008,7 @@ Question
 In the context of information-theoretic lower bounds, any comparison-based sorting algorithm for a set of n distinct elements can be represented as a binary decision tree.
 
     Explain why the number of leaves in this decision tree must be at least n!n! for the algorithm to be correct.
-    Using the relationship between the number of leaves LL and the height h of a binary tree, show how the inequality 2h≥n! leads to the worst-case lower bound of Ω(nlogn).
+    Using the relationship between the number of leaves L and the height h of a binary tree, show how the inequality 2h≥n! leads to the worst-case lower bound of Ω(nlogn).
     Use Stirling’s approximation (ln(n!)≈nlnn−n) to demonstrate why the leading constant in the lower bound for the number of comparisons is approximately log2e≈1.44.
 
 Answer
@@ -1027,8 +1027,8 @@ well the lower bound occurs in the best case scenario, so when we sort everythin
 ✅ Solution
 
     Minimum Leaves: For n distinct elements, there are n!n! possible permutations. Since a comparison-based sorting algorithm must be able to output any of these permutations depending on the input, and each leaf in the decision tree represents a single reachable outcome, the tree must have at least L≥n! leaves to ensure correctness for all inputs.
-    Complexity: The height h of a binary tree with LL leaves is at least ⌈log2L⌉. Substituting L≥n! gives h≥log2(n!). Since log2(n!)=∑i=1nlog2i, we can lower bound the sum by its last n/2 terms: ∑i=n/2nlog2i≥n2log2(n2)=n2(log2n−1)∑i=n/2nlog2i≥2nlog2(2n)=2n(log2n−1), which is Ω(nlogn).
-    Constant Term: Using Stirling's approximation ln(n!)≈nlnn−n, we convert to base 2 using log2x=lnxln2log2x=ln2lnx. Thus, h≥nlnn−nln2=nlog2n−nlog2eh≥ln2nlnn−n=nlog2n−nlog2e. The value log2e≈1.44 appears as the constant associated with the linear term in the expansion of log2(n!). Where you went wrong: You incorrectly stated that the lower bound occurs in the best-case scenario and suggested that n becomes e mathematically, which is not relevant to the derivation of the constant factor in the information-theoretic limit.
+    Complexity: The height h of a binary tree with L leaves is at least ⌈log2L⌉. Substituting L≥n! gives h≥log2(n!). Since log2(n!)=∑i=1nlog2i, we can lower bound the sum by its last n/2 terms: ∑i=n/2..n log2(i) ≥ (n/2)·log2(n/2) = (n/2)(log2n−1), which is Ω(nlogn).
+    Constant Term: Using Stirling's approximation ln(n!)≈nlnn−n, we convert to base 2 using log2(x)=ln(x)/ln(2). Thus, h ≥ (nlnn−n)/ln2 = nlog2n−nlog2e. The value log2e≈1.44 appears as the constant associated with the linear term in the expansion of log2(n!). Where you went wrong: You incorrectly stated that the lower bound occurs in the best-case scenario and suggested that n becomes e mathematically, which is not relevant to the derivation of the constant factor in the information-theoretic limit.
 
 📚 Focus areas
 
@@ -1082,7 +1082,7 @@ The constant factor k for the linear runtime can be found by solving kn is great
 
 ✅ Solution
 
-    Minimum elements guaranteed to be less than or equal to the pivot: The array is divided into ⌈n/7⌉ groups. The median of medians x is greater than or equal to at least half of the group medians. In each group where the median is ≤x≤x, there are 4 elements (the median and the three smaller ones) that are ≤x≤x. Excluding the group of x and the last partial group, we have at least 4(12⋅n7−2)=2n7−84(21⋅7n−2)=72n−8. For sufficiently large n, this is 27n72n.
+    Minimum elements guaranteed to be less than or equal to the pivot: The array is divided into ⌈n/7⌉ groups. The median of medians x is greater than or equal to at least half of the group medians. In each group where the median is ≤x≤x, there are 4 elements (the median and the three smaller ones) that are ≤x≤x. Excluding the group of x and the last partial group, we have at least 4·(n/14−2) = 2n/7−8. For sufficiently large n, this is 27n72n.
     Deriving the recurrence relation: The work consists of finding group medians (O(n)), finding the median of medians (T(n/7)), and recursing on the remaining elements. Since at least 2n/7 elements are removed, the largest remaining subarray is n−2n/7=5n/7. The recurrence is T(n)≤T(n/7)+T(5n/7)+O(n).
     Determining complexity: The complexity is O(n) if the sum of the recursive components is less than 1. Since 17+57=67<171+75=76<1, the total work forms a converging geometric series, resulting in linear time complexity O(n).
 
@@ -1214,7 +1214,7 @@ Comparison: While the approximation correctly identifies the Omega(n log n) grow
 ✅ Solution
 
     Calculate exact minimum height: For n=6, there are 6!=720 permutations. The height h must satisfy 2h≥720. Since 29=512 and 210=1024, the exact minimum height is h=⌈log2(720)⌉=10.
-    Derive lower bound: Starting with h≥log2(n!), we use the change of base formula h≥ln(n!)ln2h≥ln2ln(n!). Substituting Stirling's ln(n!)≈nlnn−n, we get h≥nlnn−nln2=nlog2n−nlog2eh≥ln2nlnn−n=nlog2n−nlog2e. Because nlogn grows faster than the linear term n, the complexity is h=Ω(nlogn).
+    Derive lower bound: Starting with h≥log2(n!), we use the change of base formula h ≥ ln(n!)/ln(2). Substituting Stirling's ln(n!)≈nlnn−n, we get h ≥ (nlnn−n)/ln2 = nlog2n−nlog2e. Because nlogn grows faster than the linear term n, the complexity is h=Ω(nlogn).
     Numerical comparison: The exact bound is 10. Using the approximation for n=6: 6log26−6log2e≈6(2.585)−6(1.4427)=15.51−8.656=6.854. The approximation is lower than the exact value because the simplified Stirling formula ignores lower-order terms that are significant when n is small.
     Final Answer: Exact h=10, Approximation ≈6.87 (or 6.85 depending on rounding).
 
@@ -1317,7 +1317,7 @@ Essentially, any vertex with a final in-degree > 0 is either part of a cycle or 
 
 ✅ Solution
 
-Kahn's algorithm begins by calculating in-degrees and adding all vertices with an in-degree of 0 to a queue. Since deg−(v)≥1 for all v, no such vertices exist, the queue remains empty, and 0 nodes are processed. To prove a cycle exists, start at any vertex v0v0 and move to a predecessor v1v1 (which must exist since deg−(v0)≥1). Continuing this for n+1 steps in a graph with n vertices ensures, by the Pigeonhole Principle, that at least one vertex is repeated, forming a directed cycle. In a general graph, the set of vertices that are part of a cycle or reachable from one are exactly those that remain unprocessed by Kahn's algorithm. These vertices will have a final in-degree ≥1≥1 because the circular dependencies within a cycle prevent any of its members from ever reaching an in-degree of 0.
+Kahn's algorithm begins by calculating in-degrees and adding all vertices with an in-degree of 0 to a queue. Since deg−(v)≥1 for all v, no such vertices exist, the queue remains empty, and 0 nodes are processed. To prove a cycle exists, start at any vertex v0 and move to a predecessor v1 (which must exist since deg−(v0)≥1). Continuing this for n+1 steps in a graph with n vertices ensures, by the Pigeonhole Principle, that at least one vertex is repeated, forming a directed cycle. In a general graph, the set of vertices that are part of a cycle or reachable from one are exactly those that remain unprocessed by Kahn's algorithm. These vertices will have a final in-degree ≥1 because the circular dependencies within a cycle prevent any of its members from ever reaching an in-degree of 0.
 📚 Focus areas
 
 The student provided an excellent response that is both technically accurate and logically sound. They correctly identified the behavior of Kahn's algorithm in the given scenario, constructed a valid proof for the existence of a cycle using the Pigeonhole Principle, and accurately described how to identify cycle-related nodes based on their final in-degrees.
@@ -1332,7 +1332,7 @@ Question 1
 35% score
 Question
 
-Consider the Longest Common Subsequence (LCS) problem for two strings XX and YY of length n and m respectively. The standard dynamic programming approach uses a recurrence DP[i,j] based on whether X[i]==Y[j], requiring O(n×m) space.
+Consider the Longest Common Subsequence (LCS) problem for two strings X and Y of length n and m respectively. The standard dynamic programming approach uses a recurrence DP[i,j] based on whether X[i]==Y[j], requiring O(n×m) space.
 
     Analyze how the space complexity can be reduced to O(min(n,m)) if only the length of the LCS is required. Explain the dependency between rows in the DP table that allows for this reduction.
     Evaluate the impact of this O(min(n,m)) space optimization on the process of path reconstruction (backtracking). Specifically, discuss why the standard backtracking algorithm fails in this constrained space and what additional information or algorithmic strategies (such as the Hirschberg algorithm principle) would be necessary to reconstruct the actual string while maintaining a sub-quadratic space profile.
@@ -2213,7 +2213,7 @@ Analyze the structural and algorithmic differences between the bottom-up constru
 
 ✅ Solution
 
-    Mathematical Summation for Bottom-Up Construction: The total number of comparisons is represented by T(n)=∑i=0hi⋅n2i+1T(n)=∑i=0hi⋅2i+1n. This converges to O(n) because the number of nodes decreases exponentially as the height (and thus the work per node) increases linearly. The majority of nodes are leaves that perform 0 work, while only the root performs O(log n) work.
+    Mathematical Summation for Bottom-Up Construction: The total number of comparisons is represented by T(n)=∑i=0..h i·n/2^(i+1). This converges to O(n) because the number of nodes decreases exponentially as the height (and thus the work per node) increases linearly. The majority of nodes are leaves that perform 0 work, while only the root performs O(log n) work.
     Complexity of Top-Down Construction: In the top-down approach using sift-up, the work for a node at depth d is proportional to d. Since there are 2d2d nodes at depth d, the total work is ∑d=0hd⋅2d. Because approximately half the nodes are at the maximum depth h≈logn, the leaf level alone contributes n2logn2nlogn work, establishing a lower bound of Ω(nlogn).
     Exact Number of Nodes Processed: In a complete binary tree of size n=2k−1, the sift-down operation is only applied to internal nodes. The number of leaf nodes is 2k−1. Therefore, the number of nodes processed is (2k−1)−2k−1=2k−1−1, which is also equivalent to ⌊n/2⌋ or (n−1)/2.
 
@@ -2260,7 +2260,7 @@ Consider a d-ary heap stored in a 0-indexed array where each node has at most d 
 
 ✅ Solution
 
-    Parent Formula: The parent index of node i is P(i)=⌊i−1d⌋P(i)=⌊di−1⌋. This is derived by inverting the child formula and taking the floor to account for the group of d children sharing one parent.
+    Parent Formula: The parent index of node i is P(i)=⌊(i−1)/d⌋. This is derived by inverting the child formula and taking the floor to account for the group of d children sharing one parent.
     Child Formula: The k-th child of node i is C(i,k)=d⋅i+k. The first child is d⋅i+1 and the last is d⋅i+d.
     Last Non-Leaf Node: In a heap of n=53 and d=5, the last element is at index 52. Applying the parent formula: ⌊52−15⌋=⌊515⌋=10⌊552−1⌋=⌊551⌋=10.
     Verification: For index 10, the first child is 5(10)+1=51, which is <53 (exists). For index 11, the first child is 5(11)+1=56, which is ≥53 (does not exist).
@@ -2400,7 +2400,7 @@ When you see a tree on the exam and they ask "Is this an AVL tree?", follow thes
     Label the node: Write the BF next to the node. If you write a 2 or −2, stop! You've found the violation.
 
 
-2. AVL Rotations (LL, RR, LR, RL)
+2. AVL Rotations (L, RR, LR, RL)
 When you insert a number that breaks the balance, you "rotate" the nodes to fix it.
 
 The Theory: 4 Rotation Cases
@@ -2409,7 +2409,7 @@ There are only four ways a tree can become unbalanced. We name them based on whe
 Single Rotations (Easy)
     Right-Right (RR) Case: The tree is leaning too far to the right.
         Fix: Perform a Left Rotation to pull the middle node up.
-    Left-Left (LL) Case: The tree is leaning too far to the left.
+    Left-Left (L) Case: The tree is leaning too far to the left.
         Fix: Perform a Right Rotation to pull the middle node up.
 
 Double Rotations (Tricky!)
@@ -2439,7 +2439,7 @@ On the exam, you'l be asked to "Insert the numbers [1,2,3] and show rotations."
     Insert like a BST: Put the number where it belongs (< left,> right< left,> right).
     Check Balance Factors: Start from the new node and go up.
     Find the "Trouble Node": The first node you hit with a BFBF of 22 or −2−2.
-    Name the Case: Look at the path from the trouble node to the new node. Did you go Left then Left? That's an LL case!
+    Name the Case: Look at the path from the trouble node to the new node. Did you go Left then Left? That's an L case!
     Rotate: Draw the new balanced version.
 
 3. Tree Reconstruction from Sequences
@@ -2578,7 +2578,7 @@ Der Beweis (The Proof):
     ..In an AVL, we proved (using the Golden Ratio $\Phi$) that $h \leq 1.44 \cdot \log_2(n)$.
     ..Since the height is always logarithmic, the operations are $O(\log n)$.
 
-2. Rotations (LL, RR, LR, RL)
+2. Rotations (L, RR, LR, RL)
 
     Complexity: O(1) (Constant time)
 
@@ -2683,7 +2683,7 @@ Goal: Insert [30,10,20] into an empty AVL tree.
 2. The Fix: Double Rotation
 Because this is a "zig-zag" (LR-Case), a single rotation won't work. We need two steps:
 Part 1: RotateLeft(10)
-We rotate the child node (10) to turn the zig-zag into a straight line (LL-Case):
+We rotate the child node (10) to turn the zig-zag into a straight line (L-Case):
     Node 20 moves up to take 10's place as the left child of 30.
     Node 10 becomes the left child of 20.
     The structure is now: 30 → 20 → 10 (a straight line to the left).
@@ -2847,7 +2847,7 @@ Think of a Hash Table like a massive wall of numbered mailboxes.
 
     The Universe (UU): All possible keys (e.g., every possible phone number). This is usually huge.
     The Hash Table (TT): The actual memory we have, which is size m.
-    The Hash Function (h): The "magic" formula. You give it a key k, and it spits out an index (a mailbox number) between 00 and m−1.
+    The Hash Function (h): The "magic" formula. You give it a key k, and it spits out an index (a mailbox number) between 0 and m−1.
 
 h(k)=index
 
@@ -3235,7 +3235,7 @@ Linearity of Expectation (The "Superpower")
 
 This is what you'l use in Übungsblatt 8 (HA), Exercise 8.2 and Altklausur 2022.
 
-The Rule: E[X+Y]=E[X]+E[Y] The Proof/Reasoning: Expectation is a linear operator. This means you can break a complex variable XX into a sum of simple indicators: X=X1+X2+⋯+Xn. Then: E[X]=E[X1]+E[X2]+⋯+E[Xn] Crucial Exam Note: This works even if the variables are dependent (e.g., if X1X1 happening makes X2X2 more likely). This is the "trap" in many multiple-choice questions!
+The Rule: E[X+Y]=E[X]+E[Y] The Proof/Reasoning: Expectation is a linear operator. This means you can break a complex variable X into a sum of simple indicators: X=X1+X2+⋯+Xn. Then: E[X]=E[X1]+E[X2]+⋯+E[Xn] Crucial Exam Note: This works even if the variables are dependent (e.g., if X1 happening makes X2 more likely). This is the "trap" in many multiple-choice questions!
 
 Case Study: The Hiring Problem (Exercise 8.1 / Altklausur 2022)
 
@@ -3243,10 +3243,10 @@ The Scenario: You interview n candidates in a random order. You hire a candidate
 
 The Step-by-Step Proof:
 
-    Define the Indicator: Let Xi=1 if the i-th candidate is hired, and 00 otherwise.
-    Calculate Probability: The i-th candidate is hired only if they are the best among the first i candidates. Since the order is random, the probability is: P(Xi=1)=1iP(Xi=1)=i1
+    Define the Indicator: Let Xi=1 if the i-th candidate is hired, and 0 otherwise.
+    Calculate Probability: The i-th candidate is hired only if they are the best among the first i candidates. Since the order is random, the probability is: P(Xi=1)=1/i
     Apply Expectation: Therefore, E[Xi]=1iE[Xi]=i1.
-    Sum it up: Let XX be the total number of people hired (X=∑i=1nXi). E[X]=E[∑i=1nXi]=∑i=1nE[Xi] E[X]=∑i=1n1iE[X]=∑i=1ni1
+    Sum it up: Let X be the total number of people hired (X=∑i=1nXi). E[X]=E[∑i=1nXi]=∑i=1nE[Xi] E[X]=∑i=1..n 1/i
     The Result: This is the Harmonic Series, which is approximately lnn+O(1).
 
 Python-style Pseudo Code (Simulating the Logic)
@@ -3273,15 +3273,15 @@ prove that even though the worst case is O(n²), the Expected Time is O(nlogn).
 
 The Indicator Variable Trick:
 
-    Let XX be the total number of comparisons in the algorithm.
-    Let Xij be an indicator variable that is 11 if the i-th smallest and j-th smallest elements are ever compared, and 00 otherwise.
+    Let X be the total number of comparisons in the algorithm.
+    Let Xij be an indicator variable that is 11 if the i-th smallest and j-th smallest elements are ever compared, and 0 otherwise.
     Total comparisons X=∑i=1n−1∑j=i+1nXij.
     The Probability: Two elements i and j are compared if and only if one of them is chosen as a pivot before any element between them (in sorted order) is chosen.
         The number of elements in the set {i,i+1,…,j} is j−i+1.
         Each has an equal chance (1/size) of being picked first.
-        So, P(Xij=1)=2j−i+1P(Xij=1)=j−i+12.
+        So, P(Xij=1) = 2/(j−i+1).
 
-The Summation: E[X]=∑i=1n−1∑j=i+1n2j−i+1E[X]=∑i=1n−1∑j=i+1nj−i+12 By changing variables (k=j−i), this becomes: E[X]=∑i=1n−1∑k=1n−i2k+1≈2n∑k=1n1kE[X]=∑i=1n−1∑k=1n−ik+12≈2n∑k=1nk1 Since ∑1k≈lnn∑k1≈lnn, the result is O(nlogn).
+The Summation: E[X]=∑i<j 2/(j−i+1) By changing variables (k=j−i), this becomes: E[X]=∑k 2/(k+1) ≈ 2n·∑k 1/k Since ∑(1/k) ≈ ln(n), the result is O(nlogn).
 
 Randomized Select (QuickSelect)
 
@@ -3344,11 +3344,11 @@ This is from Übungsblatt 8 (P), Exercise 8.3. It’s the "inverse" of Balls and
 
 The Step-by-Step Proof:
 
-    Let XX be the number of tosses to collect all m coupons.
+    Let X be the number of tosses to collect all m coupons.
     Let XiXi be the number of tosses to get the i-th new coupon after we already have i−1.
     The probability of getting a new coupon is Pi=m−(i−1)mPi=m−(i−1).
     The expected number of tosses for this step is E[Xi]=1Pi=m−i+1E[Xi]=Pi1=m−i+1m.
-    Apply Linearity: E[X]=∑i=1mE[Xi]=m∑i=1m1iE[X]=∑i=1mE[Xi]=m∑i=1mi1.
+    Apply Linearity: E[X]=∑i=1..m E[Xi] = m·∑i=1..m 1/i.
     Result: E[X]=m⋅Hm≈mlnm+O(m).
 
 Exam Connection: This explains why Linear Probing becomes so slow as the table fills up—finding that last empty "coupon" (slot) takes a long time!
@@ -3379,15 +3379,15 @@ def simulate_coupon_collector(m):
 4. Advanced Probability (Boundaries)
 Markov’s Inequality (The Basic Bound)
 
-From your Übungsblatt 9 (HA), Exercise 9.4. It only requires that the random variable XX is non-negative (like time or comparisons).
+From your Übungsblatt 9 (HA), Exercise 9.4. It only requires that the random variable X is non-negative (like time or comparisons).
 
-The Rule: P(X≥a)≤E[X]aP(X≥a)≤aE[X] The ADHD "Why": It says that if the average weight of a person is 70kg, it's impossible for more than 50% of people to weigh 140kg. Exam Example: If Randomized QuickSort takes 100 steps on average, what is the probability it takes ≥400 steps? P(X≥400)≤100400=25%P(X≥400)≤400100=25%
+The Rule: P(X≥a) ≤ E[X]/a The ADHD "Why": It says that if the average weight of a person is 70kg, it's impossible for more than 50% of people to weigh 140kg. Exam Example: If Randomized QuickSort takes 100 steps on average, what is the probability it takes ≥400 steps? P(X≥400) ≤ 100/400 = 25%
 
 Chebyshev’s Inequality (The Variance Bound)
 
 This is used in SolutionsPrev.pdf to show that values stay "tight" around the average if you know the Variance (Var(X)).
 
-The Rule: P(∣X−E[X]∣≥k)≤Var(X)k2P(∣X−E[X]∣≥k)≤k2Var(X) The ADHD "Why": It uses the "spread" of the data to give a much tighter bound than Markov. If the variance is small, the algorithm almost always hits its average time.
+The Rule: P(|X−E[X]|≥k) ≤ Var(X)/k² The ADHD "Why": It uses the "spread" of the data to give a much tighter bound than Markov. If the variance is small, the algorithm almost always hits its average time.
 Chernoff Bounds (The "Strong" Bound)
 
 In Altklausur 2023, Task 1 (Bonus), they ask why Randomized QuickSort is "tightly concentrated."
@@ -3504,7 +3504,7 @@ The goal is to find the Maximum Flow.
 
 The Logic:
 
-    Start with 00 flow everywhere.
+    Start with 0 flow everywhere.
     While there is an Augmenting Path from s to t:
         An "Augmenting Path" is a path where every pipe has some "Residual Capacity" left (capacity−flow>0).
         Find the "bottleneck" (the smallest residual capacity on that path).
