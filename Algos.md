@@ -54,6 +54,7 @@ prio, item = pop_min(pq)
 **Pseudocode:**
 ```python
 buckets = [list() for _ in range(k+1)]
+cur = 0
 def push(x, key): buckets[key].append(x)
 def pop_min():
     while not buckets[cur]: cur += 1
@@ -145,12 +146,12 @@ def put(k, v):
    - Why linear probing clusters and double hashing helps.
 **Pseudocode:**
 ```python
-# table is array of slots, EMPTY is sentinel for unused slot
+# table is array of slots; EMPTY is unused, DELETED is tombstone
 # slot_key(s) returns key stored in slot s (or EMPTY)
 def find_slot(k):
     i = h1(k) % m
     step = 1              # linear; for double hashing use h2(k)
-    while table[i] is not EMPTY and slot_key(table[i]) != k:
+    while table[i] is not EMPTY and (table[i] is DELETED or slot_key(table[i]) != k):
         i = (i + step) % m
     return i
 ```
@@ -401,8 +402,9 @@ while num_components > 1:
 q = deque([u for u in V if indeg[u] == 0])
 while q:
     u = q.popleft(); order.append(u)
-    for v in G[u]: indeg[v] -= 1; 
-    if indeg[v] == 0: q.append(v)
+    for v in G[u]:
+        indeg[v] -= 1
+        if indeg[v] == 0: q.append(v)
 ```
 **Time:** `O(V+E)`.
 
@@ -705,7 +707,9 @@ def kara(x, y):
 # high-level only: use standard Strassen M1..M7 block formulas
 def strassen(A, B):
     if small: return naive_mul(A,B)
-    split blocks; compute M1..M7; combine to C
+    A11,A12,A21,A22 = split_blocks(A); B11,B12,B21,B22 = split_blocks(B)
+    M1, M2, M3, M4, M5, M6, M7 = compute_strassen_products(A11,A12,A21,A22,B11,B12,B21,B22)
+    return combine_blocks_from_products(M1, M2, M3, M4, M5, M6, M7)
 ```
 **Time:** `T(n)=7T(n/2)+O(n^2)` => `O(n^{log2 7})`.
 
@@ -839,6 +843,7 @@ for it in intervals:
 **Pseudocode:**
 ```python
 # dp[p] = best cost to cover up to position p
+# M = maximum position/endpoint to be covered
 # transition checks all intervals [l..p] that can end at p
 # helper computes min over such predecessor states + interval cost
 for p in range(1, M+1):
@@ -855,6 +860,7 @@ for p in range(1, M+1):
 ```python
 # cost(j,i): cost of placing books j..i on one shelf
 # feasible_starts(i): starts j satisfying width/constraint limits for shelf ending at i
+# initialize dp[0] = 0 and ensure feasible_starts(i) returns j >= 1
 for i in range(1, n+1):
     dp[i] = min(cost(j,i) + dp[j-1] for j in feasible_starts(i))
 ```
@@ -981,7 +987,7 @@ def fair_bit():
 2. **Then:** Reject out-of-range events.
 **Pseudocode:**
 ```python
-# returns Bernoulli random variable: 1 with probability 1/n, 0 with probability (n-1)/n
+# returns Bernoulli(1/n): 1 iff accepted x equals 0; returns 0 for accepted x in 1..n-1
 def sample_bernoulli_1_n(n):
     k = ceil_log2(n)
     while True:
