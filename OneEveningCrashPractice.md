@@ -9,7 +9,7 @@ Use this right after the crash-order list in `Algos.md`.
 1. Solve with Master theorem (state case + final bound):
    - `T(n)=2T(n/2)+n`
    - `T(n)=3T(n/2)+n`
-   - `T(n)=2T(n/2)+n log n`
+   - `T(n)=2T(n/2)+n·log n`
 2. Solve one non-standard recurrence via recursion tree/substitution:
    - `T(n)=T(2n/3)+n`
 
