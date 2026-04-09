@@ -103,7 +103,7 @@ def put(k, v):
 1. **What is Linear Probing? (The "Mailbox Walk")**
    - Imagine slots `0..m-1` as a row of mailboxes.
    - Your key `k` wants to go to `h'(k)`.
-   - If that slot is full, you walk one step right.
+   - If that slot is full, you walk one step right (wrapping to slot `0` at the array end).
    - If that one is full too, keep walking right.
    - At the end, wrap around to slot `0`.
 
@@ -868,14 +868,14 @@ def fair_bit():
         if (a,b)==('H','T'): return 1
         if (a,b)==('T','H'): return 0
 ```
-**Time:** Constant expected tosses (`1/(p(1-p))` pair-trials in expectation).
+**Time:** Expected pair-trials `= 1/(2p(1-p))`; effectively constant when `p` is bounded away from `0` and `1`.
 
 ### 65) Rejection Sampling (discrete)
 **Best suited:** Simulate target distribution from easy base randomness.
 **Steps:** Sample candidate uniformly from larger range; reject out-of-range events.
 **Pseudocode:**
 ```python
-# returns Bernoulli random variable: 1 with probability 1/n, else 0
+# returns Bernoulli random variable: 1 with probability 1/n, 0 with probability (n-1)/n
 def sample_1_over_n(n):
     k = ceil_log2(n)
     while True:
