@@ -98,7 +98,38 @@ def put(k, v):
 
 ### 8) Open Addressing (Linear Probing / Double Hashing)
 **Best suited:** Hashing without pointer chains.
-**Steps:** On collision probe sequence until empty/match.
+**Step-by-step intuition (DSEA-notes style):**
+
+1. **What is Linear Probing? (The "Mailbox Walk")**
+   - Imagine slots `0..m-1` as a row of mailboxes.
+   - Your key `k` wants to go to `h'(k)`.
+   - If that slot is full, you walk one step right.
+   - If that one is full too, keep walking right.
+   - At the end, wrap around to slot `0`.
+
+2. **The exam formula**
+   - `h(k, i) = (h'(k) + i) mod m`
+   - `i = 0,1,2,...` is your probe attempt number.
+   - Try `i=0` first; if blocked, try `i=1`, then `i=2`, etc.
+
+3. **Search and deletion (the Tombstone trick)**
+   - Search must follow the **same probe path** until:
+     - key found, or
+     - you hit an actually empty slot (`EMPTY`), which means "stop, not found".
+   - If you delete by writing `EMPTY`, you can accidentally break later searches.
+   - So deletion writes a marker like `DELETED` (tombstone):
+     - searches skip over tombstones,
+     - insertions may reuse tombstones.
+
+4. **Double Hashing variant (same framework, better spread)**
+   - Instead of always `+1`, jump by `h2(k)`.
+   - Probe formula: `h(k,i) = (h1(k) + i*h2(k)) mod m`.
+   - This reduces primary clustering vs linear probing.
+
+5. **What exam tasks usually test**
+   - Manual insertion trace with collisions and wrap-around.
+   - Correct search path after deletions.
+   - Why linear probing clusters and double hashing helps.
 **Pseudocode:**
 ```python
 # table is array of slots, EMPTY is sentinel for unused slot
@@ -109,7 +140,7 @@ def find_slot(k):
     while table[i] not in (EMPTY, k): i = (i + step) % m
     return i
 ```
-**Time:** Expected `O(1)` at low/moderate load; worsens near full table.
+**Time:** Expected `O(1)` at low/moderate load; degrades sharply as load factor approaches 1.
 
 ### 9) Cuckoo Hashing
 **Best suited:** Worst-case `O(1)` lookup with two hash locations.
@@ -768,7 +799,33 @@ def sf(symbols):
 
 ### 61) Gale-Shapley / Deferred Acceptance (Stable Matching)
 **Best suited:** Stable matching (one-to-one or capacity variants).
-**Steps:** Free proposers propose next choice; acceptor keeps best current proposal.
+**Step-by-step intuition (human walkthrough):**
+
+1. **The setup**
+   - Split into two sides (e.g., proposers and accepters).
+   - Everyone has a strict preference list over the opposite side.
+   - Initially everyone is free.
+
+2. **Core loop**
+   - Pick any free proposer who still has someone left to propose to.
+   - They propose to their highest-ranked not-yet-asked accepter.
+
+3. **Accepter decision**
+   - If accepter is free -> engage with the proposer.
+   - If accepter is already engaged:
+     - compare current partner vs new proposer,
+     - keep the preferred one,
+     - reject the other (who becomes free).
+
+4. **Why it ends**
+   - No proposer asks the same accepter twice.
+   - There are at most `n^2` possible proposals.
+   - So the loop must terminate.
+
+5. **What you get at the end**
+   - Everyone is matched.
+   - No blocking pair exists (stable matching).
+   - If proposers initiate, the result is proposer-optimal among stable matchings.
 **Pseudocode:**
 ```python
 # current[b] is b's current partner (or None)
@@ -865,3 +922,34 @@ def sample_1_over_n(n):
 - Gale-Shapley / Deferred Acceptance / Stable Matching -> **61**
 - MinHash / Jaccard -> **62, 63**
 - Von Neumann extractor / Rejection sampling -> **64, 65**
+
+---
+
+## H) One-Evening Crash Order (separate quick section)
+
+If you only have one evening, do this exact order:
+
+1. **Master Theorem + Recurrences**
+   - Practice case detection and one non-standard recurrence.
+2. **Heap + Priority Queue mechanics**
+   - Insert, extract-min, sift-up/down by hand.
+3. **Dijkstra + shortest-path traps**
+   - Relaxation loop, priority queue updates, and "no negative edges" rule.
+4. **MST package: Kruskal + Prim + Union-Find**
+   - Be able to trace both and explain when each is convenient.
+5. **Hashing package**
+   - Linear probing, tombstones, double hashing, cuckoo high-level idea.
+6. **AVL essentials**
+   - Insert/delete and identify LL, RR, LR, RL rotations.
+7. **Dynamic Programming core pattern**
+   - State, transition, base case on matrix-chain/knapsack/LCS-style tasks.
+8. **Greedy vs DP comparison**
+   - Especially coin-change counterexample and why greedy fails.
+9. **Flow basics**
+   - Residual graph, augmenting path, bottleneck, max-flow intuition.
+10. **Stable Matching (Gale-Shapley)**
+   - One complete hand-trace + stability argument.
+11. **QuickSelect / partition**
+   - Expected runtime intuition and one manual partition walk.
+12. **Final 30-min mixed drill**
+   - 2 tracing tasks + 2 asymptotic/runtime tasks + 1 proof-style argument.
