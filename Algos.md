@@ -876,7 +876,7 @@ def fair_bit():
 **Pseudocode:**
 ```python
 # returns Bernoulli random variable: 1 with probability 1/n, 0 with probability (n-1)/n
-def sample_1_over_n(n):
+def sample_bernoulli_1_n(n):
     k = ceil_log2(n)
     while True:
         x = rand_bits(k)
