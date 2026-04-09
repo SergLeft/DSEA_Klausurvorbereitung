@@ -146,11 +146,12 @@ def put(k, v):
 **Pseudocode:**
 ```python
 # table is array of slots, EMPTY is sentinel for unused slot
+# slot_key(s) returns key stored in slot s (or EMPTY)
 def find_slot(k):
     i = h1(k) % m
     step = 1              # linear; for double hashing use h2(k)
-    # assumes table stores raw keys (or compare entry.key)
-    while table[i] not in (EMPTY, k): i = (i + step) % m
+    while table[i] is not EMPTY and slot_key(table[i]) != k:
+        i = (i + step) % m
     return i
 ```
 **Time:** Insert/search expected `O(1)` at low/moderate load; both degrade sharply as load factor approaches 1.
@@ -163,11 +164,12 @@ def find_slot(k):
 **Pseudocode:**
 ```python
 # inA toggles table side; hA/hB are the two hash functions
-def insert(x):
+def insert(current):
     for _ in range(limit):
-        pos = hA(x) if inA else hB(x)
-        x, table[pos] = table[pos], x
-        if x is EMPTY: return
+        pos = hA(current) if inA else hB(current)
+        evicted, table[pos] = table[pos], current
+        if evicted is EMPTY: return
+        current = evicted
     rehash()  # rebuild with new hash params/capacity if cycle persists
 ```
 **Time:** Lookup `O(1)` worst-case; insert expected `O(1)` (rehash rare amortized).
@@ -886,7 +888,7 @@ while len(pq) > 1:
 def sf(symbols):
     if len(symbols) <= 1: return
     L, R = split_near_half_weight(symbols)
-    prefix0(L); prefix1(R); sf(L); sf(R)
+    prepend_bit_0(L); prepend_bit_1(R); sf(L); sf(R)
 ```
 **Time:** Sorting dominates `O(k log k)`.
 
@@ -923,11 +925,14 @@ def sf(symbols):
 ```python
 # current[b] is b's current partner (or None)
 # prefers[b][x] gives ranking score of proposer x for receiver b
-# engage(a,b): pair a with b; free(old_partner): mark replaced proposer as free
+# engage(a,b): pair a with b; free(x): mark proposer x as free
 while free_proposer_exists():
     a = pick_free(); b = next_choice[a]
-    if current[b] is None or prefers[b][a] > prefers[b][current[b]]:
-        engage(a,b); free(old_partner)
+    if current[b] is None:
+        engage(a,b)
+    elif prefers[b][a] > prefers[b][current[b]]:
+        old = current[b]
+        engage(a,b); free(old)
 ```
 **Time:** `O(n^2)` proposals upper bound (each pair proposed at most once).
 
