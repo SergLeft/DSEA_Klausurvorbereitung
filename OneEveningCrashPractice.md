@@ -33,6 +33,7 @@ Given array-based min-heap:
 ## 3) Dijkstra + Shortest-Path Traps
 
 Graph (directed, nonnegative):
+Notation: `u->v (w)` means directed edge `u -> v` with weight `w`.
 - `s->a (2), s->b (5), a->b (1), a->c (4), b->c (1), c->t (3)`
 
 1. Run Dijkstra from `s` and record PQ states.
@@ -59,7 +60,7 @@ Undirected weighted graph:
 ## 5) Hashing Package
 
 Table size `m=11`, `h1(k)=k mod 11`, linear probing.
-Insert keys: `22, 1, 13, 11, 24, 35`.
+Insert keys in order: `22, 1, 13, 11, 24, 35`.
 
 1. Show final table with probe traces.
 2. Delete one colliding key using tombstone.

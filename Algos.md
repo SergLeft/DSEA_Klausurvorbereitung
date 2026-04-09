@@ -29,11 +29,11 @@ Pseudocode note: many snippets intentionally use helper placeholders (e.g., `aug
    - **Next:** Extract root + swap with last + sift-down.
 
 3. **What to watch in exam traces**
-   - Track ordering/partition invariants and pointer/index movement at each step to avoid off-by-one errors.
+   - Check heap index formulas every time: `parent=(i-1)//2`, `left=2i+1`, `right=2i+2`.
+   - During sift-up/sift-down, stop as soon as heap order is restored.
 
 4. **Termination + result**
-   - Termination: each iteration removes pending work or makes measurable progress, so the loop cannot run forever.
-   - Final outcome: Fast repeated min/max extraction (priority queues, Dijkstra/Prim/Huffman).
+   - Termination: sift operations end when reaching root/leaf or when heap property already holds.
 **Pseudocode:**
 ```python
 # helpers: sift_up(heap, i), sift_down(heap, i)
@@ -63,7 +63,6 @@ def pop_min(h):
 
 4. **Termination + result**
    - Termination: the process advances through a finite set of states/items and therefore halts.
-   - Final outcome: Always process next most urgent/min-cost element.
 **Pseudocode:**
 ```python
 pq = []
@@ -89,7 +88,6 @@ prio, item = pop_min(pq)
 
 4. **Termination + result**
    - Termination: the process advances through a finite set of states/items and therefore halts.
-   - Final outcome: Integer priorities in bounded range `[0..k]` (e.g., bounded-weight MST/SP variants).
 **Pseudocode:**
 ```python
 buckets = [list() for _ in range(k+1)]
@@ -118,7 +116,6 @@ def pop_min():
 
 4. **Termination + result**
    - Termination: the process advances through a finite set of states/items and therefore halts.
-   - Final outcome: Random-access array with amortized `O(1)` append.
 **Pseudocode:**
 ```python
 def append(x):
@@ -143,7 +140,6 @@ def append(x):
 
 4. **Termination + result**
    - Termination: the process advances through a finite set of states/items and therefore halts.
-   - Final outcome: LIFO processing (DFS, parsing, undo, monotonic tricks).
 **Pseudocode:**
 ```python
 st.append(x)
@@ -167,7 +163,6 @@ x = st.pop()
 
 4. **Termination + result**
    - Termination: the process advances through a finite set of states/items and therefore halts.
-   - Final outcome: FIFO processing (BFS, scheduling).
 **Pseudocode:**
 ```python
 q.append(x)
@@ -192,7 +187,6 @@ x = q.popleft()
 
 4. **Termination + result**
    - Termination: the process advances through a finite set of states/items and therefore halts.
-   - Final outcome: Expected `O(1)` insert/find/delete.
 **Pseudocode:**
 ```python
 def put(k, v):
@@ -266,7 +260,6 @@ def find_slot(k, step_fn=lambda _k: 1):
 
 4. **Termination + result**
    - Termination: the process advances through a finite set of states/items and therefore halts.
-   - Final outcome: Worst-case `O(1)` lookup with two hash locations.
 **Pseudocode:**
 ```python
 # inA toggles table side; hA/hB are the two hash functions
@@ -297,7 +290,6 @@ def insert(current):
 
 4. **Termination + result**
    - Termination: the process advances through a finite set of states/items and therefore halts.
-   - Final outcome: Provable low collision probability in randomized algorithms.
 **Pseudocode:**
 ```python
 # choose random a,b; p is prime >= universe size
@@ -323,7 +315,6 @@ h(x) = ((a*x + b) % p) % m
 
 4. **Termination + result**
    - Termination: each recursive call strictly reduces subproblem size, so recursion reaches the base case.
-   - Final outcome: Ordered set/map with predecessor/successor queries.
 **Pseudocode:**
 ```python
 def search(t, x):
@@ -348,7 +339,6 @@ def search(t, x):
 
 4. **Termination + result**
    - Termination: the process advances through a finite set of states/items and therefore halts.
-   - Final outcome: Guaranteed logarithmic ordered operations.
 **Pseudocode:**
 ```python
 def insert(t, x):
@@ -375,7 +365,6 @@ def insert(t, x):
 
 4. **Termination + result**
    - Termination: the process advances through a finite set of states/items and therefore halts.
-   - Final outcome: Dynamic connectivity (Kruskal, components, cycle checks).
 **Pseudocode:**
 ```python
 def find(x):
@@ -404,7 +393,6 @@ def union(a,b):
 
 4. **Termination + result**
    - Termination: the process advances through a finite set of states/items and therefore halts.
-   - Final outcome: Represent current flow + possible augment/reverse moves.
 **Pseudocode:**
 ```python
 res[u][v] = cap[u][v] - flow[u][v]
@@ -429,7 +417,6 @@ res[v][u] = flow[u][v]
 
 4. **Termination + result**
    - Termination: the process advances through a finite set of states/items and therefore halts.
-   - Final outcome: Decodable variable-length coding.
 **Pseudocode:**
 ```python
 def decode(bits, root):
@@ -465,7 +452,6 @@ def decode(bits, root):
 
 4. **Termination + result**
    - Termination: the process advances through a finite set of states/items and therefore halts.
-   - Final outcome: Unweighted shortest paths, layering, bipartite test.
 **Pseudocode:**
 ```python
 q = deque([s]); dist[s] = 0
@@ -492,7 +478,6 @@ while q:
 
 4. **Termination + result**
    - Termination: each recursive call strictly reduces subproblem size, so recursion reaches the base case.
-   - Final outcome: Reachability, components, cycle detection, ordering.
 **Pseudocode:**
 ```python
 def dfs(u):
@@ -518,7 +503,6 @@ def dfs(u):
 
 4. **Termination + result**
    - Termination: the process advances through a finite set of states/items and therefore halts.
-   - Final outcome: Partition undirected graph into maximal connected subgraphs.
 **Pseudocode:**
 ```python
 cid = 0
@@ -545,7 +529,6 @@ for u in V:
 
 4. **Termination + result**
    - Termination: each iteration removes pending work or makes measurable progress, so the loop cannot run forever.
-   - Final outcome: Single-source shortest paths with nonnegative edges.
 **Pseudocode:**
 ```python
 dist = {s: 0}; pq = [(0, s)]
@@ -575,7 +558,6 @@ while pq:
 
 4. **Termination + result**
    - Termination: the process advances through a finite set of states/items and therefore halts.
-   - Final outcome: Shortest paths with negative edges + negative-cycle detection.
 **Pseudocode:**
 ```python
 dist[s] = 0
@@ -601,7 +583,6 @@ neg_cycle = any(dist[u] + w < dist[v] for u, v, w in E)
 
 4. **Termination + result**
    - Termination: the process advances through a finite set of states/items and therefore halts.
-   - Final outcome: All-pairs shortest paths (dense graphs, small/medium V).
 **Pseudocode:**
 ```python
 for k in V:
@@ -628,7 +609,6 @@ for k in V:
 
 4. **Termination + result**
    - Termination: the process advances through a finite set of states/items and therefore halts.
-   - Final outcome: Sparse MST construction.
 **Pseudocode:**
 ```python
 E.sort(key=lambda e: e.w)
@@ -653,7 +633,6 @@ for e in E:
 
 4. **Termination + result**
    - Termination: the process advances through a finite set of states/items and therefore halts.
-   - Final outcome: MST by growing one tree from any start node.
 **Pseudocode:**
 ```python
 vis = {s}; push all edges from s
@@ -682,7 +661,6 @@ while pq and len(vis) < V:
 
 4. **Termination + result**
    - Termination: each iteration removes pending work or makes measurable progress, so the loop cannot run forever.
-   - Final outcome: Parallel-friendly MST; components shrink quickly.
 **Pseudocode:**
 ```python
 while num_components > 1:
@@ -709,7 +687,6 @@ while num_components > 1:
 
 4. **Termination + result**
    - Termination: the process advances through a finite set of states/items and therefore halts.
-   - Final outcome: Linearization of DAG dependencies.
 **Pseudocode:**
 ```python
 q = deque([u for u in V if indeg[u] == 0])
@@ -737,7 +714,6 @@ while q:
 
 4. **Termination + result**
    - Termination: each iteration removes pending work or makes measurable progress, so the loop cannot run forever.
-   - Final outcome: Max flow foundation.
 **Pseudocode:**
 ```python
 flow = 0
@@ -763,7 +739,6 @@ while path := find_path_in_residual(s, t):
 
 4. **Termination + result**
    - Termination: each iteration removes pending work or makes measurable progress, so the loop cannot run forever.
-   - Final outcome: Deterministic polynomial max flow (BFS augmenting path).
 **Pseudocode:**
 ```python
 while path := bfs_residual_path(s, t):
@@ -789,7 +764,6 @@ while path := bfs_residual_path(s, t):
 
 4. **Termination + result**
    - Termination: each iteration removes pending work or makes measurable progress, so the loop cannot run forever.
-   - Final outcome: Convert arbitrary feasible flow to acyclic flow / reduce circulation cost cases.
 **Pseudocode:**
 ```python
 while cycle := find_positive_flow_cycle():
@@ -814,7 +788,6 @@ while cycle := find_positive_flow_cycle():
 
 4. **Termination + result**
    - Termination: the process advances through a finite set of states/items and therefore halts.
-   - Final outcome: Maximum cardinality matching in bipartite graphs.
 **Pseudocode:**
 ```python
 build_unit_capacity_network(L, R, E)
@@ -843,7 +816,6 @@ matching = {(u, v) for (u, v) in E if flow[u][v] == 1}
 
 4. **Termination + result**
    - Termination: each recursive call strictly reduces subproblem size, so recursion reaches the base case.
-   - Final outcome: Stable `O(n log n)` sorting.
 **Pseudocode:**
 ```python
 def mergesort(a):
@@ -869,7 +841,6 @@ def mergesort(a):
 
 4. **Termination + result**
    - Termination: each recursive call strictly reduces subproblem size, so recursion reaches the base case.
-   - Final outcome: Fast in-place average sorting.
 **Pseudocode:**
 ```python
 def quicksort(a, l, r):
@@ -896,7 +867,6 @@ def quicksort(a, l, r):
 
 4. **Termination + result**
    - Termination: each recursive call strictly reduces subproblem size, so recursion reaches the base case.
-   - Final outcome: k-th smallest element.
 **Pseudocode:**
 ```python
 def quickselect(a, k):
@@ -922,7 +892,6 @@ def quickselect(a, k):
 
 4. **Termination + result**
    - Termination: each iteration removes pending work or makes measurable progress, so the loop cannot run forever.
-   - Final outcome: Tiny arrays / teaching.
 **Pseudocode:**
 ```python
 for i in range(n):
@@ -947,7 +916,6 @@ for i in range(n):
 
 4. **Termination + result**
    - Termination: the process advances through a finite set of states/items and therefore halts.
-   - Final outcome: Nearly sorted arrays, small base cases.
 **Pseudocode:**
 ```python
 for i in range(1, n):
@@ -973,7 +941,6 @@ for i in range(1, n):
 
 4. **Termination + result**
    - Termination: the process advances through a finite set of states/items and therefore halts.
-   - Final outcome: Integer keys in small range.
 **Pseudocode:**
 ```python
 cnt = [0]*(k+1)
@@ -998,7 +965,6 @@ for i in range(1, k+1): cnt[i] += cnt[i-1]
 
 4. **Termination + result**
    - Termination: each recursive call strictly reduces subproblem size, so recursion reaches the base case.
-   - Final outcome: Fixed-length strings/integers with bounded alphabet/base.
 **Pseudocode:**
 ```python
 def msd(arr, d):
@@ -1024,7 +990,6 @@ def msd(arr, d):
 
 4. **Termination + result**
    - Termination: each recursive call strictly reduces subproblem size, so recursion reaches the base case.
-   - Final outcome: Special recurrence exercise.
 **Pseudocode:**
 ```python
 # exam-specific overlap D&C recurrence example
@@ -1054,7 +1019,6 @@ def two_thirds_sort(a, l, r):
 
 4. **Termination + result**
    - Termination: the process advances through a finite set of states/items and therefore halts.
-   - Final outcome: Membership/position in sorted arrays.
 **Pseudocode:**
 ```python
 l, r = 0, n-1
@@ -1082,7 +1046,6 @@ while l <= r:
 
 4. **Termination + result**
    - Termination: the process advances through a finite set of states/items and therefore halts.
-   - Final outcome: Unsorted/small collections.
 **Pseudocode:**
 ```python
 for i, v in enumerate(a):
@@ -1107,7 +1070,6 @@ return -1
 
 4. **Termination + result**
    - Termination: the process advances through a finite set of states/items and therefore halts.
-   - Final outcome: Sorted-array pair/triplet constraints, window-like scans.
 **Pseudocode:**
 ```python
 i, j = 0, n-1
@@ -1135,7 +1097,6 @@ while i < j:
 
 4. **Termination + result**
    - Termination: each iteration removes pending work or makes measurable progress, so the loop cannot run forever.
-   - Final outcome: Contiguous subarray/string constraints.
 **Pseudocode:**
 ```python
 l = 0
@@ -1161,7 +1122,6 @@ for r in range(n):
 
 4. **Termination + result**
    - Termination: the process advances through a finite set of states/items and therefore halts.
-   - Final outcome: Find majority element (`> n/2`) in linear time, constant space.
 **Pseudocode:**
 ```python
 cand = None; c = 0
@@ -1188,7 +1148,6 @@ for x in a:
 
 4. **Termination + result**
    - Termination: the process advances through a finite set of states/items and therefore halts.
-   - Final outcome: Find node known by everyone, knowing nobody.
 **Pseudocode:**
 ```python
 c = 0
@@ -1218,7 +1177,6 @@ verify(c)  # check candidate knows nobody and everybody knows candidate
 
 4. **Termination + result**
    - Termination: the process advances through a finite set of states/items and therefore halts.
-   - Final outcome: Transform polynomial coefficients <-> value form.
 **Pseudocode:**
 ```python
 def dft(a, w):
@@ -1243,7 +1201,6 @@ def dft(a, w):
 
 4. **Termination + result**
    - Termination: each recursive call strictly reduces subproblem size, so recursion reaches the base case.
-   - Final outcome: Fast polynomial multiplication and convolution.
 **Pseudocode:**
 ```python
 def fft(a):
@@ -1271,7 +1228,6 @@ def fft(a):
 
 4. **Termination + result**
    - Termination: each recursive call strictly reduces subproblem size, so recursion reaches the base case.
-   - Final outcome: Large integer multiplication faster than grade-school.
 **Pseudocode:**
 ```python
 # small: base case, split: high/low halves, B=base^(half), B2=B*B
@@ -1300,10 +1256,9 @@ def kara(x, y):
 
 4. **Termination + result**
    - Termination: the process advances through a finite set of states/items and therefore halts.
-   - Final outcome: Large dense matrix multiplication.
 **Pseudocode:**
 ```python
-# high-level only: write out M1..M7 explicitly once when practicing for the exam
+# high-level only: M1..M7 are Strassen's seven subproducts used to recombine C blocks
 def strassen(A, B):
     if small: return naive_mul(A,B)
     A11,A12,A21,A22 = split_blocks(A); B11,B12,B21,B22 = split_blocks(B)
@@ -1335,7 +1290,6 @@ def strassen(A, B):
 
 4. **Termination + result**
    - Termination: the process advances through a finite set of states/items and therefore halts.
-   - Final outcome: Optimal parenthesization of matrix product chain.
 **Pseudocode:**
 ```python
 for len_ in range(2, n+1):
@@ -1362,7 +1316,6 @@ for len_ in range(2, n+1):
 
 4. **Termination + result**
    - Termination: the process advances through a finite set of states/items and therefore halts.
-   - Final outcome: Sequence similarity / edit-like tasks.
 **Pseudocode:**
 ```python
 if a[i-1] == b[j-1]: dp[i][j] = dp[i-1][j-1] + 1
@@ -1386,7 +1339,6 @@ else: dp[i][j] = max(dp[i-1][j], dp[i][j-1])
 
 4. **Termination + result**
    - Termination: each recursive call strictly reduces subproblem size, so recursion reaches the base case.
-   - Final outcome: Recover LCS string with linear extra memory.
 **Pseudocode:**
 ```python
 def hirschberg(X, Y):
@@ -1414,7 +1366,6 @@ def hirschberg(X, Y):
 
 4. **Termination + result**
    - Termination: the process advances through a finite set of states/items and therefore halts.
-   - Final outcome: Longest palindrome by deletion (subsequence, not substring).
 **Pseudocode:**
 ```python
 for i in reversed(range(n)):
@@ -1440,7 +1391,6 @@ for i in reversed(range(n)):
 
 4. **Termination + result**
    - Termination: the process advances through a finite set of states/items and therefore halts.
-   - Final outcome: Value maximization with indivisible items and capacity `W`.
 **Pseudocode:**
 ```python
 for i in range(1, n+1):
@@ -1467,7 +1417,6 @@ for i in range(1, n+1):
 
 4. **Termination + result**
    - Termination: the process advances through a finite set of states/items and therefore halts.
-   - Final outcome: Splittable items.
 **Pseudocode:**
 ```python
 items.sort(key=lambda x: x.v/x.w, reverse=True)
@@ -1493,7 +1442,6 @@ for it in items:
 
 4. **Termination + result**
    - Termination: the process advances through a finite set of states/items and therefore halts.
-   - Final outcome: Max revenue by cutting rod into pieces.
 **Pseudocode:**
 ```python
 for L in range(1, n+1):
@@ -1518,7 +1466,6 @@ for L in range(1, n+1):
 
 4. **Termination + result**
    - Termination: the process advances through a finite set of states/items and therefore halts.
-   - Final outcome: Minimum coins / counting ways; also compare greedy vs DP correctness.
 **Pseudocode:**
 ```python
 dp = [INF]*(A+1); dp[0] = 0
@@ -1544,7 +1491,6 @@ for x in range(1, A+1):
 
 4. **Termination + result**
    - Termination: each iteration removes pending work or makes measurable progress, so the loop cannot run forever.
-   - Final outcome: Max number of non-overlapping intervals.
 **Pseudocode:**
 ```python
 intervals.sort(key=lambda it: it.end)
@@ -1571,13 +1517,12 @@ for it in intervals:
 
 4. **Termination + result**
    - Termination: the process advances through a finite set of states/items and therefore halts.
-   - Final outcome: Cover line/requirements with minimal cost/choices under interval options.
 **Pseudocode:**
 ```python
 # dp[p] = best cost to cover up to position p
 # M = maximum position/endpoint to be covered
 # transition checks all intervals [l..p] that can end at p
-# helper computes min over such predecessor states + interval cost
+# best_transition_from_intervals_covering(p) returns min(dp[l-1] + cost(l,p)) over valid starts l
 for p in range(1, M+1):
     dp[p] = best_transition_from_intervals_covering(p)
 ```
@@ -1600,7 +1545,6 @@ for p in range(1, M+1):
 
 4. **Termination + result**
    - Termination: the process advances through a finite set of states/items and therefore halts.
-   - Final outcome: Partition/order optimization with shelf constraints.
 **Pseudocode:**
 ```python
 # cost(j,i): cost of placing books j..i on one shelf
@@ -1631,7 +1575,6 @@ for i in range(1, n+1):
 
 4. **Termination + result**
    - Termination: each iteration removes pending work or makes measurable progress, so the loop cannot run forever.
-   - Final outcome: Optimal prefix-free coding for known symbol frequencies.
 **Pseudocode:**
 ```python
 pq = [(freq[c], Leaf(c)) for c in alphabet]
@@ -1659,7 +1602,6 @@ while len(pq) > 1:
 
 4. **Termination + result**
    - Termination: each recursive call strictly reduces subproblem size, so recursion reaches the base case.
-   - Final outcome: Heuristic prefix coding (not always optimal like Huffman).
 **Pseudocode:**
 ```python
 def sf(symbols):
@@ -1702,7 +1644,8 @@ def sf(symbols):
 ```python
 # current[b] is b's current partner (or None)
 # prefers[b][x] gives ranking score of proposer x for receiver b (higher = more preferred)
-# engage(a,b): pair a with b; free(x): mark proposer x as free
+# engage(a,b): pair proposer a with receiver b
+# free(x): mark proposer x as free again
 while free_proposer_exists():
     a = pick_free(); b = next_choice[a]
     if current[b] is None:
@@ -1731,7 +1674,6 @@ while free_proposer_exists():
 
 4. **Termination + result**
    - Termination: the process advances through a finite set of states/items and therefore halts.
-   - Final outcome: Fast approximate Jaccard similarity at scale.
 **Pseudocode:**
 ```python
 def minhash_sig(S, hs):
@@ -1755,7 +1697,6 @@ def minhash_sig(S, hs):
 
 4. **Termination + result**
    - Termination: the process advances through a finite set of states/items and therefore halts.
-   - Final outcome: Exact set similarity baseline.
 **Pseudocode:**
 ```python
 J = len(A & B) / len(A | B)
@@ -1779,7 +1720,6 @@ J = len(A & B) / len(A | B)
 
 4. **Termination + result**
    - Termination: the process advances through a finite set of states/items and therefore halts.
-   - Final outcome: Build fair coin from unknown biased coin (independent tosses).
 **Pseudocode:**
 ```python
 def fair_bit():
@@ -1807,7 +1747,6 @@ def fair_bit():
 
 4. **Termination + result**
    - Termination: the process advances through a finite set of states/items and therefore halts.
-   - Final outcome: Simulate target distribution from easy base randomness.
 **Pseudocode:**
 ```python
 # generates a biased coin with Pr[1] = 1/n (1 iff accepted x equals 0)
