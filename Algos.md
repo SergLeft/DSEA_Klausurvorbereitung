@@ -1677,6 +1677,7 @@ while free_proposer_exists():
 **Pseudocode:**
 ```python
 def minhash_sig(S, hs):
+    if not S: return [None for _ in hs]  # convention for empty set
     return [min(h(x) for x in S) for h in hs]
 ```
 **Time:** `O(k*|S|)` for `k` hash functions; estimator variance decreases as `1/k`.
