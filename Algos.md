@@ -112,7 +112,7 @@ def put(k, v):
 
 ### 8) Open Addressing (Linear Probing / Double Hashing)
 **Best suited:** Hashing without pointer chains.
-**Step-by-step intuition (DSEA-notes style):**
+**Step-by-step intuition:**
 
 1. **What is Linear Probing? (The "Mailbox Walk")**
    - Imagine slots `0..m-1` as a row of mailboxes.
@@ -151,7 +151,7 @@ def put(k, v):
 def find_slot(k):
     i = h1(k) % m
     step = 1              # linear; for double hashing use h2(k)
-    while table[i] is not EMPTY and (table[i] is DELETED or slot_key(table[i]) != k):
+    while table[i] != EMPTY and (table[i] == DELETED or slot_key(table[i]) != k):
         i = (i + step) % m
     return i
 ```
@@ -860,7 +860,7 @@ for p in range(1, M+1):
 ```python
 # cost(j,i): cost of placing books j..i on one shelf
 # feasible_starts(i): starts j satisfying width/constraint limits for shelf ending at i
-# initialize dp[0] = 0 and ensure feasible_starts(i) returns j >= 1
+# 1-indexed convention: initialize dp[0] = 0 and use starts j >= 1
 for i in range(1, n+1):
     dp[i] = min(cost(j,i) + dp[j-1] for j in feasible_starts(i))
 ```
@@ -900,7 +900,7 @@ def sf(symbols):
 
 ### 61) Gale-Shapley / Deferred Acceptance (Stable Matching)
 **Best suited:** Stable matching (one-to-one or capacity variants).
-**Step-by-step intuition (human walkthrough):**
+**Step-by-step intuition:**
 
 1. **The setup**
    - Split into two sides (e.g., proposers and acceptors).
@@ -987,7 +987,7 @@ def fair_bit():
 2. **Then:** Reject out-of-range events.
 **Pseudocode:**
 ```python
-# returns Bernoulli(1/n): 1 iff accepted x equals 0; returns 0 for accepted x in 1..n-1
+# generates a biased coin with Pr[1] = 1/n (1 iff accepted x equals 0)
 def sample_bernoulli_1_n(n):
     k = ceil_log2(n)
     while True:
