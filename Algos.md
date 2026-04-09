@@ -150,7 +150,7 @@ def put(k, v):
 # slot_key(s) returns key stored in slot s (or EMPTY)
 def find_slot(k):
     i = h1(k) % m
-    step = 1              # linear; for double hashing use h2(k)
+    step = 1              # linear probing; for double hashing use step = h2(k)
     while table[i] != EMPTY and (table[i] == DELETED or slot_key(table[i]) != k):
         i = (i + step) % m
     return i
@@ -171,7 +171,7 @@ def insert(current):
         evicted, table[pos] = table[pos], current
         if evicted is EMPTY: return
         current = evicted
-    rehash()  # rebuild with new hash params/capacity if cycle persists
+    rehash()  # loop exhausted without EMPTY slot -> treat as cycle and rebuild
 ```
 **Time:** Lookup `O(1)` worst-case; insert expected `O(1)` (rehash rare amortized).
 
@@ -704,7 +704,7 @@ def kara(x, y):
 2. **Then:** Compute 7 subproducts (not 8) + recombination.
 **Pseudocode:**
 ```python
-# high-level only: use standard Strassen M1..M7 block formulas
+# high-level only: helpers encapsulate Strassen's M1..M7 formulas and C-block recombination
 def strassen(A, B):
     if small: return naive_mul(A,B)
     A11,A12,A21,A22 = split_blocks(A); B11,B12,B21,B22 = split_blocks(B)
@@ -860,7 +860,7 @@ for p in range(1, M+1):
 ```python
 # cost(j,i): cost of placing books j..i on one shelf
 # feasible_starts(i): starts j satisfying width/constraint limits for shelf ending at i
-# 1-indexed convention: initialize dp[0] = 0 and use starts j >= 1
+# 1-indexed books: n = number of books, books are indexed 1..n; initialize dp[0] = 0
 for i in range(1, n+1):
     dp[i] = min(cost(j,i) + dp[j-1] for j in feasible_starts(i))
 ```
@@ -1041,7 +1041,7 @@ def sample_bernoulli_1_n(n):
 
 If you only have one evening, do this exact order:
 
-1. **Recurrences (incl. Master Theorem from lecture notes)**
+1. **Recurrences**
    - Practice case detection and one non-standard recurrence.
 2. **Heap + Priority Queue mechanics**
    - Insert, extract-min, sift-up/down by hand.
