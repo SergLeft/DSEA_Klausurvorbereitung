@@ -234,6 +234,7 @@ def put(k, v):
 # table is array of slots; EMPTY is unused, DELETED is tombstone
 # slot_key(s) returns key stored in slot s (or EMPTY)
 # step_fn(k) = 1 for linear probing, or h2(k) for double hashing
+# assumes h1, m, table, EMPTY, DELETED are defined in surrounding hash-table context
 def find_slot(k, step_fn=lambda k: 1):
     i = h1(k) % m
     step = step_fn(k)
@@ -1646,6 +1647,7 @@ def sf(symbols):
 # prefers[b][x] gives ranking score of proposer x for receiver b (higher = more preferred)
 # engage(a,b): pair proposer a with receiver b
 # free(x): mark proposer x as free again
+# pick_free(): returns any currently free proposer who still has an untried receiver
 while free_proposer_exists():
     a = pick_free(); b = next_choice[a]
     if current[b] is None:

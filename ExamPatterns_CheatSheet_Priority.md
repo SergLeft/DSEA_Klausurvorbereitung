@@ -73,7 +73,7 @@ These are highly “exam-compatible” because they match recurring old-exam sty
 7. **Flow residual reasoning** (augmenting path, bottleneck, min-cut link)
 8. **Stable matching properties** (termination + stability + proposer-optimality)
 9. **Coding comparison** (Huffman optimal, Shannon-Fano not guaranteed optimal)
-10. **DP state design under constraints** (interval coverage/bookshelf/LPS)
+10. **DP state design under constraints** (interval coverage/bookshelf/LPS = Longest Palindromic Subsequence)
 
 ---
 
