@@ -205,7 +205,7 @@ Use this as direct compression target for your one-sheet.
 48. Matrix Chain Multiplication
 49. LCS
 50. Hirschberg
-51. LPS
+51. LPS (Longest Palindromic Subsequence)
 52. 0/1 Knapsack
 53. Fractional Knapsack
 54. Rod Cutting

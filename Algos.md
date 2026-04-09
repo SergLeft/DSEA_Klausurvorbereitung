@@ -235,7 +235,7 @@ def put(k, v):
 # slot_key(s) returns key stored in slot s (or EMPTY)
 # step_fn(k) = 1 for linear probing, or h2(k) for double hashing
 # assumes h1, m, table, EMPTY, DELETED are defined in surrounding hash-table context
-def find_slot(k, step_fn=lambda k: 1):
+def find_slot(k, step_fn=lambda key: 1):
     i = h1(k) % m
     step = step_fn(k)
     while table[i] != EMPTY and (table[i] == DELETED or slot_key(table[i]) != k):
@@ -1181,6 +1181,7 @@ verify(c)  # check candidate knows nobody and everybody knows candidate
 **Pseudocode:**
 ```python
 def dft(a, w):
+    # practical impl: precompute/cache powers of w to avoid repeated exponentiation
     return [sum(a[j] * (w**(k*j)) for j in range(n)) for k in range(n)]
 ```
 **Time:** Direct DFT `O(n^2)` (double summation).
@@ -1644,7 +1645,7 @@ def sf(symbols):
 **Pseudocode:**
 ```python
 # current[b] is b's current partner (or None)
-# prefers[b][x] gives ranking score of proposer x for receiver b (higher = more preferred)
+# pref_rank[b][x] gives ranking score of proposer x for receiver b (higher = more preferred)
 # engage(a,b): pair proposer a with receiver b
 # free(x): mark proposer x as free again
 # pick_free(): returns any currently free proposer who still has an untried receiver
@@ -1652,7 +1653,7 @@ while free_proposer_exists():
     a = pick_free(); b = next_choice[a]
     if current[b] is None:
         engage(a,b)
-    elif prefers[b][a] > prefers[b][current[b]]:
+    elif pref_rank[b][a] > pref_rank[b][current[b]]:
         old = current[b]
         engage(a,b); free(old)
 ```
