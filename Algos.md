@@ -17,10 +17,26 @@ Pseudocode note: many snippets intentionally use helper placeholders (e.g., `aug
 
 ### 1) Binary Heap (Min-Heap / Max-Heap)
 **Best suited:** Fast repeated min/max extraction (priority queues, Dijkstra/Prim/Huffman).
-**Step-by-step walkthrough:**
-1. **Start:** Store as complete binary tree in array.
-2. **Then:** Insert at end + sift-up.
-3. **Next:** Extract root + swap with last + sift-down.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - Store as complete binary tree in array.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** Store as complete binary tree in array.
+   - **Then:** Insert at end + sift-up.
+   - **Next:** Extract root + swap with last + sift-down.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 # helpers: sift_up(heap, i), sift_down(heap, i)
@@ -35,9 +51,25 @@ def pop_min(h):
 
 ### 2) Priority Queue
 **Best suited:** Always process next most urgent/min-cost element.
-**Step-by-step walkthrough:**
-1. **Start:** Backed by heap/buckets.
-2. **Then:** Push, decrease-key (if supported), pop-min/pop-max.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - Backed by heap/buckets.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** Backed by heap/buckets.
+   - **Then:** Push, decrease-key (if supported), pop-min/pop-max.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 pq = []
@@ -48,9 +80,25 @@ prio, item = pop_min(pq)
 
 ### 3) Bucket Queue
 **Best suited:** Integer priorities in bounded range `[0..k]` (e.g., bounded-weight MST/SP variants).
-**Step-by-step walkthrough:**
-1. **Start:** Array of buckets by key.
-2. **Then:** Maintain current non-empty bucket pointer.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - Array of buckets by key.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** Array of buckets by key.
+   - **Then:** Maintain current non-empty bucket pointer.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 buckets = [list() for _ in range(k+1)]
@@ -64,9 +112,25 @@ def pop_min():
 
 ### 4) Dynamic Array
 **Best suited:** Random-access array with amortized `O(1)` append.
-**Step-by-step walkthrough:**
-1. **Start:** On full capacity, allocate larger array and copy.
-2. **Then:** Optionally shrink when sparse.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - On full capacity, allocate larger array and copy.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** On full capacity, allocate larger array and copy.
+   - **Then:** Optionally shrink when sparse.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 def append(x):
@@ -77,8 +141,24 @@ def append(x):
 
 ### 5) Stack
 **Best suited:** LIFO processing (DFS, parsing, undo, monotonic tricks).
-**Step-by-step walkthrough:**
-1. **Start:** Push/pop at one end.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - Push/pop at one end.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** Push/pop at one end.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 st.append(x)
@@ -88,8 +168,24 @@ x = st.pop()
 
 ### 6) Queue
 **Best suited:** FIFO processing (BFS, scheduling).
-**Step-by-step walkthrough:**
-1. **Start:** Enqueue at tail, dequeue at head.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - Enqueue at tail, dequeue at head.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** Enqueue at tail, dequeue at head.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 q.append(x)
@@ -99,9 +195,25 @@ x = q.popleft()
 
 ### 7) Hash Table / Hash Map
 **Best suited:** Expected `O(1)` insert/find/delete.
-**Step-by-step walkthrough:**
-1. **Start:** Hash key -> bucket/slot.
-2. **Then:** Resolve collisions.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - Hash key -> bucket/slot.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** Hash key -> bucket/slot.
+   - **Then:** Resolve collisions.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 def put(k, v):
@@ -159,9 +271,25 @@ def find_slot(k):
 
 ### 9) Cuckoo Hashing
 **Best suited:** Worst-case `O(1)` lookup with two hash locations.
-**Step-by-step walkthrough:**
-1. **Start:** Insert by evicting occupant to its alternate position.
-2. **Then:** Rebuild on long cycles.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - Insert by evicting occupant to its alternate position.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** Insert by evicting occupant to its alternate position.
+   - **Then:** Rebuild on long cycles.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 # inA toggles table side; hA/hB are the two hash functions
@@ -177,9 +305,25 @@ def insert(current):
 
 ### 10) Universal / 2-Universal Hash Family
 **Best suited:** Provable low collision probability in randomized algorithms.
-**Step-by-step walkthrough:**
-1. **Start:** Randomly choose hash function from family.
-2. **Then:** Use in hash table/minhash etc.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - Randomly choose hash function from family.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** Randomly choose hash function from family.
+   - **Then:** Use in hash table/minhash etc.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 # choose random a,b; p is prime >= universe size
@@ -191,8 +335,24 @@ h(x) = ((a*x + b) % p) % m
 
 ### 11) Binary Search Tree (BST)
 **Best suited:** Ordered set/map with predecessor/successor queries.
-**Step-by-step walkthrough:**
-1. **Start:** Left < node < right recursively.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - Left < node < right recursively.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** Left < node < right recursively.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 def search(t, x):
@@ -203,8 +363,24 @@ def search(t, x):
 
 ### 12) AVL Tree
 **Best suited:** Guaranteed logarithmic ordered operations.
-**Step-by-step walkthrough:**
-1. **Start:** BST insert/delete + update heights + rotations (LL/RR/LR/RL).
+**Step-by-step intuition:**
+
+1. **The setup**
+   - BST insert/delete + update heights + rotations (LL/RR/LR/RL).
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** BST insert/delete + update heights + rotations (LL/RR/LR/RL).
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 def insert(t, x):
@@ -216,9 +392,25 @@ def insert(t, x):
 
 ### 13) Union-Find (Disjoint Set Union)
 **Best suited:** Dynamic connectivity (Kruskal, components, cycle checks).
-**Step-by-step walkthrough:**
-1. **Start:** `find` root with path compression.
-2. **Then:** `union` by rank/size.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - `find` root with path compression.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** `find` root with path compression.
+   - **Then:** `union` by rank/size.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 def find(x):
@@ -233,8 +425,24 @@ def union(a,b):
 
 ### 14) Residual Network (flow DS)
 **Best suited:** Represent current flow + possible augment/reverse moves.
-**Step-by-step walkthrough:**
-1. **Start:** Maintain residual capacities for forward/backward edges.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - Maintain residual capacities for forward/backward edges.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** Maintain residual capacities for forward/backward edges.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 res[u][v] = cap[u][v] - flow[u][v]
@@ -244,9 +452,25 @@ res[v][u] = flow[u][v]
 
 ### 15) Prefix-Free Code Tree (Huffman/Shannon-Fano output structure)
 **Best suited:** Decodable variable-length coding.
-**Step-by-step walkthrough:**
-1. **Start:** Build binary tree.
-2. **Then:** Leaf path bits are codewords.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - Build binary tree.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** Build binary tree.
+   - **Then:** Leaf path bits are codewords.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 def decode(bits, root):
@@ -267,9 +491,25 @@ def decode(bits, root):
 
 ### 16) BFS (Breadth-First Search)
 **Best suited:** Unweighted shortest paths, layering, bipartite test.
-**Step-by-step walkthrough:**
-1. **Start:** Queue from source.
-2. **Then:** Visit neighbors level by level.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - Queue from source.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** Queue from source.
+   - **Then:** Visit neighbors level by level.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 q = deque([s]); dist[s] = 0
@@ -282,8 +522,24 @@ while q:
 
 ### 17) DFS (Depth-First Search)
 **Best suited:** Reachability, components, cycle detection, ordering.
-**Step-by-step walkthrough:**
-1. **Start:** Recurse/stack deeply then backtrack.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - Recurse/stack deeply then backtrack.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** Recurse/stack deeply then backtrack.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 def dfs(u):
@@ -295,8 +551,24 @@ def dfs(u):
 
 ### 18) Connected Components
 **Best suited:** Partition undirected graph into maximal connected subgraphs.
-**Step-by-step walkthrough:**
-1. **Start:** Run BFS/DFS from each unvisited node, assign component id.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - Run BFS/DFS from each unvisited node, assign component id.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** Run BFS/DFS from each unvisited node, assign component id.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 cid = 0
@@ -307,10 +579,26 @@ for u in V:
 
 ### 19) Dijkstra
 **Best suited:** Single-source shortest paths with nonnegative edges.
-**Step-by-step walkthrough:**
-1. **Start:** Dist init.
-2. **Then:** Repeatedly settle min-distance node.
-3. **Next:** Relax outgoing edges.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - Dist init.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** Dist init.
+   - **Then:** Repeatedly settle min-distance node.
+   - **Next:** Relax outgoing edges.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 dist = {s: 0}; pq = [(0, s)]
@@ -325,9 +613,25 @@ while pq:
 
 ### 20) Bellman-Ford
 **Best suited:** Shortest paths with negative edges + negative-cycle detection.
-**Step-by-step walkthrough:**
-1. **Start:** Relax all edges `V-1` rounds.
-2. **Then:** One extra round checks cycle.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - Relax all edges `V-1` rounds.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** Relax all edges `V-1` rounds.
+   - **Then:** One extra round checks cycle.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 dist[s] = 0
@@ -339,8 +643,24 @@ neg_cycle = any(dist[u] + w < dist[v] for u, v, w in E)
 
 ### 21) Floyd-Warshall
 **Best suited:** All-pairs shortest paths (dense graphs, small/medium V).
-**Step-by-step walkthrough:**
-1. **Start:** DP over allowed intermediate vertices `k`.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - DP over allowed intermediate vertices `k`.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** DP over allowed intermediate vertices `k`.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 for k in V:
@@ -352,9 +672,25 @@ for k in V:
 
 ### 22) Kruskal MST
 **Best suited:** Sparse MST construction.
-**Step-by-step walkthrough:**
-1. **Start:** Sort edges by weight.
-2. **Then:** Add if endpoints in different DSU sets.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - Sort edges by weight.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** Sort edges by weight.
+   - **Then:** Add if endpoints in different DSU sets.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 E.sort(key=lambda e: e.w)
@@ -365,8 +701,24 @@ for e in E:
 
 ### 23) Prim MST
 **Best suited:** MST by growing one tree from any start node.
-**Step-by-step walkthrough:**
-1. **Start:** Keep min crossing edge via priority queue.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - Keep min crossing edge via priority queue.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** Keep min crossing edge via priority queue.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 vis = {s}; push all edges from s
@@ -379,10 +731,26 @@ while pq and len(vis) < V:
 
 ### 24) Borůvka MST
 **Best suited:** Parallel-friendly MST; components shrink quickly.
-**Step-by-step walkthrough:**
-1. **Start:** Each component picks cheapest outgoing edge.
-2. **Then:** Merge.
-3. **Next:** Repeat.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - Each component picks cheapest outgoing edge.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** Each component picks cheapest outgoing edge.
+   - **Then:** Merge.
+   - **Next:** Repeat.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 while num_components > 1:
@@ -393,10 +761,26 @@ while num_components > 1:
 
 ### 25) Topological Sort (Kahn)
 **Best suited:** Linearization of DAG dependencies.
-**Step-by-step walkthrough:**
-1. **Start:** Compute indegrees.
-2. **Then:** Queue zero-indegree nodes.
-3. **Next:** Remove iteratively.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - Compute indegrees.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** Compute indegrees.
+   - **Then:** Queue zero-indegree nodes.
+   - **Next:** Remove iteratively.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 q = deque([u for u in V if indeg[u] == 0])
@@ -410,8 +794,24 @@ while q:
 
 ### 26) Ford-Fulkerson (augmenting paths)
 **Best suited:** Max flow foundation.
-**Step-by-step walkthrough:**
-1. **Start:** Repeatedly find augmenting path in residual graph, augment by bottleneck.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - Repeatedly find augmenting path in residual graph, augment by bottleneck.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** Repeatedly find augmenting path in residual graph, augment by bottleneck.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 flow = 0
@@ -423,8 +823,24 @@ while path := find_path_in_residual(s, t):
 
 ### 27) Edmonds-Karp
 **Best suited:** Deterministic polynomial max flow (BFS augmenting path).
-**Step-by-step walkthrough:**
-1. **Start:** Ford-Fulkerson with shortest augmenting path in edge count.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - Ford-Fulkerson with shortest augmenting path in edge count.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** Ford-Fulkerson with shortest augmenting path in edge count.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 while path := bfs_residual_path(s, t):
@@ -434,10 +850,26 @@ while path := bfs_residual_path(s, t):
 
 ### 28) Cycle-Canceling in Flows
 **Best suited:** Convert arbitrary feasible flow to acyclic flow / reduce circulation cost cases.
-**Step-by-step walkthrough:**
-1. **Start:** Detect positive-flow directed cycle.
-2. **Then:** Push minimum cycle flow backward.
-3. **Next:** Repeat.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - Detect positive-flow directed cycle.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** Detect positive-flow directed cycle.
+   - **Then:** Push minimum cycle flow backward.
+   - **Next:** Repeat.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 while cycle := find_positive_flow_cycle():
@@ -448,8 +880,24 @@ while cycle := find_positive_flow_cycle():
 
 ### 29) Bipartite Matching via Max Flow
 **Best suited:** Maximum cardinality matching in bipartite graphs.
-**Step-by-step walkthrough:**
-1. **Start:** Source -> left (cap1), left->right edges (cap1), right->sink (cap1), run max flow.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - Source -> left (cap1), left->right edges (cap1), right->sink (cap1), run max flow.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** Source -> left (cap1), left->right edges (cap1), right->sink (cap1), run max flow.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 build_unit_capacity_network(L, R, E)
@@ -464,8 +912,24 @@ matching = {(u, v) for (u, v) in E if flow[u][v] == 1}
 
 ### 30) Merge Sort
 **Best suited:** Stable `O(n log n)` sorting.
-**Step-by-step walkthrough:**
-1. **Start:** Divide in halves, recursively sort, merge two sorted halves.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - Divide in halves, recursively sort, merge two sorted halves.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** Divide in halves, recursively sort, merge two sorted halves.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 def mergesort(a):
@@ -477,8 +941,24 @@ def mergesort(a):
 
 ### 31) QuickSort (randomized)
 **Best suited:** Fast in-place average sorting.
-**Step-by-step walkthrough:**
-1. **Start:** Pick pivot, partition, recurse on sides.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - Pick pivot, partition, recurse on sides.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** Pick pivot, partition, recurse on sides.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 def quicksort(a, l, r):
@@ -490,9 +970,25 @@ def quicksort(a, l, r):
 
 ### 32) QuickSelect
 **Best suited:** k-th smallest element.
-**Step-by-step walkthrough:**
-1. **Start:** Partition by pivot.
-2. **Then:** Recurse only side containing k.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - Partition by pivot.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** Partition by pivot.
+   - **Then:** Recurse only side containing k.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 def quickselect(a, k):
@@ -504,8 +1000,24 @@ def quickselect(a, k):
 
 ### 33) Selection Sort
 **Best suited:** Tiny arrays / teaching.
-**Step-by-step walkthrough:**
-1. **Start:** Repeatedly select minimum of unsorted suffix and swap front.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - Repeatedly select minimum of unsorted suffix and swap front.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** Repeatedly select minimum of unsorted suffix and swap front.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 for i in range(n):
@@ -516,8 +1028,24 @@ for i in range(n):
 
 ### 34) Insertion Sort
 **Best suited:** Nearly sorted arrays, small base cases.
-**Step-by-step walkthrough:**
-1. **Start:** Insert each element into sorted prefix.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - Insert each element into sorted prefix.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** Insert each element into sorted prefix.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 for i in range(1, n):
@@ -529,8 +1057,24 @@ for i in range(1, n):
 
 ### 35) Counting Sort
 **Best suited:** Integer keys in small range.
-**Step-by-step walkthrough:**
-1. **Start:** Count frequencies, prefix sums, place stably.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - Count frequencies, prefix sums, place stably.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** Count frequencies, prefix sums, place stably.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 cnt = [0]*(k+1)
@@ -541,8 +1085,24 @@ for i in range(1, k+1): cnt[i] += cnt[i-1]
 
 ### 36) Radix Sort (incl. MSD Radix Sort)
 **Best suited:** Fixed-length strings/integers with bounded alphabet/base.
-**Step-by-step walkthrough:**
-1. **Start:** Sort by digits/chars (LSD or recursive MSD buckets).
+**Step-by-step intuition:**
+
+1. **The setup**
+   - Sort by digits/chars (LSD or recursive MSD buckets).
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** Sort by digits/chars (LSD or recursive MSD buckets).
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 def msd(arr, d):
@@ -554,8 +1114,24 @@ def msd(arr, d):
 
 ### 37) 2/3 Sort (exam-specific divide-and-conquer)
 **Best suited:** Special recurrence exercise.
-**Step-by-step walkthrough:**
-1. **Start:** Recursively sort overlapping/partial segments of size about `2n/3`.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - Recursively sort overlapping/partial segments of size about `2n/3`.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** Recursively sort overlapping/partial segments of size about `2n/3`.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 # exam-specific overlap D&C recurrence example
@@ -570,9 +1146,25 @@ def two_thirds_sort(a, l, r):
 
 ### 38) Binary Search
 **Best suited:** Membership/position in sorted arrays.
-**Step-by-step walkthrough:**
-1. **Start:** Compare with midpoint.
-2. **Then:** Discard half each iteration.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - Compare with midpoint.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** Compare with midpoint.
+   - **Then:** Discard half each iteration.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 l, r = 0, n-1
@@ -586,8 +1178,24 @@ while l <= r:
 
 ### 39) Sequential Search (Linear Search)
 **Best suited:** Unsorted/small collections.
-**Step-by-step walkthrough:**
-1. **Start:** Scan left to right until match/end.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - Scan left to right until match/end.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** Scan left to right until match/end.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 for i, v in enumerate(a):
@@ -598,8 +1206,24 @@ return -1
 
 ### 40) Two-Pointer Technique
 **Best suited:** Sorted-array pair/triplet constraints, window-like scans.
-**Step-by-step walkthrough:**
-1. **Start:** Maintain two indices and move based on condition.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - Maintain two indices and move based on condition.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** Maintain two indices and move based on condition.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 i, j = 0, n-1
@@ -613,8 +1237,24 @@ while i < j:
 
 ### 41) Sliding Window
 **Best suited:** Contiguous subarray/string constraints.
-**Step-by-step walkthrough:**
-1. **Start:** Expand right, shrink left while constraint violated.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - Expand right, shrink left while constraint violated.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** Expand right, shrink left while constraint violated.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 l = 0
@@ -626,8 +1266,24 @@ for r in range(n):
 
 ### 42) Boyer-Moore Majority Vote
 **Best suited:** Find majority element (`> n/2`) in linear time, constant space.
-**Step-by-step walkthrough:**
-1. **Start:** Cancel out different elements via counter.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - Cancel out different elements via counter.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** Cancel out different elements via counter.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 cand = None; c = 0
@@ -640,8 +1296,24 @@ for x in a:
 
 ### 43) Celebrity Problem (elimination)
 **Best suited:** Find node known by everyone, knowing nobody.
-**Step-by-step walkthrough:**
-1. **Start:** Pairwise eliminate impossible candidates, then verify final candidate.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - Pairwise eliminate impossible candidates, then verify final candidate.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** Pairwise eliminate impossible candidates, then verify final candidate.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 c = 0
@@ -657,8 +1329,24 @@ verify(c)  # check candidate knows nobody and everybody knows candidate
 
 ### 44) DFT (Discrete Fourier Transform)
 **Best suited:** Transform polynomial coefficients <-> value form.
-**Step-by-step walkthrough:**
-1. **Start:** Evaluate polynomial at roots of unity.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - Evaluate polynomial at roots of unity.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** Evaluate polynomial at roots of unity.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 def dft(a, w):
@@ -668,9 +1356,25 @@ def dft(a, w):
 
 ### 45) FFT (Fast Fourier Transform, Cooley-Tukey)
 **Best suited:** Fast polynomial multiplication and convolution.
-**Step-by-step walkthrough:**
-1. **Start:** Split even/odd coefficients recursively.
-2. **Then:** Combine with twiddle factors.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - Split even/odd coefficients recursively.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** Split even/odd coefficients recursively.
+   - **Then:** Combine with twiddle factors.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 def fft(a):
@@ -683,9 +1387,25 @@ def fft(a):
 
 ### 46) Karatsuba Multiplication
 **Best suited:** Large integer multiplication faster than grade-school.
-**Step-by-step walkthrough:**
-1. **Start:** Split numbers high/low.
-2. **Then:** Do 3 recursive multiplies instead of 4.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - Split numbers high/low.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** Split numbers high/low.
+   - **Then:** Do 3 recursive multiplies instead of 4.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 # small: base case, split: high/low halves, B=base^(half), B2=B*B
@@ -699,9 +1419,25 @@ def kara(x, y):
 
 ### 47) Strassen Matrix Multiplication
 **Best suited:** Large dense matrix multiplication.
-**Step-by-step walkthrough:**
-1. **Start:** Block matrices.
-2. **Then:** Compute 7 subproducts (not 8) + recombination.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - Block matrices.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** Block matrices.
+   - **Then:** Compute 7 subproducts (not 8) + recombination.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 # high-level only: helpers encapsulate Strassen's M1..M7 formulas and C-block recombination
@@ -719,8 +1455,24 @@ def strassen(A, B):
 
 ### 48) Matrix Chain Multiplication (DP)
 **Best suited:** Optimal parenthesization of matrix product chain.
-**Step-by-step walkthrough:**
-1. **Start:** `dp[i][j] = min_k dp[i][k] + dp[k+1][j] + cost`.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - `dp[i][j] = min_k dp[i][k] + dp[k+1][j] + cost`.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** `dp[i][j] = min_k dp[i][k] + dp[k+1][j] + cost`.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 for len_ in range(2, n+1):
@@ -732,9 +1484,25 @@ for len_ in range(2, n+1):
 
 ### 49) LCS (Longest Common Subsequence) DP
 **Best suited:** Sequence similarity / edit-like tasks.
-**Step-by-step walkthrough:**
-1. **Start:** `dp[i][j]` from prefixes.
-2. **Then:** Match => `+1`, else max of neighbors.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - `dp[i][j]` from prefixes.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** `dp[i][j]` from prefixes.
+   - **Then:** Match => `+1`, else max of neighbors.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 if a[i-1] == b[j-1]: dp[i][j] = dp[i-1][j-1] + 1
@@ -744,8 +1512,24 @@ else: dp[i][j] = max(dp[i-1][j], dp[i][j-1])
 
 ### 50) Hirschberg (space-optimized LCS reconstruction)
 **Best suited:** Recover LCS string with linear extra memory.
-**Step-by-step walkthrough:**
-1. **Start:** Divide one string, run forward/backward DP rows, split optimally, recurse.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - Divide one string, run forward/backward DP rows, split optimally, recurse.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** Divide one string, run forward/backward DP rows, split optimally, recurse.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 def hirschberg(X, Y):
@@ -758,9 +1542,25 @@ def hirschberg(X, Y):
 
 ### 51) Longest Palindromic Subsequence (LPS) DP
 **Best suited:** Longest palindrome by deletion (subsequence, not substring).
-**Step-by-step walkthrough:**
-1. **Start:** Interval DP on `i..j`.
-2. **Then:** Equal ends => `2+dp[i+1][j-1]` else max neighbors.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - Interval DP on `i..j`.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** Interval DP on `i..j`.
+   - **Then:** Equal ends => `2+dp[i+1][j-1]` else max neighbors.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 for i in reversed(range(n)):
@@ -772,8 +1572,24 @@ for i in reversed(range(n)):
 
 ### 52) 0/1 Knapsack DP
 **Best suited:** Value maximization with indivisible items and capacity `W`.
-**Step-by-step walkthrough:**
-1. **Start:** Include/exclude transition on item index and remaining capacity.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - Include/exclude transition on item index and remaining capacity.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** Include/exclude transition on item index and remaining capacity.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 for i in range(1, n+1):
@@ -785,9 +1601,25 @@ for i in range(1, n+1):
 
 ### 53) Fractional Knapsack (Greedy)
 **Best suited:** Splittable items.
-**Step-by-step walkthrough:**
-1. **Start:** Sort by value/weight ratio descending.
-2. **Then:** Take full then fraction.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - Sort by value/weight ratio descending.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** Sort by value/weight ratio descending.
+   - **Then:** Take full then fraction.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 items.sort(key=lambda x: x.v/x.w, reverse=True)
@@ -799,8 +1631,24 @@ for it in items:
 
 ### 54) Rod Cutting DP
 **Best suited:** Max revenue by cutting rod into pieces.
-**Step-by-step walkthrough:**
-1. **Start:** `dp[len] = max(price[i] + dp[len-i])`.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - `dp[len] = max(price[i] + dp[len-i])`.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** `dp[len] = max(price[i] + dp[len-i])`.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 for L in range(1, n+1):
@@ -810,9 +1658,25 @@ for L in range(1, n+1):
 
 ### 55) Coin Change
 **Best suited:** Minimum coins / counting ways; also compare greedy vs DP correctness.
-**Step-by-step walkthrough:**
-1. **Start:** DP over amount.
-2. **Then:** Transition by coin usage.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - DP over amount.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** DP over amount.
+   - **Then:** Transition by coin usage.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 dp = [INF]*(A+1); dp[0] = 0
@@ -823,9 +1687,25 @@ for x in range(1, A+1):
 
 ### 56) Interval Scheduling (Greedy)
 **Best suited:** Max number of non-overlapping intervals.
-**Step-by-step walkthrough:**
-1. **Start:** Sort by finish time.
-2. **Then:** Repeatedly choose first compatible.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - Sort by finish time.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** Sort by finish time.
+   - **Then:** Repeatedly choose first compatible.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 intervals.sort(key=lambda it: it.end)
@@ -837,9 +1717,25 @@ for it in intervals:
 
 ### 57) Interval Coverage DP (Roman/resource coverage style)
 **Best suited:** Cover line/requirements with minimal cost/choices under interval options.
-**Step-by-step walkthrough:**
-1. **Start:** Define `dp[pos]` = optimal value up to position.
-2. **Then:** Transition by intervals ending at `pos`.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - Define `dp[pos]` = optimal value up to position.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** Define `dp[pos]` = optimal value up to position.
+   - **Then:** Transition by intervals ending at `pos`.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 # dp[p] = best cost to cover up to position p
@@ -853,9 +1749,25 @@ for p in range(1, M+1):
 
 ### 58) Bookshelf DP (exam variant)
 **Best suited:** Partition/order optimization with shelf constraints.
-**Step-by-step walkthrough:**
-1. **Start:** `dp[i]` best for first `i` books.
-2. **Then:** Try last shelf start `j`.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - `dp[i]` best for first `i` books.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** `dp[i]` best for first `i` books.
+   - **Then:** Try last shelf start `j`.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 # cost(j,i): cost of placing books j..i on one shelf
@@ -872,8 +1784,24 @@ for i in range(1, n+1):
 
 ### 59) Huffman Coding
 **Best suited:** Optimal prefix-free coding for known symbol frequencies.
-**Step-by-step walkthrough:**
-1. **Start:** Repeatedly merge two lowest-frequency trees in min-heap.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - Repeatedly merge two lowest-frequency trees in min-heap.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** Repeatedly merge two lowest-frequency trees in min-heap.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 pq = [(freq[c], Leaf(c)) for c in alphabet]
@@ -886,9 +1814,25 @@ while len(pq) > 1:
 
 ### 60) Shannon-Fano Coding
 **Best suited:** Heuristic prefix coding (not always optimal like Huffman).
-**Step-by-step walkthrough:**
-1. **Start:** Sort by frequency.
-2. **Then:** Recursively split into two near-equal frequency groups.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - Sort by frequency.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** Sort by frequency.
+   - **Then:** Recursively split into two near-equal frequency groups.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 def sf(symbols):
@@ -944,10 +1888,26 @@ while free_proposer_exists():
 
 ### 62) MinHash
 **Best suited:** Fast approximate Jaccard similarity at scale.
-**Step-by-step walkthrough:**
-1. **Start:** Apply random permutations/hash functions.
-2. **Then:** Keep minimum hash per set.
-3. **Next:** Compare signatures.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - Apply random permutations/hash functions.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** Apply random permutations/hash functions.
+   - **Then:** Keep minimum hash per set.
+   - **Next:** Compare signatures.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 def minhash_sig(S, hs):
@@ -957,8 +1917,24 @@ def minhash_sig(S, hs):
 
 ### 63) Jaccard Similarity Computation
 **Best suited:** Exact set similarity baseline.
-**Step-by-step walkthrough:**
-1. **Start:** Compute intersection and union sizes.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - Compute intersection and union sizes.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** Compute intersection and union sizes.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 J = len(A & B) / len(A | B)
@@ -967,9 +1943,25 @@ J = len(A & B) / len(A | B)
 
 ### 64) Von Neumann Extractor
 **Best suited:** Build fair coin from unknown biased coin (independent tosses).
-**Step-by-step walkthrough:**
-1. **Start:** Toss twice.
-2. **Then:** HT->1, TH->0, HH/TT retry.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - Toss twice.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** Toss twice.
+   - **Then:** HT->1, TH->0, HH/TT retry.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 def fair_bit():
@@ -982,9 +1974,25 @@ def fair_bit():
 
 ### 65) Rejection Sampling (discrete)
 **Best suited:** Simulate target distribution from easy base randomness.
-**Step-by-step walkthrough:**
-1. **Start:** Sample candidate uniformly from larger range.
-2. **Then:** Reject out-of-range events.
+**Step-by-step intuition:**
+
+1. **The setup**
+   - Sample candidate uniformly from larger range.
+   - Identify the input state and the exact output goal before tracing steps.
+
+2. **Core progression**
+   - **Start:** Sample candidate uniformly from larger range.
+   - **Then:** Reject out-of-range events.
+
+3. **What to track while tracing**
+   - Track the key state variables from the pseudocode after each update (indices, queues/heaps, parents, costs, or DP states).
+   - After every operation, check that invariants still hold (ordering, feasibility, connectivity, or optimal-substructure condition).
+
+4. **Why it terminates**
+   - Each iteration either consumes pending work, advances an index/pointer, or reaches a base case, so the process cannot continue forever.
+
+5. **What you get at the end**
+   - You obtain the required structure/answer for this problem type when the update rule is applied consistently.
 **Pseudocode:**
 ```python
 # generates a biased coin with Pr[1] = 1/n (1 iff accepted x equals 0)
