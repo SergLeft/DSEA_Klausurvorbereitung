@@ -153,7 +153,7 @@ def find_slot(k):
     while table[i] not in (EMPTY, k): i = (i + step) % m
     return i
 ```
-**Time:** Expected `O(1)` at low/moderate load; degrades sharply as load factor approaches 1.
+**Time:** Insert/search expected `O(1)` at low/moderate load; both degrade sharply as load factor approaches 1.
 
 ### 9) Cuckoo Hashing
 **Best suited:** Worst-case `O(1)` lookup with two hash locations.
@@ -903,7 +903,7 @@ def sf(symbols):
    - Pick any free proposer who still has someone left to propose to.
    - They propose to their highest-ranked not-yet-asked acceptor.
 
-3. **Accepter decision**
+3. **Acceptor decision**
    - If acceptor is free -> engage with the proposer.
    - If acceptor is already engaged:
      - compare current partner vs new proposer,
@@ -1030,7 +1030,7 @@ def sample_bernoulli_1_n(n):
 
 If you only have one evening, do this exact order:
 
-1. **Master Theorem + Recurrences**
+1. **Recurrences (incl. Master Theorem from lecture notes)**
    - Practice case detection and one non-standard recurrence.
 2. **Heap + Priority Queue mechanics**
    - Insert, extract-min, sift-up/down by hand.
