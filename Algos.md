@@ -802,23 +802,23 @@ def sf(symbols):
 **Step-by-step intuition (human walkthrough):**
 
 1. **The setup**
-   - Split into two sides (e.g., proposers and accepters).
+   - Split into two sides (e.g., proposers and acceptors).
    - Everyone has a strict preference list over the opposite side.
    - Initially everyone is free.
 
 2. **Core loop**
    - Pick any free proposer who still has someone left to propose to.
-   - They propose to their highest-ranked not-yet-asked accepter.
+   - They propose to their highest-ranked not-yet-asked acceptor.
 
 3. **Accepter decision**
-   - If accepter is free -> engage with the proposer.
-   - If accepter is already engaged:
+   - If acceptor is free -> engage with the proposer.
+   - If acceptor is already engaged:
      - compare current partner vs new proposer,
      - keep the preferred one,
      - reject the other (who becomes free).
 
 4. **Why it ends**
-   - No proposer asks the same accepter twice.
+   - No proposer asks the same acceptor twice.
    - There are at most `n^2` possible proposals.
    - So the loop must terminate.
 
