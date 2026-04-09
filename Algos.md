@@ -1249,7 +1249,7 @@ def kara(x, y):
 
 2. **Core progression**
    - **Start:** Block matrices.
-   - **Then:** Compute 7 subproducts (not 8) + recombination.
+   - **Then:** Compute 7 sub-products (not 8) + recombination.
 
 3. **What to watch in exam traces**
    - Track the main loop variables and ensure each update preserves the invariant used for correctness.
@@ -1258,7 +1258,7 @@ def kara(x, y):
    - Termination: the process advances through a finite set of states/items and therefore halts.
 **Pseudocode:**
 ```python
-# high-level only: M1..M7 are Strassen's seven subproducts used to recombine C blocks
+# high-level only: M1..M7 are Strassen's seven sub-products used to recombine C blocks
 def strassen(A, B):
     if small: return naive_mul(A,B)
     A11,A12,A21,A22 = split_blocks(A); B11,B12,B21,B22 = split_blocks(B)
