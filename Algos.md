@@ -105,6 +105,7 @@ def put(k, v):
 def find_slot(k):
     i = h1(k) % m
     step = 1              # linear; for double hashing use h2(k)
+    # assumes table stores raw keys (or compare entry.key)
     while table[i] not in (EMPTY, k): i = (i + step) % m
     return i
 ```
@@ -121,7 +122,7 @@ def insert(x):
         pos = hA(x) if inA else hB(x)
         x, table[pos] = table[pos], x
         if x is EMPTY: return
-    rehash()
+    rehash()  # rebuild with new hash params/capacity if cycle persists
 ```
 **Time:** Lookup `O(1)` worst-case; insert expected `O(1)` (rehash rare amortized).
 
@@ -131,6 +132,7 @@ def insert(x):
 **Pseudocode:**
 ```python
 # choose random a,b; p is prime >= universe size
+# m is table size; 2-universal guarantee requires suitable family/params
 a, b = random_uniform_params()
 h(x) = ((a*x + b) % p) % m
 ```
@@ -170,7 +172,7 @@ def find(x):
 
 def union(a,b):
     ra, rb = find(a), find(b)
-    if ra != rb: link_by_rank(ra, rb)
+    if ra != rb: link_by_rank(ra, rb)  # attach smaller-rank tree to larger
 ```
 **Time:** Amortized `O(alpha(n))` per op (inverse Ackermann).
 
@@ -545,7 +547,7 @@ for x in a:
 c = 0
 for i in range(1, n):
     if knows(c, i): c = i
-verify(c)
+verify(c)  # check candidate knows nobody and everybody knows candidate
 ```
 **Time:** `O(n)` queries for elimination + `O(n)` verification.
 
@@ -717,6 +719,7 @@ for it in intervals:
 ```python
 # dp[p] = best cost to cover up to position p
 # transition checks all intervals [l..p] that can end at p
+# helper computes min over such predecessor states + interval cost
 for p in range(1, M+1):
     dp[p] = best_transition_from_intervals_covering(p)
 ```
@@ -728,7 +731,7 @@ for p in range(1, M+1):
 **Pseudocode:**
 ```python
 # cost(j,i): cost of placing books j..i on one shelf
-# feasible_starts(i): starts j that satisfy shelf constraints
+# feasible_starts(i): starts j satisfying width/constraint limits for shelf ending at i
 for i in range(1, n+1):
     dp[i] = min(cost(j,i) + dp[j-1] for j in feasible_starts(i))
 ```
@@ -770,6 +773,7 @@ def sf(symbols):
 ```python
 # current[b] is b's current partner (or None)
 # prefers[b][x] gives ranking score of proposer x for receiver b
+# engage(a,b): pair a with b; free(old_partner): mark replaced proposer as free
 while free_proposer_exists():
     a = pick_free(); b = next_choice[a]
     if current[b] is None or prefers[b][a] > prefers[b][current[b]]:
