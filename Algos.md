@@ -150,7 +150,7 @@ def put(k, v):
 # slot_key(s) returns key stored in slot s (or EMPTY)
 def find_slot(k):
     i = h1(k) % m
-    step = 1              # linear probing; for double hashing use step = h2(k)
+    step = 1              # fixed +1 increment for linear probing; for double hashing use step = h2(k)
     while table[i] != EMPTY and (table[i] == DELETED or slot_key(table[i]) != k):
         i = (i + step) % m
     return i
@@ -561,10 +561,10 @@ def msd(arr, d):
 # exam-specific overlap D&C recurrence example
 def two_thirds_sort(a, l, r):
     if r-l <= 1: return
-    t = (r-l+1)//3
-    two_thirds_sort(a, l, r-t)
-    two_thirds_sort(a, l+t, r)
-    two_thirds_sort(a, l, r-t)
+    segment_size = (r-l+1)//3
+    two_thirds_sort(a, l, r-segment_size)
+    two_thirds_sort(a, l+segment_size, r)
+    two_thirds_sort(a, l, r-segment_size)
 ```
 **Time:** From its recurrence (typically superlinear; derive via master/recursion tree for given variant).
 
@@ -859,7 +859,7 @@ for p in range(1, M+1):
 **Pseudocode:**
 ```python
 # cost(j,i): cost of placing books j..i on one shelf
-# feasible_starts(i): starts j satisfying width/constraint limits for shelf ending at i
+# feasible_starts(i): starts j where books j..i fit width limit and any variant constraints
 # 1-indexed books: n = number of books, books are indexed 1..n; initialize dp[0] = 0
 for i in range(1, n+1):
     dp[i] = min(cost(j,i) + dp[j-1] for j in feasible_starts(i))
