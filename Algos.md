@@ -9,6 +9,8 @@ This file consolidates algorithms and data structures found in:
 
 For each item: best use case, short steps, Python-style pseudocode, and complexity with derivation idea.
 
+Pseudocode note: many snippets intentionally use helper placeholders (e.g., `augment`, `verify`, `bucket_by_digit`, `cost`, `feasible_starts`) to keep each algorithm short and exam-focused; helper names indicate exactly what operation must be implemented.
+
 ---
 
 ## A) Data Structures
@@ -129,7 +131,7 @@ def insert(x):
 **Pseudocode:**
 ```python
 # choose random a,b; p is prime >= universe size
-choose a,b uniformly
+a, b = random_uniform_params()
 h(x) = ((a*x + b) % p) % m
 ```
 **Time:** Hash eval `O(1)`; guarantee: `Pr[h(x)=h(y)] <= 1/m` (2-universal).
@@ -189,8 +191,13 @@ res[v][u] = flow[u][v]
 ```python
 def decode(bits, root):
     u = root
+    out = []
     for b in bits:
         u = u.left if b == 0 else u.right
+        if u.is_leaf:
+            out.append(u.symbol)
+            u = root
+    return out
 ```
 **Time:** Decode `O(number_of_bits)`.
 
@@ -411,7 +418,7 @@ def quickselect(a, k):
 **Pseudocode:**
 ```python
 for i in range(n):
-    j = argmin(a[i:])
+    j = i + argmin(a[i:])
     a[i], a[j] = a[j], a[i]
 ```
 **Time:** `O(n^2)` comparisons (`n+(n-1)+...+1`).
