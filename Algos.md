@@ -17,7 +17,10 @@ Pseudocode note: many snippets intentionally use helper placeholders (e.g., `aug
 
 ### 1) Binary Heap (Min-Heap / Max-Heap)
 **Best suited:** Fast repeated min/max extraction (priority queues, Dijkstra/Prim/Huffman).
-**Steps:** Store as complete binary tree in array; insert at end + sift-up; extract root + swap with last + sift-down.
+**Step-by-step walkthrough:**
+1. **Start:** Store as complete binary tree in array.
+2. **Then:** Insert at end + sift-up.
+3. **Next:** Extract root + swap with last + sift-down.
 **Pseudocode:**
 ```python
 # helpers: sift_up(heap, i), sift_down(heap, i)
@@ -32,7 +35,9 @@ def pop_min(h):
 
 ### 2) Priority Queue
 **Best suited:** Always process next most urgent/min-cost element.
-**Steps:** Backed by heap/buckets; push, decrease-key (if supported), pop-min/pop-max.
+**Step-by-step walkthrough:**
+1. **Start:** Backed by heap/buckets.
+2. **Then:** Push, decrease-key (if supported), pop-min/pop-max.
 **Pseudocode:**
 ```python
 pq = []
@@ -43,7 +48,9 @@ prio, item = pop_min(pq)
 
 ### 3) Bucket Queue
 **Best suited:** Integer priorities in bounded range `[0..k]` (e.g., bounded-weight MST/SP variants).
-**Steps:** Array of buckets by key; maintain current non-empty bucket pointer.
+**Step-by-step walkthrough:**
+1. **Start:** Array of buckets by key.
+2. **Then:** Maintain current non-empty bucket pointer.
 **Pseudocode:**
 ```python
 buckets = [list() for _ in range(k+1)]
@@ -56,7 +63,9 @@ def pop_min():
 
 ### 4) Dynamic Array
 **Best suited:** Random-access array with amortized `O(1)` append.
-**Steps:** On full capacity, allocate larger array and copy; optionally shrink when sparse.
+**Step-by-step walkthrough:**
+1. **Start:** On full capacity, allocate larger array and copy.
+2. **Then:** Optionally shrink when sparse.
 **Pseudocode:**
 ```python
 def append(x):
@@ -67,7 +76,8 @@ def append(x):
 
 ### 5) Stack
 **Best suited:** LIFO processing (DFS, parsing, undo, monotonic tricks).
-**Steps:** push/pop at one end.
+**Step-by-step walkthrough:**
+1. **Start:** Push/pop at one end.
 **Pseudocode:**
 ```python
 st.append(x)
@@ -77,7 +87,8 @@ x = st.pop()
 
 ### 6) Queue
 **Best suited:** FIFO processing (BFS, scheduling).
-**Steps:** enqueue at tail, dequeue at head.
+**Step-by-step walkthrough:**
+1. **Start:** Enqueue at tail, dequeue at head.
 **Pseudocode:**
 ```python
 q.append(x)
@@ -87,7 +98,9 @@ x = q.popleft()
 
 ### 7) Hash Table / Hash Map
 **Best suited:** Expected `O(1)` insert/find/delete.
-**Steps:** Hash key -> bucket/slot; resolve collisions.
+**Step-by-step walkthrough:**
+1. **Start:** Hash key -> bucket/slot.
+2. **Then:** Resolve collisions.
 **Pseudocode:**
 ```python
 def put(k, v):
@@ -144,7 +157,9 @@ def find_slot(k):
 
 ### 9) Cuckoo Hashing
 **Best suited:** Worst-case `O(1)` lookup with two hash locations.
-**Steps:** Insert by evicting occupant to its alternate position; rebuild on long cycles.
+**Step-by-step walkthrough:**
+1. **Start:** Insert by evicting occupant to its alternate position.
+2. **Then:** Rebuild on long cycles.
 **Pseudocode:**
 ```python
 # inA toggles table side; hA/hB are the two hash functions
@@ -159,7 +174,9 @@ def insert(x):
 
 ### 10) Universal / 2-Universal Hash Family
 **Best suited:** Provable low collision probability in randomized algorithms.
-**Steps:** Randomly choose hash function from family; use in hash table/minhash etc.
+**Step-by-step walkthrough:**
+1. **Start:** Randomly choose hash function from family.
+2. **Then:** Use in hash table/minhash etc.
 **Pseudocode:**
 ```python
 # choose random a,b; p is prime >= universe size
@@ -171,7 +188,8 @@ h(x) = ((a*x + b) % p) % m
 
 ### 11) Binary Search Tree (BST)
 **Best suited:** Ordered set/map with predecessor/successor queries.
-**Steps:** Left < node < right recursively.
+**Step-by-step walkthrough:**
+1. **Start:** Left < node < right recursively.
 **Pseudocode:**
 ```python
 def search(t, x):
@@ -182,7 +200,8 @@ def search(t, x):
 
 ### 12) AVL Tree
 **Best suited:** Guaranteed logarithmic ordered operations.
-**Steps:** BST insert/delete + update heights + rotations (LL/RR/LR/RL).
+**Step-by-step walkthrough:**
+1. **Start:** BST insert/delete + update heights + rotations (LL/RR/LR/RL).
 **Pseudocode:**
 ```python
 def insert(t, x):
@@ -194,7 +213,9 @@ def insert(t, x):
 
 ### 13) Union-Find (Disjoint Set Union)
 **Best suited:** Dynamic connectivity (Kruskal, components, cycle checks).
-**Steps:** `find` root with path compression; `union` by rank/size.
+**Step-by-step walkthrough:**
+1. **Start:** `find` root with path compression.
+2. **Then:** `union` by rank/size.
 **Pseudocode:**
 ```python
 def find(x):
@@ -209,7 +230,8 @@ def union(a,b):
 
 ### 14) Residual Network (flow DS)
 **Best suited:** Represent current flow + possible augment/reverse moves.
-**Steps:** Maintain residual capacities for forward/backward edges.
+**Step-by-step walkthrough:**
+1. **Start:** Maintain residual capacities for forward/backward edges.
 **Pseudocode:**
 ```python
 res[u][v] = cap[u][v] - flow[u][v]
@@ -219,7 +241,9 @@ res[v][u] = flow[u][v]
 
 ### 15) Prefix-Free Code Tree (Huffman/Shannon-Fano output structure)
 **Best suited:** Decodable variable-length coding.
-**Steps:** Build binary tree; leaf path bits are codewords.
+**Step-by-step walkthrough:**
+1. **Start:** Build binary tree.
+2. **Then:** Leaf path bits are codewords.
 **Pseudocode:**
 ```python
 def decode(bits, root):
@@ -240,7 +264,9 @@ def decode(bits, root):
 
 ### 16) BFS (Breadth-First Search)
 **Best suited:** Unweighted shortest paths, layering, bipartite test.
-**Steps:** Queue from source; visit neighbors level by level.
+**Step-by-step walkthrough:**
+1. **Start:** Queue from source.
+2. **Then:** Visit neighbors level by level.
 **Pseudocode:**
 ```python
 q = deque([s]); dist[s] = 0
@@ -253,7 +279,8 @@ while q:
 
 ### 17) DFS (Depth-First Search)
 **Best suited:** Reachability, components, cycle detection, ordering.
-**Steps:** Recurse/stack deeply then backtrack.
+**Step-by-step walkthrough:**
+1. **Start:** Recurse/stack deeply then backtrack.
 **Pseudocode:**
 ```python
 def dfs(u):
@@ -265,7 +292,8 @@ def dfs(u):
 
 ### 18) Connected Components
 **Best suited:** Partition undirected graph into maximal connected subgraphs.
-**Steps:** Run BFS/DFS from each unvisited node, assign component id.
+**Step-by-step walkthrough:**
+1. **Start:** Run BFS/DFS from each unvisited node, assign component id.
 **Pseudocode:**
 ```python
 cid = 0
@@ -276,7 +304,10 @@ for u in V:
 
 ### 19) Dijkstra
 **Best suited:** Single-source shortest paths with nonnegative edges.
-**Steps:** Dist init; repeatedly settle min-distance node; relax outgoing edges.
+**Step-by-step walkthrough:**
+1. **Start:** Dist init.
+2. **Then:** Repeatedly settle min-distance node.
+3. **Next:** Relax outgoing edges.
 **Pseudocode:**
 ```python
 dist = {s: 0}; pq = [(0, s)]
@@ -291,7 +322,9 @@ while pq:
 
 ### 20) Bellman-Ford
 **Best suited:** Shortest paths with negative edges + negative-cycle detection.
-**Steps:** Relax all edges `V-1` rounds; one extra round checks cycle.
+**Step-by-step walkthrough:**
+1. **Start:** Relax all edges `V-1` rounds.
+2. **Then:** One extra round checks cycle.
 **Pseudocode:**
 ```python
 dist[s] = 0
@@ -303,7 +336,8 @@ neg_cycle = any(dist[u] + w < dist[v] for u, v, w in E)
 
 ### 21) Floyd-Warshall
 **Best suited:** All-pairs shortest paths (dense graphs, small/medium V).
-**Steps:** DP over allowed intermediate vertices `k`.
+**Step-by-step walkthrough:**
+1. **Start:** DP over allowed intermediate vertices `k`.
 **Pseudocode:**
 ```python
 for k in V:
@@ -315,7 +349,9 @@ for k in V:
 
 ### 22) Kruskal MST
 **Best suited:** Sparse MST construction.
-**Steps:** Sort edges by weight; add if endpoints in different DSU sets.
+**Step-by-step walkthrough:**
+1. **Start:** Sort edges by weight.
+2. **Then:** Add if endpoints in different DSU sets.
 **Pseudocode:**
 ```python
 E.sort(key=lambda e: e.w)
@@ -326,7 +362,8 @@ for e in E:
 
 ### 23) Prim MST
 **Best suited:** MST by growing one tree from any start node.
-**Steps:** Keep min crossing edge via priority queue.
+**Step-by-step walkthrough:**
+1. **Start:** Keep min crossing edge via priority queue.
 **Pseudocode:**
 ```python
 vis = {s}; push all edges from s
@@ -339,7 +376,10 @@ while pq and len(vis) < V:
 
 ### 24) Borůvka MST
 **Best suited:** Parallel-friendly MST; components shrink quickly.
-**Steps:** Each component picks cheapest outgoing edge; merge; repeat.
+**Step-by-step walkthrough:**
+1. **Start:** Each component picks cheapest outgoing edge.
+2. **Then:** Merge.
+3. **Next:** Repeat.
 **Pseudocode:**
 ```python
 while num_components > 1:
@@ -350,7 +390,10 @@ while num_components > 1:
 
 ### 25) Topological Sort (Kahn)
 **Best suited:** Linearization of DAG dependencies.
-**Steps:** Compute indegrees; queue zero-indegree nodes; remove iteratively.
+**Step-by-step walkthrough:**
+1. **Start:** Compute indegrees.
+2. **Then:** Queue zero-indegree nodes.
+3. **Next:** Remove iteratively.
 **Pseudocode:**
 ```python
 q = deque([u for u in V if indeg[u] == 0])
@@ -363,7 +406,8 @@ while q:
 
 ### 26) Ford-Fulkerson (augmenting paths)
 **Best suited:** Max flow foundation.
-**Steps:** Repeatedly find augmenting path in residual graph, augment by bottleneck.
+**Step-by-step walkthrough:**
+1. **Start:** Repeatedly find augmenting path in residual graph, augment by bottleneck.
 **Pseudocode:**
 ```python
 flow = 0
@@ -375,7 +419,8 @@ while path := find_path_in_residual(s, t):
 
 ### 27) Edmonds-Karp
 **Best suited:** Deterministic polynomial max flow (BFS augmenting path).
-**Steps:** Ford-Fulkerson with shortest augmenting path in edge count.
+**Step-by-step walkthrough:**
+1. **Start:** Ford-Fulkerson with shortest augmenting path in edge count.
 **Pseudocode:**
 ```python
 while path := bfs_residual_path(s, t):
@@ -385,7 +430,10 @@ while path := bfs_residual_path(s, t):
 
 ### 28) Cycle-Canceling in Flows
 **Best suited:** Convert arbitrary feasible flow to acyclic flow / reduce circulation cost cases.
-**Steps:** Detect positive-flow directed cycle; push minimum cycle flow backward; repeat.
+**Step-by-step walkthrough:**
+1. **Start:** Detect positive-flow directed cycle.
+2. **Then:** Push minimum cycle flow backward.
+3. **Next:** Repeat.
 **Pseudocode:**
 ```python
 while cycle := find_positive_flow_cycle():
@@ -396,7 +444,8 @@ while cycle := find_positive_flow_cycle():
 
 ### 29) Bipartite Matching via Max Flow
 **Best suited:** Maximum cardinality matching in bipartite graphs.
-**Steps:** Source -> left (cap1), left->right edges (cap1), right->sink (cap1), run max flow.
+**Step-by-step walkthrough:**
+1. **Start:** Source -> left (cap1), left->right edges (cap1), right->sink (cap1), run max flow.
 **Pseudocode:**
 ```python
 build_unit_capacity_network(L, R, E)
@@ -411,7 +460,8 @@ matching = {(u, v) for (u, v) in E if flow[u][v] == 1}
 
 ### 30) Merge Sort
 **Best suited:** Stable `O(n log n)` sorting.
-**Steps:** Divide in halves, recursively sort, merge two sorted halves.
+**Step-by-step walkthrough:**
+1. **Start:** Divide in halves, recursively sort, merge two sorted halves.
 **Pseudocode:**
 ```python
 def mergesort(a):
@@ -423,7 +473,8 @@ def mergesort(a):
 
 ### 31) QuickSort (randomized)
 **Best suited:** Fast in-place average sorting.
-**Steps:** Pick pivot, partition, recurse on sides.
+**Step-by-step walkthrough:**
+1. **Start:** Pick pivot, partition, recurse on sides.
 **Pseudocode:**
 ```python
 def quicksort(a, l, r):
@@ -435,7 +486,9 @@ def quicksort(a, l, r):
 
 ### 32) QuickSelect
 **Best suited:** k-th smallest element.
-**Steps:** Partition by pivot; recurse only side containing k.
+**Step-by-step walkthrough:**
+1. **Start:** Partition by pivot.
+2. **Then:** Recurse only side containing k.
 **Pseudocode:**
 ```python
 def quickselect(a, k):
@@ -447,7 +500,8 @@ def quickselect(a, k):
 
 ### 33) Selection Sort
 **Best suited:** Tiny arrays / teaching.
-**Steps:** Repeatedly select minimum of unsorted suffix and swap front.
+**Step-by-step walkthrough:**
+1. **Start:** Repeatedly select minimum of unsorted suffix and swap front.
 **Pseudocode:**
 ```python
 for i in range(n):
@@ -458,7 +512,8 @@ for i in range(n):
 
 ### 34) Insertion Sort
 **Best suited:** Nearly sorted arrays, small base cases.
-**Steps:** Insert each element into sorted prefix.
+**Step-by-step walkthrough:**
+1. **Start:** Insert each element into sorted prefix.
 **Pseudocode:**
 ```python
 for i in range(1, n):
@@ -470,7 +525,8 @@ for i in range(1, n):
 
 ### 35) Counting Sort
 **Best suited:** Integer keys in small range.
-**Steps:** Count frequencies, prefix sums, place stably.
+**Step-by-step walkthrough:**
+1. **Start:** Count frequencies, prefix sums, place stably.
 **Pseudocode:**
 ```python
 cnt = [0]*(k+1)
@@ -481,7 +537,8 @@ for i in range(1, k+1): cnt[i] += cnt[i-1]
 
 ### 36) Radix Sort (incl. MSD Radix Sort)
 **Best suited:** Fixed-length strings/integers with bounded alphabet/base.
-**Steps:** Sort by digits/chars (LSD or recursive MSD buckets).
+**Step-by-step walkthrough:**
+1. **Start:** Sort by digits/chars (LSD or recursive MSD buckets).
 **Pseudocode:**
 ```python
 def msd(arr, d):
@@ -493,7 +550,8 @@ def msd(arr, d):
 
 ### 37) 2/3 Sort (exam-specific divide-and-conquer)
 **Best suited:** Special recurrence exercise.
-**Steps:** Recursively sort overlapping/partial segments of size about `2n/3`.
+**Step-by-step walkthrough:**
+1. **Start:** Recursively sort overlapping/partial segments of size about `2n/3`.
 **Pseudocode:**
 ```python
 # exam-specific overlap D&C recurrence example
@@ -508,7 +566,9 @@ def two_thirds_sort(a, l, r):
 
 ### 38) Binary Search
 **Best suited:** Membership/position in sorted arrays.
-**Steps:** Compare with midpoint; discard half each iteration.
+**Step-by-step walkthrough:**
+1. **Start:** Compare with midpoint.
+2. **Then:** Discard half each iteration.
 **Pseudocode:**
 ```python
 l, r = 0, n-1
@@ -522,7 +582,8 @@ while l <= r:
 
 ### 39) Sequential Search (Linear Search)
 **Best suited:** Unsorted/small collections.
-**Steps:** Scan left to right until match/end.
+**Step-by-step walkthrough:**
+1. **Start:** Scan left to right until match/end.
 **Pseudocode:**
 ```python
 for i, v in enumerate(a):
@@ -533,7 +594,8 @@ return -1
 
 ### 40) Two-Pointer Technique
 **Best suited:** Sorted-array pair/triplet constraints, window-like scans.
-**Steps:** Maintain two indices and move based on condition.
+**Step-by-step walkthrough:**
+1. **Start:** Maintain two indices and move based on condition.
 **Pseudocode:**
 ```python
 i, j = 0, n-1
@@ -547,7 +609,8 @@ while i < j:
 
 ### 41) Sliding Window
 **Best suited:** Contiguous subarray/string constraints.
-**Steps:** Expand right, shrink left while constraint violated.
+**Step-by-step walkthrough:**
+1. **Start:** Expand right, shrink left while constraint violated.
 **Pseudocode:**
 ```python
 l = 0
@@ -559,7 +622,8 @@ for r in range(n):
 
 ### 42) Boyer-Moore Majority Vote
 **Best suited:** Find majority element (`> n/2`) in linear time, constant space.
-**Steps:** Cancel out different elements via counter.
+**Step-by-step walkthrough:**
+1. **Start:** Cancel out different elements via counter.
 **Pseudocode:**
 ```python
 cand = None; c = 0
@@ -572,7 +636,8 @@ for x in a:
 
 ### 43) Celebrity Problem (elimination)
 **Best suited:** Find node known by everyone, knowing nobody.
-**Steps:** Pairwise eliminate impossible candidates, then verify final candidate.
+**Step-by-step walkthrough:**
+1. **Start:** Pairwise eliminate impossible candidates, then verify final candidate.
 **Pseudocode:**
 ```python
 c = 0
@@ -588,7 +653,8 @@ verify(c)  # check candidate knows nobody and everybody knows candidate
 
 ### 44) DFT (Discrete Fourier Transform)
 **Best suited:** Transform polynomial coefficients <-> value form.
-**Steps:** Evaluate polynomial at roots of unity.
+**Step-by-step walkthrough:**
+1. **Start:** Evaluate polynomial at roots of unity.
 **Pseudocode:**
 ```python
 def dft(a, w):
@@ -598,7 +664,9 @@ def dft(a, w):
 
 ### 45) FFT (Fast Fourier Transform, Cooley-Tukey)
 **Best suited:** Fast polynomial multiplication and convolution.
-**Steps:** Split even/odd coefficients recursively; combine with twiddle factors.
+**Step-by-step walkthrough:**
+1. **Start:** Split even/odd coefficients recursively.
+2. **Then:** Combine with twiddle factors.
 **Pseudocode:**
 ```python
 def fft(a):
@@ -611,7 +679,9 @@ def fft(a):
 
 ### 46) Karatsuba Multiplication
 **Best suited:** Large integer multiplication faster than grade-school.
-**Steps:** Split numbers high/low; do 3 recursive multiplies instead of 4.
+**Step-by-step walkthrough:**
+1. **Start:** Split numbers high/low.
+2. **Then:** Do 3 recursive multiplies instead of 4.
 **Pseudocode:**
 ```python
 # small: base case, split: high/low halves, B=base^(half), B2=B*B
@@ -625,7 +695,9 @@ def kara(x, y):
 
 ### 47) Strassen Matrix Multiplication
 **Best suited:** Large dense matrix multiplication.
-**Steps:** Block matrices; compute 7 subproducts (not 8) + recombination.
+**Step-by-step walkthrough:**
+1. **Start:** Block matrices.
+2. **Then:** Compute 7 subproducts (not 8) + recombination.
 **Pseudocode:**
 ```python
 # high-level only: use standard Strassen M1..M7 block formulas
@@ -641,7 +713,8 @@ def strassen(A, B):
 
 ### 48) Matrix Chain Multiplication (DP)
 **Best suited:** Optimal parenthesization of matrix product chain.
-**Steps:** `dp[i][j] = min_k dp[i][k] + dp[k+1][j] + cost`.
+**Step-by-step walkthrough:**
+1. **Start:** `dp[i][j] = min_k dp[i][k] + dp[k+1][j] + cost`.
 **Pseudocode:**
 ```python
 for len_ in range(2, n+1):
@@ -653,7 +726,9 @@ for len_ in range(2, n+1):
 
 ### 49) LCS (Longest Common Subsequence) DP
 **Best suited:** Sequence similarity / edit-like tasks.
-**Steps:** `dp[i][j]` from prefixes; match => `+1`, else max of neighbors.
+**Step-by-step walkthrough:**
+1. **Start:** `dp[i][j]` from prefixes.
+2. **Then:** Match => `+1`, else max of neighbors.
 **Pseudocode:**
 ```python
 if a[i-1] == b[j-1]: dp[i][j] = dp[i-1][j-1] + 1
@@ -663,7 +738,8 @@ else: dp[i][j] = max(dp[i-1][j], dp[i][j-1])
 
 ### 50) Hirschberg (space-optimized LCS reconstruction)
 **Best suited:** Recover LCS string with linear extra memory.
-**Steps:** Divide one string, run forward/backward DP rows, split optimally, recurse.
+**Step-by-step walkthrough:**
+1. **Start:** Divide one string, run forward/backward DP rows, split optimally, recurse.
 **Pseudocode:**
 ```python
 def hirschberg(X, Y):
@@ -676,7 +752,9 @@ def hirschberg(X, Y):
 
 ### 51) Longest Palindromic Subsequence (LPS) DP
 **Best suited:** Longest palindrome by deletion (subsequence, not substring).
-**Steps:** Interval DP on `i..j`; equal ends => `2+dp[i+1][j-1]` else max neighbors.
+**Step-by-step walkthrough:**
+1. **Start:** Interval DP on `i..j`.
+2. **Then:** Equal ends => `2+dp[i+1][j-1]` else max neighbors.
 **Pseudocode:**
 ```python
 for i in reversed(range(n)):
@@ -688,7 +766,8 @@ for i in reversed(range(n)):
 
 ### 52) 0/1 Knapsack DP
 **Best suited:** Value maximization with indivisible items and capacity `W`.
-**Steps:** Include/exclude transition on item index and remaining capacity.
+**Step-by-step walkthrough:**
+1. **Start:** Include/exclude transition on item index and remaining capacity.
 **Pseudocode:**
 ```python
 for i in range(1, n+1):
@@ -700,7 +779,9 @@ for i in range(1, n+1):
 
 ### 53) Fractional Knapsack (Greedy)
 **Best suited:** Splittable items.
-**Steps:** Sort by value/weight ratio descending; take full then fraction.
+**Step-by-step walkthrough:**
+1. **Start:** Sort by value/weight ratio descending.
+2. **Then:** Take full then fraction.
 **Pseudocode:**
 ```python
 items.sort(key=lambda x: x.v/x.w, reverse=True)
@@ -712,7 +793,8 @@ for it in items:
 
 ### 54) Rod Cutting DP
 **Best suited:** Max revenue by cutting rod into pieces.
-**Steps:** `dp[len] = max(price[i] + dp[len-i])`.
+**Step-by-step walkthrough:**
+1. **Start:** `dp[len] = max(price[i] + dp[len-i])`.
 **Pseudocode:**
 ```python
 for L in range(1, n+1):
@@ -722,7 +804,9 @@ for L in range(1, n+1):
 
 ### 55) Coin Change
 **Best suited:** Minimum coins / counting ways; also compare greedy vs DP correctness.
-**Steps:** DP over amount; transition by coin usage.
+**Step-by-step walkthrough:**
+1. **Start:** DP over amount.
+2. **Then:** Transition by coin usage.
 **Pseudocode:**
 ```python
 dp = [INF]*(A+1); dp[0] = 0
@@ -733,7 +817,9 @@ for x in range(1, A+1):
 
 ### 56) Interval Scheduling (Greedy)
 **Best suited:** Max number of non-overlapping intervals.
-**Steps:** Sort by finish time; repeatedly choose first compatible.
+**Step-by-step walkthrough:**
+1. **Start:** Sort by finish time.
+2. **Then:** Repeatedly choose first compatible.
 **Pseudocode:**
 ```python
 intervals.sort(key=lambda it: it.end)
@@ -745,7 +831,9 @@ for it in intervals:
 
 ### 57) Interval Coverage DP (Roman/resource coverage style)
 **Best suited:** Cover line/requirements with minimal cost/choices under interval options.
-**Steps:** Define `dp[pos]` = optimal value up to position; transition by intervals ending at `pos`.
+**Step-by-step walkthrough:**
+1. **Start:** Define `dp[pos]` = optimal value up to position.
+2. **Then:** Transition by intervals ending at `pos`.
 **Pseudocode:**
 ```python
 # dp[p] = best cost to cover up to position p
@@ -758,7 +846,9 @@ for p in range(1, M+1):
 
 ### 58) Bookshelf DP (exam variant)
 **Best suited:** Partition/order optimization with shelf constraints.
-**Steps:** `dp[i]` best for first `i` books; try last shelf start `j`.
+**Step-by-step walkthrough:**
+1. **Start:** `dp[i]` best for first `i` books.
+2. **Then:** Try last shelf start `j`.
 **Pseudocode:**
 ```python
 # cost(j,i): cost of placing books j..i on one shelf
@@ -774,7 +864,8 @@ for i in range(1, n+1):
 
 ### 59) Huffman Coding
 **Best suited:** Optimal prefix-free coding for known symbol frequencies.
-**Steps:** Repeatedly merge two lowest-frequency trees in min-heap.
+**Step-by-step walkthrough:**
+1. **Start:** Repeatedly merge two lowest-frequency trees in min-heap.
 **Pseudocode:**
 ```python
 pq = [(freq[c], Leaf(c)) for c in alphabet]
@@ -787,7 +878,9 @@ while len(pq) > 1:
 
 ### 60) Shannon-Fano Coding
 **Best suited:** Heuristic prefix coding (not always optimal like Huffman).
-**Steps:** Sort by frequency; recursively split into two near-equal frequency groups.
+**Step-by-step walkthrough:**
+1. **Start:** Sort by frequency.
+2. **Then:** Recursively split into two near-equal frequency groups.
 **Pseudocode:**
 ```python
 def sf(symbols):
@@ -840,7 +933,10 @@ while free_proposer_exists():
 
 ### 62) MinHash
 **Best suited:** Fast approximate Jaccard similarity at scale.
-**Steps:** Apply random permutations/hash functions; keep minimum hash per set; compare signatures.
+**Step-by-step walkthrough:**
+1. **Start:** Apply random permutations/hash functions.
+2. **Then:** Keep minimum hash per set.
+3. **Next:** Compare signatures.
 **Pseudocode:**
 ```python
 def minhash_sig(S, hs):
@@ -850,7 +946,8 @@ def minhash_sig(S, hs):
 
 ### 63) Jaccard Similarity Computation
 **Best suited:** Exact set similarity baseline.
-**Steps:** Compute intersection and union sizes.
+**Step-by-step walkthrough:**
+1. **Start:** Compute intersection and union sizes.
 **Pseudocode:**
 ```python
 J = len(A & B) / len(A | B)
@@ -859,7 +956,9 @@ J = len(A & B) / len(A | B)
 
 ### 64) Von Neumann Extractor
 **Best suited:** Build fair coin from unknown biased coin (independent tosses).
-**Steps:** Toss twice; HT->1, TH->0, HH/TT retry.
+**Step-by-step walkthrough:**
+1. **Start:** Toss twice.
+2. **Then:** HT->1, TH->0, HH/TT retry.
 **Pseudocode:**
 ```python
 def fair_bit():
@@ -872,7 +971,9 @@ def fair_bit():
 
 ### 65) Rejection Sampling (discrete)
 **Best suited:** Simulate target distribution from easy base randomness.
-**Steps:** Sample candidate uniformly from larger range; reject out-of-range events.
+**Step-by-step walkthrough:**
+1. **Start:** Sample candidate uniformly from larger range.
+2. **Then:** Reject out-of-range events.
 **Pseudocode:**
 ```python
 # returns Bernoulli random variable: 1 with probability 1/n, 0 with probability (n-1)/n
