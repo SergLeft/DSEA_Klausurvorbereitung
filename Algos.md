@@ -925,7 +925,7 @@ def sample_1_over_n(n):
 
 ---
 
-## H) One-Evening Crash Order (separate quick section)
+## H) One-Evening Crash Order
 
 If you only have one evening, do this exact order:
 
