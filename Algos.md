@@ -18,6 +18,7 @@ For each item: best use case, short steps, Python-style pseudocode, and complexi
 **Steps:** Store as complete binary tree in array; insert at end + sift-up; extract root + swap with last + sift-down.
 **Pseudocode:**
 ```python
+# helpers: sift_up(heap, i), sift_down(heap, i)
 def push(h, x):
     h.append(x); sift_up(h, len(h)-1)
 
@@ -98,6 +99,7 @@ def put(k, v):
 **Steps:** On collision probe sequence until empty/match.
 **Pseudocode:**
 ```python
+# table is array of slots, EMPTY is sentinel for unused slot
 def find_slot(k):
     i = h1(k) % m
     step = 1              # linear; for double hashing use h2(k)
@@ -111,6 +113,7 @@ def find_slot(k):
 **Steps:** Insert by evicting occupant to its alternate position; rebuild on long cycles.
 **Pseudocode:**
 ```python
+# inA toggles table side; hA/hB are the two hash functions
 def insert(x):
     for _ in range(limit):
         pos = hA(x) if inA else hB(x)
@@ -125,6 +128,7 @@ def insert(x):
 **Steps:** Randomly choose hash function from family; use in hash table/minhash etc.
 **Pseudocode:**
 ```python
+# choose random a,b; p is prime >= universe size
 choose a,b uniformly
 h(x) = ((a*x + b) % p) % m
 ```
@@ -452,6 +456,7 @@ def msd(arr, d):
 **Steps:** Recursively sort overlapping/partial segments of size about `2n/3`.
 **Pseudocode:**
 ```python
+# exam-specific overlap D&C recurrence example
 def two_thirds_sort(a, l, r):
     if r-l <= 1: return
     t = (r-l+1)//3
@@ -569,6 +574,7 @@ def fft(a):
 **Steps:** Split numbers high/low; do 3 recursive multiplies instead of 4.
 **Pseudocode:**
 ```python
+# small: base case, split: high/low halves, B=base^(half), B2=B*B
 def kara(x, y):
     if small(x,y): return x*y
     a,b,c,d = split(x,y)
@@ -582,6 +588,7 @@ def kara(x, y):
 **Steps:** Block matrices; compute 7 subproducts (not 8) + recombination.
 **Pseudocode:**
 ```python
+# high-level only: use standard Strassen M1..M7 block formulas
 def strassen(A, B):
     if small: return naive_mul(A,B)
     split blocks; compute M1..M7; combine to C
@@ -701,6 +708,8 @@ for it in intervals:
 **Steps:** Define `dp[pos]` = optimal value up to position; transition by intervals ending at `pos`.
 **Pseudocode:**
 ```python
+# dp[p] = best cost to cover up to position p
+# transition checks all intervals [l..p] that can end at p
 for p in range(1, M+1):
     dp[p] = best_transition_from_intervals_covering(p)
 ```
@@ -711,6 +720,8 @@ for p in range(1, M+1):
 **Steps:** `dp[i]` best for first `i` books; try last shelf start `j`.
 **Pseudocode:**
 ```python
+# cost(j,i): cost of placing books j..i on one shelf
+# feasible_starts(i): starts j that satisfy shelf constraints
 for i in range(1, n+1):
     dp[i] = min(cost(j,i) + dp[j-1] for j in feasible_starts(i))
 ```
@@ -750,9 +761,12 @@ def sf(symbols):
 **Steps:** Free proposers propose next choice; acceptor keeps best current proposal.
 **Pseudocode:**
 ```python
+# current[b] is b's current partner (or None)
+# prefers[b][x] gives ranking score of proposer x for receiver b
 while free_proposer_exists():
     a = pick_free(); b = next_choice[a]
-    if b free or b prefers a over current: engage(a,b); free(old_partner)
+    if current[b] is None or prefers[b][a] > prefers[b][current[b]]:
+        engage(a,b); free(old_partner)
 ```
 **Time:** `O(n^2)` proposals upper bound (each pair proposed at most once).
 
@@ -793,6 +807,7 @@ def fair_bit():
 **Steps:** Sample candidate uniformly from larger range; reject out-of-range events.
 **Pseudocode:**
 ```python
+# returns Bernoulli random variable: 1 with probability 1/n, else 0
 def sample_1_over_n(n):
     k = ceil_log2(n)
     while True:
