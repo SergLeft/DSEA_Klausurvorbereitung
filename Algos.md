@@ -234,7 +234,7 @@ def put(k, v):
 # table is array of slots; EMPTY is unused, DELETED is tombstone
 # slot_key(s) returns key stored in slot s (or EMPTY)
 # step_fn(k) = 1 for linear probing, or h2(k) for double hashing
-def find_slot(k, step_fn=lambda key: 1):
+def find_slot(k, step_fn=lambda k: 1):
     i = h1(k) % m
     step = step_fn(k)
     while table[i] != EMPTY and (table[i] == DELETED or slot_key(table[i]) != k):
